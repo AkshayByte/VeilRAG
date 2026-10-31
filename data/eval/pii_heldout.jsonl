@@ -1,0 +1,222 @@
+{"text": "Executive summary: Adam West completed the quarterly risk assessment.", "entities": [{"type": "PERSON", "start": 19, "end": 28}]}
+{"text": "Staff notice:\nPrincipal engineer: Carol Danvers\nObjective: Zero-trust architecture.", "entities": [{"type": "PERSON", "start": 34, "end": 47}]}
+{"text": "Arre Priya Nambiar ko bolo deployment pipeline check karein.", "entities": [{"type": "PERSON", "start": 5, "end": 18}]}
+{"text": "Keynote address by Suresh Menon highlighted distributed consensus algorithms.", "entities": [{"type": "PERSON", "start": 19, "end": 31}]}
+{"text": "Support ticket was escalated to systems architect Amber Vance this morning.", "entities": [{"type": "PERSON", "start": 50, "end": 61}]}
+{"text": "Internal memo:\nPlease route the vendor agreement to Devika Pillai today.", "entities": [{"type": "PERSON", "start": 52, "end": 65}]}
+{"text": "Performance evaluation by department head Marcus Brody was submitted on time.", "entities": [{"type": "PERSON", "start": 42, "end": 54}]}
+{"text": "Kripya Ananya Rao ji se baat karke production release schedule confirm karein.", "entities": [{"type": "PERSON", "start": 7, "end": 17}]}
+{"text": "Executive summary: Felix Baum completed the quarterly risk assessment.", "entities": [{"type": "PERSON", "start": 19, "end": 29}]}
+{"text": "Staff notice:\nPrincipal engineer: Deepak Verma\nObjective: Zero-trust architecture.", "entities": [{"type": "PERSON", "start": 34, "end": 46}]}
+{"text": "Arre Peter Sampath ko bolo deployment pipeline check karein.", "entities": [{"type": "PERSON", "start": 5, "end": 18}]}
+{"text": "Keynote address by Barbara Skinner highlighted distributed consensus algorithms.", "entities": [{"type": "PERSON", "start": 19, "end": 34}]}
+{"text": "Support ticket was escalated to systems architect Dakshesh Vohra this morning.", "entities": [{"type": "PERSON", "start": 50, "end": 64}]}
+{"text": "Internal memo:\nPlease route the vendor agreement to Lisa Dixon today.", "entities": [{"type": "PERSON", "start": 52, "end": 62}]}
+{"text": "Performance evaluation by department head Dhruv Gandhi was submitted on time.", "entities": [{"type": "PERSON", "start": 42, "end": 54}]}
+{"text": "Kripya Corey James ji se baat karke production release schedule confirm karein.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "Executive summary: Maanav Mani completed the quarterly risk assessment.", "entities": [{"type": "PERSON", "start": 19, "end": 30}]}
+{"text": "Staff notice:\nPrincipal engineer: Jennifer Conway\nObjective: Zero-trust architecture.", "entities": [{"type": "PERSON", "start": 34, "end": 49}]}
+{"text": "Arre Akshay Thaker ko bolo deployment pipeline check karein.", "entities": [{"type": "PERSON", "start": 5, "end": 18}]}
+{"text": "Keynote address by Michael Rose highlighted distributed consensus algorithms.", "entities": [{"type": "PERSON", "start": 19, "end": 31}]}
+{"text": "Support ticket was escalated to systems architect Christopher Devan this morning.", "entities": [{"type": "PERSON", "start": 50, "end": 67}]}
+{"text": "Internal memo:\nPlease route the vendor agreement to Michelle Hudson today.", "entities": [{"type": "PERSON", "start": 52, "end": 67}]}
+{"text": "Performance evaluation by department head Wahab Ray was submitted on time.", "entities": [{"type": "PERSON", "start": 42, "end": 51}]}
+{"text": "Kripya Joe Phelps ji se baat karke production release schedule confirm karein.", "entities": [{"type": "PERSON", "start": 7, "end": 17}]}
+{"text": "Executive summary: Yuvraj Sharma completed the quarterly risk assessment.", "entities": [{"type": "PERSON", "start": 19, "end": 32}]}
+{"text": "Staff notice:\nPrincipal engineer: Angelica Diaz\nObjective: Zero-trust architecture.", "entities": [{"type": "PERSON", "start": 34, "end": 47}]}
+{"text": "Arre Gaurangi Sami ko bolo deployment pipeline check karein.", "entities": [{"type": "PERSON", "start": 5, "end": 18}]}
+{"text": "Keynote address by Karen Jackson highlighted distributed consensus algorithms.", "entities": [{"type": "PERSON", "start": 19, "end": 32}]}
+{"text": "Support ticket was escalated to systems architect Hemangini Kashyap this morning.", "entities": [{"type": "PERSON", "start": 50, "end": 67}]}
+{"text": "Internal memo:\nPlease route the vendor agreement to Claudia Wolf today.", "entities": [{"type": "PERSON", "start": 52, "end": 64}]}
+{"text": "Performance evaluation by department head Gauri Keer was submitted on time.", "entities": [{"type": "PERSON", "start": 42, "end": 52}]}
+{"text": "Kripya Kendra Mckee ji se baat karke production release schedule confirm karein.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "Executive summary: Ganga Chokshi completed the quarterly risk assessment.", "entities": [{"type": "PERSON", "start": 19, "end": 32}]}
+{"text": "Staff notice:\nPrincipal engineer: William Johnson\nObjective: Zero-trust architecture.", "entities": [{"type": "PERSON", "start": 34, "end": 49}]}
+{"text": "Arre Rajeshri Ahluwalia ko bolo deployment pipeline check karein.", "entities": [{"type": "PERSON", "start": 5, "end": 23}]}
+{"text": "Kripya apna Adhar card number 4698 2080 8126 portal pe verify karein.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 30, "end": 44}]}
+{"text": "Identity validation check: UIDAI reference 3622-4008-5833 authenticated successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 43, "end": 57}]}
+{"text": "Citizen identity dossier:\nAadhaar number: 2229.7363.3436\nVerification: Cleared", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 42, "end": 56}]}
+{"text": "Resident presented physical aadhar enrolment card 985756225392 at enrollment center.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 50, "end": 62}]}
+{"text": "Aapka e-Aadhaar card 7335 1805 6086 DigiLocker me sync ho chuka hai.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 21, "end": 35}]}
+{"text": "Social welfare benefit linked to Aadhaar 8920-4671-5928 in government database.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 41, "end": 55}]}
+{"text": "Official identity verification record confirms UID 2602.8704.9932 for background check.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 51, "end": 65}]}
+{"text": "Kripya apna Adhar card number 485448381282 portal pe verify karein.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 30, "end": 42}]}
+{"text": "Identity validation check: UIDAI reference 8447 0647 1029 authenticated successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 43, "end": 57}]}
+{"text": "Citizen identity dossier:\nAadhaar number: 3755-5023-1172\nVerification: Cleared", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 42, "end": 56}]}
+{"text": "Resident presented physical aadhar enrolment card 6352.8054.5866 at enrollment center.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 50, "end": 64}]}
+{"text": "Aapka e-Aadhaar card 820714800238 DigiLocker me sync ho chuka hai.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 21, "end": 33}]}
+{"text": "Social welfare benefit linked to Aadhaar 8554 7295 6934 in government database.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 41, "end": 55}]}
+{"text": "Official identity verification record confirms UID 3981-6615-5057 for background check.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 51, "end": 65}]}
+{"text": "Kripya apna Adhar card number 6995.3627.3075 portal pe verify karein.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 30, "end": 44}]}
+{"text": "Identity validation check: UIDAI reference 944175699781 authenticated successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 43, "end": 55}]}
+{"text": "Citizen identity dossier:\nAadhaar number: 4424 3450 6652\nVerification: Cleared", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 42, "end": 56}]}
+{"text": "Resident presented physical aadhar enrolment card 9485-3004-9483 at enrollment center.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 50, "end": 64}]}
+{"text": "Aapka e-Aadhaar card 7060.9251.3665 DigiLocker me sync ho chuka hai.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 21, "end": 35}]}
+{"text": "Social welfare benefit linked to Aadhaar 491254923817 in government database.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 41, "end": 53}]}
+{"text": "Official identity verification record confirms UID 9270 4391 8176 for background check.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 51, "end": 65}]}
+{"text": "Kripya apna Adhar card number 8387-1393-8971 portal pe verify karein.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 30, "end": 44}]}
+{"text": "Identity validation check: UIDAI reference 8147.3648.3635 authenticated successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 43, "end": 57}]}
+{"text": "Citizen identity dossier:\nAadhaar number: 435012173990\nVerification: Cleared", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 42, "end": 54}]}
+{"text": "Resident presented physical aadhar enrolment card 7687 6914 4314 at enrollment center.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 50, "end": 64}]}
+{"text": "Aapka e-Aadhaar card 4798-1694-3712 DigiLocker me sync ho chuka hai.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 21, "end": 35}]}
+{"text": "Social welfare benefit linked to Aadhaar 5051.2254.9978 in government database.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 41, "end": 55}]}
+{"text": "Official identity verification record confirms UID 923358130035 for background check.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 51, "end": 63}]}
+{"text": "Kripya apna Adhar card number 9992 1716 5302 portal pe verify karein.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 30, "end": 44}]}
+{"text": "Identity validation check: UIDAI reference 8770-7614-2912 authenticated successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 43, "end": 57}]}
+{"text": "Kripya apna permanent account number pan dvrtk6122t income tax portal pe submit karein.", "entities": [{"type": "PAN_NUMBER", "start": 41, "end": 51}]}
+{"text": "Withholding tax assessment ledger records corporate PAN XZHJX5677V on file.", "entities": [{"type": "PAN_NUMBER", "start": 56, "end": 66}]}
+{"text": "New supplier registration:\nSupplier: Zenith Tech\nPAN: okxtr9179j\nState: Gujarat", "entities": [{"type": "PAN_NUMBER", "start": 54, "end": 64}]}
+{"text": "Annual financial audit verified entity PAN FQACM2351B against tax filing.", "entities": [{"type": "PAN_NUMBER", "start": 43, "end": 53}]}
+{"text": "Commercial invoice requires valid PAN vdyza7159z before wire clearance.", "entities": [{"type": "PAN_NUMBER", "start": 38, "end": 48}]}
+{"text": "Bhai billing record me business PAN RWCVL1118I match kar lo jaldi.", "entities": [{"type": "PAN_NUMBER", "start": 36, "end": 46}]}
+{"text": "Kripya apna permanent account number pan yvndg1475s income tax portal pe submit karein.", "entities": [{"type": "PAN_NUMBER", "start": 41, "end": 51}]}
+{"text": "Withholding tax assessment ledger records corporate PAN PZGRL8249W on file.", "entities": [{"type": "PAN_NUMBER", "start": 56, "end": 66}]}
+{"text": "New supplier registration:\nSupplier: Zenith Tech\nPAN: yhkbj1953r\nState: Gujarat", "entities": [{"type": "PAN_NUMBER", "start": 54, "end": 64}]}
+{"text": "Annual financial audit verified entity PAN QAZOP1158L against tax filing.", "entities": [{"type": "PAN_NUMBER", "start": 43, "end": 53}]}
+{"text": "Commercial invoice requires valid PAN yqxfx6535f before wire clearance.", "entities": [{"type": "PAN_NUMBER", "start": 38, "end": 48}]}
+{"text": "Bhai billing record me business PAN EXSUC9680Y match kar lo jaldi.", "entities": [{"type": "PAN_NUMBER", "start": 36, "end": 46}]}
+{"text": "Kripya apna permanent account number pan etwbu5819w income tax portal pe submit karein.", "entities": [{"type": "PAN_NUMBER", "start": 41, "end": 51}]}
+{"text": "Withholding tax assessment ledger records corporate PAN LYPMK8471I on file.", "entities": [{"type": "PAN_NUMBER", "start": 56, "end": 66}]}
+{"text": "New supplier registration:\nSupplier: Zenith Tech\nPAN: wstnn2782x\nState: Gujarat", "entities": [{"type": "PAN_NUMBER", "start": 54, "end": 64}]}
+{"text": "Annual financial audit verified entity PAN UVRUJ4316G against tax filing.", "entities": [{"type": "PAN_NUMBER", "start": 43, "end": 53}]}
+{"text": "Commercial invoice requires valid PAN zqkxx8536o before wire clearance.", "entities": [{"type": "PAN_NUMBER", "start": 38, "end": 48}]}
+{"text": "Bhai billing record me business PAN EWUGN8909A match kar lo jaldi.", "entities": [{"type": "PAN_NUMBER", "start": 36, "end": 46}]}
+{"text": "Kripya apna permanent account number pan lkqyp8382r income tax portal pe submit karein.", "entities": [{"type": "PAN_NUMBER", "start": 41, "end": 51}]}
+{"text": "Withholding tax assessment ledger records corporate PAN EMLMK8513C on file.", "entities": [{"type": "PAN_NUMBER", "start": 56, "end": 66}]}
+{"text": "New supplier registration:\nSupplier: Zenith Tech\nPAN: tgtog8578y\nState: Gujarat", "entities": [{"type": "PAN_NUMBER", "start": 54, "end": 64}]}
+{"text": "Annual financial audit verified entity PAN GEIPG5640J against tax filing.", "entities": [{"type": "PAN_NUMBER", "start": 43, "end": 53}]}
+{"text": "Commercial invoice requires valid PAN ttmku4521k before wire clearance.", "entities": [{"type": "PAN_NUMBER", "start": 38, "end": 48}]}
+{"text": "Bhai billing record me business PAN MOPJZ5053K match kar lo jaldi.", "entities": [{"type": "PAN_NUMBER", "start": 36, "end": 46}]}
+{"text": "Kripya apna permanent account number pan ukkrc7035h income tax portal pe submit karein.", "entities": [{"type": "PAN_NUMBER", "start": 41, "end": 51}]}
+{"text": "Security passcode dispatched via SMS to mobile number +91 6362972479.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 68}]}
+{"text": "Logistics coordination center reached field driver at +91-73519-67675.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 69}]}
+{"text": "Helpdesk inbound ticket:\nCaller phone: 69804 71542\nWait: 18s\nOutcome: Resolved", "entities": [{"type": "INDIAN_MOBILE", "start": 39, "end": 50}]}
+{"text": "Bhai mujhe 8981865456 pe call back kar lena sham ko.", "entities": [{"type": "INDIAN_MOBILE", "start": 11, "end": 21}]}
+{"text": "Primary authorized contact number for account alerts is +91 6673755080.", "entities": [{"type": "INDIAN_MOBILE", "start": 56, "end": 70}]}
+{"text": "Security passcode dispatched via SMS to mobile number +91-68097-66857.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 69}]}
+{"text": "Logistics coordination center reached field driver at 84803 34128.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 65}]}
+{"text": "Helpdesk inbound ticket:\nCaller phone: 8405734403\nWait: 18s\nOutcome: Resolved", "entities": [{"type": "INDIAN_MOBILE", "start": 39, "end": 49}]}
+{"text": "Bhai mujhe +91 7845506933 pe call back kar lena sham ko.", "entities": [{"type": "INDIAN_MOBILE", "start": 11, "end": 25}]}
+{"text": "Primary authorized contact number for account alerts is +91-73164-01726.", "entities": [{"type": "INDIAN_MOBILE", "start": 56, "end": 71}]}
+{"text": "Security passcode dispatched via SMS to mobile number 81800 25527.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 65}]}
+{"text": "Logistics coordination center reached field driver at 7403536387.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 64}]}
+{"text": "Helpdesk inbound ticket:\nCaller phone: +91 8495445957\nWait: 18s\nOutcome: Resolved", "entities": [{"type": "INDIAN_MOBILE", "start": 39, "end": 53}]}
+{"text": "Bhai mujhe +91-81154-67970 pe call back kar lena sham ko.", "entities": [{"type": "INDIAN_MOBILE", "start": 11, "end": 26}]}
+{"text": "Primary authorized contact number for account alerts is 64063 15410.", "entities": [{"type": "INDIAN_MOBILE", "start": 56, "end": 67}]}
+{"text": "Security passcode dispatched via SMS to mobile number 6259759376.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 64}]}
+{"text": "Logistics coordination center reached field driver at +91 7689175013.", "entities": [{"type": "INDIAN_MOBILE", "start": 54, "end": 68}]}
+{"text": "Helpdesk inbound ticket:\nCaller phone: +91-90892-78234\nWait: 18s\nOutcome: Resolved", "entities": [{"type": "INDIAN_MOBILE", "start": 39, "end": 54}]}
+{"text": "Bhai mujhe 79674 56713 pe call back kar lena sham ko.", "entities": [{"type": "INDIAN_MOBILE", "start": 11, "end": 22}]}
+{"text": "Primary authorized contact number for account alerts is 9939313925.", "entities": [{"type": "INDIAN_MOBILE", "start": 56, "end": 66}]}
+{"text": "Incident briefing dispatched from ops.security+309@secure-infra.net to emergency response group.", "entities": [{"type": "EMAIL_ADDRESS", "start": 34, "end": 67}]}
+{"text": "Please coordinate directly with platform team at oherman@example.net regarding uptime.", "entities": [{"type": "EMAIL_ADDRESS", "start": 49, "end": 68}]}
+{"text": "Accounts memo:\nAccounts payable lead: calebmenon@example.com\nPayment terms: Net 45.", "entities": [{"type": "EMAIL_ADDRESS", "start": 38, "end": 60}]}
+{"text": "Aap apna signed agreement ops.security+955@secure-infra.net pe mail kar dijiye.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 59}]}
+{"text": "System telemetry sent automated error trace to developer vdalal@example.com.", "entities": [{"type": "EMAIL_ADDRESS", "start": 57, "end": 75}]}
+{"text": "Incident briefing dispatched from juliebarnes@example.org to emergency response group.", "entities": [{"type": "EMAIL_ADDRESS", "start": 34, "end": 57}]}
+{"text": "Please coordinate directly with platform team at ops.security+829@secure-infra.net regarding uptime.", "entities": [{"type": "EMAIL_ADDRESS", "start": 49, "end": 82}]}
+{"text": "Accounts memo:\nAccounts payable lead: williamsnyder@example.net\nPayment terms: Net 45.", "entities": [{"type": "EMAIL_ADDRESS", "start": 38, "end": 63}]}
+{"text": "Aap apna signed agreement mitrasamar@example.net pe mail kar dijiye.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 48}]}
+{"text": "System telemetry sent automated error trace to developer ops.security+467@secure-infra.net.", "entities": [{"type": "EMAIL_ADDRESS", "start": 57, "end": 90}]}
+{"text": "Incident briefing dispatched from yochananigam@example.com to emergency response group.", "entities": [{"type": "EMAIL_ADDRESS", "start": 34, "end": 58}]}
+{"text": "Please coordinate directly with platform team at deborah38@example.net regarding uptime.", "entities": [{"type": "EMAIL_ADDRESS", "start": 49, "end": 70}]}
+{"text": "Accounts memo:\nAccounts payable lead: ops.security+304@secure-infra.net\nPayment terms: Net 45.", "entities": [{"type": "EMAIL_ADDRESS", "start": 38, "end": 71}]}
+{"text": "Aap apna signed agreement powerssarah@example.com pe mail kar dijiye.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 49}]}
+{"text": "System telemetry sent automated error trace to developer aadhya70@example.com.", "entities": [{"type": "EMAIL_ADDRESS", "start": 57, "end": 77}]}
+{"text": "Incident briefing dispatched from ops.security+610@secure-infra.net to emergency response group.", "entities": [{"type": "EMAIL_ADDRESS", "start": 34, "end": 67}]}
+{"text": "Please coordinate directly with platform team at ria10@example.org regarding uptime.", "entities": [{"type": "EMAIL_ADDRESS", "start": 49, "end": 66}]}
+{"text": "Accounts memo:\nAccounts payable lead: colesharon@example.com\nPayment terms: Net 45.", "entities": [{"type": "EMAIL_ADDRESS", "start": 38, "end": 60}]}
+{"text": "Aap apna signed agreement ops.security+643@secure-infra.net pe mail kar dijiye.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 59}]}
+{"text": "System telemetry sent automated error trace to developer martinjames@example.org.", "entities": [{"type": "EMAIL_ADDRESS", "start": 57, "end": 80}]}
+{"text": "Incident briefing dispatched from xmalhotra@example.org to emergency response group.", "entities": [{"type": "EMAIL_ADDRESS", "start": 34, "end": 55}]}
+{"text": "Please coordinate directly with platform team at ops.security+780@secure-infra.net regarding uptime.", "entities": [{"type": "EMAIL_ADDRESS", "start": 49, "end": 82}]}
+{"text": "Accounts memo:\nAccounts payable lead: mitesh80@example.com\nPayment terms: Net 45.", "entities": [{"type": "EMAIL_ADDRESS", "start": 38, "end": 58}]}
+{"text": "Aap apna signed agreement michael66@example.org pe mail kar dijiye.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 47}]}
+{"text": "System telemetry sent automated error trace to developer ops.security+429@secure-infra.net.", "entities": [{"type": "EMAIL_ADDRESS", "start": 57, "end": 90}]}
+{"text": "Bhai grocery split ka contribution supermarket.groceries@icici pe transfer kar dena.", "entities": [{"type": "UPI_ID", "start": 35, "end": 62}]}
+{"text": "Payment confirmation:\nVPA handle: aditya.verma21@okaxis\nReceipt code: TXN994821", "entities": [{"type": "UPI_ID", "start": 34, "end": 55}]}
+{"text": "Aapka merchant payout utility.billing@paytm ID pe transfer kiya jaa chuka hai.", "entities": [{"type": "UPI_ID", "start": 22, "end": 43}]}
+{"text": "Online retail customer care payment address is residential.welfare@sbi.", "entities": [{"type": "UPI_ID", "start": 47, "end": 70}]}
+{"text": "National Electronic Funds Transfer requires branch IFSC code HDFC0001890.", "entities": [{"type": "IFSC_CODE", "start": 61, "end": 72}]}
+{"text": "Quarterly dividend disbursement issued from bank IFSC BARB0KOLKAT today.", "entities": [{"type": "IFSC_CODE", "start": 54, "end": 65}]}
+{"text": "Kripya cheque book pe check kijiye branch IFSC UTIB0002134 printed hai.", "entities": [{"type": "IFSC_CODE", "start": 47, "end": 58}]}
+{"text": "Cloud audit warning: Unencrypted IAM access key AWSK1A2B3C4D5E6F7G8H located in commit history.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 48, "end": 68}]}
+{"text": "Production AWS credentials AWSK9Z8Y7X6W5V4U3T2S require immediate revocation.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 27, "end": 47}]}
+{"text": "CloudWatch alert:\nAccount: Production\nAccess Key ID: AWSK3M4N5P6Q7R8S9T0U\nStatus: Suspended", "entities": [{"type": "AWS_ACCESS_KEY", "start": 53, "end": 73}]}
+{"text": "Exposed credential token: 1aB2+cd34/EFG56hij78KLM90nop12QRS34tuv flagged in private repository.", "entities": [{"type": "AWS_SECRET_KEY", "start": 26, "end": 64}]}
+{"text": "AWS secret signing key 9zY8/xWv76+UsT54rQp32mNl10jKi87fGe65dCb was rotated by security automation.", "entities": [{"type": "AWS_SECRET_KEY", "start": 23, "end": 62}]}
+{"text": "API gateway bearer authorization token: mock_sk_12a34b56c78d90e12f34g56h78i90jkl active on proxy.", "entities": [{"type": "SECRET_KEY", "start": 40, "end": 80}]}
+{"text": "Payment gateway webhook signing secret mock_pk_98z76y54x32w10v98u76t54s32r10qpo expired.", "entities": [{"type": "SECRET_KEY", "start": 39, "end": 79}]}
+{"text": "Form 1099 miscellaneous income statement lists US SSN 321-54-9876.", "entities": [{"type": "US_SSN", "start": 54, "end": 65}]}
+{"text": "Federal tax return documentation includes taxpayer US SSN 654-32-1098.", "entities": [{"type": "US_SSN", "start": 58, "end": 69}]}
+{"text": "Employee benefits enrollment confirms worker US SSN 789-01-2345 on file.", "entities": [{"type": "US_SSN", "start": 52, "end": 63}]}
+{"text": "Cross-border SEPA wire instruction specifies IBAN FR7630006000011234567890189.", "entities": [{"type": "IBAN_CODE", "start": 50, "end": 77}]}
+{"text": "International trade settlement mandates payment to IBAN NL91ABNA0417164300.", "entities": [{"type": "IBAN_CODE", "start": 56, "end": 74}]}
+{"text": "Airline reservation deposit charged to Mastercard 5105 1051 0510 5100 at checkout.", "entities": [{"type": "CREDIT_CARD", "start": 50, "end": 69}]}
+{"text": "Corporate cloud subscription auto-renews to credit card 4111 2222 3333 4444.", "entities": [{"type": "CREDIT_CARD", "start": 56, "end": 75}]}
+{"text": "FedEx express shipment package code 172635481920 reached distribution center.", "entities": []}
+{"text": "Container customs tracking identifier 109283746519 inspected at ocean port.", "entities": []}
+{"text": "Logistics pallet routing barcode 112233445566 confirmed in warehouse zone 4.", "entities": []}
+{"text": "Retail return authorization number 156473829102 logged in store database.", "entities": []}
+{"text": "Freight manifest shipping token 190827364512 approved by customs clearance.", "entities": []}
+{"text": "Automated inventory SKU 134251627384 stored on high-density shelving.", "entities": []}
+{"text": "Warranty service RMA reference 182736451928 accepted for factory repair.", "entities": []}
+{"text": "National cargo consignment ID 145263748596 tracked on railway freight portal.", "entities": []}
+{"text": "Electronic manifest tracking 167283940516 entered local dispatch routing.", "entities": []}
+{"text": "Supermarket point-of-sale receipt 200000000009 stored in fiscal archive.", "entities": []}
+{"text": "Industrial assembly line part 234567890124 certified by robotic inspection.", "entities": []}
+{"text": "Warehouse shelving section barcode 987654321096 scanned in zone B.", "entities": []}
+{"text": "Semiconductor fabrication batch code 345678901237 passed wafer inspection.", "entities": []}
+{"text": "Distributed database replication sequence 456789012340 committed to ledger.", "entities": []}
+{"text": "Acoustic sensor calibration index 567890123453 recorded in lab workbook.", "entities": []}
+{"text": "Automated baggage handling routing 678901234566 scanned at terminal gate.", "entities": []}
+{"text": "Network telemetry hash identifier 789012345679 received by monitoring agent.", "entities": []}
+{"text": "Commercial enterprise invoice 234567890123 processed by procurement.", "entities": []}
+{"text": "Vessel navigation transponder 987654321011 docked at deepwater harbor.", "entities": []}
+{"text": "High-voltage power substation switch 555566667770 connected to grid.", "entities": []}
+{"text": "Server rack cabling sequence 888899990001 inspected by datacenter technician.", "entities": []}
+{"text": "Hydraulic pump telemetry signal 444433332221 monitored on dashboard.", "entities": []}
+{"text": "Meteorological station data frame 777788889990 broadcast via radio link.", "entities": []}
+{"text": "Fiber optic cable spool serial 333322221110 inventoried in utility depot.", "entities": []}
+{"text": "Centrifugal water pump asset tag 666677778881 serviced during overhaul.", "entities": []}
+{"text": "Registered parcel will be delivered to New Delhi GPO PIN 110001.", "entities": []}
+{"text": "Consignment addressed to Bengaluru Whitefield PIN 560066.", "entities": []}
+{"text": "Sub-post office located near Mumbai Bandra Kurla Complex PIN 400051.", "entities": []}
+{"text": "Mail sorting facility in Kolkata Salt Lake PIN 700091.", "entities": []}
+{"text": "Express courier dispatched to Hyderabad Madhapur PIN 500081.", "entities": []}
+{"text": "Delivery vehicle routed to Chennai T Nagar PIN 600017.", "entities": []}
+{"text": "Pune Kothrud postal branch PIN 411038 processed the letter.", "entities": []}
+{"text": "Ahmedabad Navrangpura postal center PIN 380009 received parcel dispatch.", "entities": []}
+{"text": "Quantum simulator iteration executed in 0123456789 cycles.", "entities": []}
+{"text": "Server kernel timestamp 1714582930 recorded during scheduled restart.", "entities": []}
+{"text": "Virtual memory page offset 0x3F88C12A mapped into kernel space.", "entities": []}
+{"text": "Spectrophotometer recorded emission wavelength 5892641032 picometers.", "entities": []}
+{"text": "Deterministic PRNG initialized with seed 1029384756.", "entities": []}
+{"text": "Piezoelectric transducer voltage output calibrated at 0987654321 microvolts.", "entities": []}
+{"text": "Magnetic disk track index 1234509876 verified by disk controller.", "entities": []}
+{"text": "Digital signal processor buffer pointer 0011223344 refreshed in real-time.", "entities": []}
+{"text": "The committee approved the capital allocation blueprint for next quarter.", "entities": []}
+{"text": "Modern cloud applications emphasize immutability and declarative configuration.", "entities": []}
+{"text": "Autoscaling controllers dynamically adjusted compute resources to match demand.", "entities": []}
+{"text": "Cross-region replication latency remained within standard operating tolerance.", "entities": []}
+{"text": "Corporate executives evaluated expansion opportunities in emerging digital markets.", "entities": []}
+{"text": "The encrypted disk array was mounted with read-only privileges across nodes.", "entities": []}
+{"text": "Patch documentation highlights reduction in heap memory allocation overhead.", "entities": []}
+{"text": "The agile delivery squad scheduled sprint planning for early Tuesday morning.", "entities": []}
+{"text": "Balance sheet adjustments conformed to International Financial Reporting Standards.", "entities": []}
+{"text": "Continuous verification pipelines validated static typing and formatting rules.", "entities": []}
+{"text": "Penetration testing yielded zero high-severity findings across microservices.", "entities": []}
+{"text": "The analytical processing engine streamed change data events to delta tables.", "entities": []}
+{"text": "Client application load times improved following tree-shaking optimizations.", "entities": []}
+{"text": "Network telemetry across interconnect links confirmed low packet jitter.", "entities": []}
+{"text": "Disaster recovery protocols verified automated backup resumption in forty minutes.", "entities": []}
+{"text": "The compliance advisory team approved standard terms of engagement for consultants.", "entities": []}
+{"text": "Operating system security hotfixes were distributed across all compute clusters.", "entities": []}
+{"text": "Code review comments were addressed prior to pulling changes into production.", "entities": []}
+{"text": "Cryptographic proof validation confirmed block header integrity across the chain.", "entities": []}
+{"text": "In-memory key-value cache efficiency exceeded ninety-nine percent uptime.", "entities": []}
+{"text": "Database query plan optimization eliminated costly sequential scans on large tables.", "entities": []}
+{"text": "Asynchronous message queues buffered peak throughput without packet loss.", "entities": []}
+{"text": "Transport layer security certificates were renewed thirty days before expiration.", "entities": []}
+{"text": "Distributed tracing spans correlated database bottlenecks during traffic spikes.", "entities": []}
+{"text": "Infrastructure as code templates established isolated virtual private clouds.", "entities": []}

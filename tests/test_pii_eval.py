@@ -94,14 +94,16 @@ def test_clean_case_fpr_hand_computed_example() -> None:
 
 
 def test_no_shared_templates_between_dev_and_heldout() -> None:
-    """No template text from the dev set generator may be shared with the heldout set generator."""
+    """No template text may be shared between dev, dev2, and heldout generators."""
     import ast
     from pathlib import Path
 
     dev_path = Path("src/eval/gen_pii_cases.py")
+    dev2_path = Path("scripts/gen_pii_dev2.py")
     heldout_path = Path("scripts/gen_pii_heldout.py")
 
     assert dev_path.exists(), "src/eval/gen_pii_cases.py not found"
+    assert dev2_path.exists(), "scripts/gen_pii_dev2.py not found"
     assert heldout_path.exists(), "scripts/gen_pii_heldout.py not found"
 
     def extract_templates(file_path: Path) -> set[str]:
@@ -116,11 +118,21 @@ def test_no_shared_templates_between_dev_and_heldout() -> None:
         return templates
 
     dev_templates = extract_templates(dev_path)
+    dev2_templates = extract_templates(dev2_path)
     heldout_templates = extract_templates(heldout_path)
 
-    shared = dev_templates & heldout_templates
-    assert len(shared) == 0, f"Found shared templates between dev and heldout: {shared}"
+    shared_dev_heldout = dev_templates & heldout_templates
+    shared_dev2_heldout = dev2_templates & heldout_templates
+    shared_dev_dev2 = dev_templates & dev2_templates
+
+    assert len(shared_dev_heldout) == 0, f"Shared between dev and heldout: {shared_dev_heldout}"
+    assert (
+        len(shared_dev2_heldout) == 0
+    ), f"Shared between dev2 and heldout: {shared_dev2_heldout}"
+    assert len(shared_dev_dev2) == 0, f"Shared between dev and dev2: {shared_dev_dev2}"
+
     assert len(dev_templates) > 0
+    assert len(dev2_templates) > 0
     assert len(heldout_templates) > 0
 
 
