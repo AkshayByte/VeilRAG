@@ -15,7 +15,7 @@
 
 ## Verification & Environment Parity
 1. **Python Environment**:
-   - Python 3.12 alignment across `Dockerfile` (`FROM python:3.12-slim`), GitHub Actions CI (`python-version: "3.12"`), and `pyproject.toml` (`requires-python = ">=3.11,<3.13"`, `target-version = "py312"`, `python_version = "3.12"`).
+   - Python 3.14 alignment across `Dockerfile` (`FROM python:3.14-slim`), GitHub Actions CI (`python-version: "3.14"`), and `pyproject.toml` (`requires-python = ">=3.11"`, `target-version = "py314"`, `python_version = "3.14"`).
    - Core dependency imports verified: `presidio_analyzer`, `spacy`, `chromadb`, `langgraph`, `sentence_transformers` import cleanly.
 2. **spaCy Model**:
    - Model `en_core_web_lg` configured in `Makefile`, `Dockerfile`, CI (`.github/workflows/ci.yml`), and defined in `src/config.py` (`settings.spacy_model`).

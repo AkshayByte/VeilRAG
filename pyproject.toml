@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "veilrag"
 version = "0.1.0"
 description = "Secure RAG agent with PII sanitization, local embeddings, and auditable data flow"
-requires-python = ">=3.11,<3.13"
+requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.5",
     "presidio-analyzer>=0.4",
@@ -38,7 +38,7 @@ veilrag = "src.rag.cli:main"
 
 [tool.ruff]
 line-length = 100
-target-version = "py312"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W", "UP"]
@@ -47,7 +47,7 @@ select = ["E", "F", "I", "W", "UP"]
 known-first-party = ["src"]
 
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.14"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true

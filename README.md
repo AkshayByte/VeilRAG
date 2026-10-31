@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- Python 3.12 (supported: `>=3.11,<3.13`)
+- Python 3.14 (supported: `>=3.11`)
 
 ## Quick start
 
