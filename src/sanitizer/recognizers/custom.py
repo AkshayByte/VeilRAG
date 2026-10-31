@@ -74,7 +74,7 @@ class PANRecognizer(EntityRecognizer):
             name="PANRecognizer",
             version="0.1.0",
         )
-        self._pattern = re.compile(r"\b[A-Z]{5}[0-9]{4}[A-Z]\b")
+        self._pattern = re.compile(r"\b[A-Za-z]{5}[0-9]{4}[A-Za-z]\b")
 
     def analyze(
         self,
@@ -191,7 +191,7 @@ class IndianMobileRecognizer(EntityRecognizer):
             name="IndianMobileRecognizer",
             version="0.1.0",
         )
-        self._pattern = re.compile(r"(?:\+91\s*)?[6-9]\d{9}")
+        self._pattern = re.compile(r"(?:\+?91[\s\-]*)?[6-9]\d{9}\b")
 
     def analyze(
         self,

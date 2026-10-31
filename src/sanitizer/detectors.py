@@ -1,4 +1,4 @@
-﻿"""Custom regex-based PII detectors.
+"""Custom regex-based PII detectors.
 
 These detectors complement Microsoft Presidio's built-in recognizers with
 India-specific and credential-specific patterns.  Each detector exposes a
@@ -98,11 +98,11 @@ class Detector:
         return results
 
 
-# Indian mobile: +91 followed by 10 digits starting 6-9, or bare 10 digits
-_INDIAN_MOBILE_PATTERN = r"(?:\+91\s*)?[6-9]\d{9}"
+# Indian mobile: +91 / 91 / 10 digits starting 6-9
+_INDIAN_MOBILE_PATTERN = r"(?:\+?91[\s\-]*)?[6-9]\d{9}\b"
 
-# PAN: AAAAA9999A (5 alpha, 4 digit, 1 alpha)
-_PAN_PATTERN = r"\b[A-Z]{5}[0-9]{4}[A-Z]\b"
+# PAN: AAAAA9999A (5 alpha, 4 digit, 1 alpha, case-insensitive)
+_PAN_PATTERN = r"\b[A-Za-z]{5}[0-9]{4}[A-Za-z]\b"
 
 # IFSC: 4 alpha, 0, 6 alphanumeric
 _IFSC_PATTERN = r"\b[A-Z]{4}0[A-Z0-9]{6}\b"

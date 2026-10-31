@@ -1,47 +1,3609 @@
 {
-  "baseline": false,
-  "num_cases": 1,
-  "overall": {
-    "true_positives": 2,
-    "false_positives": 0,
-    "false_negatives": 0,
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1": 1.0,
-    "false_positive_rate": 0.0
-  },
-  "per_entity_type": {
-    "PERSON": {
-      "true_positives": 1,
-      "false_positives": 0,
-      "false_negatives": 0,
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1": 1.0,
-      "false_positive_rate": 0.0
+  "full": {
+    "baseline": false,
+    "num_cases": 210,
+    "overall": {
+      "true_positives": 169,
+      "false_positives": 4,
+      "false_negatives": 1,
+      "precision": 0.9769,
+      "recall": 0.9941,
+      "f1": 0.9854,
+      "false_positive_rate": 0.8
     },
-    "EMAIL_ADDRESS": {
-      "true_positives": 1,
-      "false_positives": 0,
-      "false_negatives": 0,
-      "precision": 1.0,
-      "recall": 1.0,
-      "f1": 1.0,
-      "false_positive_rate": 0.0
-    }
-  },
-  "findings": [
-    {
-      "type": "PERSON",
-      "start": 8,
-      "end": 20,
-      "result": "true_positive"
+    "per_entity_type": {
+      "AWS_ACCESS_KEY": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "AWS_SECRET_KEY": {
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "CREDIT_CARD": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "EMAIL_ADDRESS": {
+        "true_positives": 25,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "IBAN_CODE": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "IDENTITY_DOCUMENT": {
+        "true_positives": 30,
+        "false_positives": 2,
+        "false_negatives": 0,
+        "precision": 0.9375,
+        "recall": 1.0,
+        "f1": 0.9677,
+        "false_positive_rate": 1.0
+      },
+      "IFSC_CODE": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "INDIAN_MOBILE": {
+        "true_positives": 20,
+        "false_positives": 1,
+        "false_negatives": 0,
+        "precision": 0.9524,
+        "recall": 1.0,
+        "f1": 0.9756,
+        "false_positive_rate": 1.0
+      },
+      "IP_ADDRESS": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "MEDICAL_RECORD_NUMBER": {
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "PAN_NUMBER": {
+        "true_positives": 25,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "PERSON": {
+        "true_positives": 35,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "PHONE_NUMBER": {
+        "true_positives": 14,
+        "false_positives": 1,
+        "false_negatives": 1,
+        "precision": 0.9333,
+        "recall": 0.9333,
+        "f1": 0.9333,
+        "false_positive_rate": 0.5
+      },
+      "SECRET_KEY": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "UPI_ID": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "URL": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "US_SSN": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      }
     },
-    {
-      "type": "EMAIL_ADDRESS",
-      "start": 24,
-      "end": 41,
-      "result": "true_positive"
-    }
-  ]
+    "findings": [
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 57,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 27,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 23,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 32,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 60,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 23,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 21,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 36,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 25,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 25,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 34,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 49,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 59,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 24,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 22,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 33,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 44,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 28,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 61,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 23,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 35,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 48,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 37,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 49,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 37,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 49,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "true_positive"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 60,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 73,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 77,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 59,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 85,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 77,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 62,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 63,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 62,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 79,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 76,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 58,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 73,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 81,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 73,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 76,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 71,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 61,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 79,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 81,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 62,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "true_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 53,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 40,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 49,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 38,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 53,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 40,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 49,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 38,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 53,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 40,
+        "result": "true_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 26,
+        "end": 37,
+        "result": "true_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 36,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "CREDIT_CARD",
+        "start": 15,
+        "end": 35,
+        "result": "true_positive"
+      },
+      {
+        "type": "CREDIT_CARD",
+        "start": 33,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "IBAN_CODE",
+        "start": 38,
+        "end": 60,
+        "result": "true_positive"
+      },
+      {
+        "type": "IBAN_CODE",
+        "start": 33,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "IFSC_CODE",
+        "start": 34,
+        "end": 45,
+        "result": "true_positive"
+      },
+      {
+        "type": "IFSC_CODE",
+        "start": 34,
+        "end": 45,
+        "result": "true_positive"
+      },
+      {
+        "type": "UPI_ID",
+        "start": 33,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "UPI_ID",
+        "start": 39,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "AWS_ACCESS_KEY",
+        "start": 15,
+        "end": 35,
+        "result": "true_positive"
+      },
+      {
+        "type": "AWS_ACCESS_KEY",
+        "start": 39,
+        "end": 59,
+        "result": "true_positive"
+      },
+      {
+        "type": "AWS_SECRET_KEY",
+        "start": 25,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "SECRET_KEY",
+        "start": 34,
+        "end": 74,
+        "result": "true_positive"
+      },
+      {
+        "type": "SECRET_KEY",
+        "start": 31,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "IP_ADDRESS",
+        "start": 45,
+        "end": 58,
+        "result": "true_positive"
+      },
+      {
+        "type": "IP_ADDRESS",
+        "start": 41,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 41,
+        "end": 80,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 34,
+        "end": 70,
+        "result": "true_positive"
+      },
+      {
+        "type": "MEDICAL_RECORD_NUMBER",
+        "start": 34,
+        "end": 43,
+        "result": "true_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 24,
+        "end": 36,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 17,
+        "end": 29,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 28,
+        "end": 40,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 22,
+        "end": 32,
+        "result": "false_positive"
+      }
+    ]
+  },
+  "baseline": {
+    "baseline": true,
+    "num_cases": 210,
+    "overall": {
+      "true_positives": 82,
+      "false_positives": 193,
+      "false_negatives": 88,
+      "precision": 0.2982,
+      "recall": 0.4824,
+      "f1": 0.3685,
+      "false_positive_rate": 0.6868
+    },
+    "per_entity_type": {
+      "AWS_ACCESS_KEY": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "AWS_SECRET_KEY": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "CREDIT_CARD": {
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6667,
+        "false_positive_rate": 0.0
+      },
+      "DATE_TIME": {
+        "true_positives": 0,
+        "false_positives": 56,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 1.0
+      },
+      "EMAIL_ADDRESS": {
+        "true_positives": 25,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "IBAN_CODE": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "IDENTITY_DOCUMENT": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 30,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "IFSC_CODE": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "INDIAN_MOBILE": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "IP_ADDRESS": {
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "MEDICAL_RECORD_NUMBER": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "PAN_NUMBER": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 25,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "PERSON": {
+        "true_positives": 35,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0
+      },
+      "PHONE_NUMBER": {
+        "true_positives": 14,
+        "false_positives": 24,
+        "false_negatives": 1,
+        "precision": 0.3684,
+        "recall": 0.9333,
+        "f1": 0.5283,
+        "false_positive_rate": 0.96
+      },
+      "SECRET_KEY": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "UK_NHS": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 1.0
+      },
+      "UPI_ID": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "URL": {
+        "true_positives": 2,
+        "false_positives": 26,
+        "false_negatives": 0,
+        "precision": 0.0714,
+        "recall": 1.0,
+        "f1": 0.1333,
+        "false_positive_rate": 1.0
+      },
+      "US_BANK_NUMBER": {
+        "true_positives": 0,
+        "false_positives": 36,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 1.0
+      },
+      "US_DRIVER_LICENSE": {
+        "true_positives": 0,
+        "false_positives": 48,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 1.0
+      },
+      "US_ITIN": {
+        "true_positives": 0,
+        "false_positives": 1,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positive_rate": 1.0
+      },
+      "US_SSN": {
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6667,
+        "false_positive_rate": 0.0
+      }
+    },
+    "findings": [
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 57,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 61,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 19,
+        "end": 21,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 27,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 65,
+        "end": 74,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 0,
+        "end": 9,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 23,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 32,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 60,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 64,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 19,
+        "end": 21,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 23,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 66,
+        "end": 75,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 0,
+        "end": 9,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 21,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 36,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 59,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 19,
+        "end": 21,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 25,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 66,
+        "end": 75,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 0,
+        "end": 9,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 25,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 34,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 49,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 59,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 63,
+        "end": 69,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 19,
+        "end": 21,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 24,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 65,
+        "end": 74,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 0,
+        "end": 9,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 22,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 33,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 44,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 45,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 59,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 19,
+        "end": 21,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 13,
+        "end": 28,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 52,
+        "end": 61,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 62,
+        "end": 71,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 0,
+        "end": 9,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 10,
+        "end": 23,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 22,
+        "end": 35,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 34,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 38,
+        "end": 48,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 38,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 25,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 25,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 25,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 37,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 67,
+        "end": 72,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 38,
+        "end": 50,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 38,
+        "end": 50,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 50,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 65,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 64,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 38,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 37,
+        "end": 49,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 37,
+        "end": 49,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 49,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 35,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 43,
+        "end": 55,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 43,
+        "end": 55,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 55,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 25,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 25,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 37,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 67,
+        "end": 72,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 38,
+        "end": 50,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 38,
+        "end": 50,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 50,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 65,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 64,
+        "result": "false_negative"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 57,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 43,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 37,
+        "end": 49,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 37,
+        "end": 49,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 37,
+        "end": 49,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 25,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 67,
+        "end": 72,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 52,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 43,
+        "end": 55,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 43,
+        "end": 55,
+        "result": "false_positive"
+      },
+      {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 43,
+        "end": 55,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 16,
+        "end": 26,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "false_negative"
+      },
+      {
+        "type": "PAN_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 60,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 49,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 73,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 60,
+        "end": 73,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 77,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 62,
+        "end": 77,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 49,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 59,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 48,
+        "end": 59,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 42,
+        "end": 55,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 85,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 70,
+        "end": 85,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 77,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 60,
+        "end": 77,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 62,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 51,
+        "end": 62,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 63,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 50,
+        "end": 63,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 62,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 47,
+        "end": 62,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 79,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 62,
+        "end": 79,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 76,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 65,
+        "end": 76,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 58,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 45,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 73,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 58,
+        "end": 73,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 50,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 81,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 70,
+        "end": 81,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 73,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 60,
+        "end": 73,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 76,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 61,
+        "end": 76,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 71,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 54,
+        "end": 71,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 32,
+        "end": 61,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 50,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 49,
+        "end": 79,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 66,
+        "end": 79,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 46,
+        "end": 81,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 66,
+        "end": 81,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 35,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 48,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "EMAIL_ADDRESS",
+        "start": 39,
+        "end": 62,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 51,
+        "end": 62,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 47,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 25,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 38,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 47,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 25,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 38,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 47,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 25,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 38,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 47,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 25,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 38,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "false_negative"
+      },
+      {
+        "type": "UK_NHS",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 47,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 25,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 25,
+        "end": 39,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 38,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 38,
+        "end": 52,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 36,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 36,
+        "end": 48,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 5,
+        "end": 15,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 5,
+        "end": 15,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 53,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 32,
+        "end": 40,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 40,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 41,
+        "end": 49,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 49,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 38,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 53,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 40,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 41,
+        "end": 49,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 49,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 38,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 39,
+        "end": 53,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 35,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 26,
+        "end": 40,
+        "result": "true_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 26,
+        "end": 37,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_SSN",
+        "start": 36,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "US_ITIN",
+        "start": 36,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "CREDIT_CARD",
+        "start": 15,
+        "end": 34,
+        "result": "false_negative"
+      },
+      {
+        "type": "CREDIT_CARD",
+        "start": 33,
+        "end": 52,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 48,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "IBAN_CODE",
+        "start": 38,
+        "end": 60,
+        "result": "true_positive"
+      },
+      {
+        "type": "IBAN_CODE",
+        "start": 33,
+        "end": 55,
+        "result": "true_positive"
+      },
+      {
+        "type": "IFSC_CODE",
+        "start": 34,
+        "end": 45,
+        "result": "false_negative"
+      },
+      {
+        "type": "IFSC_CODE",
+        "start": 34,
+        "end": 45,
+        "result": "false_negative"
+      },
+      {
+        "type": "URL",
+        "start": 33,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "UPI_ID",
+        "start": 33,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "UPI_ID",
+        "start": 39,
+        "end": 55,
+        "result": "false_negative"
+      },
+      {
+        "type": "AWS_ACCESS_KEY",
+        "start": 15,
+        "end": 35,
+        "result": "false_negative"
+      },
+      {
+        "type": "AWS_ACCESS_KEY",
+        "start": 39,
+        "end": 59,
+        "result": "false_negative"
+      },
+      {
+        "type": "AWS_SECRET_KEY",
+        "start": 25,
+        "end": 65,
+        "result": "false_negative"
+      },
+      {
+        "type": "SECRET_KEY",
+        "start": 34,
+        "end": 74,
+        "result": "false_negative"
+      },
+      {
+        "type": "SECRET_KEY",
+        "start": 31,
+        "end": 67,
+        "result": "false_negative"
+      },
+      {
+        "type": "IP_ADDRESS",
+        "start": 45,
+        "end": 58,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 45,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "IP_ADDRESS",
+        "start": 41,
+        "end": 50,
+        "result": "true_positive"
+      },
+      {
+        "type": "URL",
+        "start": 41,
+        "end": 80,
+        "result": "true_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 72,
+        "end": 74,
+        "result": "false_positive"
+      },
+      {
+        "type": "URL",
+        "start": 34,
+        "end": 70,
+        "result": "true_positive"
+      },
+      {
+        "type": "MEDICAL_RECORD_NUMBER",
+        "start": 34,
+        "end": 43,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 16,
+        "end": 28,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 16,
+        "end": 28,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 16,
+        "end": 28,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 25,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 25,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 24,
+        "end": 36,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 24,
+        "end": 36,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 24,
+        "end": 36,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 17,
+        "end": 29,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 17,
+        "end": 29,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 28,
+        "end": 40,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 28,
+        "end": 40,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 28,
+        "end": 40,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 39,
+        "end": 45,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 39,
+        "end": 45,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 40,
+        "end": 46,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 40,
+        "end": 46,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 42,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 35,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 23,
+        "end": 29,
+        "result": "false_positive"
+      },
+      {
+        "type": "UK_NHS",
+        "start": 22,
+        "end": 32,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 22,
+        "end": 32,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 22,
+        "end": 32,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 22,
+        "end": 32,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 0,
+        "end": 6,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 45,
+        "end": 51,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 34,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 48,
+        "end": 55,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 38,
+        "end": 43,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 0,
+        "end": 9,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 35,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 4,
+        "end": 13,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 49,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 43,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 52,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 23,
+        "end": 28,
+        "result": "false_positive"
+      }
+    ]
+  }
 }
