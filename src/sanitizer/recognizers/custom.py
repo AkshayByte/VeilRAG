@@ -24,7 +24,13 @@ from src.sanitizer.detectors import validate_verhoeff
 
 
 class AadhaarRecognizer(EntityRecognizer):
-    """Recognizer for Indian Aadhaar 12-digit numbers with Verhoeff checksum."""
+    """Recognizer for Indian Aadhaar 12-digit numbers with Verhoeff checksum.
+
+    Rejects numbers starting with 0 or 1 (per UIDAI specification).
+    Lowers confidence score to 0.40 when no Aadhaar context words are nearby.
+    """
+
+    CONTEXT_WORDS = ("aadhaar", "uid", "aadhar", "enrolment", "enrollment")
 
     def __init__(self) -> None:
         super().__init__(
@@ -38,8 +44,8 @@ class AadhaarRecognizer(EntityRecognizer):
     def analyze(
         self,
         text: str,
-        entities: list[str] | None,
-        nlp_artifacts: NlpArtifacts,
+        entities: list[str] | None = None,
+        nlp_artifacts: NlpArtifacts | None = None,
     ) -> list[RecognizerResult]:
         """Detect Verhoeff-valid Aadhaar numbers in *text*."""
 
@@ -49,15 +55,33 @@ class AadhaarRecognizer(EntityRecognizer):
         results: list[RecognizerResult] = []
         for m in self._pattern.finditer(text):
             digits = re.sub(r"[-\s]", "", m.group())
-            if len(digits) == 12 and validate_verhoeff(digits):
-                results.append(
-                    RecognizerResult(
-                        entity_type="IDENTITY_DOCUMENT",
-                        start=m.start(),
-                        end=m.end(),
-                        score=0.95,
-                    )
+            if len(digits) != 12:
+                continue
+
+            # Per UIDAI specification, Aadhaar numbers never start with 0 or 1
+            if digits[0] in ("0", "1"):
+                continue
+
+            if not validate_verhoeff(digits):
+                continue
+
+            # Check for nearby context words in a 50-character window
+            window_start = max(0, m.start() - 50)
+            window_end = min(len(text), m.end() + 50)
+            surrounding = text[window_start:window_end].lower()
+            has_context = any(kw in surrounding for kw in self.CONTEXT_WORDS)
+
+            # High confidence if context is present, lower confidence otherwise
+            score = 0.85 if has_context else 0.40
+
+            results.append(
+                RecognizerResult(
+                    entity_type="IDENTITY_DOCUMENT",
+                    start=m.start(),
+                    end=m.end(),
+                    score=score,
                 )
+            )
         return results
 
     def load(self) -> None:

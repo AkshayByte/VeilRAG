@@ -55,6 +55,19 @@ def _get_analyzer() -> AnalyzerEngine:
         _ANALYZER_CACHE = analyzer
     return _ANALYZER_CACHE
 
+_PLACEHOLDER_PREFIXES: dict[str, str] = {
+    "IDENTITY_DOCUMENT": "AADHAAR",
+    "AADHAAR": "AADHAAR",
+    "PAN_NUMBER": "PAN",
+    "PAN": "PAN",
+    "UPI_ID": "UPI",
+    "UPI": "UPI",
+    "IFSC_CODE": "IFSC",
+    "IFSC": "IFSC",
+    "PHONE_NUMBER": "PHONE",
+    "INDIAN_MOBILE": "PHONE",
+}
+
 _SENSITIVITY_WEIGHTS: dict[str, float] = {
     "US_SSN": 0.30,
     "CREDIT_CARD": 0.30,
@@ -251,14 +264,15 @@ def sanitize(
 
         for entity_type, start, end, score in deduped:
             original = text[start:end]
-            key = (entity_type, original)
+            prefix = _PLACEHOLDER_PREFIXES.get(entity_type, entity_type)
+            key = (prefix, original)
 
             if key in text_to_placeholder:
                 placeholder = text_to_placeholder[key]
             else:
-                counter = placeholder_counters.get(entity_type, 0) + 1
-                placeholder_counters[entity_type] = counter
-                placeholder = f"[{entity_type}_{counter}]"
+                counter = placeholder_counters.get(prefix, 0) + 1
+                placeholder_counters[prefix] = counter
+                placeholder = f"[{prefix}_{counter}]"
                 text_to_placeholder[key] = placeholder
                 reversible_map[placeholder] = original
 

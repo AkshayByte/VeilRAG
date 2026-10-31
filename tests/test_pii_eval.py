@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
-from src.eval.pii_eval import Case, _span_overlap, evaluate_pii, format_table_markdown
+from src.eval.pii_eval import (
+    Case,
+    _span_overlap,
+    compute_clean_case_fpr,
+    evaluate_pii,
+    format_table_markdown,
+)
 
 
 def test_evaluate_pii_returns_metrics() -> None:
@@ -60,3 +66,27 @@ def test_format_table_markdown() -> None:
     md = format_table_markdown(results, "Test Table")
     assert "### Test Table" in md
     assert "| Entity Type | Precision | Recall |" in md
+
+
+def test_clean_case_fpr_hand_computed_example() -> None:
+    """clean-case FPR = (PII-free flagged cases) / (number of PII-free cases)."""
+
+    # 4 clean cases with 0 gold entities:
+    # 3 unflagged clean cases, 1 flagged clean case with a false positive -> FPR = 1/4 = 0.25
+    cases = [
+        Case(text="Clean sentence one.", entities=[]),
+        Case(text="Clean sentence two.", entities=[]),
+        Case(text="Clean sentence three.", entities=[]),
+        Case(text="Clean sentence four.", entities=[]),
+    ]
+    case_findings = [
+        [],
+        [],
+        [],
+        [{"type": "PERSON", "start": 0, "end": 5, "result": "false_positive"}],
+    ]
+    fpr, total_clean, flagged_clean, per_type_fpr = compute_clean_case_fpr(cases, case_findings)
+    assert total_clean == 4
+    assert flagged_clean == 1
+    assert fpr == 0.25
+    assert per_type_fpr["PERSON"] == 0.25

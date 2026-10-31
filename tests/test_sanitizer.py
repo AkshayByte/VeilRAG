@@ -82,7 +82,7 @@ def test_sanitize_redacts_phone() -> None:
 
     result = sanitize("Call 555-123-4567.")
     assert "555-123-4567" not in result.sanitized_text
-    assert "[PHONE_NUMBER_1]" in result.sanitized_text
+    assert "[PHONE_1]" in result.sanitized_text
 
 
 def test_sanitize_redacts_us_ssn() -> None:
@@ -189,7 +189,7 @@ def test_financial_mode_redacts_ifsc() -> None:
 
     result = sanitize("IFSC: HDFC0001234.", mode="financial")
     assert "HDFC0001234" not in result.sanitized_text
-    assert "[IFSC_CODE_1]" in result.sanitized_text
+    assert "[IFSC_1]" in result.sanitized_text
 
 
 def test_financial_mode_redacts_upi() -> None:
@@ -197,7 +197,7 @@ def test_financial_mode_redacts_upi() -> None:
 
     result = sanitize("UPI: rahul@upi.", mode="financial")
     assert "rahul@upi" not in result.sanitized_text
-    assert "[UPI_ID_1]" in result.sanitized_text
+    assert "[UPI_1]" in result.sanitized_text
 
 
 def test_medical_mode_redacts_patient_id() -> None:
@@ -219,26 +219,26 @@ def test_code_mode_redacts_aws_key() -> None:
 
 
 def test_aadhaar_valid_redacted() -> None:
-    """A Verhoeff-valid Aadhaar number is redacted."""
+    """A Verhoeff-valid Aadhaar number starting with 2-9 is redacted."""
 
-    result = sanitize("Aadhaar: 1000 0000 0004.", mode="general")
-    assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
+    result = sanitize("Aadhaar: 2000 0000 0009.", mode="general")
+    assert "[AADHAAR_1]" in result.sanitized_text
 
 
 def test_aadhaar_dashed_form_redacted() -> None:
     """A dashed Verhoeff-valid Aadhaar number is redacted."""
 
-    result = sanitize("Aadhaar: 1000-0000-0004.", mode="general")
-    assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
-    assert "1000-0000-0004" not in result.sanitized_text
+    result = sanitize("Aadhaar: 2000-0000-0009.", mode="general")
+    assert "[AADHAAR_1]" in result.sanitized_text
+    assert "2000-0000-0009" not in result.sanitized_text
 
 
 def test_aadhaar_contiguous_form_redacted() -> None:
     """A contiguous 12-digit Verhoeff-valid Aadhaar number is redacted."""
 
-    result = sanitize("Aadhaar: 100000000004.", mode="general")
-    assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
-    assert "100000000004" not in result.sanitized_text
+    result = sanitize("Aadhaar: 200000000009.", mode="general")
+    assert "[AADHAAR_1]" in result.sanitized_text
+    assert "200000000009" not in result.sanitized_text
 
 
 def test_aadhaar_smoke_vector_redacted() -> None:
@@ -247,13 +247,48 @@ def test_aadhaar_smoke_vector_redacted() -> None:
     text = "Rahul Sharma, Aadhaar 2345 6789 0124, PAN ABCDE1234F, rahul@gmail.com"
     result = sanitize(text)
     assert "[PERSON_1]" in result.sanitized_text
-    assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
-    assert "[PAN_NUMBER_1]" in result.sanitized_text
+    assert "[AADHAAR_1]" in result.sanitized_text
+    assert "[PAN_1]" in result.sanitized_text
     assert "[EMAIL_ADDRESS_1]" in result.sanitized_text
     assert "2345 6789 0124" not in result.sanitized_text
     assert "ABCDE1234F" not in result.sanitized_text
     assert "rahul@gmail.com" not in result.sanitized_text
     assert len(result.entities) == 4
+
+
+def test_aadhaar_rejects_starts_with_0_or_1() -> None:
+    """Aadhaar numbers starting with 0 or 1 are rejected even if Verhoeff valid."""
+
+    from src.sanitizer.recognizers.custom import AadhaarRecognizer
+
+    rec = AadhaarRecognizer()
+    # 1000 0000 0004 has a valid Verhoeff checksum but starts with 1
+    results = rec.analyze("Aadhaar: 1000 0000 0004", ["IDENTITY_DOCUMENT"])
+    assert len(results) == 0
+
+    # 0123 4567 8900 starts with 0
+    res_0 = rec.analyze("Aadhaar: 0123 4567 8900", ["IDENTITY_DOCUMENT"])
+    assert len(res_0) == 0
+
+
+def test_aadhaar_lowers_confidence_without_context() -> None:
+    """Aadhaar recognizer returns higher confidence with context words and lower without."""
+
+    from src.sanitizer.recognizers.custom import AadhaarRecognizer
+
+    rec = AadhaarRecognizer()
+    # 2345 6789 0124 starts with 2 and has valid Verhoeff check
+    with_context = rec.analyze(
+        "My Aadhaar card number is 2345 6789 0124", ["IDENTITY_DOCUMENT"]
+    )
+    without_context = rec.analyze(
+        "The shipment code is 2345 6789 0124", ["IDENTITY_DOCUMENT"]
+    )
+    assert len(with_context) == 1
+    assert len(without_context) == 1
+    assert with_context[0].score > without_context[0].score
+    assert with_context[0].score >= 0.80
+    assert without_context[0].score <= 0.50
 
 
 def test_aadhaar_invalid_not_redacted() -> None:
@@ -277,7 +312,7 @@ def test_pan_redacted() -> None:
 
     result = sanitize("PAN: ABCDE1234F.")
     assert "ABCDE1234F" not in result.sanitized_text
-    assert "[PAN_NUMBER_1]" in result.sanitized_text
+    assert "[PAN_1]" in result.sanitized_text
 
 
 def test_indian_mobile_redacted() -> None:
@@ -285,7 +320,7 @@ def test_indian_mobile_redacted() -> None:
 
     result = sanitize("Call +91 9876543210.")
     assert "+91 9876543210" not in result.sanitized_text
-    assert "[INDIAN_MOBILE_1]" in result.sanitized_text
+    assert "[PHONE_1]" in result.sanitized_text
 
 
 def test_aws_secret_key_redacted() -> None:

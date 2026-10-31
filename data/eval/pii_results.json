@@ -2,6 +2,8 @@
   "full": {
     "baseline": false,
     "num_cases": 210,
+    "clean_cases_total": 40,
+    "clean_cases_flagged": 4,
     "overall": {
       "true_positives": 169,
       "false_positives": 4,
@@ -9,7 +11,10 @@
       "precision": 0.9769,
       "recall": 0.9941,
       "f1": 0.9854,
-      "false_positive_rate": 0.8
+      "clean_case_fpr": 0.1,
+      "false_positive_rate": 0.1,
+      "span_precision": 0.9769,
+      "span_error_rate": 0.0231
     },
     "per_entity_type": {
       "AWS_ACCESS_KEY": {
@@ -19,6 +24,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "AWS_SECRET_KEY": {
@@ -28,6 +34,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "CREDIT_CARD": {
@@ -37,6 +44,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "EMAIL_ADDRESS": {
@@ -46,6 +54,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "IBAN_CODE": {
@@ -55,6 +64,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "IDENTITY_DOCUMENT": {
@@ -64,7 +74,8 @@
         "precision": 0.9375,
         "recall": 1.0,
         "f1": 0.9677,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.05,
+        "false_positive_rate": 0.05
       },
       "IFSC_CODE": {
         "true_positives": 2,
@@ -73,6 +84,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "INDIAN_MOBILE": {
@@ -82,7 +94,8 @@
         "precision": 0.9524,
         "recall": 1.0,
         "f1": 0.9756,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.025,
+        "false_positive_rate": 0.025
       },
       "IP_ADDRESS": {
         "true_positives": 2,
@@ -91,6 +104,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "MEDICAL_RECORD_NUMBER": {
@@ -100,6 +114,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "PAN_NUMBER": {
@@ -109,6 +124,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "PERSON": {
@@ -118,6 +134,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "PHONE_NUMBER": {
@@ -127,7 +144,8 @@
         "precision": 0.9333,
         "recall": 0.9333,
         "f1": 0.9333,
-        "false_positive_rate": 0.5
+        "clean_case_fpr": 0.025,
+        "false_positive_rate": 0.025
       },
       "SECRET_KEY": {
         "true_positives": 2,
@@ -136,6 +154,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "UPI_ID": {
@@ -145,6 +164,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "URL": {
@@ -154,6 +174,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "US_SSN": {
@@ -163,6 +184,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       }
     },
@@ -1216,6 +1238,8 @@
   "baseline": {
     "baseline": true,
     "num_cases": 210,
+    "clean_cases_total": 40,
+    "clean_cases_flagged": 17,
     "overall": {
       "true_positives": 82,
       "false_positives": 193,
@@ -1223,7 +1247,10 @@
       "precision": 0.2982,
       "recall": 0.4824,
       "f1": 0.3685,
-      "false_positive_rate": 0.6868
+      "clean_case_fpr": 0.425,
+      "false_positive_rate": 0.425,
+      "span_precision": 0.2982,
+      "span_error_rate": 0.7018
     },
     "per_entity_type": {
       "AWS_ACCESS_KEY": {
@@ -1233,6 +1260,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "AWS_SECRET_KEY": {
@@ -1242,6 +1270,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "CREDIT_CARD": {
@@ -1251,6 +1280,7 @@
         "precision": 1.0,
         "recall": 0.5,
         "f1": 0.6667,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "DATE_TIME": {
@@ -1260,7 +1290,8 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.3,
+        "false_positive_rate": 0.3
       },
       "EMAIL_ADDRESS": {
         "true_positives": 25,
@@ -1269,6 +1300,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "IBAN_CODE": {
@@ -1278,6 +1310,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "IDENTITY_DOCUMENT": {
@@ -1287,6 +1320,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "IFSC_CODE": {
@@ -1296,6 +1330,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "INDIAN_MOBILE": {
@@ -1305,6 +1340,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "IP_ADDRESS": {
@@ -1314,6 +1350,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "MEDICAL_RECORD_NUMBER": {
@@ -1323,6 +1360,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "PAN_NUMBER": {
@@ -1332,6 +1370,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "PERSON": {
@@ -1341,6 +1380,7 @@
         "precision": 1.0,
         "recall": 1.0,
         "f1": 1.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "PHONE_NUMBER": {
@@ -1350,7 +1390,8 @@
         "precision": 0.3684,
         "recall": 0.9333,
         "f1": 0.5283,
-        "false_positive_rate": 0.96
+        "clean_case_fpr": 0.05,
+        "false_positive_rate": 0.05
       },
       "SECRET_KEY": {
         "true_positives": 0,
@@ -1359,6 +1400,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "UK_NHS": {
@@ -1368,7 +1410,8 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.025,
+        "false_positive_rate": 0.025
       },
       "UPI_ID": {
         "true_positives": 0,
@@ -1377,6 +1420,7 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
       "URL": {
@@ -1386,7 +1430,8 @@
         "precision": 0.0714,
         "recall": 1.0,
         "f1": 0.1333,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
       },
       "US_BANK_NUMBER": {
         "true_positives": 0,
@@ -1395,7 +1440,8 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.15,
+        "false_positive_rate": 0.15
       },
       "US_DRIVER_LICENSE": {
         "true_positives": 0,
@@ -1404,7 +1450,8 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.3,
+        "false_positive_rate": 0.3
       },
       "US_ITIN": {
         "true_positives": 0,
@@ -1413,7 +1460,8 @@
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
-        "false_positive_rate": 1.0
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
       },
       "US_SSN": {
         "true_positives": 1,
@@ -1422,6 +1470,7 @@
         "precision": 1.0,
         "recall": 0.5,
         "f1": 0.6667,
+        "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       }
     },
