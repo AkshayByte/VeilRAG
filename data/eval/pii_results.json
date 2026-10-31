@@ -14,7 +14,13 @@
       "clean_case_fpr": 0.1,
       "false_positive_rate": 0.1,
       "span_precision": 0.9769,
-      "span_error_rate": 0.0231
+      "span_error_rate": 0.0231,
+      "char_leak_rate": 0.0052,
+      "char_over_redaction_rate": 0.0043,
+      "total_gold_chars": 2682,
+      "total_leaked_chars": 14,
+      "total_non_pii_chars": 11276,
+      "total_over_redacted_chars": 49
     },
     "per_entity_type": {
       "AWS_ACCESS_KEY": {
@@ -1250,7 +1256,13 @@
       "clean_case_fpr": 0.425,
       "false_positive_rate": 0.425,
       "span_precision": 0.2982,
-      "span_error_rate": 0.7018
+      "span_error_rate": 0.7018,
+      "char_leak_rate": 0.2677,
+      "char_over_redaction_rate": 0.0364,
+      "total_gold_chars": 2682,
+      "total_leaked_chars": 718,
+      "total_non_pii_chars": 11276,
+      "total_over_redacted_chars": 410
     },
     "per_entity_type": {
       "AWS_ACCESS_KEY": {
