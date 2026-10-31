@@ -1,0 +1,61 @@
+# modes.yaml — context modes for PII sanitization
+#
+# Each mode lists the entity types to redact for that domain.
+# Redaction style is FIXED: typed numbered placeholders, e.g. [PERSON_1],
+# [AADHAAR_1].  Placeholder numbering is consistent within a single
+# document.  This file does NOT define redaction style variations.
+#
+# Usage: passed to sanitize(mode="...") to select which entity types to redact.
+
+general:
+  entities:
+    - PERSON
+    - EMAIL_ADDRESS
+    - PHONE_NUMBER
+    - US_SSN
+    - CREDIT_CARD
+    - IBAN_CODE
+    - IP_ADDRESS
+    - URL
+    - IDENTITY_DOCUMENT
+    - PAN_NUMBER
+    - INDIAN_MOBILE
+
+financial:
+  entities:
+    - PERSON
+    - EMAIL_ADDRESS
+    - PHONE_NUMBER
+    - US_SSN
+    - CREDIT_CARD
+    - IBAN_CODE
+    - IP_ADDRESS
+    - URL
+    - IDENTITY_DOCUMENT
+    - PAN_NUMBER
+    - IFSC_CODE
+    - UPI_ID
+    - INDIAN_MOBILE
+
+medical:
+  entities:
+    - PERSON
+    - EMAIL_ADDRESS
+    - PHONE_NUMBER
+    - US_SSN
+    - LOCATION
+    - DATE_TIME
+    - IDENTITY_DOCUMENT
+    - MEDICAL_RECORD_NUMBER
+    - PATIENT_ID
+
+code:
+  entities:
+    - API_KEY
+    - SECRET_KEY
+    - AWS_ACCESS_KEY
+    - AWS_SECRET_KEY
+    - PRIVATE_KEY
+    - PEM_BLOCK
+    - CONNECTION_STRING
+    - PASSWORD
