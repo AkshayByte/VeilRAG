@@ -1,4 +1,4 @@
-"""Custom regex-based PII detectors.
+﻿"""Custom regex-based PII detectors.
 
 These detectors complement Microsoft Presidio's built-in recognizers with
 India-specific and credential-specific patterns.  Each detector exposes a

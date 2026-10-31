@@ -1,4 +1,4 @@
-"""Command-line interface for the Secure RAG Agent.
+﻿"""Command-line interface for the VeilRAG.
 
 Usage
 -----
@@ -39,7 +39,7 @@ def _cmd_query(args: argparse.Namespace) -> None:
 def build_parser() -> argparse.ArgumentParser:
     """Build the CLI argument parser."""
 
-    parser = argparse.ArgumentParser(description="Secure RAG Agent CLI")
+    parser = argparse.ArgumentParser(description="VeilRAG CLI")
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("ingest", help="Ingest documents into ChromaDB")

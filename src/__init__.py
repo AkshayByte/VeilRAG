@@ -1,4 +1,4 @@
-"""Secure RAG Agent — a portfolio project for privacy-preserving document Q&A.
+﻿"""VeilRAG — a portfolio project for privacy-preserving document Q&A.
 
 This package contains the core modules:
 - :mod:`src.config`         — environment-based configuration

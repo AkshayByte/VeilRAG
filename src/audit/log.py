@@ -1,4 +1,4 @@
-"""Structured audit log writer.
+﻿"""Structured audit log writer.
 
 Writes JSONL records where each record contains a hash of the previous
 record, forming an immutable hash chain.  Only entity *types* and *counts*

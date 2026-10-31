@@ -1,4 +1,4 @@
-"""Tests for src/embeddings/."""
+﻿"""Tests for src/embeddings/."""
 
 from __future__ import annotations
 

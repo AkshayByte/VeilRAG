@@ -1,4 +1,4 @@
-"""Local SentenceTransformer embedding model.
+﻿"""Local SentenceTransformer embedding model.
 
 All computation happens on-device; no text leaves the machine.  The model
 is loaded once and cached in a module-level singleton.

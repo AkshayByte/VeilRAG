@@ -1,4 +1,4 @@
-"""Audit logging package — immutable, hash-chained audit trail.
+﻿"""Audit logging package — immutable, hash-chained audit trail.
 
 Each audit record stores:
 - ``timestamp``       — ISO-8601 UTC

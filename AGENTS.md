@@ -1,4 +1,4 @@
-# AGENTS.md — Coding conventions for secure-rag-agent
+﻿# AGENTS.md — Coding conventions for veilrag
 
 ## Language
 - Python 3.11+

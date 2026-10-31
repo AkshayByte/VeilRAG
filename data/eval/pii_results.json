@@ -1,0 +1,47 @@
+{
+  "baseline": false,
+  "num_cases": 1,
+  "overall": {
+    "true_positives": 2,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "false_positive_rate": 0.0
+  },
+  "per_entity_type": {
+    "PERSON": {
+      "true_positives": 1,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    },
+    "EMAIL_ADDRESS": {
+      "true_positives": 1,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "false_positive_rate": 0.0
+    }
+  },
+  "findings": [
+    {
+      "type": "PERSON",
+      "start": 8,
+      "end": 20,
+      "result": "true_positive"
+    },
+    {
+      "type": "EMAIL_ADDRESS",
+      "start": 24,
+      "end": 41,
+      "result": "true_positive"
+    }
+  ]
+}

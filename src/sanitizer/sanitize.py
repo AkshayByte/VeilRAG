@@ -27,13 +27,33 @@ from typing import Any, cast
 
 import yaml
 from presidio_analyzer import AnalyzerEngine, RecognizerResult
+from presidio_analyzer.nlp_engine import NlpEngineProvider
 
+from src.config import settings
 from src.sanitizer.detectors import DEFAULT_DETECTORS, RegexMatch
 from src.sanitizer.recognizers.custom import get_custom_recognizers
 
 logger = logging.getLogger(__name__)
 
 _MODES_PATH = Path(__file__).parent / "modes.yaml"
+_ANALYZER_CACHE: AnalyzerEngine | None = None
+
+
+def _get_analyzer() -> AnalyzerEngine:
+    """Return the cached Presidio AnalyzerEngine configured with the spaCy model from config."""
+    global _ANALYZER_CACHE
+    if _ANALYZER_CACHE is None:
+        nlp_config = {
+            "nlp_engine_name": "spacy",
+            "models": [{"lang_code": "en", "model_name": settings.spacy_model}],
+        }
+        provider = NlpEngineProvider(nlp_configuration=nlp_config)
+        nlp_engine = provider.create_engine()
+        analyzer = AnalyzerEngine(nlp_engine=nlp_engine)
+        for recognizer in get_custom_recognizers():
+            analyzer.registry.add_recognizer(recognizer)
+        _ANALYZER_CACHE = analyzer
+    return _ANALYZER_CACHE
 
 _SENSITIVITY_WEIGHTS: dict[str, float] = {
     "US_SSN": 0.30,
@@ -196,9 +216,7 @@ def sanitize(
             mode_entities = sorted(set(mode_entities) | set(extra_entities))
 
         # --- Presidio Analyzer with built-in + custom recognizers ---
-        analyzer = AnalyzerEngine()
-        for recognizer in get_custom_recognizers():
-            analyzer.registry.add_recognizer(recognizer)
+        analyzer = _get_analyzer()
 
         presidio_results: list[RecognizerResult] = analyzer.analyze(
             text=text,

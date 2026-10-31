@@ -1,1 +1,1 @@
-"""Test package for secure-rag-agent."""
+﻿"""Test package for veilrag."""

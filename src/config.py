@@ -45,6 +45,9 @@ class Settings(BaseSettings):
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     """SentenceTransformer model used for local embeddings."""
 
+    spacy_model: str = "en_core_web_lg"
+    """spaCy model used for Presidio NLP engine and entity recognition."""
+
 
 settings: Settings = Settings()
 """Module-level singleton — import as ``from src.config import settings``."""

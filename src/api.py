@@ -1,4 +1,4 @@
-"""FastAPI HTTP entrypoint for the Secure RAG Agent.
+﻿"""FastAPI HTTP entrypoint for the VeilRAG.
 
 Exposes a single ``POST /query`` endpoint that accepts a user question,
 sanitizes it, retrieves relevant documents, and returns the LLM answer.
@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from fastapi import FastAPI
 
-app: FastAPI = FastAPI(title="Secure RAG Agent", version="0.1.0")
+app: FastAPI = FastAPI(title="VeilRAG", version="0.1.0")
 
 
 @app.get("/health")
@@ -24,7 +24,7 @@ async def health() -> dict[str, str]:
 
 @app.post("/query")
 async def query(question: str) -> dict[str, str]:
-    """Answer a question using the secure RAG pipeline.
+    """Answer a question using the VeilRAG pipeline.
 
     Parameters
     ----------

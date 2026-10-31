@@ -1,4 +1,4 @@
-"""LangGraph state machine for the secure RAG pipeline.
+"""LangGraph state machine for the VeilRAG pipeline.
 
 Graph nodes (in order)
 ----------------------
@@ -32,7 +32,7 @@ class AgentState(TypedDict):
     sanitized_query: str
     retrieved_docs: list[RetrievedDocument]
     prompt: str
-    response: LLMResponse
+    response: LLMResponse | None
     entity_counts: dict[str, int]
 
 

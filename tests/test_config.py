@@ -1,4 +1,4 @@
-"""Tests for src/config.py."""
+﻿"""Tests for src/config.py."""
 
 from __future__ import annotations
 

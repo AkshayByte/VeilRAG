@@ -1,4 +1,4 @@
-"""Local embedding package — SentenceTransformer models run entirely on-device.
+﻿"""Local embedding package — SentenceTransformer models run entirely on-device.
 
 No text or embeddings are sent to any external service.  Models are cached
 locally under ``~/.cache/huggingface`` by default.

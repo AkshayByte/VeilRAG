@@ -225,6 +225,37 @@ def test_aadhaar_valid_redacted() -> None:
     assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
 
 
+def test_aadhaar_dashed_form_redacted() -> None:
+    """A dashed Verhoeff-valid Aadhaar number is redacted."""
+
+    result = sanitize("Aadhaar: 1000-0000-0004.", mode="general")
+    assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
+    assert "1000-0000-0004" not in result.sanitized_text
+
+
+def test_aadhaar_contiguous_form_redacted() -> None:
+    """A contiguous 12-digit Verhoeff-valid Aadhaar number is redacted."""
+
+    result = sanitize("Aadhaar: 100000000004.", mode="general")
+    assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
+    assert "100000000004" not in result.sanitized_text
+
+
+def test_aadhaar_smoke_vector_redacted() -> None:
+    """Valid Aadhaar test vector alongside PAN, email, and name are all redacted."""
+
+    text = "Rahul Sharma, Aadhaar 2345 6789 0124, PAN ABCDE1234F, rahul@gmail.com"
+    result = sanitize(text)
+    assert "[PERSON_1]" in result.sanitized_text
+    assert "[IDENTITY_DOCUMENT_1]" in result.sanitized_text
+    assert "[PAN_NUMBER_1]" in result.sanitized_text
+    assert "[EMAIL_ADDRESS_1]" in result.sanitized_text
+    assert "2345 6789 0124" not in result.sanitized_text
+    assert "ABCDE1234F" not in result.sanitized_text
+    assert "rahul@gmail.com" not in result.sanitized_text
+    assert len(result.entities) == 4
+
+
 def test_aadhaar_invalid_not_redacted() -> None:
     """A 12-digit number failing Verhoeff (e.g. order number) is NOT redacted as Aadhaar."""
 
@@ -233,6 +264,12 @@ def test_aadhaar_invalid_not_redacted() -> None:
     aadhaar_entities = [e for e in result.entities if e.entity_type == "IDENTITY_DOCUMENT"]
     assert len(aadhaar_entities) == 0
     assert "123456789012" in result.sanitized_text
+
+    # Also test another 12-digit invalid number (such as 2345 6789 0123)
+    res2 = sanitize("Order number 2345 6789 0123 processed successfully.")
+    aadhaar2 = [e for e in res2.entities if e.entity_type == "IDENTITY_DOCUMENT"]
+    assert len(aadhaar2) == 0
+    assert "2345 6789 0123" in res2.sanitized_text
 
 
 def test_pan_redacted() -> None:

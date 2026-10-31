@@ -1,4 +1,4 @@
-"""Tests for src/api.py."""
+﻿"""Tests for src/api.py."""
 
 from __future__ import annotations
 

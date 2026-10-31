@@ -1,4 +1,4 @@
-# Secure RAG Agent
+﻿# VeilRAG
 
 > Placeholder README — content to be fleshed out as the project grows.
 

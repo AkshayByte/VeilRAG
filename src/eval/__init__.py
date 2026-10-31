@@ -1,4 +1,4 @@
-"""Evaluation package — automated quality and security checks.
+﻿"""Evaluation package — automated quality and security checks.
 
 Sub-modules
 -----------

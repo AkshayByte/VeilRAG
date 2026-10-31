@@ -1,4 +1,240 @@
-{"text": "Alice Johnson's email is alice@example.com and phone is 555-876-5432.", "entities": [{"type": "PERSON", "start": 0, "end": 12, "text": "Alice Johnson"}, {"type": "EMAIL_ADDRESS", "start": 34, "end": 51, "text": "alice@example.com"}, {"type": "PHONE_NUMBER", "start": 63, "end": 77, "text": "555-876-5432"}]}
-{"text": "Mr. Bob Smith visited our clinic on 2024-01-15.", "entities": [{"type": "PERSON", "start": 4, "end": 13, "text": "Bob Smith"}, {"type": "DATE_TIME", "start": 39, "end": 49, "text": "2024-01-15"}]}
-{"text": "Credit card 4111-1111-1111-1111 belongs to Carol Lee.", "entities": [{"type": "CREDIT_CARD", "start": 12, "end": 31, "text": "4111-1111-1111-1111"}, {"type": "PERSON", "start": 43, "end": 53, "text": "Carol Lee"}]}
-{"text": "API_KEY=sk-abc123secret and AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE used in config.", "entities": [{"type": "API_KEY", "start": 10, "end": 25, "text": "sk-abc123secret"}, {"type": "AWS_ACCESS_KEY", "start": 38, "end": 66, "text": "AKIAIOSFODNN7EXAMPLE"}]}
+{"text": "The Banjeet Bora conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Rishi Konda the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Jack Ritter conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 15}]}
+{"text": "During Nicholas Bhavsar the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 23}]}
+{"text": "The Caleb Sandhu conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Karan Sawhney the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 20}]}
+{"text": "The Warjas Sunder conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 17}]}
+{"text": "During Yadavi Nayak the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Brandi Smith conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Diya Bhagat the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Nandini Bera conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Wazir Dua the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 16}]}
+{"text": "The Vrinda Goswami conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 18}]}
+{"text": "During George Badal the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Sachi Raj conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 13}]}
+{"text": "During Tristan Nigam the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 20}]}
+{"text": "The Jennifer Rocha conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 18}]}
+{"text": "During Nidra Shroff the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Eric Lee conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 12}]}
+{"text": "During Sandra Cruz the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Nikita Boase conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Prisha Devi the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Cheryl Bryant conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 17}]}
+{"text": "During Robert Miller the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 20}]}
+{"text": "The Thomas Schroeder conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 20}]}
+{"text": "During Upkaar Pillay the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 20}]}
+{"text": "The Warhi Sane conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 14}]}
+{"text": "During Jason Schwartz the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 21}]}
+{"text": "The Praneel Sibal conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 17}]}
+{"text": "During Omaja Swamy the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Tammy Diaz conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 14}]}
+{"text": "During Mohini Jhaveri the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 21}]}
+{"text": "The Anna Lang conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 13}]}
+{"text": "During Robert Scott the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Lori Bennett conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Radhika Pandey the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 21}]}
+{"text": "The Dennis Kramer conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 17}]}
+{"text": "During Tanveer Kashyap the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 22}]}
+{"text": "The Melanie Mathis conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 18}]}
+{"text": "During Meghana Chaudhari the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 24}]}
+{"text": "The Christine Saunders conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 22}]}
+{"text": "During Maria Moore the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Jacob Dhingra conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 17}]}
+{"text": "During Raghav Tank the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Pratyush Minhas conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 19}]}
+{"text": "During Ishita Wable the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Pamela Griffin conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 18}]}
+{"text": "During Abeer Jha the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 16}]}
+{"text": "The Udarsh Sharma conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 17}]}
+{"text": "During Hemani Nanda the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Martin Hernandez conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 20}]}
+{"text": "During Kevin Brennan the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 20}]}
+{"text": "The Cassandra Leon conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 18}]}
+{"text": "During George Clay the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 18}]}
+{"text": "The Yahvi Kapoor conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Janet Jordan the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Sarah Hayes conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 15}]}
+{"text": "During Indira Setty the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Charles Hale conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Vritti Comar the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 19}]}
+{"text": "The Ekaja Badal conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 15}]}
+{"text": "During Omya Ratta the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 17}]}
+{"text": "The Gopal Batra conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 15}]}
+{"text": "During Michelle Hoover the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 22}]}
+{"text": "The Steven Chan conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 15}]}
+{"text": "During Julian Johnston the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 22}]}
+{"text": "The Anay Dara conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 13}]}
+{"text": "During Mary Moore the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 17}]}
+{"text": "The Hitesh Morar conference speaker {name} will discuss secure data handling.", "entities": [{"type": "PERSON", "start": 4, "end": 16}]}
+{"text": "During Idika Chauhan the meeting, {name} presented the Q3 report.", "entities": [{"type": "PERSON", "start": 7, "end": 20}]}
+{"text": "We verified the Aadhaar 884095724868 successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 24, "end": 36}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 11}]}
+{"text": "We verified the Aadhaar 6740-3959-8074 successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 24, "end": 38}]}
+{"text": "We verified the Aadhaar 7321-0779-7518 successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 24, "end": 38}]}
+{"text": "We verified the Aadhaar 8513 1999 5417 successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 24, "end": 38}]}
+{"text": "We verified the Aadhaar 225078951699 successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 24, "end": 36}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Link your PAN with Aadhaar 2457 8524 4061.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 27, "end": 41}]}
+{"text": "Link your PAN with Aadhaar 480660781150.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 27, "end": 39}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 11}]}
+{"text": "Link your PAN with Aadhaar 4489-1039-7266.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 27, "end": 41}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "We verified the Aadhaar 8008-4955-0069 successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 24, "end": 38}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 11}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 11}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Link your PAN with Aadhaar 590537491815.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 27, "end": 39}]}
+{"text": "We verified the Aadhaar 095776306337 successfully.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 24, "end": 36}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Please enter your Aadhaar number for verification.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Upload a copy of your Aadhaar card.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": -1, "end": 13}]}
+{"text": "Link your PAN with Aadhaar 1950 2848 6959.", "entities": [{"type": "IDENTITY_DOCUMENT", "start": 27, "end": 41}]}
+{"text": "PAN TQFZR5543J does not match our records.", "entities": [{"type": "PAN_NUMBER", "start": 4, "end": 14}]}
+{"text": "Please quote your PAN rwhjq2269y on the form.", "entities": [{"type": "PAN_NUMBER", "start": 22, "end": 32}]}
+{"text": "Enter your PAN number: lltce3471h.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: ygcpp6421t.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: gpnuy1320u.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: MKNPT8999V.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "PAN JPRAN7624X does not match our records.", "entities": [{"type": "PAN_NUMBER", "start": 4, "end": 14}]}
+{"text": "Enter your PAN number: FQEVT1444N.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: wpeqf1823j.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: QLLNJ8705J.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: ztbmh2124w.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: hgave4908e.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: UGQYJ2876F.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: KDUAK4249N.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "PAN UYWHD2983X does not match our records.", "entities": [{"type": "PAN_NUMBER", "start": 4, "end": 14}]}
+{"text": "Enter your PAN number: BMTPX6590C.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Enter your PAN number: prdpm8532y.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "PAN zswjv9817r does not match our records.", "entities": [{"type": "PAN_NUMBER", "start": 4, "end": 14}]}
+{"text": "Please quote your PAN ujlhc5569q on the form.", "entities": [{"type": "PAN_NUMBER", "start": 22, "end": 32}]}
+{"text": "Please quote your PAN UVXNL3979R on the form.", "entities": [{"type": "PAN_NUMBER", "start": 22, "end": 32}]}
+{"text": "Enter your PAN number: gmjlj5526t.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "PAN chzpr4937y does not match our records.", "entities": [{"type": "PAN_NUMBER", "start": 4, "end": 14}]}
+{"text": "PAN RQACK6016N does not match our records.", "entities": [{"type": "PAN_NUMBER", "start": 4, "end": 14}]}
+{"text": "Please quote your PAN UMRTS6419P on the form.", "entities": [{"type": "PAN_NUMBER", "start": 22, "end": 32}]}
+{"text": "Enter your PAN number: YQJKJ6169D.", "entities": [{"type": "PAN_NUMBER", "start": 23, "end": 33}]}
+{"text": "Your account is xmitter+personal@company.co.in.", "entities": [{"type": "EMAIL_ADDRESS", "start": 16, "end": 46}]}
+{"text": "We sent a confirmation to davilachad.38@example.com.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 51}]}
+{"text": "We sent a confirmation to cnoble+tag@company.co.in.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 50}]}
+{"text": "Your account is tparsons.71@example.com.", "entities": [{"type": "EMAIL_ADDRESS", "start": 16, "end": 39}]}
+{"text": "Your account is chakrikasarraf+newsletter@inbox.net.", "entities": [{"type": "EMAIL_ADDRESS", "start": 16, "end": 51}]}
+{"text": "Contact us at kimberlyforbes+promo@inbox.net for support.", "entities": [{"type": "EMAIL_ADDRESS", "start": 14, "end": 44}]}
+{"text": "Reach out to brian24+newsletter@inbox.net before the deadline.", "entities": [{"type": "EMAIL_ADDRESS", "start": 13, "end": 41}]}
+{"text": "Contact us at valentineelizabeth.88@example.com for support.", "entities": [{"type": "EMAIL_ADDRESS", "start": 14, "end": 47}]}
+{"text": "Contact us at miteshsabharwal.39@company.co.in for support.", "entities": [{"type": "EMAIL_ADDRESS", "start": 14, "end": 46}]}
+{"text": "We sent a confirmation to mekhalakeer.54@example.com.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 52}]}
+{"text": "Reach out to villajason.39@inbox.net before the deadline.", "entities": [{"type": "EMAIL_ADDRESS", "start": 13, "end": 36}]}
+{"text": "Contact us at christian25.95@example.com for support.", "entities": [{"type": "EMAIL_ADDRESS", "start": 14, "end": 40}]}
+{"text": "We sent a confirmation to zsethi+newsletter@company.co.in.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 57}]}
+{"text": "Contact us at parekhanthony.21@company.co.in for support.", "entities": [{"type": "EMAIL_ADDRESS", "start": 14, "end": 44}]}
+{"text": "Your account is cfriedman.61@inbox.net.", "entities": [{"type": "EMAIL_ADDRESS", "start": 16, "end": 38}]}
+{"text": "Reach out to balzarna+work@company.co.in before the deadline.", "entities": [{"type": "EMAIL_ADDRESS", "start": 13, "end": 40}]}
+{"text": "We sent a confirmation to kumersamarth.81@company.co.in.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 55}]}
+{"text": "We sent a confirmation to angelica77.83@example.com.", "entities": [{"type": "EMAIL_ADDRESS", "start": 26, "end": 51}]}
+{"text": "Your account is marquezshane+promo@company.co.in.", "entities": [{"type": "EMAIL_ADDRESS", "start": 16, "end": 48}]}
+{"text": "Your account is amandareese+tag@inbox.net.", "entities": [{"type": "EMAIL_ADDRESS", "start": 16, "end": 41}]}
+{"text": "Reach out to hporter.64@mail.org before the deadline.", "entities": [{"type": "EMAIL_ADDRESS", "start": 13, "end": 32}]}
+{"text": "Your account is chhabraayush.95@example.com.", "entities": [{"type": "EMAIL_ADDRESS", "start": 16, "end": 43}]}
+{"text": "Contact us at ereyes+tag@example.com for support.", "entities": [{"type": "EMAIL_ADDRESS", "start": 14, "end": 36}]}
+{"text": "Reach out to utravis.23@example.com before the deadline.", "entities": [{"type": "EMAIL_ADDRESS", "start": 13, "end": 35}]}
+{"text": "Reach out to claudia78+123@mail.org before the deadline.", "entities": [{"type": "EMAIL_ADDRESS", "start": 13, "end": 35}]}
+{"text": "Mobile number on file: +91 9489314884.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 37}]}
+{"text": "Dial 91 (+91)9499567777 from outside India.", "entities": [{"type": "INDIAN_MOBILE", "start": 8, "end": 23}]}
+{"text": "Reach me at +91 9684789917 during work hours.", "entities": [{"type": "INDIAN_MOBILE", "start": 12, "end": 26}]}
+{"text": "Mobile number on file: (+91)9902284542.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 38}]}
+{"text": "Call +91 (+91)9209668766 for inquiries.", "entities": [{"type": "INDIAN_MOBILE", "start": 9, "end": 24}]}
+{"text": "Dial 91 +91 9017028574 from outside India.", "entities": [{"type": "INDIAN_MOBILE", "start": 8, "end": 22}]}
+{"text": "Call +91 91-9282940962 for inquiries.", "entities": [{"type": "INDIAN_MOBILE", "start": 9, "end": 22}]}
+{"text": "Mobile number on file: +91 9908064004.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 37}]}
+{"text": "Reach me at +91 9599991373 during work hours.", "entities": [{"type": "INDIAN_MOBILE", "start": 12, "end": 26}]}
+{"text": "Mobile number on file: (+91)9849204471.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 38}]}
+{"text": "Dial 91 9632157616 from outside India.", "entities": [{"type": "INDIAN_MOBILE", "start": 8, "end": 18}]}
+{"text": "Mobile number on file: 91-9444206165.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 36}]}
+{"text": "Call +91 +91 9013414671 for inquiries.", "entities": [{"type": "INDIAN_MOBILE", "start": 9, "end": 23}]}
+{"text": "Dial 91 9170010752 from outside India.", "entities": [{"type": "INDIAN_MOBILE", "start": 8, "end": 18}]}
+{"text": "Call +91 (+91)9136485884 for inquiries.", "entities": [{"type": "INDIAN_MOBILE", "start": 9, "end": 24}]}
+{"text": "Mobile number on file: +91 9630134366.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 37}]}
+{"text": "Mobile number on file: 9800330363.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 33}]}
+{"text": "Mobile number on file: 91-9844301336.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 36}]}
+{"text": "Reach me at (+91)9847638315 during work hours.", "entities": [{"type": "INDIAN_MOBILE", "start": 12, "end": 27}]}
+{"text": "Mobile number on file: 9013362362.", "entities": [{"type": "INDIAN_MOBILE", "start": 23, "end": 33}]}
+{"text": "Use UPI ID {credit_cardupi} to pay.", "entities": [{"type": "CREDIT_CARD", "start": -1, "end": 18}]}
+{"text": "Patient MRN {credit_cardmrn} requires follow-up.", "entities": [{"type": "CREDIT_CARD", "start": -1, "end": 18}]}
+{"text": "The server IP is {credit_cardip}.", "entities": [{"type": "CREDIT_CARD", "start": -1, "end": 18}]}
+{"text": "Send payment to account {iban_codeifsc} IFSC.", "entities": [{"type": "IBAN_CODE", "start": -1, "end": 21}]}
+{"text": "The IBAN {iban_codeiban} belongs to the vendor.", "entities": [{"type": "IBAN_CODE", "start": -1, "end": 21}]}
+{"text": "The SSN on file is {iban_codessn}.", "entities": [{"type": "IBAN_CODE", "start": -1, "end": 21}]}
+{"text": "AWS access key {ifsc_codeak} leaked in the repo.", "entities": [{"type": "IFSC_CODE", "start": -1, "end": 10}]}
+{"text": "API key {ifsc_codesecret} must not be committed.", "entities": [{"type": "IFSC_CODE", "start": -1, "end": 10}]}
+{"text": "The server IP is {ifsc_codeip}.", "entities": [{"type": "IFSC_CODE", "start": -1, "end": 10}]}
+{"text": "The SSN on file is {upi_idssn}.", "entities": [{"type": "UPI_ID", "start": -1, "end": 8}]}
+{"text": "Credit card {upi_idcc} expired last year.", "entities": [{"type": "UPI_ID", "start": -1, "end": 8}]}
+{"text": "The SSN on file is {upi_idssn}.", "entities": [{"type": "UPI_ID", "start": -1, "end": 8}]}
+{"text": "The SSN on file is {us_ssnssn}.", "entities": [{"type": "US_SSN", "start": -1, "end": 10}]}
+{"text": "Patient MRN {us_ssnmrn} requires follow-up.", "entities": [{"type": "US_SSN", "start": -1, "end": 10}]}
+{"text": "Patient MRN {us_ssnmrn} requires follow-up.", "entities": [{"type": "US_SSN", "start": -1, "end": 10}]}
+{"text": "The URL {secret_keyurl} points to the staging env.", "entities": [{"type": "SECRET_KEY", "start": -1, "end": 34}]}
+{"text": "Send payment to account {secret_keyifsc} IFSC.", "entities": [{"type": "SECRET_KEY", "start": -1, "end": 34}]}
+{"text": "The URL {secret_keyurl} points to the staging env.", "entities": [{"type": "SECRET_KEY", "start": -1, "end": 34}]}
+{"text": "The server IP is {aws_access_keyip}.", "entities": [{"type": "AWS_ACCESS_KEY", "start": -1, "end": 19}]}
+{"text": "The URL {aws_access_keyurl} points to the staging env.", "entities": [{"type": "AWS_ACCESS_KEY", "start": -1, "end": 19}]}
+{"text": "API key {aws_access_keysecret} must not be committed.", "entities": [{"type": "AWS_ACCESS_KEY", "start": -1, "end": 19}]}
+{"text": "API key {urlsecret} must not be committed.", "entities": [{"type": "URL", "start": -1, "end": 30}]}
+{"text": "The server IP is {urlip}.", "entities": [{"type": "URL", "start": -1, "end": 30}]}
+{"text": "The server IP is {urlip}.", "entities": [{"type": "URL", "start": -1, "end": 30}]}
+{"text": "AWS access key {ip_addressak} leaked in the repo.", "entities": [{"type": "IP_ADDRESS", "start": -1, "end": 11}]}
+{"text": "The URL {ip_addressurl} points to the staging env.", "entities": [{"type": "IP_ADDRESS", "start": -1, "end": 11}]}
+{"text": "API key {ip_addresssecret} must not be committed.", "entities": [{"type": "IP_ADDRESS", "start": -1, "end": 11}]}
+{"text": "Use UPI ID {medical_record_numberupi} to pay.", "entities": [{"type": "MEDICAL_RECORD_NUMBER", "start": -1, "end": 7}]}
+{"text": "Use UPI ID {medical_record_numberupi} to pay.", "entities": [{"type": "MEDICAL_RECORD_NUMBER", "start": -1, "end": 7}]}
+{"text": "Patient MRN {medical_record_numbermrn} requires follow-up.", "entities": [{"type": "MEDICAL_RECORD_NUMBER", "start": -1, "end": 7}]}
+{"text": "The order {oid} shipped yesterday.", "entities": [{"type": "order_id", "start": 0, "end": 1}]}
+{"text": "The order {oid} shipped yesterday.", "entities": [{"type": "order_id", "start": 0, "end": 1}]}
+{"text": "The order {oid} shipped yesterday.", "entities": [{"type": "order_id", "start": 0, "end": 1}]}
+{"text": "The order {oid} shipped yesterday.", "entities": [{"type": "order_id", "start": 0, "end": 1}]}
+{"text": "The order {oid} shipped yesterday.", "entities": [{"type": "order_id", "start": 0, "end": 1}]}
+{"text": "Pincode {pc} covers this area.", "entities": [{"type": "pincode", "start": 0, "end": 1}]}
+{"text": "Pincode {pc} covers this area.", "entities": [{"type": "pincode", "start": 0, "end": 1}]}
+{"text": "Pincode {pc} covers this area.", "entities": [{"type": "pincode", "start": 0, "end": 1}]}
+{"text": "Pincode {pc} covers this area.", "entities": [{"type": "pincode", "start": 0, "end": 1}]}
+{"text": "Serial {sn} is under warranty.", "entities": [{"type": "serial", "start": 0, "end": 1}]}
+{"text": "Serial {sn} is under warranty.", "entities": [{"type": "serial", "start": 0, "end": 1}]}
+{"text": "Serial {sn} is under warranty.", "entities": [{"type": "serial", "start": 0, "end": 1}]}
+{"text": "The quick brown fox jumps over the lazy dog.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "No PII in this clean sentence at all.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Meeting at 3pm tomorrow in room 204.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Budget is 15000 rupees for Q3 planning.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Invoice 77821 is due on the 15th.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Room 305 booked until 5:30.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Flight number 4921 departs on time.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Password reset link: https://portal.example.com/reset?token=abc", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Q3 revenue target is fifteen million.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Please update the README before Monday.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Q3 revenue target is fifteen million.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "The project milestone is next Friday.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Documentation is in the shared drive.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Office supplies order arrived today.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Q3 revenue target is fifteen million.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Q3 revenue target is fifteen million.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Team sync happens at 10am every Monday.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Office supplies order arrived today.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "The project milestone is next Friday.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Team sync happens at 10am every Monday.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "The demo ran without errors.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Please keep the conference room until five.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Documentation is in the shared drive.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Cloud hosting costs rose by twelve percent.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Office supplies order arrived today.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Cloud hosting costs rose by twelve percent.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "The demo ran without errors.", "entities": [{"type": "clean", "start": 0, "end": 1}]}
+{"text": "Office supplies order arrived today.", "entities": [{"type": "clean", "start": 0, "end": 1}]}

@@ -1,4 +1,4 @@
-"""RAG question-answering evaluation.
+﻿"""RAG question-answering evaluation.
 
 Loads ``data/eval/qa_pairs.jsonl``, runs the agent on each question, and
 compares generated answers against expected answers using exact match

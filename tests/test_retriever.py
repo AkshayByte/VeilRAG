@@ -1,4 +1,4 @@
-"""Tests for src/rag/retriever.py."""
+﻿"""Tests for src/rag/retriever.py."""
 
 from __future__ import annotations
 

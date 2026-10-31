@@ -1,4 +1,4 @@
-"""PII sanitization package — Presidio + custom regex + spaCy NER.
+﻿"""PII sanitization package — Presidio + custom regex + spaCy NER.
 
 Public API
 ----------

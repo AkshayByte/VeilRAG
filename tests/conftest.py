@@ -1,4 +1,4 @@
-"""Shared pytest fixtures for secure-rag-agent tests."""
+﻿"""Shared pytest fixtures for veilrag tests."""
 
 from __future__ import annotations
 

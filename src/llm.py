@@ -1,4 +1,4 @@
-"""LLM adapter — the single exit point for all LLM calls.
+﻿"""LLM adapter — the single exit point for all LLM calls.
 
 The provider is selected via the ``LLM_PROVIDER`` environment variable:
 

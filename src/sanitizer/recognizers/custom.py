@@ -33,7 +33,7 @@ class AadhaarRecognizer(EntityRecognizer):
             name="AadhaarRecognizer",
             version="0.1.0",
         )
-        self._pattern = re.compile(r"\b\d{4}\s?\d{4}\s?\d{4}\b")
+        self._pattern = re.compile(r"\b\d{4}[-\s]?\d{4}[-\s]?\d{4}\b")
 
     def analyze(
         self,
@@ -48,7 +48,7 @@ class AadhaarRecognizer(EntityRecognizer):
 
         results: list[RecognizerResult] = []
         for m in self._pattern.finditer(text):
-            digits = m.group().replace(" ", "")
+            digits = re.sub(r"[-\s]", "", m.group())
             if len(digits) == 12 and validate_verhoeff(digits):
                 results.append(
                     RecognizerResult(

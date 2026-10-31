@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0,<69"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "secure-rag-agent"
+name = "veilrag"
 version = "0.1.0"
 description = "Secure RAG agent with PII sanitization, local embeddings, and auditable data flow"
 requires-python = ">=3.11"
@@ -34,7 +34,7 @@ dev = [
 ]
 
 [project.scripts]
-secure-rag = "src.rag.cli:main"
+veilrag = "src.rag.cli:main"
 
 [tool.ruff]
 line-length = 100

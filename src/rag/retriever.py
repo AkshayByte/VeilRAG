@@ -1,4 +1,4 @@
-"""ChromaDB retrieval wrapper.
+﻿"""ChromaDB retrieval wrapper.
 
 All queries are sanitized before embedding so that no raw PII is stored
 or searched.

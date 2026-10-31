@@ -1,4 +1,4 @@
-"""Tests for src/rag/agent.py — including the no-unredacted-text-to-LLM guarantee."""
+﻿"""Tests for src/rag/agent.py — including the no-unredacted-text-to-LLM guarantee."""
 
 from __future__ import annotations
 

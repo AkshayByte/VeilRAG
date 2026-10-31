@@ -26,7 +26,7 @@ def test_audit_logger_construct(tmp_path: Path) -> None:
     assert logger._path.endswith("audit.log.jsonl")
 
 
-def test_log_sanitize_not_implemented(tmp_path) -> None:
+def test_log_sanitize_not_implemented(tmp_path: Path) -> None:
     """log_sanitize is a stub."""
 
     logger = AuditLogger(path=str(tmp_path / "audit.log.jsonl"))

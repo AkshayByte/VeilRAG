@@ -1,4 +1,4 @@
-"""Hash-chain verification for the audit log.
+﻿"""Hash-chain verification for the audit log.
 
 Given an audit log path, :func:`verify_chain` reconstructs the chain of
 SHA-256 hashes and raises :class:`VerificationError` if any record has been
