@@ -98,8 +98,8 @@ class Detector:
         return results
 
 
-# Indian mobile: +91 / 91 / 10 digits starting 6-9
-_INDIAN_MOBILE_PATTERN = r"(?:\+?91[\s\-]*)?[6-9]\d{9}\b"
+# Indian mobile: +91 / 91 / 10 digits starting 6-9 (optional 5+5 digit separator)
+_INDIAN_MOBILE_PATTERN = r"(?<!\d)(?:\+?91[\s\-]*)?[6-9]\d{4}[-\s]?\d{5}\b"
 
 # PAN: AAAAA9999A (5 alpha, 4 digit, 1 alpha, case-insensitive)
 _PAN_PATTERN = r"\b[A-Za-z]{5}[0-9]{4}[A-Za-z]\b"

@@ -39,7 +39,7 @@ class AadhaarRecognizer(EntityRecognizer):
             name="AadhaarRecognizer",
             version="0.1.0",
         )
-        self._pattern = re.compile(r"\b\d{4}[-\s]?\d{4}[-\s]?\d{4}\b")
+        self._pattern = re.compile(r"\b[2-9]\d{3}[-\s.]?\d{4}[-\s.]?\d{4}\b")
 
     def analyze(
         self,
@@ -54,7 +54,7 @@ class AadhaarRecognizer(EntityRecognizer):
 
         results: list[RecognizerResult] = []
         for m in self._pattern.finditer(text):
-            digits = re.sub(r"[-\s]", "", m.group())
+            digits = re.sub(r"[-\s.]", "", m.group())
             if len(digits) != 12:
                 continue
 
@@ -215,7 +215,7 @@ class IndianMobileRecognizer(EntityRecognizer):
             name="IndianMobileRecognizer",
             version="0.1.0",
         )
-        self._pattern = re.compile(r"(?:\+?91[\s\-]*)?[6-9]\d{9}\b")
+        self._pattern = re.compile(r"(?<!\d)(?:\+?91[\s\-]*)?[6-9]\d{4}[-\s]?\d{5}\b")
 
     def analyze(
         self,

@@ -241,6 +241,14 @@ def test_aadhaar_contiguous_form_redacted() -> None:
     assert "200000000009" not in result.sanitized_text
 
 
+def test_aadhaar_dotted_form_redacted() -> None:
+    """A dotted 12-digit Verhoeff-valid Aadhaar number is redacted."""
+
+    result = sanitize("Aadhaar: 2345.6789.0124.", mode="general")
+    assert "[AADHAAR_1]" in result.sanitized_text
+    assert "2345.6789.0124" not in result.sanitized_text
+
+
 def test_aadhaar_smoke_vector_redacted() -> None:
     """Valid Aadhaar test vector alongside PAN, email, and name are all redacted."""
 
@@ -321,6 +329,30 @@ def test_indian_mobile_redacted() -> None:
     result = sanitize("Call +91 9876543210.")
     assert "+91 9876543210" not in result.sanitized_text
     assert "[PHONE_1]" in result.sanitized_text
+
+
+def test_indian_mobile_not_matched_inside_12_digit_number() -> None:
+    """A 12-digit number (barcode/tracking) must not have its tail matched as a mobile number."""
+
+    # 109283746519 ends in 9283746519 (a 10-digit sequence starting with 9).
+    # Without negative lookbehind, this falsely flagged as INDIAN_MOBILE.
+    text = "Package tracking barcode 109283746519 was registered."
+    result = sanitize(text, mode="general")
+    mobile_entities = [e for e in result.entities if e.entity_type == "INDIAN_MOBILE"]
+    assert len(mobile_entities) == 0
+    assert "109283746519" in result.sanitized_text
+
+
+def test_indian_mobile_split_blocks_redacted() -> None:
+    """Indian mobile numbers formatted with 5+5 digit blocks or dashes are redacted."""
+
+    res1 = sanitize("Reach me at +91-98765-43210 immediately.")
+    assert "+91-98765-43210" not in res1.sanitized_text
+    assert "[PHONE_1]" in res1.sanitized_text
+
+    res2 = sanitize("Helpline desk contact: 98765 43210.")
+    assert "98765 43210" not in res2.sanitized_text
+    assert "[PHONE_1]" in res2.sanitized_text
 
 
 def test_aws_secret_key_redacted() -> None:
