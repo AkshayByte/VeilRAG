@@ -85,6 +85,79 @@
 | `US_SSN` | 1.0000 | 0.5000 | 0.6667 | 0.0000 | 1 | 0 | 1 |
 | **OVERALL** | **0.2982** | **0.4824** | **0.3685** | **0.4250** | **82** | **193** | **88** |
 
+## 2. Held-Out Dataset Evaluation (HELD-OUT)
+
+- **Dataset**: `data/eval/pii_heldout.jsonl`
+- Frozen recognizers (`recognizers-frozen-v1`). Evaluated strictly once without tuning.
+
+### HELD-OUT Set: VeilRAG vs Presidio Baseline Summary
+
+| Metric | VeilRAG (Full) | Presidio (Baseline) | Absolute Lift |
+|:---|:---:|:---:|:---:|
+| **Precision** | 0.5636 | 0.1274 | +0.4362 |
+| **Recall** | 0.7949 | 0.3013 | +0.4936 |
+| **F1 Score** | 0.6596 | 0.1790 | +0.4806 |
+| **Clean-case FPR** | 0.3167 | 0.7333 | -0.4166 |
+
+### HELD-OUT Set — VeilRAG Full Configuration
+
+- Cases evaluated: 216
+- PII-free clean cases: 60
+- Flagged clean cases: 19 (Clean-case FPR: 0.3167)
+- Span overlap threshold (IoU): 80%
+
+| Entity Type | Precision | Recall | F1 Score | Clean FPR | TP | FP | FN |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `AWS_ACCESS_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
+| `AWS_SECRET_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
+| `CREDIT_CARD` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
+| `EMAIL_ADDRESS` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 25 | 0 | 0 |
+| `IBAN_CODE` | 1.0000 | 0.5000 | 0.6667 | 0.0000 | 1 | 0 | 1 |
+| `IDENTITY_DOCUMENT` | 0.8800 | 0.7333 | 0.8000 | 0.0500 | 22 | 3 | 8 |
+| `IFSC_CODE` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
+| `INDIAN_MOBILE` | 0.5833 | 0.7000 | 0.6364 | 0.1667 | 14 | 10 | 6 |
+| `PAN_NUMBER` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 25 | 0 | 0 |
+| `PERSON` | 0.1978 | 0.5143 | 0.2857 | 0.0167 | 18 | 73 | 17 |
+| `PHONE_NUMBER` | 0.0000 | 0.0000 | 0.0000 | 0.0833 | 0 | 10 | 0 |
+| `SECRET_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
+| `UPI_ID` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 4 | 0 | 0 |
+| `US_SSN` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
+| **OVERALL** | **0.5636** | **0.7949** | **0.6596** | **0.3167** | **124** | **96** | **32** |
+
+### HELD-OUT Set — Presidio Baseline Configuration
+
+- Cases evaluated: 216
+- PII-free clean cases: 60
+- Flagged clean cases: 44 (Clean-case FPR: 0.7333)
+- Span overlap threshold (IoU): 80%
+
+| Entity Type | Precision | Recall | F1 Score | Clean FPR | TP | FP | FN |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `AWS_ACCESS_KEY` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 3 |
+| `AWS_SECRET_KEY` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 2 |
+| `CREDIT_CARD` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 2 |
+| `DATE_TIME` | 0.0000 | 0.0000 | 0.0000 | 0.2500 | 0 | 55 | 0 |
+| `EMAIL_ADDRESS` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 25 | 0 | 0 |
+| `IBAN_CODE` | 1.0000 | 0.5000 | 0.6667 | 0.0000 | 1 | 0 | 1 |
+| `IDENTITY_DOCUMENT` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 30 |
+| `IFSC_CODE` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 3 |
+| `INDIAN_MOBILE` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 20 |
+| `LOCATION` | 0.0000 | 0.0000 | 0.0000 | 0.0333 | 0 | 9 | 0 |
+| `MAC_ADDRESS` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 7 | 0 |
+| `NRP` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 1 | 0 |
+| `PAN_NUMBER` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 25 |
+| `PERSON` | 0.1978 | 0.5143 | 0.2857 | 0.0167 | 18 | 73 | 17 |
+| `PHONE_NUMBER` | 0.0000 | 0.0000 | 0.0000 | 0.0833 | 0 | 27 | 0 |
+| `SECRET_KEY` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 2 |
+| `UK_NHS` | 0.0000 | 0.0000 | 0.0000 | 0.0333 | 0 | 5 | 0 |
+| `UPI_ID` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 4 |
+| `URL` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 29 | 0 |
+| `US_BANK_NUMBER` | 0.0000 | 0.0000 | 0.0000 | 0.5167 | 0 | 53 | 0 |
+| `US_DRIVER_LICENSE` | 0.0000 | 0.0000 | 0.0000 | 0.6500 | 0 | 62 | 0 |
+| `US_ITIN` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 1 | 0 |
+| `US_SSN` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
+| **OVERALL** | **0.1274** | **0.3013** | **0.1790** | **0.7333** | **47** | **322** | **109** |
+
 ## Limitations
 
 - **Synthetic Data**: Both the development and held-out evaluation sets are synthetically generated using Faker (`en_IN` and `en_US`). Real-world private documents exhibit messier token distributions, arbitrary OCR errors, multi-column tables, scanned PDFs, and handwriting not fully represented in synthetic text strings.

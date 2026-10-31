@@ -90,3 +90,34 @@ def test_clean_case_fpr_hand_computed_example() -> None:
     assert flagged_clean == 1
     assert fpr == 0.25
     assert per_type_fpr["PERSON"] == 0.25
+
+
+def test_no_shared_templates_between_dev_and_heldout() -> None:
+    """No template text from the dev set generator may be shared with the heldout set generator."""
+    import ast
+    from pathlib import Path
+
+    dev_path = Path("src/eval/gen_pii_cases.py")
+    heldout_path = Path("scripts/gen_pii_heldout.py")
+
+    assert dev_path.exists(), "src/eval/gen_pii_cases.py not found"
+    assert heldout_path.exists(), "scripts/gen_pii_heldout.py not found"
+
+    def extract_templates(file_path: Path) -> set[str]:
+        tree = ast.parse(file_path.read_text(encoding="utf-8"))
+        templates: set[str] = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Constant) and isinstance(node.value, str):
+                val = node.value.strip()
+                # A template has placeholders like {name}, {num}, {pan}, {email}, etc.
+                if "{" in val and "}" in val and len(val) > 10:
+                    templates.add(val)
+        return templates
+
+    dev_templates = extract_templates(dev_path)
+    heldout_templates = extract_templates(heldout_path)
+
+    shared = dev_templates & heldout_templates
+    assert len(shared) == 0, f"Found shared templates between dev and heldout: {shared}"
+    assert len(dev_templates) > 0
+    assert len(heldout_templates) > 0
