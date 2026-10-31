@@ -38,9 +38,11 @@ def _get_presidio_analyzer() -> AnalyzerEngine:
 HERE = Path(__file__).parent
 DATA_DIR = HERE.parent.parent / "data" / "eval"
 DEV_CASES_PATH = DATA_DIR / "pii_cases.jsonl"
+DEV2_CASES_PATH = DATA_DIR / "pii_dev2.jsonl"
 HELDOUT_CASES_PATH = DATA_DIR / "pii_heldout.jsonl"
 CASES_PATH = DEV_CASES_PATH
 DEV_RESULTS_PATH = DATA_DIR / "pii_results.json"
+DEV2_RESULTS_PATH = DATA_DIR / "pii_results_dev2.json"
 HELDOUT_RESULTS_PATH = DATA_DIR / "pii_results_heldout.json"
 RESULTS_PATH = DEV_RESULTS_PATH
 DOCS_RESULTS_PATH = HERE.parent.parent / "docs" / "pii_results.md"
@@ -170,13 +172,70 @@ def _matches_gold(detected: tuple[str, int, int], gold: list[tuple[str, int, int
     return False
 
 
+def compute_char_metrics(
+    text: str,
+    gold_spans: list[tuple[str, int, int]],
+    detected_spans: list[tuple[str, int, int]],
+) -> dict[str, Any]:
+    """Compute type-agnostic character-level leak and over-redaction metrics.
+
+    Parameters
+    ----------
+    text
+        The input text string.
+    gold_spans
+        Ground-truth entity spans as (type, start, end).
+    detected_spans
+        Detected entity spans as (type, start, end).
+
+    Returns
+    -------
+    dict[str, Any]
+        Dictionary with character counts and rates:
+        - ``gold_chars``: number of characters in ground-truth PII spans
+        - ``leaked_chars``: gold characters not covered by any detected span
+        - ``non_pii_chars``: number of non-PII characters in text
+        - ``over_redacted_chars``: non-PII characters covered by a detected span
+        - ``leak_rate``: leaked_chars / gold_chars (0.0 if gold_chars == 0)
+        - ``over_redaction_rate``: over_redacted_chars / non_pii_chars (0.0 if non_pii_chars == 0)
+    """
+    text_len = len(text)
+    gold_indices: set[int] = set()
+    for _, s, e in gold_spans:
+        gold_indices.update(range(max(0, s), min(text_len, e)))
+
+    det_indices: set[int] = set()
+    for _, s, e in detected_spans:
+        det_indices.update(range(max(0, s), min(text_len, e)))
+
+    non_pii_indices = set(range(text_len)) - gold_indices
+
+    gold_chars = len(gold_indices)
+    leaked_chars = len(gold_indices - det_indices)
+    non_pii_chars = len(non_pii_indices)
+    over_redacted_chars = len(det_indices & non_pii_indices)
+
+    leak_rate = leaked_chars / gold_chars if gold_chars > 0 else 0.0
+    over_redaction_rate = (
+        over_redacted_chars / non_pii_chars if non_pii_chars > 0 else 0.0
+    )
+
+    return {
+        "gold_chars": gold_chars,
+        "leaked_chars": leaked_chars,
+        "non_pii_chars": non_pii_chars,
+        "over_redacted_chars": over_redacted_chars,
+        "leak_rate": leak_rate,
+        "over_redaction_rate": over_redaction_rate,
+    }
+
+
 def evaluate_case(
     case: Case, *, baseline: bool = False
-) -> tuple[int, int, int, int, list[dict[str, Any]]]:
+) -> tuple[int, int, int, int, list[dict[str, Any]], dict[str, Any]]:
     """Evaluate a single case against gold spans.
 
-    Returns a 4-tuple of (tp, fp, fn, total_gold) plus a list of per-entity
-    findings for the report.
+    Returns a 6-tuple of (tp, fp, fn, total_gold, findings, char_metrics).
     """
     if baseline:
         results = _get_presidio_analyzer().analyze(text=case.text, language="en")
@@ -212,25 +271,47 @@ def evaluate_case(
                 {"type": g[0], "start": g[1], "end": g[2], "result": "false_negative"}
             )
 
-    return tp, fp, fn, len(gold), findings
+    char_metrics = compute_char_metrics(case.text, gold, detected)
+
+    return tp, fp, fn, len(gold), findings, char_metrics
 
 
 def _collect_metrics(
     cases: list[Case],
     *,
     baseline: bool = False,
-) -> tuple[Metrics, dict[str, Metrics], list[dict[str, Any]], float, int, int, dict[str, float]]:
-    """Run evaluation over all cases, returning overall and per-type metrics."""
+) -> tuple[
+    Metrics,
+    dict[str, Metrics],
+    list[dict[str, Any]],
+    float,
+    int,
+    int,
+    dict[str, float],
+    dict[str, Any],
+]:
+    """Run evaluation over all cases, returning overall, per-type, and character-level metrics."""
     overall = Metrics()
     per_type: dict[str, Metrics] = {}
     findings: list[dict[str, Any]] = []
     case_findings: list[list[dict[str, Any]]] = []
 
+    total_gold_chars = 0
+    total_leaked_chars = 0
+    total_non_pii_chars = 0
+    total_over_redacted_chars = 0
+
     for case in cases:
-        tp, fp, fn, total_gold, per_case = evaluate_case(case, baseline=baseline)
+        tp, fp, fn, total_gold, per_case, char_metrics = evaluate_case(case, baseline=baseline)
         findings.extend(per_case)
         case_findings.append(per_case)
         overall += Metrics(tp, fp, fn)
+
+        total_gold_chars += char_metrics["gold_chars"]
+        total_leaked_chars += char_metrics["leaked_chars"]
+        total_non_pii_chars += char_metrics["non_pii_chars"]
+        total_over_redacted_chars += char_metrics["over_redacted_chars"]
+
         for f in per_case:
             m = per_type.setdefault(f["type"], Metrics())
             if f["result"] == "true_positive":
@@ -243,7 +324,35 @@ def _collect_metrics(
     clean_fpr, total_clean, flagged_clean, per_type_clean_fpr = compute_clean_case_fpr(
         cases, case_findings
     )
-    return overall, per_type, findings, clean_fpr, total_clean, flagged_clean, per_type_clean_fpr
+
+    overall_leak_rate = (
+        total_leaked_chars / total_gold_chars if total_gold_chars > 0 else 0.0
+    )
+    overall_over_redaction_rate = (
+        total_over_redacted_chars / total_non_pii_chars
+        if total_non_pii_chars > 0
+        else 0.0
+    )
+
+    char_summary = {
+        "char_leak_rate": round(overall_leak_rate, 4),
+        "char_over_redaction_rate": round(overall_over_redaction_rate, 4),
+        "total_gold_chars": total_gold_chars,
+        "total_leaked_chars": total_leaked_chars,
+        "total_non_pii_chars": total_non_pii_chars,
+        "total_over_redacted_chars": total_over_redacted_chars,
+    }
+
+    return (
+        overall,
+        per_type,
+        findings,
+        clean_fpr,
+        total_clean,
+        flagged_clean,
+        per_type_clean_fpr,
+        char_summary,
+    )
 
 
 def evaluate(
@@ -260,6 +369,7 @@ def evaluate(
         total_clean,
         flagged_clean,
         per_type_clean_fpr,
+        char_summary,
     ) = _collect_metrics(cases, baseline=baseline)
 
     span_precision = overall.precision
@@ -282,6 +392,12 @@ def evaluate(
             "false_positive_rate": round(clean_fpr, 4),
             "span_precision": round(span_precision, 4),
             "span_error_rate": round(span_error_rate, 4),
+            "char_leak_rate": char_summary["char_leak_rate"],
+            "char_over_redaction_rate": char_summary["char_over_redaction_rate"],
+            "total_gold_chars": char_summary["total_gold_chars"],
+            "total_leaked_chars": char_summary["total_leaked_chars"],
+            "total_non_pii_chars": char_summary["total_non_pii_chars"],
+            "total_over_redacted_chars": char_summary["total_over_redacted_chars"],
         },
         "per_entity_type": {
             k: {
@@ -305,6 +421,11 @@ def format_table_markdown(results: dict[str, Any], title: str) -> str:
     overall = results["overall"]
     per_type = results["per_entity_type"]
 
+    leak_chars = overall.get("total_leaked_chars", 0)
+    gold_chars = overall.get("total_gold_chars", 0)
+    over_chars = overall.get("total_over_redacted_chars", 0)
+    non_pii_chars = overall.get("total_non_pii_chars", 0)
+
     lines: list[str] = [
         f"### {title}",
         "",
@@ -314,6 +435,15 @@ def format_table_markdown(results: dict[str, Any], title: str) -> str:
             f"- Flagged clean cases: {results.get('clean_cases_flagged', 'N/A')} "
             f"(Clean-case FPR: "
             f"{overall.get('clean_case_fpr', overall.get('false_positive_rate', 0.0)):.4f})"
+        ),
+        (
+            f"- Character leak rate (type-agnostic): {overall.get('char_leak_rate', 0.0):.4f} "
+            f"({leak_chars}/{gold_chars} gold PII characters unredacted)"
+        ),
+        (
+            "- Character over-redaction rate (type-agnostic): "
+            f"{overall.get('char_over_redaction_rate', 0.0):.4f} "
+            f"({over_chars}/{non_pii_chars} non-PII characters redacted)"
         ),
         f"- Span overlap threshold (IoU): {SPAN_OVERLAP_THRESHOLD:.0%}",
         "",
@@ -373,6 +503,96 @@ def print_table(results: dict[str, Any], title: str) -> None:
     )
     print(overall_row)
     print("=" * 90)
+    leak_chars = overall.get("total_leaked_chars", 0)
+    gold_chars = overall.get("total_gold_chars", 0)
+    over_chars = overall.get("total_over_redacted_chars", 0)
+    non_pii_chars = overall.get("total_non_pii_chars", 0)
+    print(
+        f"  Type-Agnostic Leak Rate:         {overall.get('char_leak_rate', 0.0):.4f} "
+        f"({leak_chars}/{gold_chars} gold PII chars unredacted)"
+    )
+    print(
+        f"  Type-Agnostic Over-Redaction:    {overall.get('char_over_redaction_rate', 0.0):.4f} "
+        f"({over_chars}/{non_pii_chars} non-PII chars redacted)"
+    )
+    print("=" * 90)
+
+
+def _render_dataset_markdown_section(
+    section_title: str,
+    dataset_file: str,
+    notes: list[str],
+    results_file: Path,
+) -> list[str]:
+    """Render a dataset results section in markdown format."""
+    lines: list[str] = [
+        f"## {section_title}",
+        "",
+        f"- **Dataset**: `{dataset_file}`",
+    ]
+    for n in notes:
+        lines.append(f"- {n}")
+    lines.append("")
+
+    if not results_file.exists():
+        lines.append("*No evaluation results recorded yet.*")
+        lines.append("")
+        return lines
+
+    try:
+        data = json.loads(results_file.read_text(encoding="utf-8"))
+    except Exception as e:
+        logger.warning("Failed to render %s: %s", results_file, e)
+        return lines
+
+    if "full" in data and "baseline" in data:
+        f_ov = data["full"]["overall"]
+        b_ov = data["baseline"]["overall"]
+        f_fpr = f_ov.get("clean_case_fpr", f_ov.get("false_positive_rate", 0.0))
+        b_fpr = b_ov.get("clean_case_fpr", b_ov.get("false_positive_rate", 0.0))
+        f_leak = f_ov.get("char_leak_rate", 0.0)
+        b_leak = b_ov.get("char_leak_rate", 0.0)
+        f_over = f_ov.get("char_over_redaction_rate", 0.0)
+        b_over = b_ov.get("char_over_redaction_rate", 0.0)
+
+        lines.extend([
+            f"### {section_title}: VeilRAG vs Presidio Baseline Summary",
+            "",
+            "| Metric | VeilRAG (Full) | Presidio (Baseline) | Absolute Lift |",
+            "|:---|:---:|:---:|:---:|",
+            f"| **Precision** | {f_ov['precision']:.4f} | {b_ov['precision']:.4f} | "
+            f"{f_ov['precision'] - b_ov['precision']:+.4f} |",
+            f"| **Recall** | {f_ov['recall']:.4f} | {b_ov['recall']:.4f} | "
+            f"{f_ov['recall'] - b_ov['recall']:+.4f} |",
+            f"| **F1 Score** | {f_ov['f1']:.4f} | {b_ov['f1']:.4f} | "
+            f"{f_ov['f1'] - b_ov['f1']:+.4f} |",
+            f"| **Clean-case FPR** | {f_fpr:.4f} | {b_fpr:.4f} | "
+            f"{f_fpr - b_fpr:+.4f} |",
+            f"| **Character Leak Rate** | {f_leak:.4f} | {b_leak:.4f} | "
+            f"{f_leak - b_leak:+.4f} |",
+            f"| **Character Over-Redaction** | {f_over:.4f} | {b_over:.4f} | "
+            f"{f_over - b_over:+.4f} |",
+            "",
+            format_table_markdown(data["full"], f"{section_title} — VeilRAG Full Configuration"),
+            "",
+            format_table_markdown(
+                data["baseline"], f"{section_title} — Presidio Baseline Configuration"
+            ),
+            "",
+        ])
+    elif "baseline" in data:
+        lines.extend([
+            format_table_markdown(
+                data["baseline"], f"{section_title} — Presidio Baseline Configuration"
+            ),
+            "",
+        ])
+    elif "full" in data:
+        lines.extend([
+            format_table_markdown(data["full"], f"{section_title} — VeilRAG Full Configuration"),
+            "",
+        ])
+    return lines
 
 
 def _write_combined_markdown() -> None:
@@ -395,120 +615,49 @@ def _write_combined_markdown() -> None:
         " The proportion of ground-truth PII entities successfully detected and redacted.",
         "- **F1 Score**: `2 * (Precision * Recall) / (Precision + Recall)`."
         " Harmonic mean of precision and recall.",
+        "- **Character Leak Rate (Type-Agnostic)**: "
+        "`(Total gold PII characters NOT covered by ANY detected span) / "
+        "(Total gold PII characters)`."
+        " Measures raw sensitive text leakage independent of entity categorization.",
+        "- **Character Over-Redaction Rate (Type-Agnostic)**: "
+        "`(Total non-PII characters covered by ANY detected span) / (Total non-PII characters)`."
+        " Measures collateral redaction of benign document text across the corpus.",
         "",
     ]
 
-    dev_results_file = DEV_RESULTS_PATH
-    heldout_results_file = HELDOUT_RESULTS_PATH
+    lines.extend(
+        _render_dataset_markdown_section(
+            "1. Development Dataset Evaluation (DEV)",
+            "data/eval/pii_cases.jsonl",
+            ["Used during initial development of custom recognizers and detectors."],
+            DEV_RESULTS_PATH,
+        )
+    )
 
-    if dev_results_file.exists():
-        try:
-            dev_data = json.loads(dev_results_file.read_text(encoding="utf-8"))
-            lines.extend([
-                "## 1. Development Dataset Evaluation (DEV)",
-                "",
-                "- **Dataset**: `data/eval/pii_cases.jsonl`",
-                "- Used during development of custom recognizers and detectors.",
-                "",
-            ])
-            if "full" in dev_data and "baseline" in dev_data:
-                f_ov = dev_data["full"]["overall"]
-                b_ov = dev_data["baseline"]["overall"]
-                f_fpr = f_ov.get("clean_case_fpr", f_ov.get("false_positive_rate", 0.0))
-                b_fpr = b_ov.get("clean_case_fpr", b_ov.get("false_positive_rate", 0.0))
-                lines.extend([
-                    "### DEV Set: VeilRAG vs Presidio Baseline Summary",
-                    "",
-                    "| Metric | VeilRAG (Full) | Presidio (Baseline) | Absolute Lift |",
-                    "|:---|:---:|:---:|:---:|",
-                    f"| **Precision** | {f_ov['precision']:.4f} | {b_ov['precision']:.4f} | "
-                    f"{f_ov['precision'] - b_ov['precision']:+.4f} |",
-                    f"| **Recall** | {f_ov['recall']:.4f} | {b_ov['recall']:.4f} | "
-                    f"{f_ov['recall'] - b_ov['recall']:+.4f} |",
-                    f"| **F1 Score** | {f_ov['f1']:.4f} | {b_ov['f1']:.4f} | "
-                    f"{f_ov['f1'] - b_ov['f1']:+.4f} |",
-                    f"| **Clean-case FPR** | {f_fpr:.4f} | {b_fpr:.4f} | "
-                    f"{f_fpr - b_fpr:+.4f} |",
-                    "",
-                    format_table_markdown(dev_data["full"], "DEV Set — VeilRAG Full Configuration"),
-                    "",
-                    format_table_markdown(
-                        dev_data["baseline"], "DEV Set — Presidio Baseline Configuration"
-                    ),
-                    "",
-                ])
-            elif "baseline" in dev_data:
-                lines.extend([
-                    format_table_markdown(
-                        dev_data["baseline"], "DEV Set — Presidio Baseline Configuration"
-                    ),
-                    "",
-                ])
-            elif "full" in dev_data:
-                lines.extend([
-                    format_table_markdown(dev_data["full"], "DEV Set — VeilRAG Full Configuration"),
-                    "",
-                ])
-        except Exception as e:
-            logger.warning("Failed to render DEV results: %s", e)
+    if DEV2_RESULTS_PATH.exists():
+        lines.extend(
+            _render_dataset_markdown_section(
+                "2. First Held-Out Run (Pre-Fix / DEV2)",
+                "data/eval/pii_dev2.jsonl",
+                [
+                    "First held-out evaluation run on recognizers-frozen-v1.",
+                    "Diagnosed in `docs/pii_errors_heldout.md` and subsequently used as DEV2.",
+                ],
+                DEV2_RESULTS_PATH,
+            )
+        )
 
-    if heldout_results_file.exists():
-        try:
-            heldout_data = json.loads(heldout_results_file.read_text(encoding="utf-8"))
-            lines.extend([
-                "## 2. Held-Out Dataset Evaluation (HELD-OUT)",
-                "",
-                "- **Dataset**: `data/eval/pii_heldout.jsonl`",
-                (
-                    "- Frozen recognizers (`recognizers-frozen-v1`). "
-                    "Evaluated strictly once without tuning."
-                ),
-                "",
-            ])
-            if "full" in heldout_data and "baseline" in heldout_data:
-                f_ov = heldout_data["full"]["overall"]
-                b_ov = heldout_data["baseline"]["overall"]
-                f_fpr = f_ov.get("clean_case_fpr", f_ov.get("false_positive_rate", 0.0))
-                b_fpr = b_ov.get("clean_case_fpr", b_ov.get("false_positive_rate", 0.0))
-                lines.extend([
-                    "### HELD-OUT Set: VeilRAG vs Presidio Baseline Summary",
-                    "",
-                    "| Metric | VeilRAG (Full) | Presidio (Baseline) | Absolute Lift |",
-                    "|:---|:---:|:---:|:---:|",
-                    f"| **Precision** | {f_ov['precision']:.4f} | {b_ov['precision']:.4f} | "
-                    f"{f_ov['precision'] - b_ov['precision']:+.4f} |",
-                    f"| **Recall** | {f_ov['recall']:.4f} | {b_ov['recall']:.4f} | "
-                    f"{f_ov['recall'] - b_ov['recall']:+.4f} |",
-                    f"| **F1 Score** | {f_ov['f1']:.4f} | {b_ov['f1']:.4f} | "
-                    f"{f_ov['f1'] - b_ov['f1']:+.4f} |",
-                    f"| **Clean-case FPR** | {f_fpr:.4f} | {b_fpr:.4f} | "
-                    f"{f_fpr - b_fpr:+.4f} |",
-                    "",
-                    format_table_markdown(
-                        heldout_data["full"], "HELD-OUT Set — VeilRAG Full Configuration"
-                    ),
-                    "",
-                    format_table_markdown(
-                        heldout_data["baseline"], "HELD-OUT Set — Presidio Baseline Configuration"
-                    ),
-                    "",
-                ])
-            elif "baseline" in heldout_data:
-                lines.extend([
-                    format_table_markdown(
-                        heldout_data["baseline"], "HELD-OUT Set — Presidio Baseline Configuration"
-                    ),
-                    "",
-                ])
-            elif "full" in heldout_data:
-                lines.extend([
-                    format_table_markdown(
-                        heldout_data["full"], "HELD-OUT Set — VeilRAG Full Configuration"
-                    ),
-                    "",
-                ])
-        except Exception as e:
-            logger.warning("Failed to render HELD-OUT results: %s", e)
+    lines.extend(
+        _render_dataset_markdown_section(
+            "3. Final Held-Out Dataset Evaluation (HELD-OUT)",
+            "data/eval/pii_heldout.jsonl",
+            [
+                "Frozen recognizers (`recognizers-frozen-v2`).",
+                "Strictly evaluated once without tuning.",
+            ],
+            HELDOUT_RESULTS_PATH,
+        )
+    )
 
     lines.extend([
         "## Limitations",
@@ -546,7 +695,7 @@ def evaluate_pii(
     baseline
         If True, run Presidio built-ins only (no custom recognizers).
     dataset
-        'dev' or 'heldout'.
+        'dev', 'dev2', or 'heldout'.
 
     Returns
     -------
@@ -554,7 +703,13 @@ def evaluate_pii(
         Overall and per-entity-type metrics.
     """
     if cases is None:
-        path = HELDOUT_CASES_PATH if dataset == "heldout" else DEV_CASES_PATH
+        if dataset == "heldout":
+            path = HELDOUT_CASES_PATH
+        elif dataset == "dev2":
+            path = DEV2_CASES_PATH
+        else:
+            path = DEV_CASES_PATH
+
         if not path.exists():
             raise FileNotFoundError(f"Dataset file not found: {path}")
         cases = []
@@ -572,9 +727,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate VeilRAG PII sanitization")
     parser.add_argument(
         "--dataset",
-        choices=["dev", "heldout"],
+        choices=["dev", "dev2", "heldout"],
         default="dev",
-        help="Dataset to evaluate: 'dev' (default) or 'heldout'",
+        help="Dataset to evaluate: 'dev' (default), 'dev2', or 'heldout'",
     )
     parser.add_argument(
         "--baseline",
@@ -589,9 +744,12 @@ def main() -> int:
     if args.json:
         target_results_path = args.json
     else:
-        target_results_path = (
-            HELDOUT_RESULTS_PATH if args.dataset == "heldout" else DEV_RESULTS_PATH
-        )
+        if args.dataset == "heldout":
+            target_results_path = HELDOUT_RESULTS_PATH
+        elif args.dataset == "dev2":
+            target_results_path = DEV2_RESULTS_PATH
+        else:
+            target_results_path = DEV_RESULTS_PATH
 
     if args.md:
         DOCS_RESULTS_PATH = args.md
@@ -640,11 +798,19 @@ def main() -> int:
     print("\n" + "=" * 60)
     print(f" VEILRAG VS BASELINE COMPARISON SUMMARY [{args.dataset.upper()} SET]")
     print("=" * 60)
-    print(f"  Precision:      {f_ov['precision']:.4f} (vs {b_ov['precision']:.4f} baseline)")
-    print(f"  Recall:         {f_ov['recall']:.4f} (vs {b_ov['recall']:.4f} baseline)")
-    print(f"  F1 Score:       {f_ov['f1']:.4f} (vs {b_ov['f1']:.4f} baseline)")
-    print(f"  Clean-case FPR: {f_fpr:.4f} (vs {b_fpr:.4f} baseline)")
-    print(f"  Recall Lift:    +{(f_ov['recall'] - b_ov['recall']) * 100:.2f}%")
+    print(f"  Precision:           {f_ov['precision']:.4f} (vs {b_ov['precision']:.4f} baseline)")
+    print(f"  Recall:              {f_ov['recall']:.4f} (vs {b_ov['recall']:.4f} baseline)")
+    print(f"  F1 Score:            {f_ov['f1']:.4f} (vs {b_ov['f1']:.4f} baseline)")
+    print(f"  Clean-case FPR:      {f_fpr:.4f} (vs {b_fpr:.4f} baseline)")
+    print(
+        f"  Character Leak Rate: {f_ov.get('char_leak_rate', 0.0):.4f} "
+        f"(vs {b_ov.get('char_leak_rate', 0.0):.4f} baseline)"
+    )
+    print(
+        f"  Over-Redaction Rate: {f_ov.get('char_over_redaction_rate', 0.0):.4f} "
+        f"(vs {b_ov.get('char_over_redaction_rate', 0.0):.4f} baseline)"
+    )
+    print(f"  Recall Lift:         +{(f_ov['recall'] - b_ov['recall']) * 100:.2f}%")
     print("=" * 60)
 
     DATA_DIR.mkdir(parents=True, exist_ok=True)

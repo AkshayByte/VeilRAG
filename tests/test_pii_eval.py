@@ -5,6 +5,7 @@ from __future__ import annotations
 from src.eval.pii_eval import (
     Case,
     _span_overlap,
+    compute_char_metrics,
     compute_clean_case_fpr,
     evaluate_pii,
     format_table_markdown,
@@ -121,3 +122,54 @@ def test_no_shared_templates_between_dev_and_heldout() -> None:
     assert len(shared) == 0, f"Found shared templates between dev and heldout: {shared}"
     assert len(dev_templates) > 0
     assert len(heldout_templates) > 0
+
+
+def test_compute_char_metrics_hand_computed_example() -> None:
+    """Character-level leak rate and over-redaction rate hand-computed test vector."""
+    text = "Hello Alice Smith, your phone is 9876543210"
+    # Alice Smith: 6..17 (11 chars)
+    # 9876543210: 33..43 (10 chars)
+    # Total gold chars: 21. Non-PII chars: 43 - 21 = 22.
+    gold = [("PERSON", 6, 17), ("INDIAN_MOBILE", 33, 43)]
+
+    # 1. Type-agnostic complete match (phone labeled as PHONE_NUMBER)
+    det_type_mismatch = [("PERSON", 6, 17), ("PHONE_NUMBER", 33, 43)]
+    res1 = compute_char_metrics(text, gold, det_type_mismatch)
+    assert res1["gold_chars"] == 21
+    assert res1["leaked_chars"] == 0
+    assert res1["leak_rate"] == 0.0
+    assert res1["non_pii_chars"] == 22
+    assert res1["over_redacted_chars"] == 0
+    assert res1["over_redaction_rate"] == 0.0
+
+    # 2. Partial leak: phone completely missed
+    det_partial = [("PERSON", 6, 17)]
+    res2 = compute_char_metrics(text, gold, det_partial)
+    assert res2["gold_chars"] == 21
+    assert res2["leaked_chars"] == 10
+    assert res2["leak_rate"] == 10 / 21
+    assert res2["over_redacted_chars"] == 0
+    assert res2["over_redaction_rate"] == 0.0
+
+    # 3. Over-redaction: redaction extends 6 non-PII characters into 'Hello '
+    det_over = [("PERSON", 0, 17), ("INDIAN_MOBILE", 33, 43)]
+    res3 = compute_char_metrics(text, gold, det_over)
+    assert res3["gold_chars"] == 21
+    assert res3["leaked_chars"] == 0
+    assert res3["leak_rate"] == 0.0
+    assert res3["non_pii_chars"] == 22
+    assert res3["over_redacted_chars"] == 6
+    assert res3["over_redaction_rate"] == 6 / 22
+
+    # 4. Clean text with a 5-character false positive
+    clean_text = "Tracking ID is 12345"
+    res4 = compute_char_metrics(
+        clean_text, [], [("PHONE_NUMBER", 15, 20)]
+    )
+    assert res4["gold_chars"] == 0
+    assert res4["leaked_chars"] == 0
+    assert res4["leak_rate"] == 0.0
+    assert res4["non_pii_chars"] == 20
+    assert res4["over_redacted_chars"] == 5
+    assert res4["over_redaction_rate"] == 5 / 20
+
