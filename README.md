@@ -1,6 +1,10 @@
-﻿# VeilRAG
+# VeilRAG
 
-> Placeholder README — content to be fleshed out as the project grows.
+> Private Corrective-RAG agent with local, fail-closed PII redaction, prompt injection defense, and hash-chained audit logging.
+
+## Prerequisites
+
+- Python 3.12 (supported: `>=3.11,<3.13`)
 
 ## Quick start
 
