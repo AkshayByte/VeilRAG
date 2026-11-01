@@ -1,14 +1,12 @@
 # Project Progress — VeilRAG (Secure RAG Agent)
 
 ## Current Status Overview
-- **Phase**: Improvement Pass on PII Sanitizer & Measurement Integrity complete and verified.
+- **Phase**: Prompt 3 (Secure Ingestion + Local Retrieval) complete and verified.
 - **Git Tags**:
   - `recognizers-frozen-v1`: Initial recognizers benchmarked on DEV and first held-out set (DEV2).
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
-- **Test Suite**: 71 passed out of 71 tests (`pytest tests/ -v`).
-- **Sanitizer Tests**: 42 passed (`pytest tests/test_sanitizer.py -v`).
-- **PII Eval Tests**: 7 passed (`pytest tests/test_pii_eval.py -v`).
-- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 40 source files).
+- **Test Suite**: 87 passed out of 87 tests (`pytest tests/ -v -m "not slow"`).
+- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 41 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
 ---
@@ -20,7 +18,7 @@
 2. **spaCy Model**:
    - Model `en_core_web_lg` configured in `Makefile`, `Dockerfile`, CI (`.github/workflows/ci.yml`), and defined in `src/config.py` (`settings.spacy_model`).
 3. **Legal & Documentation**:
-   - `LICENSE` (MIT), `THIRD_PARTY_NOTICES.md`, `README.md`, `docs/pii_results.md`, `docs/pii_errors.md`, and `docs/pii_errors_heldout.md` in place.
+   - `LICENSE` (MIT), `THIRD_PARTY_NOTICES.md`, `README.md`, `docs/pii_results.md`, `docs/pii_errors.md`, `docs/pii_errors_heldout.md`, and `docs/ingest_report.md` in place.
 4. **Git Repository**:
    - Clean structure with tracked files, commit history, and release tags `recognizers-frozen-v1` and `recognizers-frozen-v2`.
 
@@ -28,7 +26,11 @@
 
 ## Recognizer Specifications & Invariants
 - **Public API**:
-  - `src/sanitizer/__init__.py`: exports `sanitize`, `SanitizeResult`, `SanitizationError`.
+  - `src/sanitizer/__init__.py`: exports `sanitize`, `SanitizedText`, `SanitizeResult`, `SanitizationError`.
+- **Type-Enforced Redaction Boundary**:
+  - `SanitizedText(str)` subclass can only be instantiated inside `src.sanitizer.sanitize()` via a private sentinel.
+  - Slicing or concatenating automatically produces a plain `str`, stripping the `SanitizedText` brand.
+  - All downstream ingestion, embedding (`EmbeddingModel.embed`, `embed_query`), vector store (`VectorStore.search`, `VectorStore.add`), and LLM adapter entry points (`complete`, `acomplete`, `astream`) strictly reject plain `str` inputs with `TypeError`.
 - **Entity Detection & Recognizer Rules**:
   - **Aadhaar**: 12 digits with Verhoeff checksum algorithm. Numbers starting with 0 or 1 are strictly rejected per UIDAI specification. Delimiters supported: spaced (`2345 6789 0124`), dashed (`2345-6789-0124`), dotted (`2345.6789.0124`), and contiguous (`234567890124`). Confidence score is context-weighted: 0.85 when Aadhaar context words (`aadhaar`, `uid`, `aadhar`, `enrolment`) are nearby, and 0.40 when bare.
   - **PAN**: `[A-Za-z]{5}[0-9]{4}[A-Za-z]`. Case-insensitive (accepts uppercase and lowercase).
@@ -42,7 +44,7 @@
 - **Fail-Closed Guarantee**:
   - Any detector exception raises `SanitizationError`; partial or unredacted text is never returned.
 - **Security & Reversible Map**:
-  - In-memory reversible mapping (`reversible_map`) kept exclusively in request scope (`repr=False`), never persisted or logged.
+  - In-memory reversible mapping (`reversible_map`) kept exclusively in request scope (`repr=False`), never persisted or logged. Discarded immediately during document ingestion.
 
 ---
 
@@ -107,21 +109,46 @@
 
 ---
 
+### 4. Secure Ingestion & Local Retrieval Audit (Prompt 3 Results)
+*Evaluated across 15 synthetic enterprise documents (300-1500 words each) and 19 ChromaDB chunks.*
+*Detailed breakdown and audit trail in `docs/ingest_report.md`.*
+
+| Evaluation Metric | Measured Result | Security Target | Status |
+| :--- | :--- | :--- | :--- |
+| **Pattern PII Leaks (Aadhaar, PAN, Email, Mobile, IFSC, UPI)** | **0** | 0 leaks | **PASS (Zero Leaks)** |
+| **Metadata Raw PII Leaks** | **0** | 0 leaks | **PASS** |
+| **Raw Disk ChromaDB File Leaks (In-Scope)** | **0** | 0 leaks | **PASS** |
+| **Person Name Leak Rate** | **3.7%** (1/27) | Report only | Documented |
+| **Out-of-Scope Leak Rate (Known Architectural Gaps)** | **68.9%** (31/45) | Report only | Documented |
+| **Character Leak Rate (Type-Agnostic)** | **0.0108** (20/1847 chars) | < 0.05 | **PASS** |
+| **Over-Redaction Rate** | **0.0070** (260/37102 chars) | < 0.10 | **PASS** |
+| **Business Fact Survival Rate** | **100.0%** (60/60) | 100% | **PASS (100% Retained)** |
+
+**Key Ingestion Findings**:
+1. **Zero-Leak Invariant**: Zero occurrences of pattern-based in-scope PII strings in ChromaDB chunk text, metadata dictionaries, or binary files on disk (`data/chroma`).
+2. **Fact Survival (100%)**: Every key contractual fact (notice period, leave days, loan amount, interest rate, discharge diagnosis, approved claim amount, and KYC verification mode) was preserved uncorrupted in the stored chunks.
+3. **Fail-Closed and Idempotent**: Whole-document sanitization is fail-closed per document; deterministic chunk indexing ensures idempotency on repeated ingestion runs.
+
+---
+
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (71 tests passing)
-pytest tests/ -v
+# 1. Full Unit Test Suite (87 tests passing)
+pytest tests/ -v -m "not slow"
 
-# 2. DEV Set Evaluation (VeilRAG vs Presidio Baseline)
-python -m src.eval.pii_eval --dataset dev
-
-# 3. DEV2 Set Evaluation (Pre-Fix Held-Out Run)
-python -m src.eval.pii_eval --dataset dev2
-
-# 4. Final HELD-OUT Set Evaluation (VeilRAG vs Presidio Baseline)
+# 2. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
 python -m src.eval.pii_eval --dataset heldout
 
-# 5. Type and Linting Checks
+# 3. Document Ingestion Pipeline
+python -m src.rag.ingest
+
+# 4. Ingestion Security & Fact Survival Audit
+python -m src.eval.ingest_eval
+
+# 5. Inspect Stored Sanitized Chunks
+python -m src.rag.cli peek --n 3
+
+# 6. Type and Linting Checks
 ruff check src/ tests/ scripts/
 mypy src/ tests/ scripts/
 ```
@@ -129,6 +156,5 @@ mypy src/ tests/ scripts/
 ---
 
 ## What is Next
-- **Prompt 3**: Ingestion pipeline (`src/rag/ingest.py`) & ChromaDB vector store with sentence-transformers local embeddings.
-- Ensure documents are sanitized via `src.sanitizer.sanitize` *before* chunking and embedding.
-- Maintain hash-chained audit logging for each ingested document chunk.
+- **Prompt 4**: Stateful LangGraph RAG agent with secure retrieval, LLM response generation, and post-generation hallucination and PII leak verification chain.
+- Integrate hash-chained audit logging for each query step.
