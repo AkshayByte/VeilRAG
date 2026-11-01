@@ -70,7 +70,8 @@ def test_run_ingest_eval_real_data() -> None:
 
     store = VectorStore(collection_name="docs", persist_dir=str(settings.chroma_persist_dir))
     records = store.peek(n=5000)
-    corpus = "v2" if len(records) > 20 else "v1"
+    doc_sources = set(r["metadata"].get("source", "") for r in records)
+    corpus = "v2" if len(doc_sources) > 20 else "v1"
 
     res = run_ingest_eval(corpus=corpus)
     if corpus == "v2":
@@ -91,13 +92,13 @@ def test_run_ingest_eval_assertion_error_on_leak(tmp_path: Path) -> None:
 
     store = VectorStore(collection_name="docs", persist_dir=str(settings.chroma_persist_dir))
     records = store.peek(n=5)
-    doc_name = (
-        records[0]["metadata"].get("source", "hr_policy_01.txt")
-        if records
-        else "hr_policy_01.txt"
-    )
-    # Find a word present in the chunk text to simulate a leaked pattern entity
-    leak_val = "Starlight" if "Starlight" in records[0]["document"] else records[0]["document"][:8]
+    if records:
+        doc_name = records[0]["metadata"].get("source", "hr_policy_01.txt")
+        doc_text = records[0]["document"]
+        leak_val = "Starlight" if "Starlight" in doc_text else doc_text[:8]
+    else:
+        doc_name = "hr_policy_01.txt"
+        leak_val = "ACME"
 
     fake_gt = tmp_path / "_ground_truth.json"
     fake_data: dict[str, Any] = {

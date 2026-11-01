@@ -157,3 +157,16 @@ class VectorStore:
             {"id": cid, "document": doc, "metadata": dict(meta) if meta else {}}
             for cid, doc, meta in zip(ids, docs, metas)
         ]
+
+    def reset(self) -> None:
+        """Clear all records from the collection."""
+        try:
+            col_name = self._collection.name
+            self._client.delete_collection(col_name)
+            self._collection = self._client.get_or_create_collection(
+                name=col_name,
+                metadata={"hnsw:space": "cosine"},
+            )
+        except Exception as exc:
+            logger.warning("Could not reset collection: %s", exc)
+

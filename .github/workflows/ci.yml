@@ -23,5 +23,7 @@ jobs:
         run: ruff check src/ tests/
       - name: Type check
         run: mypy src/
+      - name: Ingest documents
+        run: python -m src.rag.ingest --corpus v1
       - name: Test
         run: pytest tests/ -v

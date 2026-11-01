@@ -187,6 +187,7 @@ def ingest_documents(
     chunk_size: int | None = None,
     chunk_overlap: int | None = None,
     corpus: str = "v2",
+    reset: bool = True,
 ) -> int:
     """Run the full fail-closed, idempotent ingestion pipeline.
 
@@ -287,6 +288,8 @@ def ingest_documents(
         persist_dir=persist_dir,
         embedder=active_embedder,
     )
+    if reset:
+        store.reset()
     store.add(
         chunks=all_chunks,
         embeddings=vectors,
