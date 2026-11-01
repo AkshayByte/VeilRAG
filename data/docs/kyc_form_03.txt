@@ -1,0 +1,19 @@
+# GROWW INVEST TECH PRIVATE LIMITED
+## MUTUAL FUND FOLIO ONBOARDING AND CKYC COMPLIANCE DOCUMENT
+Folio Application ID: GRW-MF-2026-PUN-8821 | AMFI Registration No: ARN-111686
+Registered Office: Outer Ring Road, Bengaluru, Karnataka
+
+### 1. Investor Classification and Folio Type
+This electronic onboarding record establishes an account type: Mutual Fund Investment Folio Individual Account. Risk profiling assessment classifies the applicant as risk category: Low to Moderate Risk Profile, suitable for large-cap equity and sovereign debt mutual fund schemes.
+
+### 2. FATCA and Nomination Status
+Under Indian income tax statutory rules, the customer certifies fatca status: Not a US citizen or tax resident of any other jurisdiction. The mutual fund folio registers nomination status: Single nominee registered with 100% share, naming the applicant's sibling.
+
+### 3. Investor Personal and Financial Verification
+The investor is identified as Pooja Kulkarni, contact email pooja.kulkarni@fininvest.in and mobile +91 98220 55667. Central identity database confirms verified Aadhaar 7701 5430 3911 and PAN card BCDPK7788A. Systematic Investment Plan (SIP) mandate bank IFSC is ICIC0000039 with account 003901589124. Permanent residential address is Flat 404 Green Acres, Baner Road, Pune, Maharashtra 411045, birth date 08-11-1995. Customer onboarding officer is Tanmay Joshi. SIP autopay UPI ID authenticated as pooja.k@okicici.
+
+### 4. Terms and Risk Acknowledgment
+Mutual fund investments are subject to market risks. The investor acknowledges having read all Scheme Information Documents (SID) and Statement of Additional Information (SAI) before authorizing systematic recurring auto-debit transfers.
+
+### 5. Automated Clearing Mandate and Grievance Mechanism
+The investor registers e-NACH autopay debit instructions for scheduled monthly SIP installments debited on the 10th of every month. For customer grievances, investor relations contact is accessible via compliance ticket portal under SEBI SCORES integration. The folio records confirm complete verification of bank passbook copy and canceled cheque leaves. Electronic investor records are mirrored in CKYCR central depository for regulatory auditing and instant retrieval.

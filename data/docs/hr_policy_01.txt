@@ -1,0 +1,22 @@
+# ACME SOFTWARE SOLUTIONS PRIVATE LIMITED
+## COMPREHENSIVE HUMAN RESOURCES EMPLOYMENT POLICY AND CODE OF CONDUCT
+Document Reference: HR-POL-2026-BLR-01
+Effective Date: 1st January 2026 | Revision: 4.2
+
+### 1. Objective and Applicability
+This comprehensive employment handbook defines the service terms, professional obligations, code of workplace ethics, and operational standards applicable to all full-time, part-time, and probationary personnel employed by Acme Software Solutions Private Limited across all its technology development centers in Bengaluru, Hyderabad, and Pune. Adherence to this framework is a mandatory condition of continuing employment.
+
+### 2. Standard Working Hours and Attendance Guidelines
+The official operating business hours of the corporation are firmly designated as 9:30 AM to 6:30 PM Monday through Friday, comprising an eight-hour productive workday alongside an allotted one-hour window for lunch and personal refreshment. Engineering associates assigned to client operational engagements may observe staggered rotas under direct managerial dispensation. All personnel are required to record biometric digital timestamps upon ingress and egress at company premises.
+
+### 3. Annual Leave Entitlements and Separation Notice Period
+Each confirmed associate is granted 24 days of paid privilege leave per calendar cycle, accrued proportionately on a monthly basis. Associates also receive twelve days of paid casual sickness allowances subject to clinical certification. Upon voluntary resignation or formal separation, the mandatory contractual notice period is exactly 60 calendar days. During the initial statutory probation period of 6 months, separation notice may be executed within thirty calendar days by either party.
+
+### 4. Code of Conduct and Regulatory Compliance Contact
+The organization upholds zero tolerance for harassment, insider transactions, intellectual property misappropriation, and unauthorized disclosure of proprietary algorithms. For confidential inquiries regarding employee grievances or compliance reports, associates must contact Chief Human Resources Officer Ananya Sharma at official corporate email ananya.sharma@acmesoftware.co.in or reach the executive grievance desk on mobile +91 98451 23450.
+
+### 5. Statutory Documentation and Employee Verification Dossier
+Every employee must furnish verified identity credentials prior to payroll onboarding. For internal audit verification, HR Custodian Rajesh Nambiar maintains record verification. The associate submitted Aadhaar number 3043 3218 1964 along with permanent account number (PAN) ABCPS1234K for statutory income tax deduction. Bank salary disbursement occurs via IFSC code HDFC0001234 into corporate salary account 50100234918231. The employee's residential domicile is logged as Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066, with verified date of birth 14-08-1988. For corporate event reimbursements, associate UPI handle ananya.sharma@okhdfcbank is authenticated in the ERP.
+
+### 6. Information Security and Intellectual Property Safeguards
+Associates shall not transfer source repositories, customer databases, architectural blueprints, or encryption materials outside sanctioned virtual perimeters. Breach of confidentiality covenants constitutes gross professional misconduct warranting immediate summary termination and statutory prosecution under the Information Technology Act 2000.

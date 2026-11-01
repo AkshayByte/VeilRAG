@@ -1,0 +1,19 @@
+# APOLLO MULTI-SPECIALTY HOSPITALS BENGALURU
+## INPATIENT CLINICAL DISCHARGE SUMMARY AND CARE PLAN
+IP Admission No: IP-2026-MED-77412 | UHID: UH-889021
+Department of General and Minimally Invasive Surgery
+
+### 1. Patient Profile and Clinical Admission Details
+The patient was admitted through emergency services presenting with severe right lower quadrant abdominal pain, low-grade pyrexia, nausea, and localized rebound tenderness. Ultrasound of abdomen confirmed inflamed non-perforated acute appendicitis.
+
+### 2. Diagnosis, Surgical Procedure, and Clinical Course
+The finalized clinical primary diagnosis is confirmed as Acute Laparoscopic Appendectomy following three-port laparoscopic intervention. The surgical procedure was uneventful without intra-operative visceral injury or significant haemorrhage. Histopathology confirmed acute suppurative appendicitis. The clinical discharge status at time of exit is documented as: Hemodynamically stable and ambulatory, tolerating oral solid diet, with clean surgical surgical port incisions.
+
+### 3. Patient Demographics and Hospital Identification Record
+Patient name is logged as Gaurav Sen, with primary communication email gaurav.sen@healthmail.com and emergency contact number +91 98860 12345. The hospital billing desk verified Aadhaar Card 4553 4192 8322 and PAN card AZOPS3456D for insurance claim processing under TPA. Refundable admission deposit returned via IFSC HDFC0000088 to account 50100984512390. Patient home domicile is Flat 102 Crystal Arcade, Indiranagar 100 Feet Road, Bengaluru, Karnataka 560038, date of birth 19-03-1990. Attending physician is Dr. Meenakshi Iyer. Patient hospital pharmacy account links to UPI gaurav.sen@okhdfcbank.
+
+### 4. Post-Discharge Medications and Home Care Regimen
+The patient is discharged on the following prescribed discharge medications: Cefixime 200mg twice daily for 5 days, alongside Paracetamol 650mg SOS for pain and Pantoprazole 40mg before breakfast. The patient must keep surgical wound dressings dry and clean until stitch review.
+
+### 5. Follow-Up Consultation and Emergency Warning Signs
+A formal follow-up outpatient consultation is scheduled exactly 7 days post-discharge in the surgical OPD for wound inspection. The patient must report immediately to emergency triage in case of high fever, persistent vomiting, or increasing abdominal distension.

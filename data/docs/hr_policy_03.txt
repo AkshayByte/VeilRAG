@@ -1,0 +1,22 @@
+# NEXUS FINTECH SOLUTIONS PRIVATE LIMITED
+## TALENT MANAGEMENT POLICIES AND DIGITAL WORKPLACE CHARTER
+Document Code: NX-HR-DOC-2026-DEL-03
+Approved by People Committee | Effective: 10th February 2026
+
+### 1. Introduction and Modern Work Culture
+Nexus Fintech provides cloud-native payment switching, payment gateway APIs, and embedded finance rails to domestic banks. Our employment policies emphasize autonomy, ethical conduct, strict regulatory safeguarding of banking credentials, and continuous professional growth. This document binds all product engineers, data analysts, and compliance specialists.
+
+### 2. Working Hours, Hybrid Workplace, and Core Collaborative Intervals
+Nexus operates under a modern hybrid schedule. Official working hours are 10:00 AM to 7:00 PM with flexible core hours, requiring real-time availability on corporate collaboration tools between 11:30 AM and 4:30 PM for team standups and security reviews. Associates may work remotely up to two days per working week with prior team lead notification and VPN compliance clearance.
+
+### 3. Leave Entitlements, Wellness Days, and Separation Guidelines
+To promote work-life integration, Nexus provides 30 days of paid privilege leave per annum along with mental wellness quarterly days. Maternity leave covers 26 paid weeks in accordance with statutory mandates, while paternity leave covers 4 paid weeks. Should an associate elect to seek opportunities outside Nexus, the contractual notice period is 30 calendar days. All new campus and lateral hires undergo an initial probation period of 6 months before tenure confirmation.
+
+### 4. Integrity, Anti-Bribery, and Ethical Disclosures
+Employees are strictly prohibited from soliciting gifts, favors, or pecuniary commissions from financial vendor partners. To report policy non-compliance, financial discrepancies, or security concerns, contact Director of Legal and People Kavita Krishnamurthy at corporate address kavita.k@nexusfintech.in or emergency cell +91 99887 76655.
+
+### 5. Personnel Records and Compliance Authentication
+Statutory documentation for payroll and provident fund compliance is inspected by Operations Lead Arvind Swaminathan. The employee's government identity file authenticates UIDAI Aadhaar number 8379 4026 5421 and PAN card CKMPK4321E. Compensation credits are processed under IFSC ICIC0000456 to account 004501589123. Permanent registered domicile is recorded as Tower B Apt 901, Cyber City Residency, DLF Phase 2, Gurugram, Haryana 122002, date of birth registered as 03-05-1992. Associate reimbursement UPI ID is registered as kavita.k@okaxis for quick cloud expense settlements.
+
+### 6. Client Confidentiality and Algorithmic Security
+All cryptographic keys, API tokens, and customer transactional telemetry remain the exclusive property of Nexus Fintech. No employee shall duplicate or publish internal libraries or algorithmic code artifacts to personal cloud services.

@@ -1,0 +1,22 @@
+# FORTIS HEALTHCARE CARDIOLOGY CENTER OF EXCELLENCE
+## CARDIOTHORACIC CLINICAL DISCHARGE SUMMARY
+Case Dossier: FH-CARD-2026-MUM-901 | Ward: Coronary ICU Bed 14
+Date of Discharge: 12th February 2026
+
+### 1. Clinical Presentation and Admission Findings
+A 56-year-old executive presented with retrosternal chest tightness radiating to the left arm during exertion. Electrocardiogram showed ST-segment elevation in anterolateral leads, and cardiac troponin-I was elevated at 4.2 ng/mL.
+
+### 2. Interventional Procedure and Cardiothoracic Evaluation
+Coronary angiography revealed critical 90% stenosis in proximal Left Anterior Descending (LAD) artery. The primary diagnosis and intervention executed is Coronary Angioplasty with Single Drug-Eluting Stent (3.0 x 24mm DES). Echocardiogram established an ejection fraction of 55% preserved LV systolic function with no regional wall motion abnormalities. The discharge status of the patient is confirmed as: Stable cardiac sinus rhythm without active angina.
+
+### 3. Patient Identity and Medical Record Archive
+Patient identity is recorded as Dinesh Kulkarni, contact email dinesh.kulkarni@healthmail.com and mobile phone +91 98205 67890. National health identifier confirms verified Aadhaar 9648-3503-0560 and PAN BCDPK8899P. Cashless insurance settlement processed via IFSC SBIN0001234 from account 30981245091. Registered residence address is B-203 Sunrise Towers, Chembur East, Mumbai, Maharashtra 400071, birth date 04-10-1969. Chief Interventional Cardiologist is Dr. Pooja Banerjee. Pharmacy UPI handle logged as dinesh.k@oksbi.
+
+### 4. Pharmacotherapy and Lifestyle Recommendations
+Dual antiplatelet therapy is mandatory: Aspirin 75mg daily indefinitely plus Ticagrelor 90mg twice daily for 12 months. Atorvastatin 80mg at bedtime and Metoprolol Succinate 25mg daily. Low salt, low cholesterol diet advised.
+
+### 5. Follow-Up Schedule
+The patient must report for clinical evaluation exactly 14 days post-discharge in the cardiology outpatient suite. Immediate readmission required if dyspnea or recurring chest pressure arises.
+
+### 6. Emergency Warning Protocol and Triage
+The patient and primary caregivers have been briefed on emergency warning signs including acute shortness of breath, profuse diaphoresis, syncope, or irregular heart palpitations. In the event of acute symptoms, the patient must consume Sorbitrate 5mg sublingually and immediately contact the hospital emergency cardiac triage desk. Strenuous physical exertion, heavy weight lifting, and commercial vehicular driving are strictly prohibited for 4 weeks.

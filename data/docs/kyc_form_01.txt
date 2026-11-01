@@ -1,0 +1,19 @@
+# ZERODHA BROKING LIMITED
+## CENTRAL KYC REGISTRY (CKYC) ONBOARDING DOSSIER
+Application Ref: ZER-CKYC-2026-BLR-10294 | CDSL DP ID: 12081600
+SEBI Registration No: INZ000031633 | Bengaluru, Karnataka
+
+### 1. Account Selection and Investor Profile
+This Central KYC application form is executed for opening an account type: Individual Resident Demat and Trading Account. The suitability questionnaire categorizes the investor under risk category: Moderate Risk Profile, eligible for cash equity and exchange-traded index derivatives transactions.
+
+### 2. Verification Mode and Tax Residency Declaration
+Customer identity and biometric verification was executed through verification mode: DigiLocker Video In-Person Verification (IPV). Under Foreign Account Tax Compliance Act (FATCA) and Common Reporting Standard (CRS) mandates, the applicant declares tax residency: Resident of India exclusively, with zero tax liability or offshore account citizenship in foreign territories.
+
+### 3. Client Identity and Statutory Documents
+The investor applicant is Pranav Kulkarni, contact email pranav.kulkarni@investmail.in and mobile phone +91 98450 77889. Central identity database confirms verified UIDAI Aadhaar 7146 2704 8282 and Income Tax PAN card AZTPK4512B. Primary trading bank linkage validated via IFSC HDFC0000060 with account 50100445566778. Communication address logged as Flat 301 Shanti Nivas, 14th Main, JP Nagar 2nd Phase, Bengaluru, Karnataka 560078, applicant birth date 12-07-1993. Authorized verification compliance officer is Rameshwar Rao. Instant fund transfer UPI handle authenticated as pranav.k@okhdfcbank.
+
+### 4. Nomination and Statutory Disclosures
+The investor nominates their legal spouse with 100% entitlement share. The investor declares understanding of capital market volatility and confirms the funds invested originate from legitimate lawful income.
+
+### 5. Depository Participant Agreement and Clearing Mandate
+The investor authorizes Zerodha Broking Limited as Depository Participant to maintain dematerialized securities with CDSL. All dividend payments and corporate action entitlements shall be credited directly into the verified linked primary bank account. The applicant agrees to receive electronic contract notes (ECN) via email within twenty-four hours of trade execution.

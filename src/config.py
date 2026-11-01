@@ -45,6 +45,12 @@ class Settings(BaseSettings):
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     """SentenceTransformer model used for local embeddings."""
 
+    chunk_size_tokens: int = 500
+    """Target chunk size in tokens for document ingestion."""
+
+    chunk_overlap_tokens: int = 100
+    """Overlap between adjacent chunks in tokens."""
+
     spacy_model: str = "en_core_web_lg"
     """spaCy model used for Presidio NLP engine and entity recognition."""
 

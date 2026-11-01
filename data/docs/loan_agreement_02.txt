@@ -1,0 +1,18 @@
+# COMMERCIAL EQUIPMENT ASSET FINANCE AND CREDIT FACILITY AGREEMENT
+## FACILITY SANCTION ORDER: ICICI-EQUIP-2026-DEL-104
+Dated: 24th January 2026 | New Delhi Commercial Branch
+
+### 1. Commercial Loan Facility Purpose
+This Secured Asset Finance Agreement is established between Apex Commercial Credit Corporation (the Financier) and Precision CNC Heavy Industries Private Limited (the Enterprise Borrower). The facility is granted solely for the procurement and installation of high-precision German 5-axis computer numerical control (CNC) milling machinery for automotive part fabrication.
+
+### 2. Sanctioned Amount, Tenure, and Interest Rate Terms
+The Financier sanctions an asset loan amount of INR 1,25,00,000 (Rupees One Crore Twenty-Five Lakhs Only) repayable over a tenure of 84 months. The applicable interest rate is 11.25% per annum fixed, calculated on monthly reducing balance and not subject to market interest index fluctuation. In the event the borrower exercises voluntary loan prepayment or foreclosure prior to maturity, a prepayment penalty of 2.0% of outstanding principal shall be levied plus applicable statutory taxes.
+
+### 3. Authorized Guarantor and KYC Verification
+The corporate facility is personally guaranteed by Managing Director Harishchand Chawla, reachable via email harish.chawla@precisioncnc.in and direct telephone contact +91 98111 22334. The guarantor submitted government Aadhaar 9816-1849-5938 and Director PAN AAACH7890N. Equipment disbursement is released via IFSC ICIC0000007 to current account 000705012398. Official corporate domicile is Plot 88, Okhla Industrial Area Phase 3, New Delhi 110020, with guarantor date of birth 11-12-1971. Transaction authorization desk links to corporate UPI harish.chawla@icici for verification.
+
+### 4. Hypothecation of Financed Machinery and Insurance Cover
+The underlying CNC equipment shall remain exclusively hypothecated in favor of the Financier until issuance of No Objection Certificate (NOC). The Enterprise Borrower covenants to maintain comprehensive machinery breakdown and fire insurance policies at all times, with the Financier endorsed as sole loss payee.
+
+### 5. Financial Covenants and Default Remedies
+The Enterprise Borrower shall maintain a Debt Service Coverage Ratio (DSCR) of not less than 1.35 throughout the loan tenure. Default in interest payment exceeding 30 days shall attract default penal interest at 24% per annum compounded monthly.

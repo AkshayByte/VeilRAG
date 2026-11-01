@@ -45,6 +45,7 @@ target-version = "py314"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W", "UP"]
+per-file-ignores = {"scripts/*" = ["E501"]}
 
 [tool.ruff.lint.isort]
 known-first-party = ["src"]

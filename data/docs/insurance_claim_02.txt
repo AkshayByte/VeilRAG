@@ -1,0 +1,19 @@
+# STAR HEALTH AND ALLIED INSURANCE COMPANY
+## CASHLESS HOSPITALIZATION CLAIM ADJUDICATION MEMORANDUM
+Policy Reference: STAR-COMP-2025-1102 | TPA Code: TPA-MED-04
+Claims Department | Chennai Head Office
+
+### 1. Hospitalization Claim Profile
+The insured member was admitted to Apollo Hospitals Chennai for acute viral pneumonia and severe respiratory compromise. Under cashless hospitalization guidelines, the claim number assigned is CLM-MED-2026-44109. The network provider submitted emergency admission request, with pre-authorization status confirmed: Pre-authorized within 4 hours.
+
+### 2. Medical Expense Assessment and Adjudication
+The hospital presented cumulative billing for room rent, ICU monitoring, and pharmacological therapy totaling a claimed amount of INR 1,85,000. Following review of policy room rent caps and non-medical exclusions, the claim officer authorises a final approved amount of INR 1,72,500. The residual balance of INR 12,500 representing personal toiletries and administrative charges was discharged by the insured directly.
+
+### 3. Insured Member Identification and Claims Data
+The primary insured is identified as Radha Subramanian, reachable via email radha.subramanian@insurecare.com and mobile +91 94440 33445. Claim record verifies national Aadhaar 4871-0122-6918 and PAN identifier AZKPS1144F. Post-hospitalization claim allowance transfer routed via IFSC IOBA0001004 to account 10040156908123. Residence address recorded as Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020, date of birth 09-12-1981. Medical claim investigator is Dr. Suresh Menon. Direct co-pay settlement was confirmed with member UPI radha.s@okaxis.
+
+### 4. Non-Medical Exclusions and Discharge Audit
+The insurer verifies that hospital admission exceeded the 24-hour statutory minimum. All investigative pathology reports and oxygen saturation charts were reviewed and found fully compliant with policy underwriting norms.
+
+### 5. Third-Party Administrator Audit and Final Discharge
+The Third Party Administrator (TPA) has verified hospital pharmacy vouchers, clinical discharge records, and doctor round logs. The insured has submitted complete pre-hospitalization and post-hospitalization bills within sixty calendar days. Direct electronic settlement has been issued to Apollo Hospitals healthcare provider billing account under NEFT payment reference.

@@ -1,0 +1,1333 @@
+{
+  "documents": [
+    {
+      "filename": "hr_policy_01.txt",
+      "doc_type": "hr_policy",
+      "word_count": 446,
+      "key_facts": {
+        "notice_period": "60 calendar days",
+        "working_hours": "9:30 AM to 6:30 PM Monday through Friday",
+        "annual_leave": "24 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Ananya Sharma",
+          "start": 2124,
+          "end": 2137,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "ananya.sharma@acmesoftware.co.in",
+          "start": 2166,
+          "end": 2198,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 23450",
+          "start": 2247,
+          "end": 2262,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Rajesh Nambiar",
+          "start": 2463,
+          "end": 2477,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3043 3218 1964",
+          "start": 2548,
+          "end": 2562,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCPS1234K",
+          "start": 2605,
+          "end": 2615,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "HDFC0001234",
+          "start": 2698,
+          "end": 2709,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2740,
+          "end": 2754,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2805,
+          "end": 2877,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2907,
+          "end": 2917,
+          "in_scope": false
+        },
+        {
+          "type": "UPI",
+          "value": "ananya.sharma@okhdfcbank",
+          "start": 2976,
+          "end": 3000,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_02.txt",
+      "doc_type": "hr_policy",
+      "word_count": 390,
+      "key_facts": {
+        "notice_period": "90 calendar days",
+        "working_hours": "9:00 AM to 6:00 PM Monday through Saturday",
+        "annual_leave": "18 days of paid privilege leave",
+        "probation_period": "3 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Vikramaditya Rathore",
+          "start": 1986,
+          "end": 2006,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "vikram.rathore@bharatlogistics.in",
+          "start": 2016,
+          "end": 2049,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 97112 34567",
+          "start": 2073,
+          "end": 2088,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Sunita Deshmukh",
+          "start": 2253,
+          "end": 2268,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "2013-3890-8389",
+          "start": 2352,
+          "end": 2366,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "BRDPS9876C",
+          "start": 2386,
+          "end": 2396,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SBIN0004567",
+          "start": 2449,
+          "end": 2460,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "20489912034",
+          "start": 2480,
+          "end": 2491,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "House No 12, Sector 18, Vashi, Navi Mumbai, Maharashtra 400703",
+          "start": 2521,
+          "end": 2583,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "22-11-1985",
+          "start": 2593,
+          "end": 2603,
+          "in_scope": false
+        },
+        {
+          "type": "UPI",
+          "value": "vikram.rathore@oksbi",
+          "start": 2653,
+          "end": 2673,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_03.txt",
+      "doc_type": "hr_policy",
+      "word_count": 401,
+      "key_facts": {
+        "notice_period": "30 calendar days",
+        "working_hours": "10:00 AM to 7:00 PM with flexible core hours",
+        "annual_leave": "30 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Kavita Krishnamurthy",
+          "start": 1901,
+          "end": 1921,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kavita.k@nexusfintech.in",
+          "start": 1943,
+          "end": 1967,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 99887 76655",
+          "start": 1986,
+          "end": 2001,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Arvind Swaminathan",
+          "start": 2157,
+          "end": 2175,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8379 4026 5421",
+          "start": 2252,
+          "end": 2266,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "CKMPK4321E",
+          "start": 2280,
+          "end": 2290,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ICIC0000456",
+          "start": 2338,
+          "end": 2349,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "004501589123",
+          "start": 2361,
+          "end": 2373,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Tower B Apt 901, Cyber City Residency, DLF Phase 2, Gurugram, Haryana 122002",
+          "start": 2420,
+          "end": 2496,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "03-05-1992",
+          "start": 2526,
+          "end": 2536,
+          "in_scope": false
+        },
+        {
+          "type": "UPI",
+          "value": "kavita.k@okaxis",
+          "start": 2586,
+          "end": 2601,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_01.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 392,
+      "key_facts": {
+        "loan_amount": "INR 45,00,000",
+        "interest_rate": "8.65% per annum floating",
+        "tenure": "240 months",
+        "processing_fee": "INR 10,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Siddharth Roy",
+          "start": 1385,
+          "end": 1398,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "siddharth.roy@finmail.com",
+          "start": 1440,
+          "end": 1465,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98200 11223",
+          "start": 1505,
+          "end": 1520,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "5511 6155 9403",
+          "start": 1590,
+          "end": 1604,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AZYPR4567M",
+          "start": 1631,
+          "end": 1641,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "HDFC0000050",
+          "start": 1701,
+          "end": 1712,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100458921345",
+          "start": 1724,
+          "end": 1738,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "House 45, Koramangala 4th Block, 80 Feet Road, Bengaluru, Karnataka 560034",
+          "start": 1771,
+          "end": 1845,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "20-07-1984",
+          "start": 1878,
+          "end": 1888,
+          "in_scope": false
+        },
+        {
+          "type": "UPI",
+          "value": "siddharth.roy@okhdfcbank",
+          "start": 1962,
+          "end": 1986,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_02.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 338,
+      "key_facts": {
+        "loan_amount": "INR 1,25,00,000",
+        "interest_rate": "11.25% per annum fixed",
+        "tenure": "84 months",
+        "prepayment_penalty": "2.0% of outstanding principal"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Harishchand Chawla",
+          "start": 1259,
+          "end": 1277,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "harish.chawla@precisioncnc.in",
+          "start": 1299,
+          "end": 1328,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98111 22334",
+          "start": 1358,
+          "end": 1373,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9816-1849-5938",
+          "start": 1418,
+          "end": 1432,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AAACH7890N",
+          "start": 1450,
+          "end": 1460,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ICIC0000007",
+          "start": 1506,
+          "end": 1517,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "000705012398",
+          "start": 1537,
+          "end": 1549,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Plot 88, Okhla Industrial Area Phase 3, New Delhi 110020",
+          "start": 1582,
+          "end": 1638,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "11-12-1971",
+          "start": 1669,
+          "end": 1679,
+          "in_scope": false
+        },
+        {
+          "type": "UPI",
+          "value": "harish.chawla@icici",
+          "start": 1735,
+          "end": 1754,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_03.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 415,
+      "key_facts": {
+        "loan_amount": "INR 6,50,000",
+        "interest_rate": "13.50% per annum reducing balance",
+        "tenure": "36 months",
+        "foreclosure_charges": "Zero charges after 12 EMIs"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Sneha Reddy",
+          "start": 1319,
+          "end": 1330,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "sneha.reddy@techcorp.in",
+          "start": 1363,
+          "end": 1386,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 96500 44332",
+          "start": 1407,
+          "end": 1422,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3034 1316 4757",
+          "start": 1484,
+          "end": 1498,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AWTPR1290K",
+          "start": 1518,
+          "end": 1528,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "UTIB0000123",
+          "start": 1577,
+          "end": 1588,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "914010034567891",
+          "start": 1608,
+          "end": 1623,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 201 Sri Sai Residency, Madhapur, Hyderabad, Telangana 500081",
+          "start": 1662,
+          "end": 1727,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "28-09-1994",
+          "start": 1760,
+          "end": 1770,
+          "in_scope": false
+        },
+        {
+          "type": "UPI",
+          "value": "sneha.reddy@axisbank",
+          "start": 1815,
+          "end": 1835,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_01.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 314,
+      "key_facts": {
+        "primary_diagnosis": "Acute Laparoscopic Appendectomy",
+        "discharge_status": "Hemodynamically stable and ambulatory",
+        "follow_up_date": "7 days post-discharge",
+        "discharge_medications": "Cefixime 200mg twice daily for 5 days"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Gaurav Sen",
+          "start": 1134,
+          "end": 1144,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "gaurav.sen@healthmail.com",
+          "start": 1179,
+          "end": 1204,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98860 12345",
+          "start": 1234,
+          "end": 1249,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4553 4192 8322",
+          "start": 1299,
+          "end": 1313,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AZOPS3456D",
+          "start": 1327,
+          "end": 1337,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "HDFC0000088",
+          "start": 1427,
+          "end": 1438,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100984512390",
+          "start": 1450,
+          "end": 1464,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 102 Crystal Arcade, Indiranagar 100 Feet Road, Bengaluru, Karnataka 560038",
+          "start": 1491,
+          "end": 1570,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "19-03-1990",
+          "start": 1586,
+          "end": 1596,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Meenakshi Iyer",
+          "start": 1625,
+          "end": 1639,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "gaurav.sen@okhdfcbank",
+          "start": 1688,
+          "end": 1709,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_02.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 343,
+      "key_facts": {
+        "primary_diagnosis": "Coronary Angioplasty with Single Drug-Eluting Stent",
+        "discharge_status": "Stable cardiac sinus rhythm",
+        "follow_up_date": "14 days post-discharge",
+        "ejection_fraction": "55% preserved LV systolic function"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Dinesh Kulkarni",
+          "start": 1087,
+          "end": 1102,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "dinesh.kulkarni@healthmail.com",
+          "start": 1118,
+          "end": 1148,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98205 67890",
+          "start": 1166,
+          "end": 1181,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9648-3503-0560",
+          "start": 1236,
+          "end": 1250,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "BCDPK8899P",
+          "start": 1259,
+          "end": 1269,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SBIN0001234",
+          "start": 1320,
+          "end": 1331,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "30981245091",
+          "start": 1345,
+          "end": 1356,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "B-203 Sunrise Towers, Chembur East, Mumbai, Maharashtra 400071",
+          "start": 1390,
+          "end": 1452,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "04-10-1969",
+          "start": 1465,
+          "end": 1475,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Pooja Banerjee",
+          "start": 1518,
+          "end": 1532,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "dinesh.k@oksbi",
+          "start": 1564,
+          "end": 1578,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_03.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 331,
+      "key_facts": {
+        "primary_diagnosis": "Left Knee Arthroscopic Meniscal Repair",
+        "discharge_status": "Pain managed, non-weight bearing on left leg",
+        "follow_up_date": "10 days post-discharge",
+        "physiotherapy_protocol": "Gentle passive range of motion exercise starting Day 3"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Kunal Singhania",
+          "start": 1048,
+          "end": 1063,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kunal.singhania@sportsmail.com",
+          "start": 1079,
+          "end": 1109,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 97170 88990",
+          "start": 1120,
+          "end": 1135,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6139 5376 7242",
+          "start": 1183,
+          "end": 1197,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AMNPS6789L",
+          "start": 1213,
+          "end": 1223,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "PUNB0012300",
+          "start": 1268,
+          "end": 1279,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "12300015009823",
+          "start": 1291,
+          "end": 1305,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "C-44 Greater Kailash 1, New Delhi 110048",
+          "start": 1334,
+          "end": 1374,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "15-06-1996",
+          "start": 1390,
+          "end": 1400,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Deepak Verma",
+          "start": 1440,
+          "end": 1452,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "kunal.s@okaxis",
+          "start": 1477,
+          "end": 1491,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_01.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 325,
+      "key_facts": {
+        "claim_number": "CLM-MOT-2026-88912",
+        "claimed_amount": "INR 78,500",
+        "approved_amount": "INR 68,200",
+        "deductible": "INR 2,000 mandatory excess"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Abhishek Saxena",
+          "start": 1138,
+          "end": 1153,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "abhishek.saxena@claimmail.in",
+          "start": 1176,
+          "end": 1204,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 99001 22334",
+          "start": 1219,
+          "end": 1234,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4388 4969 6534",
+          "start": 1283,
+          "end": 1297,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AGYPS9912Q",
+          "start": 1311,
+          "end": 1321,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "HDFC0000120",
+          "start": 1373,
+          "end": 1384,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100778899123",
+          "start": 1404,
+          "end": 1418,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "House 78, 5th Cross, Malleshwaram, Bengaluru, Karnataka 560003",
+          "start": 1454,
+          "end": 1516,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "18-01-1987",
+          "start": 1532,
+          "end": 1542,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Naveen Chawla",
+          "start": 1566,
+          "end": 1579,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "abhishek.saxena@okhdfcbank",
+          "start": 1619,
+          "end": 1645,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_02.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 313,
+      "key_facts": {
+        "claim_number": "CLM-MED-2026-44109",
+        "claimed_amount": "INR 1,85,000",
+        "approved_amount": "INR 1,72,500",
+        "pre_authorization_status": "Pre-authorized within 4 hours"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Radha Subramanian",
+          "start": 1147,
+          "end": 1164,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "radha.subramanian@insurecare.com",
+          "start": 1186,
+          "end": 1218,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 94440 33445",
+          "start": 1230,
+          "end": 1245,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4871-0122-6918",
+          "start": 1286,
+          "end": 1300,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AZKPS1144F",
+          "start": 1320,
+          "end": 1330,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "IOBA0001004",
+          "start": 1394,
+          "end": 1405,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "10040156908123",
+          "start": 1417,
+          "end": 1431,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020",
+          "start": 1463,
+          "end": 1537,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "09-12-1981",
+          "start": 1553,
+          "end": 1563,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Suresh Menon",
+          "start": 1599,
+          "end": 1611,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "radha.s@okaxis",
+          "start": 1668,
+          "end": 1682,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_03.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 320,
+      "key_facts": {
+        "claim_number": "CLM-FIRE-2026-11045",
+        "claimed_amount": "INR 14,20,000",
+        "approved_amount": "INR 12,80,000",
+        "surveyor_assessment": "Electrical short-circuit without gross negligence"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Tapan Ganguly",
+          "start": 1133,
+          "end": 1146,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "tapan.ganguly@easterngarments.co.in",
+          "start": 1162,
+          "end": 1197,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98300 44556",
+          "start": 1221,
+          "end": 1236,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8697 8480 1842",
+          "start": 1296,
+          "end": 1310,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AAEFG4567M",
+          "start": 1330,
+          "end": 1340,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "UTBI0001045",
+          "start": 1380,
+          "end": 1391,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "10450500129845",
+          "start": 1413,
+          "end": 1427,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Plot 18, Block EP & GP, Sector V, Salt Lake, Kolkata, West Bengal 700091",
+          "start": 1467,
+          "end": 1539,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "25-04-1965",
+          "start": 1563,
+          "end": 1573,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Amitava Roy",
+          "start": 1608,
+          "end": 1619,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "tapan.ganguly@okhdfcbank",
+          "start": 1654,
+          "end": 1678,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_01.txt",
+      "doc_type": "kyc_form",
+      "word_count": 305,
+      "key_facts": {
+        "account_type": "Individual Resident Demat and Trading Account",
+        "risk_category": "Moderate Risk Profile",
+        "verification_mode": "DigiLocker Video In-Person Verification (IPV)",
+        "tax_residency": "Resident of India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Pranav Kulkarni",
+          "start": 1049,
+          "end": 1064,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "pranav.kulkarni@investmail.in",
+          "start": 1080,
+          "end": 1109,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 1127,
+          "end": 1142,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7146 2704 8282",
+          "start": 1202,
+          "end": 1216,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AZTPK4512B",
+          "start": 1241,
+          "end": 1251,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "HDFC0000060",
+          "start": 1301,
+          "end": 1312,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100445566778",
+          "start": 1326,
+          "end": 1340,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 301 Shanti Nivas, 14th Main, JP Nagar 2nd Phase, Bengaluru, Karnataka 560078",
+          "start": 1374,
+          "end": 1455,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "12-07-1993",
+          "start": 1478,
+          "end": 1488,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Rameshwar Rao",
+          "start": 1536,
+          "end": 1549,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "pranav.k@okhdfcbank",
+          "start": 1601,
+          "end": 1620,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_02.txt",
+      "doc_type": "kyc_form",
+      "word_count": 320,
+      "key_facts": {
+        "account_type": "Non-Resident External (NRE) Savings Account",
+        "risk_category": "High Risk Tier-1 Enhanced Due Diligence",
+        "overseas_residency": "United Arab Emirates",
+        "annual_turnover_declaration": "Above INR 50,00,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Faisal Mohammed",
+          "start": 1034,
+          "end": 1049,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "faisal.mohammed@nrimail.ae",
+          "start": 1082,
+          "end": 1108,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98470 11223",
+          "start": 1140,
+          "end": 1155,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3489-3252-8801",
+          "start": 1210,
+          "end": 1224,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "AZOPM8811K",
+          "start": 1238,
+          "end": 1248,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SBIN0000856",
+          "start": 1284,
+          "end": 1295,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "30089124501",
+          "start": 1320,
+          "end": 1331,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Bait-ul-Salam, Marine Drive, Ernakulam, Kochi, Kerala 682031",
+          "start": 1377,
+          "end": 1437,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "22-03-1979",
+          "start": 1447,
+          "end": 1457,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Jacob Varghese",
+          "start": 1481,
+          "end": 1495,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "faisal.m@oksbi",
+          "start": 1537,
+          "end": 1551,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_03.txt",
+      "doc_type": "kyc_form",
+      "word_count": 305,
+      "key_facts": {
+        "account_type": "Mutual Fund Investment Folio Individual Account",
+        "risk_category": "Low to Moderate Risk Profile",
+        "fatca_status": "Not a US citizen or tax resident of any other jurisdiction",
+        "nomination_status": "Single nominee registered with 100% share"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Pooja Kulkarni",
+          "start": 943,
+          "end": 957,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "pooja.kulkarni@fininvest.in",
+          "start": 973,
+          "end": 1000,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98220 55667",
+          "start": 1012,
+          "end": 1027,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7701 5430 3911",
+          "start": 1081,
+          "end": 1095,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "BCDPK7788A",
+          "start": 1109,
+          "end": 1119,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ICIC0000039",
+          "start": 1175,
+          "end": 1186,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "003901589124",
+          "start": 1200,
+          "end": 1212,
+          "in_scope": false
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 404 Green Acres, Baner Road, Pune, Maharashtra 411045",
+          "start": 1247,
+          "end": 1305,
+          "in_scope": false
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "08-11-1995",
+          "start": 1318,
+          "end": 1328,
+          "in_scope": false
+        },
+        {
+          "type": "PERSON",
+          "value": "Tanmay Joshi",
+          "start": 1361,
+          "end": 1373,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "pooja.k@okicici",
+          "start": 1411,
+          "end": 1426,
+          "in_scope": true
+        }
+      ]
+    }
+  ]
+}
