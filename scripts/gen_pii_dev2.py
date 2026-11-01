@@ -267,13 +267,7 @@ def gen_credentials_and_banking_heldout() -> list[dict[str, object]]:
         "Terraform provider credential {ak} must be revoked immediately.",
         "Security audit alert:\nResource: S3 Bucket\nKey ID: {ak}\nAction: Quarantine",
     ]
-    # Scanner-safe AWS access key representations generated at runtime
-    _ak_pfx = "".join(["AWS", "K"])
-    aks = [
-        f"{_ak_pfx}2J5F8K9M3N4P7Q1R",
-        f"{_ak_pfx}5T6Y7U8I9O0P1A2S",
-        f"{_ak_pfx}9B8C7D6E5F4G3H2J",
-    ]
+    aks = ["AKIA2J5F8K9M3N4P7Q1R", "AKIA5T6Y7U8I9O0P1A2S", "AKIA9B8C7D6E5F4G3H2J"]
     for i, ak in enumerate(aks):
         text = ak_templates[i].replace("{ak}", ak)
         start = text.find(ak)

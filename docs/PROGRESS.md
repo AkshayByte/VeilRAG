@@ -84,20 +84,20 @@
 
 | Metric | VeilRAG (Full) | Presidio (Baseline) | Absolute Lift |
 | :--- | :---: | :---: | :---: |
-| **Precision** | **0.6931** | 0.1538 | **+53.93%** |
-| **Recall** | **0.8974** | 0.3590 | **+53.84%** |
-| **F1 Score** | **0.7821** | 0.2154 | **+56.67%** |
+| **Precision** | **0.6976** | 0.1538 | **+54.38%** |
+| **Recall** | **0.9167** | 0.3590 | **+55.77%** |
+| **F1 Score** | **0.7922** | 0.2154 | **+57.68%** |
 | **Clean-case FPR** | **0.1364** (9/66 flagged) | 0.6667 (44/66 flagged) | **-53.03%** |
-| **Character Leak Rate** | **0.0307** (75/2443 chars) | 0.2767 (676/2443 chars) | **-24.60%** |
+| **Character Leak Rate** | **0.0061** (15/2443 chars) | 0.2767 (676/2443 chars) | **-27.06%** |
 | **Over-Redaction Rate** | **0.0503** (722/14348 chars) | 0.0984 (1412/14348 chars) | **-4.81%** |
-| **True Positives** | 140 | 56 | +84 |
+| **True Positives** | 143 | 56 | +87 |
 | **False Positives** | 62 | 308 | -246 |
-| **False Negatives** | 16 | 100 | -84 |
+| **False Negatives** | 13 | 100 | -87 |
 
-*(Note: In the scanner-safe post-run adjustment, AWS access key test vectors use prefix AWSK, which is unrecognized by the frozen AWSKeyRecognizer, accounting for the 3 additional false negatives and delta from 0.9167 recall / 0.0061 leak rate).*
+*(Note: The held-out dataset was adjusted twice post-generation: (1) Stripe-style keys were replaced with runtime-constructed mock secrets to satisfy GitHub push protection, (2) an over-correction that temporarily changed AWS access keys to an AWSK prefix was reverted because it made them undetectable by construction, restoring the exact original AKIA vectors).*
 
 **Core Highlights**:
-- **96.93% Character Protection**: Type-agnostic character leak rate is 0.0307 across the entire corpus.
+- **99.39% Character Protection**: Type-agnostic character leak rate is 0.0061 (only 15 sensitive characters unredacted out of 2,443 across the entire corpus).
 - **100% Recall Across Core ID & Credentials**:
   - `IDENTITY_DOCUMENT` (Aadhaar): 30/30 (100% recall, F1: 0.9524)
   - `PAN_NUMBER`: 25/25 (100% recall, 100% precision, F1: 1.0000)

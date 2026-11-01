@@ -140,9 +140,9 @@
 {"text": "Bank clearing house requires IFSC code SBIN0001234 for NEFT settlement.", "entities": [{"type": "IFSC_CODE", "start": 39, "end": 50}]}
 {"text": "Salary disbursement batch routed through nodal IFSC ICIC0004321 today.", "entities": [{"type": "IFSC_CODE", "start": 52, "end": 63}]}
 {"text": "Kripya passbook me check kijiye IFSC PUNB0123400 print hai ya nahi.", "entities": [{"type": "IFSC_CODE", "start": 37, "end": 48}]}
-{"text": "CI/CD pipeline failed: Leaked access token AWSK2J5F8K9M3N4P7Q1R detected in repo.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 43, "end": 63}]}
-{"text": "Terraform provider credential AWSK5T6Y7U8I9O0P1A2S must be revoked immediately.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 30, "end": 50}]}
-{"text": "Security audit alert:\nResource: S3 Bucket\nKey ID: AWSK9B8C7D6E5F4G3H2J\nAction: Quarantine", "entities": [{"type": "AWS_ACCESS_KEY", "start": 50, "end": 70}]}
+{"text": "CI/CD pipeline failed: Leaked access token AKIA2J5F8K9M3N4P7Q1R detected in repo.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 43, "end": 63}]}
+{"text": "Terraform provider credential AKIA5T6Y7U8I9O0P1A2S must be revoked immediately.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 30, "end": 50}]}
+{"text": "Security audit alert:\nResource: S3 Bucket\nKey ID: AKIA9B8C7D6E5F4G3H2J\nAction: Quarantine", "entities": [{"type": "AWS_ACCESS_KEY", "start": 50, "end": 70}]}
 {"text": "Sensitive secret payload: abC12+def34/GHI56jkl78MNO90pqr12STU34vwx discovered in public gist.", "entities": [{"type": "AWS_SECRET_KEY", "start": 26, "end": 66}]}
 {"text": "AWS IAM secret signing key: xYz98/wVu76+TsR54qPo32nLm10kJi87hGf65eDc flagged by guardduty.", "entities": [{"type": "AWS_SECRET_KEY", "start": 28, "end": 68}]}
 {"text": "Authorization header bearer token: mock_sk_99a88b77c66d55e44f33g22h11i00jkl active on endpoint.", "entities": [{"type": "SECRET_KEY", "start": 35, "end": 75}]}

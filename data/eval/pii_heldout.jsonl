@@ -140,9 +140,9 @@
 {"text": "National Electronic Funds Transfer requires branch IFSC code HDFC0001890.", "entities": [{"type": "IFSC_CODE", "start": 61, "end": 72}]}
 {"text": "Quarterly dividend disbursement issued from bank IFSC BARB0KOLKAT today.", "entities": [{"type": "IFSC_CODE", "start": 54, "end": 65}]}
 {"text": "Kripya cheque book pe check kijiye branch IFSC UTIB0002134 printed hai.", "entities": [{"type": "IFSC_CODE", "start": 47, "end": 58}]}
-{"text": "Cloud audit warning: Unencrypted IAM access key AWSK1A2B3C4D5E6F7G8H located in commit history.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 48, "end": 68}]}
-{"text": "Production AWS credentials AWSK9Z8Y7X6W5V4U3T2S require immediate revocation.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 27, "end": 47}]}
-{"text": "CloudWatch alert:\nAccount: Production\nAccess Key ID: AWSK3M4N5P6Q7R8S9T0U\nStatus: Suspended", "entities": [{"type": "AWS_ACCESS_KEY", "start": 53, "end": 73}]}
+{"text": "Cloud audit warning: Unencrypted IAM access key AKIA1A2B3C4D5E6F7G8H located in commit history.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 48, "end": 68}]}
+{"text": "Production AWS credentials AKIA9Z8Y7X6W5V4U3T2S require immediate revocation.", "entities": [{"type": "AWS_ACCESS_KEY", "start": 27, "end": 47}]}
+{"text": "CloudWatch alert:\nAccount: Production\nAccess Key ID: AKIA3M4N5P6Q7R8S9T0U\nStatus: Suspended", "entities": [{"type": "AWS_ACCESS_KEY", "start": 53, "end": 73}]}
 {"text": "Exposed credential token: 1aB2+cd34/EFG56hij78KLM90nop12QRS34tuv flagged in private repository.", "entities": [{"type": "AWS_SECRET_KEY", "start": 26, "end": 64}]}
 {"text": "AWS secret signing key 9zY8/xWv76+UsT54rQp32mNl10jKi87fGe65dCb was rotated by security automation.", "entities": [{"type": "AWS_SECRET_KEY", "start": 23, "end": 62}]}
 {"text": "API gateway bearer authorization token: mock_sk_12a34b56c78d90e12f34g56h78i90jkl active on proxy.", "entities": [{"type": "SECRET_KEY", "start": 40, "end": 80}]}

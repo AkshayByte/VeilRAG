@@ -264,13 +264,7 @@ def gen_credentials_and_banking_heldout() -> list[dict[str, object]]:
         "Production AWS credentials {ak} require immediate revocation.",
         "CloudWatch alert:\nAccount: Production\nAccess Key ID: {ak}\nStatus: Suspended",
     ]
-    # Scanner-safe AWS access key representations generated at runtime
-    _ak_pfx = "".join(["AWS", "K"])
-    aks = [
-        f"{_ak_pfx}1A2B3C4D5E6F7G8H",
-        f"{_ak_pfx}9Z8Y7X6W5V4U3T2S",
-        f"{_ak_pfx}3M4N5P6Q7R8S9T0U",
-    ]
+    aks = ["AKIA1A2B3C4D5E6F7G8H", "AKIA9Z8Y7X6W5V4U3T2S", "AKIA3M4N5P6Q7R8S9T0U"]
     for i, ak in enumerate(aks):
         text = ak_templates[i].replace("{ak}", ak)
         start = text.find(ak)
