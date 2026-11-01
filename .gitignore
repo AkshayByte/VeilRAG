@@ -48,3 +48,5 @@ logs/
 # Model caches (local)
 .cache/
 hf_cache/
+data/cache/
+

@@ -68,8 +68,28 @@ class AgentState(TypedDict):
     audit_trace: list[dict[str, Any]]
 
 
-def build_graph(adapter: LLMAdapter | None = None) -> CompiledStateGraph:
-    """Construct and return the compiled LangGraph agent."""
+def build_graph(
+    adapter: LLMAdapter | None = None,
+    enable_grading: bool = True,
+    enable_rewrite: bool = True,
+    enable_verification: bool = True,
+    enable_output_guard: bool = True,
+) -> CompiledStateGraph:
+    """Construct and return the compiled LangGraph agent.
+
+    Parameters
+    ----------
+    adapter:
+        LLM adapter instance (defaults to configured system adapter).
+    enable_grading:
+        Whether to grade candidate retrieved documents for relevance.
+    enable_rewrite:
+        Whether to rewrite queries when insufficient relevant chunks are found.
+    enable_verification:
+        Whether to verify factual claims in generated answers against context.
+    enable_output_guard:
+        Whether to sanitize the final answer with PIPELINE_MODE.
+    """
     active_adapter = adapter or get_adapter()
     vector_store = VectorStore()
 
@@ -151,6 +171,25 @@ def build_graph(adapter: LLMAdapter | None = None) -> CompiledStateGraph:
             return {"step_count": steps, "hard_limit_exceeded": True}
 
         docs = state.get("retrieved_docs", [])
+
+        if not enable_grading:
+            # Grading disabled: consider all retrieved chunks relevant without calling LLM
+            dur = (time.perf_counter() - t0) * 1000
+            trace_entry = {
+                "node": "grade_documents",
+                "duration_ms": dur,
+                "tokens": 0,
+                "cost": 0.0,
+                "relevant_count": len(docs),
+                "skipped": True,
+            }
+            return {
+                "relevant_docs": docs,
+                "step_count": steps,
+                "duration_ms": state.get("duration_ms", 0.0) + dur,
+                "audit_trace": state.get("audit_trace", []) + [trace_entry],
+            }
+
         q = state["sanitized_query"]
         relevant: list[RetrievedDocument] = []
         new_prompts: list[str] = []
@@ -205,11 +244,15 @@ def build_graph(adapter: LLMAdapter | None = None) -> CompiledStateGraph:
         state: AgentState,
     ) -> Literal["generate", "rewrite_query", "output_guard"]:
         """Conditional routing from grade_documents."""
+        if not enable_grading:
+            return "generate"
         if state.get("hard_limit_exceeded"):
             return "output_guard"
         rel_count = len(state.get("relevant_docs", []))
         rewrites = state.get("rewrite_count", 0)
 
+        if not enable_rewrite:
+            return "generate"
         if rel_count >= 2 or rewrites >= MAX_REWRITES:
             return "generate"
         return "rewrite_query"
@@ -279,15 +322,26 @@ def build_graph(adapter: LLMAdapter | None = None) -> CompiledStateGraph:
                 "step_count": steps,
             }
 
-        docs = state.get("relevant_docs", [])
-        if len(docs) < 2:
-            dur = (time.perf_counter() - t0) * 1000
-            return {
-                "raw_response": "I don't know.",
-                "prompt": "",
-                "step_count": steps,
-                "duration_ms": state.get("duration_ms", 0.0) + dur,
-            }
+        if not enable_grading:
+            docs = state.get("retrieved_docs", [])
+            if len(docs) == 0:
+                dur = (time.perf_counter() - t0) * 1000
+                return {
+                    "raw_response": "I don't know.",
+                    "prompt": "",
+                    "step_count": steps,
+                    "duration_ms": state.get("duration_ms", 0.0) + dur,
+                }
+        else:
+            docs = state.get("relevant_docs", [])
+            if len(docs) < 2:
+                dur = (time.perf_counter() - t0) * 1000
+                return {
+                    "raw_response": "I don't know.",
+                    "prompt": "",
+                    "step_count": steps,
+                    "duration_ms": state.get("duration_ms", 0.0) + dur,
+                }
 
         context_str = "\n\n".join([f"[{d.id}]\n{d.text}" for d in docs])
         prompt_str = (
@@ -335,6 +389,23 @@ def build_graph(adapter: LLMAdapter | None = None) -> CompiledStateGraph:
         t0 = time.perf_counter()
         steps = state.get("step_count", 0) + 1
         raw_ans = state.get("raw_response", "").strip()
+
+        if not enable_verification:
+            # Verification disabled: keep raw_response unchanged without LLM verification
+            dur = (time.perf_counter() - t0) * 1000
+            trace_entry = {
+                "node": "verify_answer",
+                "duration_ms": dur,
+                "tokens": 0,
+                "cost": 0.0,
+                "skipped": True,
+            }
+            return {
+                "raw_response": raw_ans,
+                "step_count": steps,
+                "duration_ms": state.get("duration_ms", 0.0) + dur,
+                "audit_trace": state.get("audit_trace", []) + [trace_entry],
+            }
 
         if not raw_ans or raw_ans.lower().startswith("i don't know"):
             dur = (time.perf_counter() - t0) * 1000
@@ -430,6 +501,28 @@ def build_graph(adapter: LLMAdapter | None = None) -> CompiledStateGraph:
         steps = state.get("step_count", 0) + 1
         raw_ans = state.get("raw_response", "I don't know.")
 
+        if not enable_output_guard:
+            # Output guard disabled: pass through unredacted LLM output
+            dur = (time.perf_counter() - t0) * 1000
+            revealed = raw_ans
+            for placeholder, original in state.get("query_reversible_map", {}).items():
+                revealed = revealed.replace(placeholder, original)
+            trace_entry = {
+                "node": "output_guard",
+                "duration_ms": dur,
+                "entity_types": [],
+                "entity_counts": {},
+                "skipped": True,
+            }
+            return {
+                "final_response": raw_ans,
+                "revealed_response": revealed,
+                "output_entity_counts": {},
+                "step_count": steps,
+                "duration_ms": state.get("duration_ms", 0.0) + dur,
+                "audit_trace": state.get("audit_trace", []) + [trace_entry],
+            }
+
         # Sanitize LLM answer with PIPELINE_MODE
         res = sanitize(raw_ans, mode=PIPELINE_MODE)
         dur = (time.perf_counter() - t0) * 1000
@@ -502,9 +595,19 @@ def run_query(
     query: str,
     adapter: LLMAdapter | None = None,
     reveal: bool = False,
+    enable_grading: bool = True,
+    enable_rewrite: bool = True,
+    enable_verification: bool = True,
+    enable_output_guard: bool = True,
 ) -> AgentState:
     """Run the corrective-RAG state graph on *query* and return final state."""
-    app = build_graph(adapter=adapter)
+    app = build_graph(
+        adapter=adapter,
+        enable_grading=enable_grading,
+        enable_rewrite=enable_rewrite,
+        enable_verification=enable_verification,
+        enable_output_guard=enable_output_guard,
+    )
 
     initial_state: AgentState = {
         "raw_query": query,

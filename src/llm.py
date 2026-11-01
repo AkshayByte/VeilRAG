@@ -16,11 +16,14 @@ The provider is selected via the ``LLM_PROVIDER`` environment variable:
 
 from __future__ import annotations
 
+import hashlib
+import json
 import logging
 import re
 import time
 from collections.abc import AsyncIterator, Callable
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Protocol
 
 import httpx
@@ -425,6 +428,78 @@ class AnthropicAdapter:
     async def astream(self, prompt: SanitizedText, **kwargs: object) -> AsyncIterator[str]:
         """Stream chunks from Anthropic."""
         resp = await self.acomplete(prompt, **kwargs)
+        yield resp.text
+
+
+class CachedLLMAdapter:
+    """Wrapper that caches completions on disk keyed by SHA-256 of (model + sanitized prompt)."""
+
+    def __init__(self, inner: LLMAdapter, cache_dir: Path | str = "data/cache") -> None:
+        self.inner = inner
+        self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        self.model = getattr(inner, "model", "cached-model")
+        self.provider = getattr(inner, "provider", "cached")
+        self.hits = 0
+        self.misses = 0
+
+    def _cache_key(self, prompt: SanitizedText) -> str:
+        content = f"{self.provider}:{self.model}:{str(prompt)}"
+        return hashlib.sha256(content.encode("utf-8")).hexdigest()
+
+    def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+        """Return cached response or delegate to inner adapter and store result."""
+        _check_sanitized(prompt)
+        key = self._cache_key(prompt)
+        cache_file = self.cache_dir / f"{key}.json"
+
+        if cache_file.exists():
+            try:
+                with open(cache_file, encoding="utf-8") as f:
+                    data = json.load(f)
+                self.hits += 1
+                return LLMResponse(
+                    text=data["text"],
+                    model=data.get("model", self.model),
+                    provider=data.get("provider", self.provider),
+                    input_tokens=data.get("input_tokens", 0),
+                    output_tokens=data.get("output_tokens", 0),
+                    cost=data.get("cost", 0.0),
+                    usage=data.get("usage"),
+                )
+            except Exception as e:
+                logger.warning("Failed to read cache file %s: %s", cache_file, e)
+
+        # Cache miss
+        self.misses += 1
+        resp = self.inner.complete(prompt, **kwargs)
+        try:
+            with open(cache_file, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "text": resp.text,
+                        "model": resp.model,
+                        "provider": resp.provider,
+                        "input_tokens": resp.input_tokens,
+                        "output_tokens": resp.output_tokens,
+                        "cost": resp.cost,
+                        "usage": resp.usage,
+                    },
+                    f,
+                    ensure_ascii=False,
+                )
+        except Exception as e:
+            logger.warning("Failed to write cache file %s: %s", cache_file, e)
+
+        return resp
+
+    async def acomplete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+        """Async completion delegates to sync complete."""
+        return self.complete(prompt, **kwargs)
+
+    async def astream(self, prompt: SanitizedText, **kwargs: object) -> AsyncIterator[str]:
+        """Stream chunks from cached response."""
+        resp = self.complete(prompt, **kwargs)
         yield resp.text
 
 

@@ -1,15 +1,20 @@
 # Project Progress — VeilRAG (Secure RAG Agent)
 
 ## Current Status Overview
-- **Phase**: Prompt 4B (Corpus Scaling & Generalization Benchmark on Frozen Recognizers) complete and verified.
+- **Phase**: Prompt 5, Part 1 (RAG Evaluation Harness & Ablations) complete and verified.
 - **Git Tags**:
   - `recognizers-frozen-v1`: Initial recognizers benchmarked on DEV and first held-out set (DEV2).
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
   - `recognizers-frozen-v3`: Coverage recognizers for DATE_OF_BIRTH, BANK_ACCOUNT, ADDRESS, and Hospital IDs benchmarked on DEV3 and HELDOUT3.
 - **Corpus V2 Generalization**: 70 documents, 140 chunks ingested with `CHUNK_SIZE_TOKENS=300` and `CHUNK_OVERLAP_TOKENS=60`. Evaluated ONCE without tuning; gaps documented in `docs/limitations.md`.
-- **CI Hardening & Isolation**: Autouse fixture isolates tests in temporary session store (`tmp_path_factory.mktemp("chroma")`), never touching real `data/chroma`. Hard invariant verified on every push.
-- **Test Suite**: 121 passed out of 121 selected tests (`pytest tests/ -v -m "not slow"`).
-- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 49 source files).
+- **RAG Evaluation Harness & Ablations**:
+  - `data/eval/qa_test.jsonl`: Exactly 40 questions (26 answerable key-fact with unique gold docs, 8 unanswerable, 6 PII extraction attempts).
+  - `data/eval/qa_dev.jsonl`: 10 debug questions (6 answerable, 2 unanswerable, 2 PII).
+  - Configurable pipeline ablations: A (Naive RAG), B (+ Grading/Rewrite), C (+ Verification), D (Full System).
+  - Response cache under `data/cache/` (gitignored), cost cap guard (`MAX_EVAL_COST_USD`), Wilson 95% confidence intervals on all proportions.
+  - LLM judge rubric calibrated with 10 manual spot checks in `docs/judge_spot_checks.md`.
+- **Test Suite**: 131 passed out of 131 selected tests (`pytest tests/ -v -m "not slow"`).
+- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 50 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
 ---
@@ -246,36 +251,62 @@
    - Clones repo to a fresh temporary workspace, creates a virtual environment, installs dependencies matching `ci.yml`, and runs ingestion, evaluation, `ruff`, `mypy`, and `pytest`.
    - Documented mandatory pre-push verification rule in `AGENTS.md`.
 
+### 9. RAG Evaluation Harness & Ablations (Prompt 5, Part 1 Results)
+*Built rigorous evaluation harness and benchmark questions programmatically from `data/docs_v2/_ground_truth.json`.*
+
+1. **Benchmark Question Datasets (`scripts/gen_qa.py`)**:
+   - `data/eval/qa_test.jsonl`: Exactly 40 questions:
+     - 26 answerable key-fact questions, each with a **unique gold document** (26 distinct documents) and exact gold string.
+     - 8 unanswerable questions (organisations and domains absent from corpus) with `gold_doc: null` and `gold_value: null`.
+     - 6 adversarial PII extraction attempts ("What is the Aadhaar/PAN/DOB in <doc>?"), each with a unique gold document and non-empty `planted_values`.
+   - `data/eval/qa_dev.jsonl`: 10 debug questions (6 answerable, 2 unanswerable, 2 PII) on disjoint documents.
+
+2. **Configurable Pipeline Ablations (`src/rag/agent.py`)**:
+   - Configurable flags `enable_grading`, `enable_rewrite`, `enable_verification`, `enable_output_guard` with default `True` preserving existing agent behavior.
+   - Four benchmark ablations:
+     - **Ablation A (Naive RAG)**: Top-k retrieval + direct generation (grading, rewriting, verification, and output_guard disabled).
+     - **Ablation B (+ Grading / Rewrite)**: Relevance grading of retrieved chunks + up to 2 query rewrites.
+     - **Ablation C (+ Verification)**: Factual claim verification against context + single regeneration if hallucinated.
+     - **Ablation D (Full System)**: Full corrective-RAG system + `output_guard` PII sanitization.
+
+3. **Evaluation Harness Metrics (`src/eval/rag_eval.py`)**:
+   - **Retrieval Hit Rate**: Gold document in retrieved candidate chunks (programmatic, no LLM).
+   - **Answer Correctness**: Programmatic match of gold value in answer (primary metric, no LLM judge).
+   - **Citation Correctness**: Verification that cited chunk ID belongs to the gold document.
+   - **Refusal Accuracy**: Explicit refusal ("I don't know") on the 8 unanswerable questions.
+   - **PII Leak Rate**: Comprehensive scan against planted ground-truth substrings AND Presidio/regex scan via `sanitize(answer, mode=PIPELINE_MODE)`. Reports 0 only after scanning all answers.
+   - **Faithfulness (Secondary)**: LLM judge with fixed rubric. 10 manual calibration spot checks documented in `docs/judge_spot_checks.md`.
+   - **Wilson 95% Confidence Intervals**: Exact binomial confidence intervals computed for all proportions.
+
+4. **Safety Rails & Infrastructure**:
+   - On-disk response caching under `data/cache/` (gitignored) via `CachedLLMAdapter`, preserving type boundary.
+   - Cost cap guard via `MAX_EVAL_COST_USD` environment variable or `--max-cost` CLI flag aborting runs on budget overruns.
+   - Warmup query executed and discarded prior to collecting p50/p95 latency metrics.
+   - `docs/rag_results.md` automatically generated with run metadata, comparative matrix, and per-question error diagnostics.
+
 ---
 
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (121 tests passing)
+# 1. Full Unit Test Suite (131 tests passing)
 pytest tests/ -v -m "not slow"
 
-# 2. Pre-Push Clean Clone Check
+# 2. RAG Evaluation Harness Unit Tests (11 tests passing)
+pytest tests/test_rag_eval.py -v
+
+# 3. Pre-Push Clean Clone Check
 powershell -ExecutionPolicy Bypass -File scripts/clean_clone_check.ps1
 
-# 2. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
+# 4. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
 python -m src.eval.pii_eval --dataset heldout
 
-# 3. Held-Out 3 Coverage Eval (82 TP / 16 FP / 0 FN, 0.0000 leak rate)
-python -m src.eval.pii_eval --dataset heldout3
+# 5. RAG Evaluation Harness (Fake Provider CI Verification)
+python -m src.eval.rag_eval --provider fake --dataset dev --limit 5
 
-# 4. Ingestion Security & Generalization Audit (Corpus V2)
-python -m src.eval.ingest_eval --corpus v2
+# 6. RAG Evaluation Harness (Real Provider Execution)
+python -m src.eval.rag_eval --provider anthropic --dataset test --ablation all
 
-# 5. Ingestion Security Verification (Corpus V1)
-python -m src.eval.ingest_eval --corpus v1
-
-# 5. Corrective-RAG CLI Commands
-python -m src.rag.cli ask "What is the notice period in hr_policy_01?"
-python -m src.rag.cli ask "What is the secret recipe for Martian space pie?"
-python -m src.rag.cli ask "My Aadhaar is 2345 6789 0124. What is the loan tenure?" --show-prompts
-python -m src.rag.cli peek --full
-python -m src.rag.cli query "notice period"
-
-# 6. Type and Linting Checks
+# 7. Type and Linting Checks
 ruff check src/ tests/ scripts/
 mypy src/ tests/ scripts/
 ```
@@ -283,5 +314,4 @@ mypy src/ tests/ scripts/
 ---
 
 ## What is Next
-- **Prompt 5**: End-to-end RAG evaluation & quality metrics (answer correctness, citation fidelity, hallucination rate, and adversarial injection resistance).
-- Integrate hash-chained audit logging across all graph steps.
+- **Prompt 5, Part 2**: Run live evaluation against real LLM providers (`anthropic` / `ollama`), analyze ablation trade-offs, and measure adversarial prompt injection resistance.
