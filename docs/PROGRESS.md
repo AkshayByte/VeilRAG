@@ -1,11 +1,11 @@
 # Project Progress — VeilRAG (Secure RAG Agent)
 
 ## Current Status Overview
-- **Phase**: Prompt 3 (Secure Ingestion + Local Retrieval) complete and verified.
+- **Phase**: Prompt 4 (Corrective-RAG LangGraph Agent with Factual Verification & Output Guard) complete and verified.
 - **Git Tags**:
   - `recognizers-frozen-v1`: Initial recognizers benchmarked on DEV and first held-out set (DEV2).
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
-- **Test Suite**: 89 passed out of 89 tests (`pytest tests/ -v -m "not slow"`).
+- **Test Suite**: 97 passed out of 97 selected tests (`pytest tests/ -v -m "not slow"`).
 - **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 44 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
@@ -133,24 +133,59 @@
 
 ---
 
+### 5. Corrective-RAG LangGraph Agent & Safety Boundary (Prompt 4 Results)
+*Stateful Corrective-RAG agent with factual verification, output guard, and fail-closed safety invariants.*
+*Graph exported to `docs/agent_graph.md` via `LangGraph.draw_mermaid()`.*
+
+1. **Architecture & State Machine (`src/rag/agent.py`)**:
+   - Typed state `AgentState` manages execution trace, latency, tokens, cost, and entity counts.
+   - **`sanitize_query`**: Sanitizes user query with `mode=PIPELINE_MODE` (`"full"`) and `placeholder_prefix="Q_"`.
+   - **`retrieve`**: Locates top candidate chunks via local embeddings and ChromaDB vector store.
+   - **`grade_documents`**: LLM evaluates candidate chunks for query relevance (binary yes/no).
+   - **`rewrite_query`**: Triggers when fewer than 2 chunks are relevant. Re-sanitizes rewritten query (max 2 rewrites).
+   - **`generate`**: Context-bound generation strictly citing chunk IDs (e.g. `[doc_id#chunk_n]`). Returns "I don't know." if < 2 relevant chunks.
+   - **`verify_answer`**: Fact-checking step verifying all claims are grounded in context. Regenerates once if unsupported claims are detected; falls back to "I don't know.".
+   - **`output_guard`**: Re-sanitizes final response under `PIPELINE_MODE`, logs entity counts, and generates revealed text if requested.
+   - Hard execution limit enforced (max 15 graph steps).
+
+2. **Single LLM Adapter Interface (`src/llm.py`)**:
+   - `LLM_PROVIDER = fake | ollama | anthropic` (defaults to deterministic offline `fake`).
+   - Strict `SanitizedText` brand enforcement across `complete()`, `acomplete()`, and `astream()` (`TypeError` on plain `str`).
+   - Token usage and cost tracking ($3/M in, $15/M out for Claude 3.5 Sonnet).
+   - Security invariant: Full prompts and answers are **never logged** at any logging level. Only token counts, cost, provider, and duration are recorded in telemetry.
+
+3. **Placeholder Collision Prevention**:
+   - Query placeholders use prefix `Q_` (e.g., `[Q_PERSON_1]`, `[Q_AADHAAR_1]`), preventing collision with chunk tokens (`[PERSON_1]`, `[AADHAAR_1]`).
+   - Sanitizer idempotency verified: `sanitize(sanitize(x)) == sanitize(x)` for placeholder text.
+
+4. **Query-Scoped Revealing (`--reveal`)**:
+   - Reverses only placeholders generated from the user's query (`query_reversible_map`).
+   - Chunk originals are never stored in the vector store and cannot be revealed.
+
+5. **Regression Guard**:
+   - `python -m src.eval.pii_eval --dataset heldout` verified at **143 TP / 62 FP / 13 FN** (Zero regression).
+
+---
+
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (87 tests passing)
+# 1. Full Unit Test Suite (97 tests passing)
 pytest tests/ -v -m "not slow"
 
 # 2. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
 python -m src.eval.pii_eval --dataset heldout
 
-# 3. Document Ingestion Pipeline
-python -m src.rag.ingest
+# 3. Corrective-RAG CLI Commands
+python -m src.rag.cli ask "What is the notice period in hr_policy_01?"
+python -m src.rag.cli ask "What is the secret recipe for Martian space pie?"
+python -m src.rag.cli ask "My Aadhaar is 2345 6789 0124. What is the loan tenure?" --show-prompts
+python -m src.rag.cli peek --full
+python -m src.rag.cli query "notice period"
 
 # 4. Ingestion Security & Fact Survival Audit
 python -m src.eval.ingest_eval
 
-# 5. Inspect Stored Sanitized Chunks
-python -m src.rag.cli peek --n 3
-
-# 6. Type and Linting Checks
+# 5. Type and Linting Checks
 ruff check src/ tests/ scripts/
 mypy src/ tests/ scripts/
 ```
@@ -158,5 +193,5 @@ mypy src/ tests/ scripts/
 ---
 
 ## What is Next
-- **Prompt 4**: Stateful LangGraph RAG agent with secure retrieval, LLM response generation, and post-generation hallucination and PII leak verification chain.
-- Integrate hash-chained audit logging for each query step.
+- **Prompt 5**: End-to-end RAG evaluation & quality metrics (answer correctness, citation fidelity, hallucination rate, and adversarial injection resistance).
+- Integrate hash-chained audit logging across all graph steps.

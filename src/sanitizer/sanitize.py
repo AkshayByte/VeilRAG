@@ -217,6 +217,7 @@ def sanitize(
     mode: str = "general",
     *,
     extra_entities: list[str] | None = None,
+    placeholder_prefix: str = "",
 ) -> SanitizeResult:
     """Redact PII from *text* using the specified *mode*.
 
@@ -226,9 +227,15 @@ def sanitize(
         The input text, which may contain PII.
     mode
         One of the keys defined in ``modes.yaml`` (``general``,
-        ``financial``, ``medical``, ``code``).
+        ``financial``, ``medical``, ``code``, ``full``).
     extra_entities
         Additional entity types to redact beyond the mode defaults.
+    placeholder_prefix
+        Optional namespace prefix for placeholders (e.g. ``"Q_"`` produces
+        ``[Q_PERSON_1]``). Namespacing query placeholders prevents collision with
+        document chunk placeholders already stored in the vector store (such as
+        ``[PERSON_1]``), ensuring that query-specific reversible maps do not
+        accidentally rewrite or leak document-level placeholders.
 
     Returns
     -------
@@ -244,6 +251,7 @@ def sanitize(
     """
 
     try:
+        raw_text = str(text)
         mode_entities = _get_mode_entities(mode)
         # Credential types are ALWAYS detected (leakage risk), never mode-gated.
         mode_entities += [
@@ -262,7 +270,7 @@ def sanitize(
         analyzer = _get_analyzer()
 
         presidio_results: list[RecognizerResult] = analyzer.analyze(
-            text=text,
+            text=raw_text,
             entities=mode_entities,
             language="en",
         )
@@ -272,7 +280,7 @@ def sanitize(
         for detector in DEFAULT_DETECTORS:
             if detector.entity_type not in mode_entities:
                 continue
-            custom_matches.extend(detector.scan(text))
+            custom_matches.extend(detector.scan(raw_text))
 
         # --- Combine all spans into (entity_type, start, end, score) ---
         all_spans: list[tuple[str, int, int, float]] = []
@@ -293,7 +301,7 @@ def sanitize(
         last_end = 0
 
         for entity_type, start, end, score in deduped:
-            original = text[start:end]
+            original = raw_text[start:end]
             prefix = _PLACEHOLDER_PREFIXES.get(entity_type, entity_type)
             key = (prefix, original)
 
@@ -302,15 +310,15 @@ def sanitize(
             else:
                 counter = placeholder_counters.get(prefix, 0) + 1
                 placeholder_counters[prefix] = counter
-                placeholder = f"[{prefix}_{counter}]"
+                placeholder = f"[{placeholder_prefix}{prefix}_{counter}]"
                 text_to_placeholder[key] = placeholder
                 reversible_map[placeholder] = original
 
-            result_parts.append(text[last_end:start])
+            result_parts.append(raw_text[last_end:start])
             result_parts.append(placeholder)
             last_end = end
 
-        result_parts.append(text[last_end:])
+        result_parts.append(raw_text[last_end:])
         sanitized_text = "".join(result_parts)
 
         entity_spans = [

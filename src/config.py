@@ -15,14 +15,17 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    llm_provider: str = "ollama"
-    """Which LLM backend to use: ``hosted`` or ``ollama``."""
+    llm_provider: str = "fake"
+    """Which LLM backend to use: ``fake``, ``ollama``, or ``anthropic``."""
 
     openai_api_base: str | None = None
     """Base URL for an OpenAI-compatible API (used when ``llm_provider=hosted``)."""
 
     openai_api_key: str | None = None
     """API key for a hosted LLM provider (used when ``llm_provider=hosted``)."""
+
+    anthropic_api_key: str | None = None
+    """API key for Anthropic provider (used when ``llm_provider=anthropic``)."""
 
     llm_model: str = "gpt-4o-mini"
     """Model name / identifier."""

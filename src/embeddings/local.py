@@ -91,7 +91,10 @@ class EmbeddingModel:
         """Lazy-load and cache the underlying SentenceTransformer."""
         if self._model is None:
             logger.info("Loading embedding model: %s", self._model_name)
-            self._model = SentenceTransformer(self._model_name)
+            try:
+                self._model = SentenceTransformer(self._model_name, local_files_only=True)
+            except Exception:
+                self._model = SentenceTransformer(self._model_name)
         return self._model
 
     @property

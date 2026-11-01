@@ -28,6 +28,21 @@ class RetrievedDocument:
     metadata: dict[str, Any]
     score: float
 
+    @property
+    def id(self) -> str:
+        """Return the chunk ID or document ID from metadata."""
+        return str(
+            self.metadata.get("chunk_id")
+            or self.metadata.get("id")
+            or self.metadata.get("source")
+            or "chunk"
+        )
+
+    @property
+    def doc_id(self) -> str:
+        """Alias for chunk/document ID."""
+        return self.id
+
 
 class VectorStore:
     """Thin wrapper around a ChromaDB collection."""
@@ -78,18 +93,23 @@ class VectorStore:
         raw_docs = results.get("documents") or []
         raw_meta = results.get("metadatas") or []
         raw_dist = results.get("distances") or []
+        raw_ids = results.get("ids") or []
 
         docs = raw_docs[0] if raw_docs else []
         metas = raw_meta[0] if raw_meta else []
         dists = raw_dist[0] if raw_dist else []
+        ids = raw_ids[0] if raw_ids else []
 
-        for text, meta, dist in zip(docs, metas, dists):
-            # Cosine distance in chroma: 1.0 - cosine_similarity
+        for i, (text, dist) in enumerate(zip(docs, dists)):
+            meta = dict(metas[i]) if i < len(metas) and metas[i] else {}
+            chunk_id = ids[i] if i < len(ids) else ""
+            if chunk_id and "chunk_id" not in meta:
+                meta["chunk_id"] = chunk_id
             score = 1.0 - float(dist) if dist is not None else 0.0
             retrieved.append(
                 RetrievedDocument(
                     text=text,
-                    metadata=dict(meta) if meta else {},
+                    metadata=meta,
                     score=round(score, 4),
                 )
             )

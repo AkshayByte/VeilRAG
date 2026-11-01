@@ -480,6 +480,29 @@ def test_string_concatenation_drops_sanitized_text_type() -> None:
     assert isinstance(tampered, str)
 
 
+def test_placeholder_namespacing_prevents_chunk_collision() -> None:
+    """placeholder_prefix namespaces placeholders to prevent collision with stored chunk tokens."""
+    res = sanitize("Patient Vikram Malhotra has Aadhaar 2345 6789 0124", placeholder_prefix="Q_")
+    assert "[Q_PERSON_1]" in res.safe
+    assert "[Q_AADHAAR_1]" in res.safe
+    assert "[PERSON_1]" not in res.safe
+    assert "[AADHAAR_1]" not in res.safe
+    assert "[Q_PERSON_1]" in res.reversible_map
+    assert res.reversible_map["[Q_PERSON_1]"] == "Vikram Malhotra"
+
+
+def test_sanitize_idempotency_on_placeholder_text() -> None:
+    """sanitize(sanitize(x)) == sanitize(x) holds across nested passes."""
+    text = (
+        "Transfer request from [Q_PERSON_1] with Aadhaar [Q_AADHAAR_1] to "
+        "beneficiary [PERSON_1] with IFSC [IFSC_1]."
+    )
+    res1 = sanitize(text, mode="full")
+    res2 = sanitize(res1.safe, mode="full")
+    assert res1.safe == text
+    assert res2.safe == res1.safe
+
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

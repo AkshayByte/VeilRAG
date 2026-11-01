@@ -63,7 +63,30 @@ def _cmd_query(args: argparse.Namespace) -> None:
     from src.rag.agent import run_query
 
     state = run_query(args.query)
-    _ = state.get("response")
+    ans = state.get("final_response", "")
+    print(f"Answer: {ans}")
+
+
+def _cmd_ask(args: argparse.Namespace) -> None:
+    """Run the corrective-RAG agent on a question."""
+    from src.rag.agent import run_query
+
+    state = run_query(args.question)
+
+    if getattr(args, "show_prompts", False):
+        prompts = state.get("prompts", [])
+        print("\n=== Prompts Sent to LLM ===")
+        for i, p in enumerate(prompts, start=1):
+            print(f"\n--- Prompt {i} ---")
+            print(p)
+        print("\n===========================\n")
+
+    if getattr(args, "reveal", False):
+        ans = state.get("revealed_response", "")
+    else:
+        ans = state.get("final_response", "")
+
+    print(f"Answer: {ans}")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -85,6 +108,24 @@ def build_parser() -> argparse.ArgumentParser:
     q = sub.add_parser("query", help="Run a single RAG query")
     q.add_argument("query", type=str, help="The question to ask")
 
+    ask_p = sub.add_parser("ask", help="Ask a question using the corrective-RAG agent")
+    ask_p.add_argument("question", type=str, help="The question to ask")
+    ask_p.add_argument(
+        "--reveal",
+        action="store_true",
+        default=False,
+        help=(
+            "Restore values typed by the user in the query using the request-scoped query map. "
+            "Chunk originals are never stored and can never be revealed."
+        ),
+    )
+    ask_p.add_argument(
+        "--show-prompts",
+        action="store_true",
+        default=False,
+        help="Print all prompts sent to the LLM adapter across all graph nodes",
+    )
+
     return parser
 
 
@@ -100,6 +141,8 @@ def main(argv: list[str] | None = None) -> int:
         _cmd_peek(args)
     elif args.command == "query":
         _cmd_query(args)
+    elif args.command == "ask":
+        _cmd_ask(args)
 
     return 0
 

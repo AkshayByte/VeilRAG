@@ -1,4 +1,4 @@
-﻿"""Tests for src/config.py."""
+"""Tests for src/config.py."""
 
 from __future__ import annotations
 
@@ -9,4 +9,4 @@ def test_settings_singleton() -> None:
     """Settings singleton is instantiated with defaults."""
 
     assert isinstance(settings, Settings)
-    assert settings.llm_provider in ("hosted", "ollama")
+    assert settings.llm_provider in ("fake", "hosted", "ollama", "anthropic")

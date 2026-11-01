@@ -19,6 +19,7 @@ from typing import Any
 
 from presidio_analyzer import AnalyzerEngine
 
+from src.config import PIPELINE_MODE
 from src.sanitizer import sanitize
 
 logger = logging.getLogger(__name__)
@@ -48,27 +49,6 @@ RESULTS_PATH = DEV_RESULTS_PATH
 DOCS_RESULTS_PATH = HERE.parent.parent / "docs" / "pii_results.md"
 
 SPAN_OVERLAP_THRESHOLD = 0.80
-
-ALL_EVAL_ENTITIES: list[str] = [
-    "PERSON",
-    "EMAIL_ADDRESS",
-    "PHONE_NUMBER",
-    "US_SSN",
-    "CREDIT_CARD",
-    "IBAN_CODE",
-    "IP_ADDRESS",
-    "URL",
-    "IDENTITY_DOCUMENT",
-    "PAN_NUMBER",
-    "IFSC_CODE",
-    "UPI_ID",
-    "INDIAN_MOBILE",
-    "MEDICAL_RECORD_NUMBER",
-    "PATIENT_ID",
-    "AWS_ACCESS_KEY",
-    "AWS_SECRET_KEY",
-    "SECRET_KEY",
-]
 
 
 @dataclass
@@ -241,7 +221,7 @@ def evaluate_case(
         results = _get_presidio_analyzer().analyze(text=case.text, language="en")
         detected: list[tuple[str, int, int]] = [(r.entity_type, r.start, r.end) for r in results]
     else:
-        result = sanitize(case.text, extra_entities=ALL_EVAL_ENTITIES)
+        result = sanitize(case.text, mode=PIPELINE_MODE)
         detected = [(e.entity_type, e.start, e.end) for e in result.entities]
 
     gold = case.entities
