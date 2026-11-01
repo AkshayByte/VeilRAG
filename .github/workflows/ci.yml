@@ -25,5 +25,7 @@ jobs:
         run: mypy src/
       - name: Ingest documents
         run: python -m src.rag.ingest --corpus v1
+      - name: Verify zero-leak ingestion
+        run: python -m src.eval.ingest_eval --corpus v1
       - name: Test
         run: pytest tests/ -v

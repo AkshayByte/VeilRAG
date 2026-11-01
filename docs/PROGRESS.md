@@ -7,7 +7,8 @@
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
   - `recognizers-frozen-v3`: Coverage recognizers for DATE_OF_BIRTH, BANK_ACCOUNT, ADDRESS, and Hospital IDs benchmarked on DEV3 and HELDOUT3.
 - **Corpus V2 Generalization**: 70 documents, 140 chunks ingested with `CHUNK_SIZE_TOKENS=300` and `CHUNK_OVERLAP_TOKENS=60`. Evaluated ONCE without tuning; gaps documented in `docs/limitations.md`.
-- **Test Suite**: 119 passed out of 119 selected tests (`pytest tests/ -v -m "not slow"`).
+- **CI Hardening & Isolation**: Autouse fixture isolates tests in temporary session store (`tmp_path_factory.mktemp("chroma")`), never touching real `data/chroma`. Hard invariant verified on every push.
+- **Test Suite**: 121 passed out of 121 selected tests (`pytest tests/ -v -m "not slow"`).
 - **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 49 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
@@ -224,12 +225,36 @@
 4. **Regression Guard**:
    - `python -m src.eval.pii_eval --dataset heldout` strictly maintained **143 TP / 62 FP / 13 FN** (Recall 0.9167, Precision 0.6976).
 
+### 8. CI Hardening & Pre-Push Verification
+*Hardened test environment isolation, vector store validation, and automated clean clone checks.*
+
+1. **Test Session Store Isolation (`tests/conftest.py`)**:
+   - Session-scoped autouse fixture redirects `settings.chroma_persist_dir` to a temporary directory (`tmp_path_factory.mktemp("chroma")`), ingests corpus v1 there, and restores the setting on teardown.
+   - Tests run strictly against isolated corpus v1 on every machine, never mutating or relying on real `data/chroma`.
+   - Removed heuristic document source guessing; tests state target corpus explicitly (`corpus="v1"`).
+
+2. **Ingestion Store Integrity Checks (`src/eval/ingest_eval.py` & `tests/test_ingest_eval.py`)**:
+   - `run_ingest_eval` raises `ValueError` if the vector store contains 0 chunks or fewer chunks than documents.
+   - Added unit test asserting empty store raises `ValueError`.
+   - Added unit test asserting a temporary store with a planted unredacted PII value strictly triggers the `SECURITY VIOLATION` `AssertionError`.
+
+3. **CI Pipeline Hardening (`.github/workflows/ci.yml`)**:
+   - Added `python -m src.eval.ingest_eval --corpus v1` immediately after corpus v1 ingestion.
+   - Guarantees the zero-leak security invariant is verified on every push and pull request.
+
+4. **Clean Clone Pre-Push Check (`scripts/clean_clone_check.ps1` & `AGENTS.md`)**:
+   - Clones repo to a fresh temporary workspace, creates a virtual environment, installs dependencies matching `ci.yml`, and runs ingestion, evaluation, `ruff`, `mypy`, and `pytest`.
+   - Documented mandatory pre-push verification rule in `AGENTS.md`.
+
 ---
 
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (119 tests passing)
+# 1. Full Unit Test Suite (121 tests passing)
 pytest tests/ -v -m "not slow"
+
+# 2. Pre-Push Clean Clone Check
+powershell -ExecutionPolicy Bypass -File scripts/clean_clone_check.ps1
 
 # 2. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
 python -m src.eval.pii_eval --dataset heldout

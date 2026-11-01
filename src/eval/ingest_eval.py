@@ -147,6 +147,14 @@ def run_ingest_eval(
     store = VectorStore(collection_name=collection_name, persist_dir=str(chroma_dir))
     all_records = store.peek(n=5000)
 
+    if len(all_records) == 0:
+        raise ValueError("Vector store is empty (0 chunks found). Run ingestion first.")
+    if len(all_records) < len(documents_meta):
+        raise ValueError(
+            f"Vector store has fewer chunks ({len(all_records)}) than documents "
+            f"({len(documents_meta)})."
+        )
+
     # Organize chunks by source document
     chunks_by_doc: dict[str, list[dict[str, Any]]] = {}
     for r in all_records:

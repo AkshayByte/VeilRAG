@@ -64,47 +64,60 @@ def test_generate_markdown_report(tmp_path: Path) -> None:
 
 
 def test_run_ingest_eval_real_data() -> None:
-    """run_ingest_eval verifies committed documents against the active Chroma store."""
-    from src.config import settings
+    """run_ingest_eval verifies committed documents for corpus v1."""
+    res = run_ingest_eval(corpus="v1")
+    assert res.total_docs == 15
+    assert res.total_chunks >= 15
+    assert res.in_scope_pattern_leaks == 0
+    assert res.survived_facts == res.total_facts
+    assert res.total_facts == 60
+
+
+def test_run_ingest_eval_empty_store_raises(tmp_path: Path) -> None:
+    """run_ingest_eval raises ValueError if vector store has 0 chunks."""
+    empty_chroma = tmp_path / "empty_chroma"
+    with pytest.raises(ValueError, match="Vector store is empty"):
+        run_ingest_eval(corpus="v1", persist_dir=str(empty_chroma))
+
+
+def test_run_ingest_eval_fewer_chunks_than_docs_raises(tmp_path: Path) -> None:
+    """run_ingest_eval raises ValueError if vector store has fewer chunks than documents."""
+    fewer_chroma = tmp_path / "fewer_chroma"
+    from src.embeddings import FakeEmbeddingModel
     from src.rag.retriever import VectorStore
+    from src.sanitizer import SanitizedText
 
-    store = VectorStore(collection_name="docs", persist_dir=str(settings.chroma_persist_dir))
-    records = store.peek(n=5000)
-    doc_sources = set(r["metadata"].get("source", "") for r in records)
-    corpus = "v2" if len(doc_sources) > 20 else "v1"
+    store = VectorStore(
+        collection_name="docs",
+        persist_dir=str(fewer_chroma),
+        embedder=FakeEmbeddingModel(dimension=32),
+    )
+    chunk = SanitizedText("Only one chunk", _sentinel=SanitizedText._SENTINEL)
+    store.add(
+        chunks=[chunk],
+        embeddings=[[0.0] * 32],
+        metadatas=[{"source": "hr_policy_01.txt"}],
+        ids=["hr_policy_01.txt#chunk_0"],
+    )
 
-    res = run_ingest_eval(corpus=corpus)
-    if corpus == "v2":
-        assert res.total_docs == 70
-        assert res.total_chunks == 140
-        assert res.survived_facts >= 280
-    else:
-        assert res.total_docs == 15
-        assert res.in_scope_pattern_leaks == 0
-        assert res.survived_facts == res.total_facts
-        assert res.total_facts == 60
+    with pytest.raises(ValueError, match="fewer chunks"):
+        run_ingest_eval(corpus="v1", persist_dir=str(fewer_chroma))
 
 
-def test_run_ingest_eval_assertion_error_on_leak(tmp_path: Path) -> None:
-    """run_ingest_eval raises AssertionError when in-scope pattern leak is detected."""
-    from src.config import settings
+def test_run_ingest_eval_planted_leak_triggers_security_violation(tmp_path: Path) -> None:
+    """A tmp store with a planted known value triggers the SECURITY VIOLATION assertion."""
+    from src.embeddings import FakeEmbeddingModel
     from src.rag.retriever import VectorStore
+    from src.sanitizer import SanitizedText
 
-    store = VectorStore(collection_name="docs", persist_dir=str(settings.chroma_persist_dir))
-    records = store.peek(n=5)
-    if records:
-        doc_name = records[0]["metadata"].get("source", "hr_policy_01.txt")
-        doc_text = records[0]["document"]
-        leak_val = "Starlight" if "Starlight" in doc_text else doc_text[:8]
-    else:
-        doc_name = "hr_policy_01.txt"
-        leak_val = "ACME"
-
+    leak_chroma = tmp_path / "leak_chroma"
     fake_gt = tmp_path / "_ground_truth.json"
+
+    leak_val = "SECRET_LEAKED_PAN_123"
     fake_data: dict[str, Any] = {
         "documents": [
             {
-                "filename": doc_name,
+                "filename": "planted_doc.txt",
                 "key_facts": {},
                 "pii_entities": [
                     {
@@ -120,7 +133,24 @@ def test_run_ingest_eval_assertion_error_on_leak(tmp_path: Path) -> None:
     }
     fake_gt.write_text(json.dumps(fake_data), encoding="utf-8")
 
+    store = VectorStore(
+        collection_name="docs",
+        persist_dir=str(leak_chroma),
+        embedder=FakeEmbeddingModel(dimension=32),
+    )
+    chunk = SanitizedText(
+        f"Notice: the customer PAN is {leak_val}.",
+        _sentinel=SanitizedText._SENTINEL,
+    )
+    store.add(
+        chunks=[chunk],
+        embeddings=[[0.0] * 32],
+        metadatas=[{"source": "planted_doc.txt"}],
+        ids=["planted_doc.txt#chunk_0"],
+    )
+
     with pytest.raises(AssertionError, match="SECURITY VIOLATION"):
-        run_ingest_eval(ground_truth_path=fake_gt, strict=True)
+        run_ingest_eval(ground_truth_path=fake_gt, persist_dir=str(leak_chroma), strict=True)
+
 
 

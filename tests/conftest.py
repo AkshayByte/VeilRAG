@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
+from collections.abc import Generator
+from pathlib import Path
+
 import pytest
+
+from src.config import settings
+from src.rag.ingest import ingest_documents
 
 
 @pytest.fixture
@@ -23,13 +29,23 @@ def sample_text_with_pii() -> str:
 
 
 @pytest.fixture(scope="session", autouse=True)
-def setup_test_vector_store() -> None:
-    """Ensure Chroma vector store has documents for test session if empty."""
-    from src.config import settings
-    from src.rag.ingest import ingest_documents
-    from src.rag.retriever import VectorStore
+def setup_test_vector_store(
+    tmp_path_factory: pytest.TempPathFactory,
+) -> Generator[Path]:
+    """Ensure tests run against an isolated temporary Chroma vector store containing corpus v1."""
+    test_chroma_dir = tmp_path_factory.mktemp("chroma")
+    original_persist_dir = settings.chroma_persist_dir
+    settings.chroma_persist_dir = str(test_chroma_dir)
 
-    store = VectorStore(collection_name="docs", persist_dir=str(settings.chroma_persist_dir))
-    if store._collection.count() == 0:
-        ingest_documents(path="data/docs", corpus="v1")
+    try:
+        ingest_documents(
+            path="data/docs",
+            corpus="v1",
+            persist_dir=str(test_chroma_dir),
+            reset=True,
+        )
+        yield test_chroma_dir
+    finally:
+        settings.chroma_persist_dir = original_persist_dir
+
 

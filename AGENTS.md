@@ -1,4 +1,4 @@
-﻿# AGENTS.md — Coding conventions for veilrag
+# AGENTS.md — Coding conventions for veilrag
 
 ## Language
 - Python 3.11+
@@ -28,3 +28,7 @@
 - `ruff check src/ tests/`
 - `mypy src/`
 - Run both in CI.
+
+## Pre-push verification
+- Run clean_clone_check before every push (`powershell -File scripts/clean_clone_check.ps1`).
+
