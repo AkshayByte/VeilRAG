@@ -21,6 +21,7 @@ from presidio_analyzer import EntityRecognizer, RecognizerResult
 from presidio_analyzer.nlp_engine import NlpArtifacts
 
 from src.sanitizer.detectors import validate_verhoeff
+from src.sanitizer.recognizers.coverage import get_coverage_recognizers
 
 
 class AadhaarRecognizer(EntityRecognizer):
@@ -429,4 +430,5 @@ def get_custom_recognizers() -> list[Any]:
         GenericSecretRecognizer(),
         MedicalRecordRecognizer(),
         PatientIDRecognizer(),
+        *get_coverage_recognizers(),
     ]

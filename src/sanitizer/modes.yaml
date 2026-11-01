@@ -77,3 +77,8 @@ full:
     - SECRET_KEY
     - AWS_ACCESS_KEY
     - AWS_SECRET_KEY
+    - DATE_OF_BIRTH
+    - BANK_ACCOUNT
+    - ADDRESS
+    - STREET_ADDRESS
+    - UHID

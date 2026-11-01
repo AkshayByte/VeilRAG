@@ -232,9 +232,27 @@ def test_sanitize_mode_full_redacts_enterprise_entities() -> None:
     assert "rohit@okhdfcbank" not in result.safe
     assert "[UPI_1]" in result.safe
     assert "MRN-99881" not in result.safe
-    assert "[MEDICAL_RECORD_NUMBER_1]" in result.safe
+    assert "[UHID_1]" in result.safe
     assert "PID-7744" not in result.safe
-    assert "[PATIENT_ID_1]" in result.safe
+    assert "[UHID_2]" in result.safe
+
+
+def test_coverage_recognizers_redact_with_placeholders() -> None:
+    """Coverage recognizers produce [DOB_1], [ACCOUNT_1], [ADDRESS_1], [UHID_1]."""
+    text = (
+        "Applicant date of birth 14-08-1988, savings account 50100234918231, "
+        "residence at Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066, "
+        "and medical dossier UHID: UH-889021."
+    )
+    result = sanitize(text, mode="full")
+    assert "14-08-1988" not in result.safe
+    assert "[DOB_1]" in result.safe
+    assert "50100234918231" not in result.safe
+    assert "[ACCOUNT_1]" in result.safe
+    assert "Flat 402 Palm Meadows" not in result.safe
+    assert "[ADDRESS_1]" in result.safe
+    assert "UH-889021" not in result.safe
+    assert "[UHID_1]" in result.safe
 
 
 def test_default_mode_unchanged_ignores_specialized_entities() -> None:

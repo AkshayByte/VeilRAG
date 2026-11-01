@@ -1,0 +1,139 @@
+{"text": "Patient identity verified with date of birth 14-08-1988.", "entities": [{"type": "DATE_OF_BIRTH", "start": 45, "end": 55, "value": "14-08-1988"}]}
+{"text": "Applicant record confirms DOB: 19/03/1990 in national database.", "entities": [{"type": "DATE_OF_BIRTH", "start": 31, "end": 41, "value": "19/03/1990"}]}
+{"text": "The employee was born on 22-11-1985 according to service register.", "entities": [{"type": "DATE_OF_BIRTH", "start": 25, "end": 35, "value": "22-11-1985"}]}
+{"text": "Guarantor date of birth 03-05-1992 authenticated via birth certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 24, "end": 34, "value": "03-05-1992"}]}
+{"text": "Customer registered birth date 20-07-1984 on the onboarding portal.", "entities": [{"type": "DATE_OF_BIRTH", "start": 31, "end": 41, "value": "20-07-1984"}]}
+{"text": "D.O.B: 11-12-1971 verified against matriculation certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 7, "end": 17, "value": "11-12-1971"}]}
+{"text": "Policyholder born on 28-09-1994 is eligible for senior citizen rider.", "entities": [{"type": "DATE_OF_BIRTH", "start": 21, "end": 31, "value": "28-09-1994"}]}
+{"text": "KYC dossier documents date of birth 04-10-1969 for pension entitlement.", "entities": [{"type": "DATE_OF_BIRTH", "start": 36, "end": 46, "value": "04-10-1969"}]}
+{"text": "Patient identity verified with date of birth 15-06-1996.", "entities": [{"type": "DATE_OF_BIRTH", "start": 45, "end": 55, "value": "15-06-1996"}]}
+{"text": "Applicant record confirms DOB: 18-01-1987 in national database.", "entities": [{"type": "DATE_OF_BIRTH", "start": 31, "end": 41, "value": "18-01-1987"}]}
+{"text": "The employee was born on 09-12-1981 according to service register.", "entities": [{"type": "DATE_OF_BIRTH", "start": 25, "end": 35, "value": "09-12-1981"}]}
+{"text": "Guarantor date of birth 25-04-1965 authenticated via birth certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 24, "end": 34, "value": "25-04-1965"}]}
+{"text": "Customer registered birth date 12-07-1993 on the onboarding portal.", "entities": [{"type": "DATE_OF_BIRTH", "start": 31, "end": 41, "value": "12-07-1993"}]}
+{"text": "D.O.B: 22-03-1979 verified against matriculation certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 7, "end": 17, "value": "22-03-1979"}]}
+{"text": "Policyholder born on 08-11-1995 is eligible for senior citizen rider.", "entities": [{"type": "DATE_OF_BIRTH", "start": 21, "end": 31, "value": "08-11-1995"}]}
+{"text": "KYC dossier documents date of birth 19 March 1990 for pension entitlement.", "entities": [{"type": "DATE_OF_BIRTH", "start": 36, "end": 49, "value": "19 March 1990"}]}
+{"text": "Patient identity verified with date of birth 24 January 1980.", "entities": [{"type": "DATE_OF_BIRTH", "start": 45, "end": 60, "value": "24 January 1980"}]}
+{"text": "Applicant record confirms DOB: 15 June 1996 in national database.", "entities": [{"type": "DATE_OF_BIRTH", "start": 31, "end": 43, "value": "15 June 1996"}]}
+{"text": "The employee was born on 14 August 1988 according to service register.", "entities": [{"type": "DATE_OF_BIRTH", "start": 25, "end": 39, "value": "14 August 1988"}]}
+{"text": "Guarantor date of birth 20 July 1984 authenticated via birth certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 24, "end": 36, "value": "20 July 1984"}]}
+{"text": "Customer registered birth date 14-Aug-1988 on the onboarding portal.", "entities": [{"type": "DATE_OF_BIRTH", "start": 31, "end": 42, "value": "14-Aug-1988"}]}
+{"text": "D.O.B: 05-May-1991 verified against matriculation certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 7, "end": 18, "value": "05-May-1991"}]}
+{"text": "Policyholder born on 28.09.1994 is eligible for senior citizen rider.", "entities": [{"type": "DATE_OF_BIRTH", "start": 21, "end": 31, "value": "28.09.1994"}]}
+{"text": "KYC dossier documents date of birth 12.07.1993 for pension entitlement.", "entities": [{"type": "DATE_OF_BIRTH", "start": 36, "end": 46, "value": "12.07.1993"}]}
+{"text": "Monthly salary credited to corporate salary account 50100234918231.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 66, "value": "50100234918231"}]}
+{"text": "Disbursement proceeds transferred to savings account 20489912034.", "entities": [{"type": "BANK_ACCOUNT", "start": 53, "end": 64, "value": "20489912034"}]}
+{"text": "Refund issued to account 004501589123 via electronic clearing.", "entities": [{"type": "BANK_ACCOUNT", "start": 25, "end": 37, "value": "004501589123"}]}
+{"text": "Standing instruction registered against current account 50100458921345.", "entities": [{"type": "BANK_ACCOUNT", "start": 56, "end": 70, "value": "50100458921345"}]}
+{"text": "Clearance credited via NEFT to account 000705012398 successfully.", "entities": [{"type": "BANK_ACCOUNT", "start": 39, "end": 51, "value": "000705012398"}]}
+{"text": "Claim reimbursement remitted to savings account 914010034567891.", "entities": [{"type": "BANK_ACCOUNT", "start": 48, "end": 63, "value": "914010034567891"}]}
+{"text": "Designated account 50100984512390 verified for direct tax debit.", "entities": [{"type": "BANK_ACCOUNT", "start": 19, "end": 33, "value": "50100984512390"}]}
+{"text": "Escrow deposit held in designated account 30981245091 until completion.", "entities": [{"type": "BANK_ACCOUNT", "start": 42, "end": 53, "value": "30981245091"}]}
+{"text": "Monthly salary credited to corporate salary account 12300015009823.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 66, "value": "12300015009823"}]}
+{"text": "Disbursement proceeds transferred to savings account 50100778899123.", "entities": [{"type": "BANK_ACCOUNT", "start": 53, "end": 67, "value": "50100778899123"}]}
+{"text": "Refund issued to account 10040156908123 via electronic clearing.", "entities": [{"type": "BANK_ACCOUNT", "start": 25, "end": 39, "value": "10040156908123"}]}
+{"text": "Standing instruction registered against current account 10450500129845.", "entities": [{"type": "BANK_ACCOUNT", "start": 56, "end": 70, "value": "10450500129845"}]}
+{"text": "Clearance credited via NEFT to account 50100445566778 successfully.", "entities": [{"type": "BANK_ACCOUNT", "start": 39, "end": 53, "value": "50100445566778"}]}
+{"text": "Claim reimbursement remitted to savings account 30089124501.", "entities": [{"type": "BANK_ACCOUNT", "start": 48, "end": 59, "value": "30089124501"}]}
+{"text": "Designated account 003901589124 verified for direct tax debit.", "entities": [{"type": "BANK_ACCOUNT", "start": 19, "end": 31, "value": "003901589124"}]}
+{"text": "Escrow deposit held in designated account 98765432101234 until completion.", "entities": [{"type": "BANK_ACCOUNT", "start": 42, "end": 56, "value": "98765432101234"}]}
+{"text": "Monthly salary credited to corporate salary account 112233445566.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 64, "value": "112233445566"}]}
+{"text": "Disbursement proceeds transferred to savings account 998877665544332.", "entities": [{"type": "BANK_ACCOUNT", "start": 53, "end": 68, "value": "998877665544332"}]}
+{"text": "Refund issued to account 12345678901 via electronic clearing.", "entities": [{"type": "BANK_ACCOUNT", "start": 25, "end": 36, "value": "12345678901"}]}
+{"text": "Standing instruction registered against current account 445566778899001.", "entities": [{"type": "BANK_ACCOUNT", "start": 56, "end": 71, "value": "445566778899001"}]}
+{"text": "Primary residential domicile is logged as Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066.", "entities": [{"type": "ADDRESS", "start": 42, "end": 114, "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066"}]}
+{"text": "Communication address recorded in profile is House No 12, Sector 18, Vashi, Navi Mumbai, Maharashtra 400703.", "entities": [{"type": "ADDRESS", "start": 45, "end": 107, "value": "House No 12, Sector 18, Vashi, Navi Mumbai, Maharashtra 400703"}]}
+{"text": "Physical inspection conducted at registered premises: Tower B Apt 901, Cyber City Residency, DLF Phase 2, Gurugram, Haryana 122002.", "entities": [{"type": "ADDRESS", "start": 54, "end": 130, "value": "Tower B Apt 901, Cyber City Residency, DLF Phase 2, Gurugram, Haryana 122002"}]}
+{"text": "Guarantor verified home address: House 45, Koramangala 4th Block, 80 Feet Road, Bengaluru, Karnataka 560034.", "entities": [{"type": "ADDRESS", "start": 33, "end": 107, "value": "House 45, Koramangala 4th Block, 80 Feet Road, Bengaluru, Karnataka 560034"}]}
+{"text": "Official dispatch packet delivered to Plot 88, Okhla Industrial Area Phase 3, New Delhi 110020.", "entities": [{"type": "ADDRESS", "start": 38, "end": 94, "value": "Plot 88, Okhla Industrial Area Phase 3, New Delhi 110020"}]}
+{"text": "Primary residential domicile is logged as Flat 201 Sri Sai Residency, Madhapur, Hyderabad, Telangana 500081.", "entities": [{"type": "ADDRESS", "start": 42, "end": 107, "value": "Flat 201 Sri Sai Residency, Madhapur, Hyderabad, Telangana 500081"}]}
+{"text": "Communication address recorded in profile is Flat 102 Crystal Arcade, Indiranagar 100 Feet Road, Bengaluru, Karnataka 560038.", "entities": [{"type": "ADDRESS", "start": 45, "end": 124, "value": "Flat 102 Crystal Arcade, Indiranagar 100 Feet Road, Bengaluru, Karnataka 560038"}]}
+{"text": "Physical inspection conducted at registered premises: B-203 Sunrise Towers, Chembur East, Mumbai, Maharashtra 400071.", "entities": [{"type": "ADDRESS", "start": 54, "end": 116, "value": "B-203 Sunrise Towers, Chembur East, Mumbai, Maharashtra 400071"}]}
+{"text": "Guarantor verified home address: C-44 Greater Kailash 1, New Delhi 110048.", "entities": [{"type": "ADDRESS", "start": 33, "end": 73, "value": "C-44 Greater Kailash 1, New Delhi 110048"}]}
+{"text": "Official dispatch packet delivered to House 78, 5th Cross, Malleshwaram, Bengaluru, Karnataka 560003.", "entities": [{"type": "ADDRESS", "start": 38, "end": 100, "value": "House 78, 5th Cross, Malleshwaram, Bengaluru, Karnataka 560003"}]}
+{"text": "Primary residential domicile is logged as Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020.", "entities": [{"type": "ADDRESS", "start": 42, "end": 116, "value": "Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020"}]}
+{"text": "Communication address recorded in profile is Plot 18, Block EP & GP, Sector V, Salt Lake, Kolkata, West Bengal 700091.", "entities": [{"type": "ADDRESS", "start": 45, "end": 117, "value": "Plot 18, Block EP & GP, Sector V, Salt Lake, Kolkata, West Bengal 700091"}]}
+{"text": "Physical inspection conducted at registered premises: Flat 301 Shanti Nivas, 14th Main, JP Nagar 2nd Phase, Bengaluru, Karnataka 560078.", "entities": [{"type": "ADDRESS", "start": 54, "end": 135, "value": "Flat 301 Shanti Nivas, 14th Main, JP Nagar 2nd Phase, Bengaluru, Karnataka 560078"}]}
+{"text": "Guarantor verified home address: Bait-ul-Salam, Marine Drive, Ernakulam, Kochi, Kerala 682031.", "entities": [{"type": "ADDRESS", "start": 33, "end": 93, "value": "Bait-ul-Salam, Marine Drive, Ernakulam, Kochi, Kerala 682031"}]}
+{"text": "Official dispatch packet delivered to Flat 404 Green Acres, Baner Road, Pune, Maharashtra 411045.", "entities": [{"type": "ADDRESS", "start": 38, "end": 96, "value": "Flat 404 Green Acres, Baner Road, Pune, Maharashtra 411045"}]}
+{"text": "Primary residential domicile is logged as Apartment 5B, Skyline Residency, MG Road, Bengaluru, Karnataka 560001.", "entities": [{"type": "ADDRESS", "start": 42, "end": 111, "value": "Apartment 5B, Skyline Residency, MG Road, Bengaluru, Karnataka 560001"}]}
+{"text": "Communication address recorded in profile is Suite 300, Prestige Tech Park, Marathahalli, Bengaluru, Karnataka 560103.", "entities": [{"type": "ADDRESS", "start": 45, "end": 117, "value": "Suite 300, Prestige Tech Park, Marathahalli, Bengaluru, Karnataka 560103"}]}
+{"text": "Physical inspection conducted at registered premises: Building 4, Mindspace IT Park, Hitec City, Hyderabad, Telangana 500081.", "entities": [{"type": "ADDRESS", "start": 54, "end": 124, "value": "Building 4, Mindspace IT Park, Hitec City, Hyderabad, Telangana 500081"}]}
+{"text": "Guarantor verified home address: House 108, Model Town, Jalandhar, Punjab 144003.", "entities": [{"type": "ADDRESS", "start": 33, "end": 80, "value": "House 108, Model Town, Jalandhar, Punjab 144003"}]}
+{"text": "Official dispatch packet delivered to Plot 22, MIDC Industrial Zone, Andheri East, Mumbai, Maharashtra 400093.", "entities": [{"type": "ADDRESS", "start": 38, "end": 109, "value": "Plot 22, MIDC Industrial Zone, Andheri East, Mumbai, Maharashtra 400093"}]}
+{"text": "Inpatient registration completed under UHID: UH-889021.", "entities": [{"type": "UHID", "start": 45, "end": 54, "value": "UH-889021"}]}
+{"text": "Patient medical folder references clinical identifier UH-120934.", "entities": [{"type": "UHID", "start": 54, "end": 63, "value": "UH-120934"}]}
+{"text": "Emergency admission dossier created with record code UH-554109.", "entities": [{"type": "UHID", "start": 53, "end": 62, "value": "UH-554109"}]}
+{"text": "Laboratory pathology test linked to identifier UH-908123.", "entities": [{"type": "UHID", "start": 47, "end": 56, "value": "UH-908123"}]}
+{"text": "Inpatient registration completed under UHID: IP-2026-MED-77412.", "entities": [{"type": "UHID", "start": 45, "end": 62, "value": "IP-2026-MED-77412"}]}
+{"text": "Patient medical folder references clinical identifier IP-2026-SURG-11045.", "entities": [{"type": "UHID", "start": 54, "end": 72, "value": "IP-2026-SURG-11045"}]}
+{"text": "Emergency admission dossier created with record code IP-2026-ORTHO-88912.", "entities": [{"type": "UHID", "start": 53, "end": 72, "value": "IP-2026-ORTHO-88912"}]}
+{"text": "Laboratory pathology test linked to identifier IP-2026-PED-33410.", "entities": [{"type": "UHID", "start": 47, "end": 64, "value": "IP-2026-PED-33410"}]}
+{"text": "Inpatient registration completed under UHID: FH-CARD-2026-MUM-901.", "entities": [{"type": "UHID", "start": 45, "end": 65, "value": "FH-CARD-2026-MUM-901"}]}
+{"text": "Patient medical folder references clinical identifier MAN-ORTHO-2026-DEL-331.", "entities": [{"type": "UHID", "start": 54, "end": 76, "value": "MAN-ORTHO-2026-DEL-331"}]}
+{"text": "Emergency admission dossier created with record code APO-MED-2026-BLR-502.", "entities": [{"type": "UHID", "start": 53, "end": 73, "value": "APO-MED-2026-BLR-502"}]}
+{"text": "Laboratory pathology test linked to identifier MAX-SURG-2026-DEL-104.", "entities": [{"type": "UHID", "start": 47, "end": 68, "value": "MAX-SURG-2026-DEL-104"}]}
+{"text": "Inpatient registration completed under UHID: MRN-882109.", "entities": [{"type": "UHID", "start": 45, "end": 55, "value": "MRN-882109"}]}
+{"text": "Patient medical folder references clinical identifier MRN-441203.", "entities": [{"type": "UHID", "start": 54, "end": 64, "value": "MRN-441203"}]}
+{"text": "Emergency admission dossier created with record code MRN-773401.", "entities": [{"type": "UHID", "start": 53, "end": 63, "value": "MRN-773401"}]}
+{"text": "Laboratory pathology test linked to identifier PID-559012.", "entities": [{"type": "UHID", "start": 47, "end": 57, "value": "PID-559012"}]}
+{"text": "Inpatient registration completed under UHID: PID-992143.", "entities": [{"type": "UHID", "start": 45, "end": 55, "value": "PID-992143"}]}
+{"text": "Patient medical folder references clinical identifier PID-104822.", "entities": [{"type": "UHID", "start": 54, "end": 64, "value": "PID-104822"}]}
+{"text": "Invoice INV-2026-088 dated 15/03/2026 is due for settlement on 30/03/2026.", "entities": []}
+{"text": "The contractual master services agreement takes effect from 01-04-2026.", "entities": []}
+{"text": "Employee resignation notice period requires 60 calendar days starting 15-05-2026.", "entities": []}
+{"text": "Audited quarterly financial statements published on 24th January 2026.", "entities": []}
+{"text": "Software subscription license expires on 31-12-2026 unless renewed.", "entities": []}
+{"text": "Delivery scheduled between 10/02/2026 and 14/02/2026 via road express.", "entities": []}
+{"text": "The warranty coverage period concludes on 15 March 2027.", "entities": []}
+{"text": "Statutory GST compliance filing window opens on 20-04-2026.", "entities": []}
+{"text": "Scheduled maintenance interval runs from 01.06.2026 through 05.06.2026.", "entities": []}
+{"text": "Tender submission deadline is strictly enforced for 18-08-2026.", "entities": []}
+{"text": "Your secret one-time password for transaction authorization is 582104.", "entities": []}
+{"text": "Enter verification code 918234 to authenticate your session.", "entities": []}
+{"text": "Mobile banking login OTP 645109 expires in three minutes.", "entities": []}
+{"text": "Two-factor authentication code 309812 delivered via SMS.", "entities": []}
+{"text": "Security passkey token 771230 confirmed on device.", "entities": []}
+{"text": "Confirmation passcode 440192 required to proceed with transfer.", "entities": []}
+{"text": "Purchase order PO-9876543210 has been approved by the procurement desk.", "entities": []}
+{"text": "Logistics tracking number 123456789012 indicates package arrived at hub.", "entities": []}
+{"text": "E-commerce order #8899001122 is packaged and ready for dispatch.", "entities": []}
+{"text": "Waybill consignment 445566778899 is currently in transit.", "entities": []}
+{"text": "Support helpdesk ticket 9012345678 assigned to tier-two engineering.", "entities": []}
+{"text": "Shipping manifest barcode 1029384756 scanned at container freight station.", "entities": []}
+{"text": "For customer inquiries, reach out to corporate helpline 9822011223.", "entities": []}
+{"text": "Direct emergency triage switchboard reachable at 8877665544.", "entities": []}
+{"text": "Toll-free technical assistance line open 24/7 at 7766554433.", "entities": []}
+{"text": "Facilities dispatch coordinator phone extension is 9123456780.", "entities": []}
+{"text": "Vendor support desk representative contact is 6677889900.", "entities": []}
+{"text": "Total production output exceeded 125000000 units during annual operations.", "entities": []}
+{"text": "The municipal reservoir holds 500000000 liters of potable water reserves.", "entities": []}
+{"text": "High-performance quantum benchmark completed in 100000000 cycles.", "entities": []}
+{"text": "The sensor measured radiation intensity at 450000000 picometers.", "entities": []}
+{"text": "Microcontroller buffer processed exactly 250000000 bytes without error.", "entities": []}
+{"text": "Data transmission link capacity rated at 1000000000 bits per second.", "entities": []}
+{"text": "Our branch is located at Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru.", "entities": []}
+{"text": "Corporate headquarters situated at Plot 88, Okhla Industrial Area Phase 3, New Delhi.", "entities": []}
+{"text": "Employee resides at House No 12, Sector 18, Vashi, Navi Mumbai.", "entities": []}
+{"text": "Consultant office based in Tower B Apt 901, Cyber City Residency, Gurugram.", "entities": []}
+{"text": "Regional sales depot at Plot 18, Block EP & GP, Sector V, Salt Lake, Kolkata.", "entities": []}
+{"text": "Inspection visited Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai.", "entities": []}
+{"text": "Delivery vehicle routed to Chennai T Nagar PIN 600017.", "entities": []}
+{"text": "Registered parcel will be delivered to New Delhi GPO PIN 110001.", "entities": []}
+{"text": "Consignment addressed to Bengaluru Whitefield PIN 560066.", "entities": []}
+{"text": "Sub-post office located near Mumbai Bandra Kurla Complex PIN 400051.", "entities": []}
+{"text": "Mail sorting facility in Kolkata Salt Lake PIN 700091.", "entities": []}
+{"text": "Express courier dispatched to Hyderabad Madhapur PIN 500081.", "entities": []}
+{"text": "Pune Kothrud postal branch PIN 411038 processed the letter.", "entities": []}
+{"text": "Ahmedabad Navrangpura postal center PIN 380009 received parcel dispatch.", "entities": []}
+{"text": "Modern cloud architectures rely on microservices, service meshes, and distributed tracing.", "entities": []}
+{"text": "The audit committee reviewed internal financial controls and risk management frameworks.", "entities": []}
+{"text": "Continuous integration pipelines enforce automated linting, type-checking, and unit tests.", "entities": []}
+{"text": "Database administrators executed routine vacuuming and query index maintenance tasks.", "entities": []}
+{"text": "Enterprise network topology isolates development environments from production workloads.", "entities": []}
+{"text": "Agile delivery squads conduct bi-weekly sprint reviews and retrospective meetings.", "entities": []}
+{"text": "Cryptographic hash algorithms ensure message integrity and tamper-evident logging.", "entities": []}
+{"text": "The executive summary highlights strategic expansion in international commerce.", "entities": []}
+{"text": "Load balancers dynamically route inbound HTTP requests to healthy compute instances.", "entities": []}
+{"text": "Security awareness training covers phishing defense, credential hygiene, and access control.", "entities": []}

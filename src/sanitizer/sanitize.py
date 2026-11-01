@@ -68,6 +68,14 @@ _PLACEHOLDER_PREFIXES: dict[str, str] = {
     "IFSC": "IFSC",
     "PHONE_NUMBER": "PHONE",
     "INDIAN_MOBILE": "PHONE",
+    "DATE_OF_BIRTH": "DOB",
+    "BANK_ACCOUNT": "ACCOUNT",
+    "ADDRESS": "ADDRESS",
+    "STREET_ADDRESS": "ADDRESS",
+    "UHID": "UHID",
+    "HOSPITAL_ID": "UHID",
+    "MEDICAL_RECORD_NUMBER": "UHID",
+    "PATIENT_ID": "UHID",
 }
 
 _SENSITIVITY_WEIGHTS: dict[str, float] = {
@@ -82,6 +90,11 @@ _SENSITIVITY_WEIGHTS: dict[str, float] = {
     "IFSC_CODE": 0.20,
     "IBAN_CODE": 0.20,
     "UPI_ID": 0.20,
+    "BANK_ACCOUNT": 0.25,
+    "DATE_OF_BIRTH": 0.20,
+    "ADDRESS": 0.20,
+    "STREET_ADDRESS": 0.20,
+    "UHID": 0.20,
     "EMAIL_ADDRESS": 0.15,
     "PHONE_NUMBER": 0.15,
     "INDIAN_MOBILE": 0.15,
@@ -184,12 +197,32 @@ def _get_mode_entities(mode: str) -> list[str]:
     return list(modes[mode].get("entities", []))
 
 
+def _span_rank(entity_type: str, score: float) -> tuple[float, int]:
+    """Rank span by confidence score, with contextual domain recognizers prioritized."""
+    priority = 0
+    if entity_type == "BANK_ACCOUNT":
+        priority = 3
+    elif entity_type in ("DATE_OF_BIRTH", "ADDRESS", "STREET_ADDRESS", "UHID"):
+        priority = 2
+    elif entity_type in ("AADHAAR", "IDENTITY_DOCUMENT", "PAN_NUMBER", "IFSC_CODE", "UPI_ID"):
+        priority = 1
+    return (score, priority)
+
+
 def _deduplicate_spans(
     spans: list[tuple[str, int, int, float]],
 ) -> list[tuple[str, int, int, float]]:
     """Remove overlapping spans, keeping the higher-confidence match."""
 
-    spans_sorted = sorted(spans, key=lambda s: (s[1], -s[3], s[2] - s[1]))
+    spans_sorted = sorted(
+        spans,
+        key=lambda s: (
+            s[1],
+            -_span_rank(s[0], s[3])[0],
+            -_span_rank(s[0], s[3])[1],
+            -(s[2] - s[1]),
+        ),
+    )
     kept: list[tuple[str, int, int, float]] = []
     for span in spans_sorted:
         _, start, end, _ = span

@@ -41,10 +41,14 @@ DATA_DIR = HERE.parent.parent / "data" / "eval"
 DEV_CASES_PATH = DATA_DIR / "pii_cases.jsonl"
 DEV2_CASES_PATH = DATA_DIR / "pii_dev2.jsonl"
 HELDOUT_CASES_PATH = DATA_DIR / "pii_heldout.jsonl"
+DEV3_CASES_PATH = DATA_DIR / "pii_dev3.jsonl"
+HELDOUT3_CASES_PATH = DATA_DIR / "pii_heldout3.jsonl"
 CASES_PATH = DEV_CASES_PATH
 DEV_RESULTS_PATH = DATA_DIR / "pii_results.json"
 DEV2_RESULTS_PATH = DATA_DIR / "pii_results_dev2.json"
 HELDOUT_RESULTS_PATH = DATA_DIR / "pii_results_heldout.json"
+DEV3_RESULTS_PATH = DATA_DIR / "pii_results_dev3.json"
+HELDOUT3_RESULTS_PATH = DATA_DIR / "pii_results_heldout3.json"
 RESULTS_PATH = DEV_RESULTS_PATH
 DOCS_RESULTS_PATH = HERE.parent.parent / "docs" / "pii_results.md"
 
@@ -700,7 +704,11 @@ def evaluate_pii(
         Overall and per-entity-type metrics.
     """
     if cases is None:
-        if dataset == "heldout":
+        if dataset == "heldout3":
+            path = HELDOUT3_CASES_PATH
+        elif dataset == "dev3":
+            path = DEV3_CASES_PATH
+        elif dataset == "heldout":
             path = HELDOUT_CASES_PATH
         elif dataset == "dev2":
             path = DEV2_CASES_PATH
@@ -724,9 +732,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate VeilRAG PII sanitization")
     parser.add_argument(
         "--dataset",
-        choices=["dev", "dev2", "heldout"],
+        choices=["dev", "dev2", "heldout", "dev3", "heldout3"],
         default="dev",
-        help="Dataset to evaluate: 'dev' (default), 'dev2', or 'heldout'",
+        help="Dataset to evaluate: 'dev' (default), 'dev2', 'heldout', 'dev3', or 'heldout3'",
     )
     parser.add_argument(
         "--baseline",
@@ -741,7 +749,11 @@ def main() -> int:
     if args.json:
         target_results_path = args.json
     else:
-        if args.dataset == "heldout":
+        if args.dataset == "heldout3":
+            target_results_path = HELDOUT3_RESULTS_PATH
+        elif args.dataset == "dev3":
+            target_results_path = DEV3_RESULTS_PATH
+        elif args.dataset == "heldout":
             target_results_path = HELDOUT_RESULTS_PATH
         elif args.dataset == "dev2":
             target_results_path = DEV2_RESULTS_PATH
