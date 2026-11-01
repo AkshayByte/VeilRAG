@@ -178,7 +178,6 @@
 - **Dataset**: `data/eval/pii_heldout.jsonl`
 - Frozen recognizers (`recognizers-frozen-v2`).
 - Strictly evaluated once without tuning.
-
 > [!NOTE] Secret Scanner Compatibility & Dataset Adjustments
 > The held-out evaluation dataset was adjusted twice post-generation:
 > 1. Synthetic Stripe-style keys (sk-live and pk-test vectors) triggered GitHub push protection and were replaced with scanner-safe mock secrets (mock_sk_... and mock_pk_...), which are detected with 100% precision and recall by VeilRAG's GenericSecretRecognizer.

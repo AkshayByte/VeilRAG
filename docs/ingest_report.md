@@ -11,22 +11,22 @@
 | **Metadata Raw PII Leaks** | **0** | 0 leaks | **PASS** |
 | **Raw Disk ChromaDB File Leaks (In-Scope)** | **0** | 0 leaks | **PASS** |
 | **Person Name Leak Rate** | **3.7%** (1/27) | Report only | Documented |
-| **Out-of-Scope Leak Rate (Known Architectural Gaps)** | **68.9%** (31/45) | Report only | Documented |
+| **Out-of-Scope Leak Rate (Known Gaps)** | **68.9%** (31/45) | Report only | Documented |
 | **Character Leak Rate (Type-Agnostic)** | **0.0108** (20/1847 chars) | < 0.05 | **PASS** |
 | **Over-Redaction Rate** | **0.0070** (260/37102 chars) | < 0.10 | **PASS** |
 | **Business Fact Survival Rate** | **100.0%** (60/60) | 100% | **PASS (100% Retained)** |
 
 ## 2. Ingestion Dataset Specification
 
-- **Total Documents Ingested**: 15 enterprise documents (300–1500 words each)
-- **Total Chunks Stored**: 19 sanitized chunks in ChromaDB (`cosine` distance)
-- **Document Categories**: 3 HR Policies, 3 Loan Agreements, 3 Hospital Discharge Summaries, 3 Insurance Claims, 3 KYC Forms
+- **Total Documents Ingested**: 15 docs (300–1500 words each)
+- **Total Chunks Stored**: 19 chunks in ChromaDB (`cosine` space)
+- **Document Categories**: 3 HR Policies, 3 Loan Agreements, 3 Hospital Summaries, 3 Insurance Claims, 3 KYC Forms
 - **Redaction Architecture**: Whole-document sanitization before chunking; ephemeral reversible map immediately discarded
 - **Metadata Schema**: `source`, `doc_type`, `chunk_id`, `chunk_index`, `entity_count`, `risk_score`, and per-type entity counts only
 
 ## 3. Fact Survival Audit (Business Invariant Preservation)
 
-All key business facts (notice periods, loan terms, clinical diagnoses, approved claims, and KYC verification modes) were verified to have survived whole-document redaction and chunking intact without data loss:
+All key business facts (notice periods, loan terms, clinical diagnoses, approved claims, and KYC verification modes) survived whole-document redaction and chunking intact:
 
 | Document | Fact Name | Fact Value | Survived in Stored Chunks |
 | :--- | :--- | :--- | :---: |
@@ -94,8 +94,8 @@ All key business facts (notice periods, loan terms, clinical diagnoses, approved
 ## 4. Known Out-of-Scope Architectural Gaps
 
 The following entity types were intentionally planted as out-of-scope controls (`in_scope=false`) to benchmark current recognizer boundaries:
-- **STREET_ADDRESS**: Physical residential and commercial addresses (no custom NER recognizer; flagged as future enhancement).
-- **BANK_ACCOUNT**: 11-16 digit bank account numbers (differentiated from payment identifiers to minimize false positives with numerical IDs).
+- **STREET_ADDRESS**: Physical addresses (unhandled in general NER).
+- **BANK_ACCOUNT**: 11-16 digit bank account numbers (avoid numeric ID collision).
 - **DATE_OF_BIRTH**: Dates of birth (differentiated from normal dates/timelines).
 
 These gaps are fully accounted for and isolated from core security invariants.

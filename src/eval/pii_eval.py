@@ -531,7 +531,10 @@ def _render_dataset_markdown_section(
         f"- **Dataset**: `{dataset_file}`",
     ]
     for n in notes:
-        lines.append(f"- {n}")
+        if n.startswith(">"):
+            lines.append(n)
+        else:
+            lines.append(f"- {n}")
     lines.append("")
 
     if not results_file.exists():
@@ -654,6 +657,20 @@ def _write_combined_markdown() -> None:
             [
                 "Frozen recognizers (`recognizers-frozen-v2`).",
                 "Strictly evaluated once without tuning.",
+                "> [!NOTE] Secret Scanner Compatibility & Dataset Adjustments\n"
+                "> The held-out evaluation dataset was adjusted twice post-generation:\n"
+                "> 1. Synthetic Stripe-style keys (sk-live and pk-test vectors) triggered "
+                "GitHub push protection and were replaced with scanner-safe mock secrets "
+                "(mock_sk_... and mock_pk_...), which are detected with 100% precision and "
+                "recall by VeilRAG's GenericSecretRecognizer.\n"
+                "> 2. An initial over-correction temporarily replaced AWS access keys (AKIA...) "
+                "with an AWSK prefix. Because AWSKeyRecognizer was frozen under "
+                "recognizers-frozen-v2 with strict pattern matching, this made them undetectable "
+                "by construction (3 false negatives). This over-correction was reverted to restore "
+                "the exact original AKIA test vectors.\n>\n"
+                "> Final held-out results: Precision 0.6976, Recall 0.9167 "
+                "(143 TP / 62 FP / 13 FN), F1 0.7922, Character Leak Rate 0.0061 "
+                "(15/2,443 characters unredacted).",
             ],
             HELDOUT_RESULTS_PATH,
         )
