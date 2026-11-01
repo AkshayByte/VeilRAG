@@ -48,10 +48,10 @@ class Settings(BaseSettings):
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     """SentenceTransformer model used for local embeddings."""
 
-    chunk_size_tokens: int = 500
+    chunk_size_tokens: int = 300
     """Target chunk size in tokens for document ingestion."""
 
-    chunk_overlap_tokens: int = 100
+    chunk_overlap_tokens: int = 60
     """Overlap between adjacent chunks in tokens."""
 
     spacy_model: str = "en_core_web_lg"
@@ -60,6 +60,12 @@ class Settings(BaseSettings):
     pipeline_mode: str = "full"
     """Central sanitization mode used across ingestion, query, and guards."""
 
+
+CHUNK_SIZE_TOKENS: int = 300
+"""Target chunk size in tokens; 300 tokens preserves clause coherence within budgets."""
+
+CHUNK_OVERLAP_TOKENS: int = 60
+"""Overlap in tokens (20%) ensuring cross-boundary facts and entities are not truncated."""
 
 PIPELINE_MODE: str = "full"
 """Central sanitization mode constant for ingestion, query path, rewriting, and guards."""

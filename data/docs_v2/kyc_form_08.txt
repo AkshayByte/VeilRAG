@@ -1,0 +1,27 @@
+# SILVEROAK RURAL CREDIT COOPERATIVE
+## STATUTORY CLIENT DUE DILIGENCE AND KYC VERIFICATION DOSSIER
+Dossier Reference: KYC-V2-KYC_FORM_08
+Regulatory Protocol: PMLA 2002 | Assessment Cycle: 2026 Annual
+
+### 1. Client Identity and Account Classification
+Applicant Full Legal Name: Yoshita Subramaniam | Applied Account Category: Agricultural Term Credit Member Account | Risk Tier: Low Risk Category.
+Primary Identification Aadhaar: 8988 8645 9151 | Income Tax PAN: ABCDE1234F | Registered Mobile: +91 98450 77889.
+Primary Email Address: kyc.client@solariswealth.example | Domicile Address: Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066 | Date of Birth: 14-08-1988.
+
+### 2. Regulatory Due Diligence and In-Person Verification Mode
+Statutory identity verification was completed under SEBI/RBI regulations via Aadhaar Biometric VIPV. The client declared tax residency as India exclusively. FATCA self-certification confirms compliance.
+
+### 3. Ultimate Beneficial Ownership and PEP Sanctions Declaration
+The applicant submitted self-certification declaring absence of Politically Exposed Person (PEP) status. Screening against consolidated AML and counter-terrorist financing watchlists returned zero adverse matches. Ultimate beneficial ownership criteria are fully documented in compliance with central registry guidelines.
+
+### 4. Nominee Succession Mandate and Attestation
+The applicant registered a single nominee holding one hundred percent succession entitlement. Nominee identity was cross-referenced with national civil registration databases. The client executed digital e-sign attestation confirming accuracy of all declared dossier particulars.
+
+### 5. Source of Funds and Annual Wealth Declaration
+The client declared the primary source of funds as legitimate corporate remuneration and investment yields. Documentary proof of income, salary slips, and income tax computation forms were submitted for verification. The estimated annual turnover declaration exceeds twenty-five lakh rupees with zero suspicious transactions.
+
+### 6. Linked Settlement Account and Nominee Declaration
+Primary funds settlement mandate linked to verified bank account 50100234918231 maintained with IFSC code BEAC0001234. Digital mandate validated via UPI address client.kyc@okhdfcbank.
+
+### 4. Compliance Officer Certification
+Verification executed and certified by Compliance Custodian Fariq Date (Officer ID COMP-88912). Records archived under anti-money laundering retention guidelines.

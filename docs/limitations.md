@@ -47,6 +47,30 @@ Across the 15 enterprise documents (305–446 words each, containing 162 planted
 ## 4. Business Fact Preservation Invariant
 
 Redaction is intentionally constrained to avoid over-redacting business logic:
-- Enabling `DATE_TIME` and `LOCATION` destroys **24 out of 60 business facts** (including notice periods, working hours, and overseas residency).
-- By excluding aggressive date and location redaction from `PIPELINE_MODE = "full"`, VeilRAG preserves a **100% Fact Survival Rate (60/60 facts retained)** while strictly guaranteeing zero leaks for pattern-based in-scope PII.
+- Enabling `DATE_TIME` and `LOCATION` destroys **24 out of 60 business facts** in Corpus V1 (including notice periods, working hours, and overseas residency).
+- By excluding aggressive date and location redaction from `PIPELINE_MODE = "full"`, VeilRAG preserves a **100% Fact Survival Rate (60/60 facts retained)** on Corpus V1 and **99.3% (288/290 facts retained)** on Corpus V2 while strictly guaranteeing zero leaks for core pattern-based in-scope PII.
+
+---
+
+## 5. Corpus V2 Generalization Benchmark & Unseen Phrasing Gaps
+
+In Prompt 4B, VeilRAG was benchmarked against a 70-document generalization corpus ([`data/docs_v2/`](file:///d:/Projects/VeilRAG/data/docs_v2/)) spanning 7 document categories (140 ChromaDB chunks) under frozen recognizers (`recognizers-frozen-v3`). Deliberate linguistic variations and alternate phrasings were introduced to stress-test generalization boundaries.
+
+As mandated by zero-tuning evaluation protocols, these recognizers were **not modified**; instead, empirical failure modes are categorized below as **unseen phrasing not covered**:
+
+| Failure Category | Affected Type | Leaked / Planted | Leak Rate | Root Cause & Unseen Phrasing Analysis |
+| :--- | :---: | :---: | :---: | :--- |
+| **Address Anchors: Unseen Prefixes** | `STREET_ADDRESS` | 5 / 70 | 7.1% | **Unseen phrasing not covered**: Address recognizer was anchored strictly on `(?:Flat\|House\|Plot\|No\.?\|#)`. Addresses starting with `Room` (e.g. `Room 402, Shanti Nilayam Hostel...`) and `Sector` (e.g. `Sector 62, Block B, Electronic City...`) failed prefix anchoring and leaked into chunk text. |
+| **Hospital ID Variations** | `UHID` | 4 / 20 | 20.0% | **Unseen phrasing not covered**: Recognizer targeted strictly hyphenated formats (`UH-\d+` and `IP-\d{4}-MED-\d+`). Bare numeric IDs (`UH889021`), unhyphenated admission IDs (`IP2026MED77412`), and labeled colons (`UHID: 44109823`) were not matched. |
+| **Statistical NER Variance** | `PERSON` | 16 / 140 | 11.4% | Out-of-vocabulary Indian personal names (`Azad Tank`, `Ekaja Ram`, `Neelima Badal`, etc.) missed by statistical `en_core_web_sm` spaCy model without dictionary lookup or contextual boosting. |
+| **Robustly Redacted Patterns** | `AADHAAR`, `PAN`, `INDIAN_MOBILE`, `EMAIL_ADDRESS`, `IFSC`, `UPI`, `BANK_ACCOUNT`, `DATE_OF_BIRTH` | 0 / 550 | **0.0% (Zero Leaks)** | High generalization: zero leaks across all 70 instances of each core structured identifier despite varied formatting (e.g. spaced DOBs, lowercase PANs, dashed mobiles, newline-adjacent accounts). |
+
+### Summary Metrics on Corpus V2
+- **Documents Audited**: 70
+- **Total Chunks**: 140
+- **Fact Survival**: 288/290 (99.3%)
+- **Character Leak Rate**: 0.0878 (8.78%)
+- **Over-Redaction Rate**: 0.0047 (0.47%)
+- **Metadata Leaks**: 0 (0.0%)
+
 

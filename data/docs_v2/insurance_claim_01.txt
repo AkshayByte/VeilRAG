@@ -1,0 +1,27 @@
+# ZENITH GENERAL INSURANCE COMPANY LIMITED
+## FORMAL LOSS ADJUSTMENT AND SETTLEMENT VOUCHER
+Claim Tracking Number: CLM-AUT-2026-10294
+Policy Year: 2025-2026 | Assessment Status: Approved for Remittance
+
+### 1. Policyholder Demographics and Cover Details
+Policyholder: Andrew Pandya | Claim Reference: CLM-AUT-2026-10294 | Policy Code: POL-ZEN-88910.
+Identity Aadhaar Number: 9638 9816 9322 | Income Tax PAN: ABCDE1234F | Mobile: +91 98451 88990.
+Contact Email: claims.desk@zenithshield.example | Residential Address: Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066 | Date of Birth: 14-08-1988.
+
+### 2. Loss Incident Description and Claim Quantum
+The insured event was reported under policy conditions. Initial gross indemnity claimed was INR 85,000. Independent technical inspection and loss assessment was conducted by Licensed Surveyor Isaac Mammen (Licence IRDAI-SLA-99210), who verified: Frontal bumper impact without structural chassis distortion.
+
+### 3. Settlement Calculation and Policy Deductibles
+Following depreciation adjustment and application of INR 2,000 compulsory deductible, the net approved indemnity payable to the claimant is finalized at INR 72,000.
+
+### 4. Technical Loss Verification and Salvage Assessment
+Physical inspection confirmed damage consistency with declared cause of loss. No prior unreported structural distress or breach of policy warranties was identified. Salvage realization value was evaluated and adjusted in the finalized settlement computation.
+
+### 5. Policy Conditions and Coverage Verification
+Policy terms and underwriting endorsements were reviewed by the claims committee. All insurance premium payments are up-to-date with continuous cover unbroken across previous terms. No sub-limit exclusions or non-disclosure breaches apply to this verified claim settlement.
+
+### 6. Subrogation Rights and Legal Release
+Upon receipt of the approved settlement amount, the policyholder unconditionally releases the insurer from all future liabilities arising out of this loss event. The policyholder assigns all recovery and subrogation rights against responsible third parties to the insurer to the extent of indemnity paid.
+
+### 7. Electronic Disbursement Authorization
+Electronic NEFT/RTGS fund transfer of the approved sum is authorized to policyholder bank account 50100234918231 through IFSC code ZENI0001234. Immediate settlement notification dispatched to verified UPI handle claimant.zenith@okhdfcbank.

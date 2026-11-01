@@ -1,0 +1,22 @@
+# TERRATRUST CAPITAL FINANCE LIMITED
+## SECURED FACILITY CREDIT AGREEMENT AND COVENANTS
+Contract Reference: LN-AGR-V2-LOAN_AGREEMENT_02
+Execution Date: 15th January 2026 | Version: 3.4
+
+### 1. Parties and Sanctioned Facility
+This Commercial Credit Facility Agreement is executed between TerraTrust Capital Finance Limited ('Lender') and Borrower Owen Chadha ('Borrower'). The Lender hereby sanctions a term credit facility of INR 50,00,000 subject to the contractual covenants and terms set forth herein.
+
+### 3. Financial Terms and Amortization Schedule
+The borrower covenants to repay the principal advance over an amortization tenure of 60 months. The applied interest computation rate is 9.25% per annum fixed, calculated on daily outstanding balances. A one-time non-refundable administrative processing fee of INR 10,000 is deducted at initial drawdown.
+
+### 4. Collateral Security and Prepayment Covenants
+The borrower pledges first pari passu charge over declared residential and movable assets. Foreclosure and partial prepayment are permitted following completion of twelve continuous monthly installments without punitive charges. Prepayment requests submitted prior to twelve EMIs shall attract a standardized prepayment charge of two percent on the outstanding principal balance. All insurance covers over mortgaged property must name the Lender as primary loss payee.
+
+### 5. Borrower KYC Dossier and Disbursement Mandate
+Statutory KYC identity verification was completed prior to loan execution. Borrower identity is verified via Aadhaar number 2142 0470 9607 and Permanent Account Number ABCDE1234F. Loan disbursement shall be credited via RTGS through IFSC code TERR0004567 directly into borrower account 50100458921345. The declared primary residential address is Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066. Verified date of birth is 14-08-1988. For loan service notifications, borrower contact mobile is +91 98451 11223 and official email is borrower.desk@terrawealth.example. For periodic interest reminders, the UPI handle borrower.emi@okhdfcbank is authenticated.
+
+### 4. Guarantor Covenants and Default Remedies
+Personal repayment surety is unconditionally provided by Guarantor Nandini Soni. Upon payment default exceeding 60 calendar days, the Lender reserves full rights to invoke asset repossession, file debt recovery claims, and declare acceleration.
+
+### 5. Governing Law and Arbitration Jurisdiction
+This agreement shall be governed by the laws of India, with exclusive arbitral jurisdiction vested in the competent commercial tribunals at Bengaluru.

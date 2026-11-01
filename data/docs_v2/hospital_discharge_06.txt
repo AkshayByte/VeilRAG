@@ -1,0 +1,27 @@
+# APEX CARE MULTISPECIALTY CLINIC
+## INPATIENT CLINICAL DISCHARGE SUMMARY AND CARE PLAN
+Clinical Case Reference: MED-DIS-V2-HOSPITAL_DISCHARGE_06
+Admission Date: 10th January 2026 | Discharge Date: 17th January 2026
+
+### 1. Patient Demographics and Registration Identifiers
+Patient Name: Ishita Devan | Hospital UHID: UH-776655 | Inpatient Admission ID: IP-2026-CARD-55103.
+Aadhaar Identity Card: 8492 4544 5980 | Income Tax PAN: ABCDE1234F | Mobile Phone: +91 98450 33445.
+Emergency Contact Email: clinical.desk@novahealth.example | Residential Address: Sector 18, Block C, Vashi, Navi Mumbai, Maharashtra 400703 | Date of Birth: 28-09-1994.
+
+### 2. Clinical History and Primary Admission Diagnosis
+The patient presented with symptomatic clinical distress and underwent emergency evaluation. Comprehensive investigations, imaging, and biochemical panels confirmed Paroxysmal Atrial Fibrillation Managed. Standard clinical care pathways and evidence-based therapeutic interventions were executed successfully.
+
+### 3. Diagnostic Investigations and Laboratory Findings
+Admission hematology demonstrated complete blood count within acceptable post-acute tolerances. Serum electrolytes, renal function panels, and hepatic markers remained stable throughout observation. Post-procedural radiographic imaging confirmed anatomical alignment without extravasation or occult hematoma.
+
+### 4. Inpatient Hospital Course and Discharge Physical Condition
+The inpatient recovery phase remained clinically uneventful. At discharge, the patient's condition is evaluated as Cardiovascular stability restored. Vital parameters, hemodynamics, and surgical wounds are satisfactory.
+
+### 4. Discharge Medications and Outpatient Care Regime
+The patient is discharged on oral pharmacotherapy: Metoprolol Succinate 50mg daily in morning. Mandatory outpatient follow-up review is scheduled for 14 days post-discharge in the specialty clinic.
+
+### 5. Nursing Observations and Post-Operative Rehabilitation
+Serial clinical monitoring documented stable core body temperature, clear chest auscultation, and progressive ambulation under supervised nursing care. Patient demonstrated clear comprehension of activity restrictions, dietary modifications, and emergency warning signs warranting immediate readmission.
+
+### 6. Attending Consultant Certification and Discharge Clearance
+Discharge authorized and verified by Chief Attending Consultant Dr. Siya Khalsa (Registration KMC-44912-MD). Medical insurance reimbursement processing facilitated via settlement bank account 50100234918231 through IFSC NOVA0001234.

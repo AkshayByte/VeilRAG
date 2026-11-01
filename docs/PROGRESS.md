@@ -1,13 +1,14 @@
 # Project Progress — VeilRAG (Secure RAG Agent)
 
 ## Current Status Overview
-- **Phase**: Prompt 4A (Close Measured Privacy Gaps with Coverage Recognizers) complete and verified.
+- **Phase**: Prompt 4B (Corpus Scaling & Generalization Benchmark on Frozen Recognizers) complete and verified.
 - **Git Tags**:
   - `recognizers-frozen-v1`: Initial recognizers benchmarked on DEV and first held-out set (DEV2).
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
   - `recognizers-frozen-v3`: Coverage recognizers for DATE_OF_BIRTH, BANK_ACCOUNT, ADDRESS, and Hospital IDs benchmarked on DEV3 and HELDOUT3.
-- **Test Suite**: 98 passed out of 98 selected tests (`pytest tests/ -v -m "not slow"`).
-- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 47 source files).
+- **Corpus V2 Generalization**: 70 documents, 140 chunks ingested with `CHUNK_SIZE_TOKENS=300` and `CHUNK_OVERLAP_TOKENS=60`. Evaluated ONCE without tuning; gaps documented in `docs/limitations.md`.
+- **Test Suite**: 119 passed out of 119 selected tests (`pytest tests/ -v -m "not slow"`).
+- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 49 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
 ---
@@ -195,11 +196,39 @@
    - Character Leak Rate: dropped from **37.04%** (when out-of-scope gaps were unredacted) and **1.08%** (in-scope only) down to **0.0063 (0.63%)** (20 leaked chars out of 3,186 gold chars, representing only 1 missed person name: `"Vikramaditya Rathore"`).
    - Over-Redaction Rate: **0.0042** (149 over-redacted chars out of 35,763 non-PII chars).
 
+### 7. Corpus Scaling & Generalization Benchmark (Prompt 4B Results)
+*Stress-tested generalization on a 70-document enterprise corpus (`data/docs_v2/`) with frozen recognizers (`recognizers-frozen-v3`).*
+
+1. **Test Suite Expansion (`tests/test_coverage_recognizers.py`)**:
+   - Added 21 dedicated unit tests validating `DATE_OF_BIRTH`, `BANK_ACCOUNT`, `STREET_ADDRESS`, and `UHID` recognizers against both positive variants and hard negatives (e.g. invoice dates, due dates, order numbers, 9-digit quantities, address without PIN, and policy numbers).
+   - All 21 tests pass cleanly.
+
+2. **Corpus V2 Ingestion & Architecture**:
+   - 70 synthetic enterprise documents generated across 7 categories (HR policy, loan agreement, hospital discharge, insurance claim, KYC form, vendor contract, lease agreement).
+   - Configured `CHUNK_SIZE_TOKENS = 300` and `CHUNK_OVERLAP_TOKENS = 60` in `src/config.py`.
+   - Ingested 140 chunks into fresh `data/chroma` vector store via `python -m src.rag.ingest --corpus v2`.
+   - Both `ingest.py` and `ingest_eval.py` support `--corpus v1|v2` (defaulting to `v2`).
+
+3. **Generalization Benchmark (Run Strictly ONCE without Post-Eval Tuning)**:
+   - **Pattern In-Scope Leaks**: 9 leaks out of hundreds of planted entities across 70 docs:
+     - 5 address leaks: caused by unseen prefix anchors (`Room` [2] and `Sector` [3]).
+     - 4 hospital ID leaks: caused by unhyphenated bare IDs (`UH889021`), unhyphenated admission IDs (`IP2026MED77412`), and labeled colons (`UHID: 44109823`).
+   - **Core Structured Identifier Redaction**: **0 leaks (100% redacted)** across all 70 instances of Aadhaar, PAN, Indian Mobile, Email, IFSC, UPI, Bank Account, and Date of Birth despite wide phrasing/formatting variations.
+   - **Person Name Leak Rate**: 11.4% (16/140) due to statistical NER variance on out-of-vocabulary Indian names.
+   - **Character Leak Rate**: **0.0878** (8.78%).
+   - **Over-Redaction Rate**: **0.0047** (0.47%).
+   - **Fact Survival**: **288/290 (99.3%)** key business facts retained intact.
+   - **Metadata Leaks**: **0 (0.0%)**.
+   - Failure modes documented in `docs/limitations.md` as "unseen phrasing not covered" in strict compliance with freeze rules.
+
+4. **Regression Guard**:
+   - `python -m src.eval.pii_eval --dataset heldout` strictly maintained **143 TP / 62 FP / 13 FN** (Recall 0.9167, Precision 0.6976).
+
 ---
 
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (98 tests passing)
+# 1. Full Unit Test Suite (119 tests passing)
 pytest tests/ -v -m "not slow"
 
 # 2. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
@@ -208,8 +237,11 @@ python -m src.eval.pii_eval --dataset heldout
 # 3. Held-Out 3 Coverage Eval (82 TP / 16 FP / 0 FN, 0.0000 leak rate)
 python -m src.eval.pii_eval --dataset heldout3
 
-# 4. Ingestion Security & Fact Survival Audit
-python -m src.eval.ingest_eval
+# 4. Ingestion Security & Generalization Audit (Corpus V2)
+python -m src.eval.ingest_eval --corpus v2
+
+# 5. Ingestion Security Verification (Corpus V1)
+python -m src.eval.ingest_eval --corpus v1
 
 # 5. Corrective-RAG CLI Commands
 python -m src.rag.cli ask "What is the notice period in hr_policy_01?"

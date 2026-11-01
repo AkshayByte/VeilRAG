@@ -1,0 +1,6387 @@
+{
+  "version": "2.0",
+  "description": "VeilRAG Corpus V2 Synthetic Enterprise Benchmark (70 documents)",
+  "total_documents": 70,
+  "documents": [
+    {
+      "filename": "hr_policy_01.txt",
+      "doc_type": "hr_policy",
+      "word_count": 391,
+      "key_facts": {
+        "notice_period": "30 calendar days",
+        "working_hours": "9:00 AM to 6:00 PM Monday through Friday",
+        "annual_leave": "20 days of paid privilege leave",
+        "probation_period": "3 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Michael Reddy",
+          "start": 1910,
+          "end": 1923,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "ananya.sharma@starlighttech.example",
+          "start": 1952,
+          "end": 1987,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 23450",
+          "start": 2027,
+          "end": 2042,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Rehaan Dhawan",
+          "start": 2206,
+          "end": 2219,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6484 3732 8119",
+          "start": 2281,
+          "end": 2295,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "abcks1234m",
+          "start": 2351,
+          "end": 2361,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2409,
+          "end": 2420,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2444,
+          "end": 2458,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2503,
+          "end": 2575,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2613,
+          "end": 2623,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "ananya.sharma@starlightbank",
+          "start": 2682,
+          "end": 2709,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_02.txt",
+      "doc_type": "hr_policy",
+      "word_count": 391,
+      "key_facts": {
+        "notice_period": "60 calendar days",
+        "working_hours": "9:00 AM to 6:00 PM Monday through Friday",
+        "annual_leave": "24 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Sai Kapoor",
+          "start": 1910,
+          "end": 1920,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "vikram.rathore@starlighttech.example",
+          "start": 1949,
+          "end": 1985,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98230 45671",
+          "start": 2025,
+          "end": 2040,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Guneet Atwal",
+          "start": 2204,
+          "end": 2216,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9520 8917 0784",
+          "start": 2278,
+          "end": 2292,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "BCKPR5678N",
+          "start": 2348,
+          "end": 2358,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2406,
+          "end": 2417,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100458921345",
+          "start": 2441,
+          "end": 2455,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Room 402, Shanti Nilayam Hostel, Bannerghatta Road, Bengaluru, Karnataka 560076",
+          "start": 2500,
+          "end": 2579,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "22-11-1985",
+          "start": 2617,
+          "end": 2627,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vikram.rathore@starlightbank",
+          "start": 2686,
+          "end": 2714,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_03.txt",
+      "doc_type": "hr_policy",
+      "word_count": 395,
+      "key_facts": {
+        "notice_period": "90 calendar days",
+        "working_hours": "9:30 AM to 6:30 PM Monday through Friday",
+        "annual_leave": "30 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Widisha Mammen",
+          "start": 1910,
+          "end": 1924,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "rohit.deshmukh@starlighttech.example",
+          "start": 1953,
+          "end": 1989,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98112 34567",
+          "start": 2029,
+          "end": 2044,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Tristan Murthy",
+          "start": 2208,
+          "end": 2222,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6617 4813 9848",
+          "start": 2284,
+          "end": 2298,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "CDKPS9012P",
+          "start": 2354,
+          "end": 2364,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2412,
+          "end": 2423,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100984512390",
+          "start": 2447,
+          "end": 2461,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Apartment 304, Green Horizon, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2506,
+          "end": 2585,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "D O B : 03-05-1992",
+          "start": 2623,
+          "end": 2641,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "rohit.deshmukh@starlightbank",
+          "start": 2700,
+          "end": 2728,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_04.txt",
+      "doc_type": "hr_policy",
+      "word_count": 395,
+      "key_facts": {
+        "notice_period": "45 calendar days",
+        "working_hours": "10:00 AM to 7:00 PM with core agile hours",
+        "annual_leave": "21 days of paid privilege leave",
+        "probation_period": "3 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Upma Shah",
+          "start": 1909,
+          "end": 1918,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kavita.nair@quantumsolstice.example",
+          "start": 1947,
+          "end": 1982,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91-98-4512-3450",
+          "start": 2022,
+          "end": 2038,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Pranit Kakar",
+          "start": 2202,
+          "end": 2214,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9548 4812 8486",
+          "start": 2276,
+          "end": 2290,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "cdeks3456r",
+          "start": 2346,
+          "end": 2356,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2404,
+          "end": 2415,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "A/C No. :\n20489912034",
+          "start": 2439,
+          "end": 2460,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "c/o Suresh Varma, Sector 14, Huda Colony, Gurugram, Haryana 122001",
+          "start": 2505,
+          "end": 2571,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "19-03-1990",
+          "start": 2609,
+          "end": 2619,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "kavita.nair@quantumbank",
+          "start": 2678,
+          "end": 2701,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_05.txt",
+      "doc_type": "hr_policy",
+      "word_count": 395,
+      "key_facts": {
+        "notice_period": "60 calendar days",
+        "working_hours": "10:00 AM to 7:00 PM with core agile hours",
+        "annual_leave": "24 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Baghyawati Patla",
+          "start": 1909,
+          "end": 1925,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "siddharth.menon@quantumsolstice.example",
+          "start": 1954,
+          "end": 1993,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 11223",
+          "start": 2033,
+          "end": 2048,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Hredhaan Lal",
+          "start": 2212,
+          "end": 2224,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8044 0159 8682",
+          "start": 2286,
+          "end": 2300,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "EFGHT1234S",
+          "start": 2356,
+          "end": 2366,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2414,
+          "end": 2425,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "004501589123",
+          "start": 2449,
+          "end": 2461,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 102 Crystal Arcade, Indiranagar 100 Feet Road, Bengaluru, Karnataka 560038",
+          "start": 2506,
+          "end": 2585,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "11-12-1971",
+          "start": 2623,
+          "end": 2633,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "siddharth.menon@quantumbank",
+          "start": 2692,
+          "end": 2719,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_06.txt",
+      "doc_type": "hr_policy",
+      "word_count": 393,
+      "key_facts": {
+        "notice_period": "90 calendar days",
+        "working_hours": "9:30 AM to 6:30 PM Monday through Friday",
+        "annual_leave": "30 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Raagini Nadig",
+          "start": 1908,
+          "end": 1921,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "priya.nambiar@quantumsolstice.example",
+          "start": 1950,
+          "end": 1987,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98201 99887",
+          "start": 2027,
+          "end": 2042,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Yatin Kata",
+          "start": 2206,
+          "end": 2216,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6949 3814 5124",
+          "start": 2278,
+          "end": 2292,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "fghks7890t",
+          "start": 2348,
+          "end": 2358,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2406,
+          "end": 2417,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "914010034567891",
+          "start": 2441,
+          "end": 2456,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Sector 62, Block B, Electronic City, Noida, Uttar Pradesh 201309",
+          "start": 2501,
+          "end": 2565,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "28-09-1994",
+          "start": 2603,
+          "end": 2613,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "priya.nambiar@quantumbank",
+          "start": 2672,
+          "end": 2697,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_07.txt",
+      "doc_type": "hr_policy",
+      "word_count": 389,
+      "key_facts": {
+        "notice_period": "30 calendar days",
+        "working_hours": "8:30 AM to 5:30 PM Monday through Saturday",
+        "annual_leave": "18 days of paid privilege leave",
+        "probation_period": "3 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Aayush Grover",
+          "start": 1906,
+          "end": 1919,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "arjun.das@silveroaklogistics.example",
+          "start": 1948,
+          "end": 1984,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91-98765-43210",
+          "start": 2024,
+          "end": 2039,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Nimrat Mane",
+          "start": 2203,
+          "end": 2214,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9354 5665 2349",
+          "start": 2276,
+          "end": 2290,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "GHIJK5678U",
+          "start": 2346,
+          "end": 2356,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2404,
+          "end": 2415,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100778899123",
+          "start": 2439,
+          "end": 2453,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "House No 12, Sector 18, Vashi, Navi Mumbai, Maharashtra 400703",
+          "start": 2498,
+          "end": 2560,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "15-06-1996",
+          "start": 2598,
+          "end": 2608,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "arjun.das@silveroakbank",
+          "start": 2667,
+          "end": 2690,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_08.txt",
+      "doc_type": "hr_policy",
+      "word_count": 391,
+      "key_facts": {
+        "notice_period": "60 calendar days",
+        "working_hours": "8:30 AM to 5:30 PM Monday through Saturday",
+        "annual_leave": "24 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Bachittar Hayer",
+          "start": 1906,
+          "end": 1921,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "meera.patel@silveroaklogistics.example",
+          "start": 1950,
+          "end": 1988,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98901 23456",
+          "start": 2028,
+          "end": 2043,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Yagnesh Memon",
+          "start": 2207,
+          "end": 2220,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9280 6355 6948",
+          "start": 2282,
+          "end": 2296,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "hijkl1234v",
+          "start": 2352,
+          "end": 2362,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2410,
+          "end": 2421,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "10040156908123",
+          "start": 2445,
+          "end": 2459,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Plot 88, Okhla Industrial Area Phase 3, New Delhi 110020",
+          "start": 2504,
+          "end": 2560,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "18-01-1987",
+          "start": 2598,
+          "end": 2608,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "meera.patel@silveroakbank",
+          "start": 2667,
+          "end": 2692,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_09.txt",
+      "doc_type": "hr_policy",
+      "word_count": 390,
+      "key_facts": {
+        "notice_period": "45 calendar days",
+        "working_hours": "9:00 AM to 6:00 PM Monday through Friday",
+        "annual_leave": "21 days of paid privilege leave",
+        "probation_period": "3 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "David Goda",
+          "start": 1908,
+          "end": 1918,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "rajesh.gupta@aerovanguard.example",
+          "start": 1947,
+          "end": 1980,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 98765",
+          "start": 2020,
+          "end": 2035,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Farhan Jha",
+          "start": 2199,
+          "end": 2209,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3814 6204 1520",
+          "start": 2271,
+          "end": 2285,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "IJKLM9012W",
+          "start": 2341,
+          "end": 2351,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2399,
+          "end": 2410,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "10450500129845",
+          "start": 2434,
+          "end": 2448,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 201 Sri Sai Residency, Madhapur, Hyderabad, Telangana 500081",
+          "start": 2493,
+          "end": 2558,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "09-12-1981",
+          "start": 2596,
+          "end": 2606,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "rajesh.gupta@aerobank",
+          "start": 2665,
+          "end": 2686,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hr_policy_10.txt",
+      "doc_type": "hr_policy",
+      "word_count": 392,
+      "key_facts": {
+        "notice_period": "90 calendar days",
+        "working_hours": "9:00 AM to 6:00 PM Monday through Friday",
+        "annual_leave": "28 days of paid privilege leave",
+        "probation_period": "6 months"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Udyati Kota",
+          "start": 1908,
+          "end": 1919,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "sneha.kulkarni@aerovanguard.example",
+          "start": 1948,
+          "end": 1983,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91-91-2345-6789",
+          "start": 2023,
+          "end": 2039,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Warinder Balay",
+          "start": 2203,
+          "end": 2217,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "5077 7160 3279",
+          "start": 2279,
+          "end": 2293,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "jklmn5678x",
+          "start": 2349,
+          "end": 2359,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0001234",
+          "start": 2407,
+          "end": 2418,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100445566778",
+          "start": 2442,
+          "end": 2456,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020",
+          "start": 2501,
+          "end": 2575,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "25-04-1965",
+          "start": 2613,
+          "end": 2623,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "sneha.kulkarni@aerobank",
+          "start": 2682,
+          "end": 2705,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_01.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 362,
+      "key_facts": {
+        "loan_amount": "INR 25,00,000",
+        "interest_rate": "8.75% per annum floating",
+        "tenure": "36 months",
+        "processing_fee": "INR 5,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Lucky Goyal",
+          "start": 346,
+          "end": 357,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "5801 1113 8710",
+          "start": 1562,
+          "end": 1576,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "pqrst4567u",
+          "start": 1606,
+          "end": 1616,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1681,
+          "end": 1692,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "5010 0984 5123 90",
+          "start": 1724,
+          "end": 1741,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Room 12, Sunrise Chawl, Kurla West, Mumbai, Maharashtra 400070",
+          "start": 1787,
+          "end": 1849,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "D O B : 03-05-1992",
+          "start": 1877,
+          "end": 1895,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1956,
+          "end": 1971,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1994,
+          "end": 2027,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2077,
+          "end": 2100,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Jagrati Ghosh",
+          "start": 2235,
+          "end": 2248,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_02.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 356,
+      "key_facts": {
+        "loan_amount": "INR 50,00,000",
+        "interest_rate": "9.25% per annum fixed",
+        "tenure": "60 months",
+        "processing_fee": "INR 10,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Owen Chadha",
+          "start": 346,
+          "end": 357,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "2142 0470 9607",
+          "start": 1560,
+          "end": 1574,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 1604,
+          "end": 1614,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1679,
+          "end": 1690,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100458921345",
+          "start": 1722,
+          "end": 1736,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 1782,
+          "end": 1854,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 1882,
+          "end": 1892,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1953,
+          "end": 1968,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1991,
+          "end": 2024,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2074,
+          "end": 2097,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Nandini Soni",
+          "start": 2232,
+          "end": 2244,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_03.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 355,
+      "key_facts": {
+        "loan_amount": "INR 1,00,00,000",
+        "interest_rate": "10.50% per annum reducing",
+        "tenure": "120 months",
+        "processing_fee": "INR 25,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Chaitaly Ratta",
+          "start": 346,
+          "end": 360,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6758 7700 9963",
+          "start": 1570,
+          "end": 1584,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "cdeks3456r",
+          "start": 1614,
+          "end": 1624,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1689,
+          "end": 1700,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "20489912034",
+          "start": 1732,
+          "end": 1743,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Apartment 101, Prestige Towers, Vashi, Navi Mumbai, Maharashtra 400703",
+          "start": 1789,
+          "end": 1859,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "22-11-1985",
+          "start": 1887,
+          "end": 1897,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1958,
+          "end": 1973,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1996,
+          "end": 2029,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2079,
+          "end": 2102,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Odika Mishra",
+          "start": 2237,
+          "end": 2249,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_04.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 359,
+      "key_facts": {
+        "loan_amount": "INR 2,00,00,000",
+        "interest_rate": "11.25% per annum fixed",
+        "tenure": "240 months",
+        "processing_fee": "INR 50,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Chaitanya Yogi",
+          "start": 346,
+          "end": 360,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "5049 2292 5024",
+          "start": 1567,
+          "end": 1581,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "EFGHT1234S",
+          "start": 1611,
+          "end": 1621,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1686,
+          "end": 1697,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "A/C No. :\n004501589123",
+          "start": 1729,
+          "end": 1751,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Plot 88, Okhla Industrial Area Phase 3, New Delhi 110020",
+          "start": 1797,
+          "end": 1853,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "19-03-1990",
+          "start": 1881,
+          "end": 1891,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1952,
+          "end": 1967,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1990,
+          "end": 2023,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2073,
+          "end": 2096,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Watika Dubey",
+          "start": 2231,
+          "end": 2243,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_05.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 359,
+      "key_facts": {
+        "loan_amount": "INR 10,00,000",
+        "interest_rate": "9.00% per annum floating",
+        "tenure": "24 months",
+        "processing_fee": "INR 3,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Liam Narula",
+          "start": 352,
+          "end": 363,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4569 6727 1626",
+          "start": 1568,
+          "end": 1582,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "fghks7890t",
+          "start": 1612,
+          "end": 1622,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1687,
+          "end": 1698,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "914010034567891",
+          "start": 1730,
+          "end": 1745,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "c/o Amit Sen, Salt Lake Sector 1, Kolkata, West Bengal 700064",
+          "start": 1791,
+          "end": 1852,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "11-12-1971",
+          "start": 1880,
+          "end": 1890,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1951,
+          "end": 1966,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1989,
+          "end": 2022,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2072,
+          "end": 2095,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Advay Ramakrishnan",
+          "start": 2230,
+          "end": 2248,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_06.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 358,
+      "key_facts": {
+        "loan_amount": "INR 20,00,000",
+        "interest_rate": "9.75% per annum reducing",
+        "tenure": "48 months",
+        "processing_fee": "INR 7,500"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Kevin Saraf",
+          "start": 352,
+          "end": 363,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8329 7317 2908",
+          "start": 1568,
+          "end": 1582,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "GHIJK5678U",
+          "start": 1612,
+          "end": 1622,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1687,
+          "end": 1698,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100778899123",
+          "start": 1730,
+          "end": 1744,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Sector 62, Block B, Electronic City, Noida, Uttar Pradesh 201309",
+          "start": 1790,
+          "end": 1854,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "28-09-1994",
+          "start": 1882,
+          "end": 1892,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1953,
+          "end": 1968,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1991,
+          "end": 2024,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2074,
+          "end": 2097,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Nilima Bhattacharyya",
+          "start": 2232,
+          "end": 2252,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_07.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 358,
+      "key_facts": {
+        "loan_amount": "INR 40,00,000",
+        "interest_rate": "10.25% per annum fixed",
+        "tenure": "84 months",
+        "processing_fee": "INR 15,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Laban Cherian",
+          "start": 352,
+          "end": 365,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8314 1501 4905",
+          "start": 1569,
+          "end": 1583,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "hijkl1234v",
+          "start": 1613,
+          "end": 1623,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1688,
+          "end": 1699,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "10040156908123",
+          "start": 1731,
+          "end": 1745,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "House No 12, Sector 18, Vashi, Navi Mumbai, Maharashtra 400703",
+          "start": 1791,
+          "end": 1853,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "15-06-1996",
+          "start": 1881,
+          "end": 1891,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1952,
+          "end": 1967,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1990,
+          "end": 2023,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2073,
+          "end": 2096,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Aradhana Hari",
+          "start": 2231,
+          "end": 2244,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_08.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 357,
+      "key_facts": {
+        "loan_amount": "INR 15,00,000",
+        "interest_rate": "8.90% per annum floating",
+        "tenure": "12 months",
+        "processing_fee": "INR 4,500"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Adweta Singhal",
+          "start": 340,
+          "end": 354,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "5696 4739 6274",
+          "start": 1559,
+          "end": 1573,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "IJKLM9012W",
+          "start": 1603,
+          "end": 1613,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1678,
+          "end": 1689,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "10450500129845",
+          "start": 1721,
+          "end": 1735,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 102 Crystal Arcade, Indiranagar 100 Feet Road, Bengaluru, Karnataka 560038",
+          "start": 1781,
+          "end": 1860,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "18-01-1987",
+          "start": 1888,
+          "end": 1898,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1959,
+          "end": 1974,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1997,
+          "end": 2030,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2080,
+          "end": 2103,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Azad Tank",
+          "start": 2238,
+          "end": 2247,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_09.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 359,
+      "key_facts": {
+        "loan_amount": "INR 30,00,000",
+        "interest_rate": "9.60% per annum reducing",
+        "tenure": "36 months",
+        "processing_fee": "INR 9,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Madhavi Kurian",
+          "start": 340,
+          "end": 354,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4661 0551 7392",
+          "start": 1559,
+          "end": 1573,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "jklmn5678x",
+          "start": 1603,
+          "end": 1613,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1678,
+          "end": 1689,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100445566778",
+          "start": 1721,
+          "end": 1735,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020",
+          "start": 1781,
+          "end": 1855,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "09-12-1981",
+          "start": 1883,
+          "end": 1893,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1954,
+          "end": 1969,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1992,
+          "end": 2025,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2075,
+          "end": 2098,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Onkar Gopal",
+          "start": 2233,
+          "end": 2244,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "loan_agreement_10.txt",
+      "doc_type": "loan_agreement",
+      "word_count": 355,
+      "key_facts": {
+        "loan_amount": "INR 60,00,000",
+        "interest_rate": "10.80% per annum fixed",
+        "tenure": "60 months",
+        "processing_fee": "INR 18,000"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Ranveer Seth",
+          "start": 340,
+          "end": 352,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7376 9298 1406",
+          "start": 1556,
+          "end": 1570,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "KLMNO3456Y",
+          "start": 1600,
+          "end": 1610,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "TERR0004567",
+          "start": 1675,
+          "end": 1686,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "30089124501",
+          "start": 1718,
+          "end": 1729,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 201 Sri Sai Residency, Madhapur, Hyderabad, Telangana 500081",
+          "start": 1775,
+          "end": 1840,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "25-04-1965",
+          "start": 1868,
+          "end": 1878,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 11223",
+          "start": 1939,
+          "end": 1954,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "borrower.desk@terrawealth.example",
+          "start": 1977,
+          "end": 2010,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "borrower.emi@okhdfcbank",
+          "start": 2060,
+          "end": 2083,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Naksh Madan",
+          "start": 2218,
+          "end": 2229,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_01.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 311,
+      "key_facts": {
+        "primary_diagnosis": "Acute Calculous Cholecystitis",
+        "discharge_status": "Clinically stable and afebrile",
+        "follow_up_date": "5 days post-discharge",
+        "discharge_medications": "Amoxicillin-Clavulanate 625mg twice daily"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Ekaja Ram",
+          "start": 296,
+          "end": 305,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH889021",
+          "start": 323,
+          "end": 331,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP2026MED77412",
+          "start": 358,
+          "end": 372,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "5912 0684 6995",
+          "start": 397,
+          "end": 411,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 430,
+          "end": 440,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 457,
+          "end": 472,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 499,
+          "end": 531,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Room 205, Silver Residency, JP Nagar, Bengaluru, Karnataka 560078",
+          "start": 555,
+          "end": 620,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 638,
+          "end": 648,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Frederick Choudhary",
+          "start": 2414,
+          "end": 2433,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2546,
+          "end": 2560,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2574,
+          "end": 2585,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_02.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 316,
+      "key_facts": {
+        "primary_diagnosis": "Laparoscopic Appendectomy",
+        "discharge_status": "Ambulatory with minimal wound pain",
+        "follow_up_date": "7 days post-discharge",
+        "discharge_medications": "Cefixime 200mg twice daily for 5 days"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Neelima Badal",
+          "start": 296,
+          "end": 309,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UHID: 44109823",
+          "start": 327,
+          "end": 341,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-MED-88123",
+          "start": 368,
+          "end": 385,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3216 1756 4027",
+          "start": 410,
+          "end": 424,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 443,
+          "end": 453,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 470,
+          "end": 485,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 512,
+          "end": 544,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 568,
+          "end": 640,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "22-11-1985",
+          "start": 658,
+          "end": 668,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Noah Konda",
+          "start": 2430,
+          "end": 2440,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2553,
+          "end": 2567,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2581,
+          "end": 2592,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_03.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 319,
+      "key_facts": {
+        "primary_diagnosis": "Right Inguinal Hernia Mesh Repair",
+        "discharge_status": "Hemodynamically stable, wound clean",
+        "follow_up_date": "10 days post-discharge",
+        "discharge_medications": "Ciprofloxacin 500mg twice daily with Paracetamol"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Neelima Banik",
+          "start": 296,
+          "end": 309,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH-889021",
+          "start": 327,
+          "end": 336,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-MED-77412",
+          "start": 363,
+          "end": 380,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7327 2274 3650",
+          "start": 405,
+          "end": 419,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 438,
+          "end": 448,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 465,
+          "end": 480,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 507,
+          "end": 539,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Apartment 5A, Lotus Enclave, Adyar, Chennai, Tamil Nadu 600020",
+          "start": 563,
+          "end": 625,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "D O B : 03-05-1992",
+          "start": 643,
+          "end": 661,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Dayamai Arya",
+          "start": 2444,
+          "end": 2456,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2569,
+          "end": 2583,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2597,
+          "end": 2608,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_04.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 317,
+      "key_facts": {
+        "primary_diagnosis": "Left Knee Meniscal Debridement",
+        "discharge_status": "Pain managed, non-weight bearing on crutches",
+        "follow_up_date": "14 days post-discharge",
+        "discharge_medications": "Aceclofenac 100mg twice daily with Rabeprazole"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Vamakshi Bassi",
+          "start": 296,
+          "end": 310,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH-1092834",
+          "start": 328,
+          "end": 338,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-MED-99124",
+          "start": 365,
+          "end": 382,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3329 0239 8465",
+          "start": 407,
+          "end": 421,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 440,
+          "end": 450,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 467,
+          "end": 482,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 509,
+          "end": 541,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Plot 88, Okhla Industrial Area Phase 3, New Delhi 110020",
+          "start": 565,
+          "end": 621,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "19-03-1990",
+          "start": 639,
+          "end": 649,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Wishi Babu",
+          "start": 2436,
+          "end": 2446,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2559,
+          "end": 2573,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2587,
+          "end": 2598,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_05.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 319,
+      "key_facts": {
+        "primary_diagnosis": "Coronary Angioplasty with Drug-Eluting Stent",
+        "discharge_status": "Stable sinus rhythm with normal hemodynamics",
+        "follow_up_date": "7 days post-discharge",
+        "discharge_medications": "Aspirin 75mg with Clopidogrel 75mg once daily"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Idika Bala",
+          "start": 288,
+          "end": 298,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "Patient Hospital ID: 98451230",
+          "start": 316,
+          "end": 345,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-CARD-55102",
+          "start": 372,
+          "end": 390,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9686 9863 2690",
+          "start": 415,
+          "end": 429,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 448,
+          "end": 458,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 475,
+          "end": 490,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 517,
+          "end": 549,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "c/o Rajesh Gupta, Civil Lines, Jaipur, Rajasthan 302006",
+          "start": 573,
+          "end": 628,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "11-12-1971",
+          "start": 646,
+          "end": 656,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Jai Patel",
+          "start": 2455,
+          "end": 2464,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2577,
+          "end": 2591,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2605,
+          "end": 2616,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_06.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 312,
+      "key_facts": {
+        "primary_diagnosis": "Paroxysmal Atrial Fibrillation Managed",
+        "discharge_status": "Cardiovascular stability restored",
+        "follow_up_date": "14 days post-discharge",
+        "discharge_medications": "Metoprolol Succinate 50mg daily in morning"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Ishita Devan",
+          "start": 288,
+          "end": 300,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH-776655",
+          "start": 318,
+          "end": 327,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-CARD-55103",
+          "start": 354,
+          "end": 372,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8492 4544 5980",
+          "start": 397,
+          "end": 411,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 430,
+          "end": 440,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 457,
+          "end": 472,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 499,
+          "end": 531,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Sector 18, Block C, Vashi, Navi Mumbai, Maharashtra 400703",
+          "start": 555,
+          "end": 613,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "28-09-1994",
+          "start": 631,
+          "end": 641,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Siya Khalsa",
+          "start": 2421,
+          "end": 2432,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2545,
+          "end": 2559,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2573,
+          "end": 2584,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_07.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 317,
+      "key_facts": {
+        "primary_diagnosis": "Acute Inferior Wall Myocardial Infarction",
+        "discharge_status": "Ejection fraction 50% preserved LV function",
+        "follow_up_date": "21 days post-discharge",
+        "discharge_medications": "Atorvastatin 40mg once daily at bedtime"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Gopal Badami",
+          "start": 288,
+          "end": 300,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH-998877",
+          "start": 318,
+          "end": 327,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-CARD-55104",
+          "start": 354,
+          "end": 372,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4507 8314 3701",
+          "start": 397,
+          "end": 411,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 430,
+          "end": 440,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 457,
+          "end": 472,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 499,
+          "end": 531,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "House No 12, Sector 18, Vashi, Navi Mumbai, Maharashtra 400703",
+          "start": 555,
+          "end": 617,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "15-06-1996",
+          "start": 635,
+          "end": 645,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Zashil Bail",
+          "start": 2435,
+          "end": 2446,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2559,
+          "end": 2573,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2587,
+          "end": 2598,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_08.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 317,
+      "key_facts": {
+        "primary_diagnosis": "Lumbar L4-L5 Microdiscectomy",
+        "discharge_status": "Radicular neurological pain relieved, walking assisted",
+        "follow_up_date": "7 days post-discharge",
+        "discharge_medications": "Pregabalin 75mg at night with Tramadol SOS"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Matthew Prakash",
+          "start": 282,
+          "end": 297,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH-332211",
+          "start": 315,
+          "end": 324,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-ORTHO-11029",
+          "start": 351,
+          "end": 370,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "5635 8268 0279",
+          "start": 395,
+          "end": 409,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 428,
+          "end": 438,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 455,
+          "end": 470,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 497,
+          "end": 529,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 102 Crystal Arcade, Indiranagar 100 Feet Road, Bengaluru, Karnataka 560038",
+          "start": 553,
+          "end": 632,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "18-01-1987",
+          "start": 650,
+          "end": 660,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Balveer Chakrabarti",
+          "start": 2450,
+          "end": 2469,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2582,
+          "end": 2596,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2610,
+          "end": 2621,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_09.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 321,
+      "key_facts": {
+        "primary_diagnosis": "Closed Reduction Distal Radius Fracture",
+        "discharge_status": "Plaster cast intact, capillary refill satisfactory",
+        "follow_up_date": "10 days post-discharge",
+        "discharge_medications": "Calcium Carbonate 500mg with Vitamin D3 daily"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Gautam Ray",
+          "start": 282,
+          "end": 292,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH-665544",
+          "start": 310,
+          "end": 319,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-ORTHO-11030",
+          "start": 346,
+          "end": 365,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4863 9019 0532",
+          "start": 390,
+          "end": 404,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 423,
+          "end": 433,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 450,
+          "end": 465,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 492,
+          "end": 524,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Door No 14, 2nd Main Road, Gandhi Nagar, Adyar, Chennai, Tamil Nadu 600020",
+          "start": 548,
+          "end": 622,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "09-12-1981",
+          "start": 640,
+          "end": 650,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Devansh Luthra",
+          "start": 2451,
+          "end": 2465,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2578,
+          "end": 2592,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2606,
+          "end": 2617,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "hospital_discharge_10.txt",
+      "doc_type": "hospital_discharge",
+      "word_count": 316,
+      "key_facts": {
+        "primary_diagnosis": "Bilateral Total Knee Replacement",
+        "discharge_status": "Bilateral surgical wounds healing, active physiotherapy",
+        "follow_up_date": "14 days post-discharge",
+        "discharge_medications": "Enoxaparin 40mg subcutaneous injection for 10 days"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Girish Dora",
+          "start": 282,
+          "end": 293,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "UH-554433",
+          "start": 311,
+          "end": 320,
+          "in_scope": true
+        },
+        {
+          "type": "UHID",
+          "value": "IP-2026-ORTHO-11031",
+          "start": 347,
+          "end": 366,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "2777 1061 3786",
+          "start": 391,
+          "end": 405,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 424,
+          "end": 434,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 33445",
+          "start": 451,
+          "end": 466,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "clinical.desk@novahealth.example",
+          "start": 493,
+          "end": 525,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 201 Sri Sai Residency, Madhapur, Hyderabad, Telangana 500081",
+          "start": 549,
+          "end": 614,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "25-04-1965",
+          "start": 632,
+          "end": 642,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Chandresh Dara",
+          "start": 2446,
+          "end": 2460,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2573,
+          "end": 2587,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "NOVA0001234",
+          "start": 2601,
+          "end": 2612,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_01.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 327,
+      "key_facts": {
+        "claim_number": "CLM-AUT-2026-10294",
+        "claimed_amount": "INR 85,000",
+        "approved_amount": "INR 72,000",
+        "deductible": "INR 2,000 compulsory deductible",
+        "surveyor_assessment": "Frontal bumper impact without structural chassis distortion"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Andrew Pandya",
+          "start": 268,
+          "end": 281,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9638 9816 9322",
+          "start": 375,
+          "end": 389,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 408,
+          "end": 418,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 429,
+          "end": 444,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 461,
+          "end": 493,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 517,
+          "end": 589,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 607,
+          "end": 617,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Isaac Mammen",
+          "start": 863,
+          "end": 875,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2335,
+          "end": 2349,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2368,
+          "end": 2379,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2449,
+          "end": 2475,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_02.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 328,
+      "key_facts": {
+        "claim_number": "CLM-AUT-2026-10295",
+        "claimed_amount": "INR 1,75,000",
+        "approved_amount": "INR 1,55,000",
+        "deductible": "INR 3,500 compulsory deductible",
+        "surveyor_assessment": "Rear side impact with sheet metal replacement required"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Udant Rajagopal",
+          "start": 268,
+          "end": 283,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6450 8216 9430",
+          "start": 377,
+          "end": 391,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 410,
+          "end": 420,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 431,
+          "end": 446,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 463,
+          "end": 495,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 519,
+          "end": 591,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 609,
+          "end": 619,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Advay Patil",
+          "start": 867,
+          "end": 878,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2335,
+          "end": 2349,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2368,
+          "end": 2379,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2449,
+          "end": 2475,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_03.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 327,
+      "key_facts": {
+        "claim_number": "CLM-AUT-2026-10296",
+        "claimed_amount": "INR 3,50,000",
+        "approved_amount": "INR 3,10,000",
+        "deductible": "INR 5,000 policy excess",
+        "surveyor_assessment": "Engine water inundation during urban flooding incident"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Abhimanyu Bal",
+          "start": 268,
+          "end": 281,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4573 3675 1252",
+          "start": 375,
+          "end": 389,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 408,
+          "end": 418,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 429,
+          "end": 444,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 461,
+          "end": 493,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 517,
+          "end": 589,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 607,
+          "end": 617,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Jeevika Mani",
+          "start": 865,
+          "end": 877,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2326,
+          "end": 2340,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2359,
+          "end": 2370,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2440,
+          "end": 2466,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_04.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 328,
+      "key_facts": {
+        "claim_number": "CLM-AUT-2026-10297",
+        "claimed_amount": "INR 7,00,000",
+        "approved_amount": "INR 6,25,000",
+        "deductible": "INR 10,000 policy excess",
+        "surveyor_assessment": "Multi-vehicle collision on highway with total bodywork repair"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Gavin Dhaliwal",
+          "start": 268,
+          "end": 282,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "2438 5659 8347",
+          "start": 376,
+          "end": 390,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 409,
+          "end": 419,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 430,
+          "end": 445,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 462,
+          "end": 494,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 518,
+          "end": 590,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 608,
+          "end": 618,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Hemal Pant",
+          "start": 866,
+          "end": 876,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2333,
+          "end": 2347,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2366,
+          "end": 2377,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2447,
+          "end": 2473,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_05.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 327,
+      "key_facts": {
+        "claim_number": "CLM-MED-2026-55219",
+        "claimed_amount": "INR 2,10,000",
+        "approved_amount": "INR 1,90,000",
+        "deductible": "INR 2,500 standard excess",
+        "surveyor_assessment": "Hospitalization for acute viral encephalitis and critical care"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "David Nath",
+          "start": 264,
+          "end": 274,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7896 8555 9954",
+          "start": 368,
+          "end": 382,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 401,
+          "end": 411,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 422,
+          "end": 437,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 454,
+          "end": 486,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 510,
+          "end": 582,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 600,
+          "end": 610,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Harish Randhawa",
+          "start": 858,
+          "end": 873,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2332,
+          "end": 2346,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2365,
+          "end": 2376,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2446,
+          "end": 2472,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_06.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 325,
+      "key_facts": {
+        "claim_number": "CLM-MED-2026-55220",
+        "claimed_amount": "INR 4,80,000",
+        "approved_amount": "INR 4,35,000",
+        "deductible": "INR 5,000 standard excess",
+        "surveyor_assessment": "Elective spinal instrumentation and stabilization surgery"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Yug Pal",
+          "start": 264,
+          "end": 271,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6745 1857 0738",
+          "start": 365,
+          "end": 379,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 398,
+          "end": 408,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 419,
+          "end": 434,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 451,
+          "end": 483,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 507,
+          "end": 579,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 597,
+          "end": 607,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Edhitha Mand",
+          "start": 855,
+          "end": 867,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2321,
+          "end": 2335,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2354,
+          "end": 2365,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2435,
+          "end": 2461,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_07.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 326,
+      "key_facts": {
+        "claim_number": "CLM-MED-2026-55221",
+        "claimed_amount": "INR 9,50,000",
+        "approved_amount": "INR 8,70,000",
+        "deductible": "INR 10,000 policy excess",
+        "surveyor_assessment": "Emergency liver transplant stabilization and ICU stay"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Shivansh Kapoor",
+          "start": 264,
+          "end": 279,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "2294 7888 1445",
+          "start": 373,
+          "end": 387,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 406,
+          "end": 416,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 427,
+          "end": 442,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 459,
+          "end": 491,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 515,
+          "end": 587,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 605,
+          "end": 615,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Qushi Chhabra",
+          "start": 863,
+          "end": 876,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2325,
+          "end": 2339,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2358,
+          "end": 2369,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2439,
+          "end": 2465,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_08.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 327,
+      "key_facts": {
+        "claim_number": "CLM-FIR-2026-78103",
+        "claimed_amount": "INR 5,00,000",
+        "approved_amount": "INR 4,50,000",
+        "deductible": "INR 15,000 commercial excess",
+        "surveyor_assessment": "Warehouse electrical short circuit with partial inventory loss"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "George Ram",
+          "start": 260,
+          "end": 270,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6147 5127 9149",
+          "start": 364,
+          "end": 378,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 397,
+          "end": 407,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 418,
+          "end": 433,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 450,
+          "end": 482,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 506,
+          "end": 578,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 596,
+          "end": 606,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Gaurav Chandran",
+          "start": 854,
+          "end": 869,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2331,
+          "end": 2345,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2364,
+          "end": 2375,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2445,
+          "end": 2471,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_09.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 327,
+      "key_facts": {
+        "claim_number": "CLM-FIR-2026-78104",
+        "claimed_amount": "INR 12,00,000",
+        "approved_amount": "INR 10,80,000",
+        "deductible": "INR 25,000 commercial excess",
+        "surveyor_assessment": "Industrial factory machinery friction fire without foul play"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Vihaan Nayar",
+          "start": 260,
+          "end": 272,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7427 0190 5193",
+          "start": 366,
+          "end": 380,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 399,
+          "end": 409,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 420,
+          "end": 435,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 452,
+          "end": 484,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 508,
+          "end": 580,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 598,
+          "end": 608,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "George Bora",
+          "start": 857,
+          "end": 868,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2329,
+          "end": 2343,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2362,
+          "end": 2373,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2443,
+          "end": 2469,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "insurance_claim_10.txt",
+      "doc_type": "insurance_claim",
+      "word_count": 327,
+      "key_facts": {
+        "claim_number": "CLM-FIR-2026-78105",
+        "claimed_amount": "INR 25,00,000",
+        "approved_amount": "INR 22,50,000",
+        "deductible": "INR 50,000 commercial excess",
+        "surveyor_assessment": "Chemical processing laboratory containment failure and burn loss"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Maanas Zachariah",
+          "start": 260,
+          "end": 276,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8021 4445 4162",
+          "start": 370,
+          "end": 384,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 403,
+          "end": 413,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98451 88990",
+          "start": 424,
+          "end": 439,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "claims.desk@zenithshield.example",
+          "start": 456,
+          "end": 488,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 512,
+          "end": 584,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 602,
+          "end": 612,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Hemangini Deep",
+          "start": 861,
+          "end": 875,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2340,
+          "end": 2354,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "ZENI0001234",
+          "start": 2373,
+          "end": 2384,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "claimant.zenith@okhdfcbank",
+          "start": 2454,
+          "end": 2480,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_01.txt",
+      "doc_type": "kyc_form",
+      "word_count": 317,
+      "key_facts": {
+        "account_type": "Resident Individual Demat Account",
+        "risk_category": "Low Risk Category",
+        "verification_mode": "DigiLocker VIPV",
+        "tax_residency": "India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Libni Sridhar",
+          "start": 275,
+          "end": 288,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3303 2059 1950",
+          "start": 415,
+          "end": 429,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 448,
+          "end": 458,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 480,
+          "end": 495,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 520,
+          "end": 552,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 573,
+          "end": 645,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 663,
+          "end": 673,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2160,
+          "end": 2174,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2201,
+          "end": 2212,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2256,
+          "end": 2277,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Chandresh Kalita",
+          "start": 2380,
+          "end": 2396,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_02.txt",
+      "doc_type": "kyc_form",
+      "word_count": 322,
+      "key_facts": {
+        "account_type": "Non-Resident External Savings Account",
+        "risk_category": "High Risk Tier-1 Category",
+        "verification_mode": "Aadhaar e-KYC Biometric",
+        "tax_residency": "United Arab Emirates and India"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Kevin Seshadri",
+          "start": 275,
+          "end": 289,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8321 6102 4592",
+          "start": 428,
+          "end": 442,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 461,
+          "end": 471,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 493,
+          "end": 508,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 533,
+          "end": 565,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 586,
+          "end": 658,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 676,
+          "end": 686,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2194,
+          "end": 2208,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2235,
+          "end": 2246,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2290,
+          "end": 2311,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Karan Handa",
+          "start": 2414,
+          "end": 2425,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_03.txt",
+      "doc_type": "kyc_form",
+      "word_count": 317,
+      "key_facts": {
+        "account_type": "Corporate Custody Trading Account",
+        "risk_category": "Medium Risk Category",
+        "verification_mode": "Offline Attestation",
+        "tax_residency": "India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Jagvi Sachdeva",
+          "start": 275,
+          "end": 289,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6350 5445 7134",
+          "start": 419,
+          "end": 433,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 452,
+          "end": 462,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 484,
+          "end": 499,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 524,
+          "end": 556,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 577,
+          "end": 649,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 667,
+          "end": 677,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2168,
+          "end": 2182,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2209,
+          "end": 2220,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2264,
+          "end": 2285,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Kamya Dyal",
+          "start": 2388,
+          "end": 2398,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_04.txt",
+      "doc_type": "kyc_form",
+      "word_count": 319,
+      "key_facts": {
+        "account_type": "High-Net-Worth Portfolio Account",
+        "risk_category": "Medium Risk Category",
+        "verification_mode": "Video In-Person Verification",
+        "tax_residency": "Singapore and India treaty"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Indira Arya",
+          "start": 275,
+          "end": 286,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "2708 4227 0716",
+          "start": 415,
+          "end": 429,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 448,
+          "end": 458,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 480,
+          "end": 495,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 520,
+          "end": 552,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 573,
+          "end": 645,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 663,
+          "end": 673,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2182,
+          "end": 2196,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2223,
+          "end": 2234,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2278,
+          "end": 2299,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Bakhshi Mangal",
+          "start": 2402,
+          "end": 2416,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_05.txt",
+      "doc_type": "kyc_form",
+      "word_count": 318,
+      "key_facts": {
+        "account_type": "Discretionary PMS Individual Account",
+        "risk_category": "Low Risk Category",
+        "verification_mode": "DigiLocker VIPV",
+        "tax_residency": "India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Aadhya Varma",
+          "start": 284,
+          "end": 296,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6279 7230 5759",
+          "start": 426,
+          "end": 440,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 459,
+          "end": 469,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 491,
+          "end": 506,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 531,
+          "end": 563,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 584,
+          "end": 656,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 674,
+          "end": 684,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2171,
+          "end": 2185,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2212,
+          "end": 2223,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2267,
+          "end": 2288,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Veda Chadha",
+          "start": 2391,
+          "end": 2402,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_06.txt",
+      "doc_type": "kyc_form",
+      "word_count": 318,
+      "key_facts": {
+        "account_type": "Non-Discretionary Wealth Folio",
+        "risk_category": "Medium Risk Category",
+        "verification_mode": "Aadhaar e-KYC Biometric",
+        "tax_residency": "India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Abha Sankaran",
+          "start": 284,
+          "end": 297,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8957 2498 2363",
+          "start": 424,
+          "end": 438,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 457,
+          "end": 467,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 489,
+          "end": 504,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 529,
+          "end": 561,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 582,
+          "end": 654,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 672,
+          "end": 682,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2177,
+          "end": 2191,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2218,
+          "end": 2229,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2273,
+          "end": 2294,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Urishilla Samra",
+          "start": 2397,
+          "end": 2412,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_07.txt",
+      "doc_type": "kyc_form",
+      "word_count": 322,
+      "key_facts": {
+        "account_type": "Global NRI Wealth Mandate",
+        "risk_category": "High Risk Tier-1 Category",
+        "verification_mode": "Physical In-Person Verification",
+        "tax_residency": "United Kingdom and India"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Vedika Majumdar",
+          "start": 284,
+          "end": 299,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7477 9208 1659",
+          "start": 426,
+          "end": 440,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 459,
+          "end": 469,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 491,
+          "end": 506,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 531,
+          "end": 563,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 584,
+          "end": 656,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 674,
+          "end": 684,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2194,
+          "end": 2208,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2235,
+          "end": 2246,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2290,
+          "end": 2311,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Ayush Tailor",
+          "start": 2414,
+          "end": 2426,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_08.txt",
+      "doc_type": "kyc_form",
+      "word_count": 319,
+      "key_facts": {
+        "account_type": "Agricultural Term Credit Member Account",
+        "risk_category": "Low Risk Category",
+        "verification_mode": "Aadhaar Biometric VIPV",
+        "tax_residency": "India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Yoshita Subramaniam",
+          "start": 279,
+          "end": 298,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8988 8645 9151",
+          "start": 431,
+          "end": 445,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 464,
+          "end": 474,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 496,
+          "end": 511,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 536,
+          "end": 568,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 589,
+          "end": 661,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 679,
+          "end": 689,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2183,
+          "end": 2197,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2224,
+          "end": 2235,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2279,
+          "end": 2300,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Fariq Date",
+          "start": 2403,
+          "end": 2413,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_09.txt",
+      "doc_type": "kyc_form",
+      "word_count": 318,
+      "key_facts": {
+        "account_type": "Rural Cooperative Savings Folio",
+        "risk_category": "Low Risk Category",
+        "verification_mode": "Offline Branch In-Person",
+        "tax_residency": "India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Manan Bhargava",
+          "start": 279,
+          "end": 293,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9660 9576 1385",
+          "start": 418,
+          "end": 432,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 451,
+          "end": 461,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 483,
+          "end": 498,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 523,
+          "end": 555,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 576,
+          "end": 648,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 666,
+          "end": 676,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2172,
+          "end": 2186,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2213,
+          "end": 2224,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2268,
+          "end": 2289,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Varenya Baral",
+          "start": 2392,
+          "end": 2405,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "kyc_form_10.txt",
+      "doc_type": "kyc_form",
+      "word_count": 317,
+      "key_facts": {
+        "account_type": "MSME Enterprise Current Account",
+        "risk_category": "Medium Risk Category",
+        "verification_mode": "DigiLocker VIPV",
+        "tax_residency": "India exclusively"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Advay Mane",
+          "start": 279,
+          "end": 289,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4207 5803 6127",
+          "start": 417,
+          "end": 431,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 450,
+          "end": 460,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 77889",
+          "start": 482,
+          "end": 497,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "kyc.client@solariswealth.example",
+          "start": 522,
+          "end": 554,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 575,
+          "end": 647,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 665,
+          "end": 675,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2162,
+          "end": 2176,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "BEAC0001234",
+          "start": 2203,
+          "end": 2214,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "client.kyc@okhdfcbank",
+          "start": 2258,
+          "end": 2279,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Quincy Sankaran",
+          "start": 2382,
+          "end": 2397,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_01.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 396,
+      "key_facts": {
+        "monthly_retainer": "INR 1,25,000 per month",
+        "service_level_uptime": "99.5% uptime guarantee",
+        "termination_notice": "30 calendar days written notice",
+        "penalty_rate": "2% billing credit per 1 hour outage"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Gagan Mand",
+          "start": 379,
+          "end": 389,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Charita Buch",
+          "start": 464,
+          "end": 476,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2552,
+          "end": 2562,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8991 8003 7863",
+          "start": 2584,
+          "end": 2598,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2617,
+          "end": 2632,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2658,
+          "end": 2697,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2729,
+          "end": 2801,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2824,
+          "end": 2834,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2889,
+          "end": 2903,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2913,
+          "end": 2924,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 2985,
+          "end": 3013,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_02.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 396,
+      "key_facts": {
+        "monthly_retainer": "INR 2,50,000 per month",
+        "service_level_uptime": "99.9% high-availability uptime",
+        "termination_notice": "60 calendar days written notice",
+        "penalty_rate": "5% billing credit per 1 hour outage"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "David Sharaf",
+          "start": 379,
+          "end": 391,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Anirudh Deshmukh",
+          "start": 466,
+          "end": 482,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2566,
+          "end": 2576,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7576 7083 3078",
+          "start": 2598,
+          "end": 2612,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2631,
+          "end": 2646,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2672,
+          "end": 2711,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2743,
+          "end": 2815,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2838,
+          "end": 2848,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2903,
+          "end": 2917,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2927,
+          "end": 2938,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 2999,
+          "end": 3027,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_03.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 396,
+      "key_facts": {
+        "monthly_retainer": "INR 5,00,000 per month",
+        "service_level_uptime": "99.95% mission-critical uptime",
+        "termination_notice": "90 calendar days written notice",
+        "penalty_rate": "10% billing credit per 1 hour outage"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "George Ahluwalia",
+          "start": 379,
+          "end": 395,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Lipika Chaudhari",
+          "start": 470,
+          "end": 486,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2571,
+          "end": 2581,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3845 3705 1219",
+          "start": 2603,
+          "end": 2617,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2636,
+          "end": 2651,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2677,
+          "end": 2716,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2748,
+          "end": 2820,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2843,
+          "end": 2853,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2908,
+          "end": 2922,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2932,
+          "end": 2943,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 3004,
+          "end": 3032,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_04.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 396,
+      "key_facts": {
+        "monthly_retainer": "INR 8,50,000 per month",
+        "service_level_uptime": "99.99% fault-tolerant uptime",
+        "termination_notice": "120 calendar days written notice",
+        "penalty_rate": "15% billing credit per 1 hour outage"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Hiral Tara",
+          "start": 379,
+          "end": 389,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Bakhshi Vyas",
+          "start": 464,
+          "end": 476,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2560,
+          "end": 2570,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6219 4703 1448",
+          "start": 2592,
+          "end": 2606,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2625,
+          "end": 2640,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2666,
+          "end": 2705,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2737,
+          "end": 2809,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2832,
+          "end": 2842,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2897,
+          "end": 2911,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2921,
+          "end": 2932,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 2993,
+          "end": 3021,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_05.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 395,
+      "key_facts": {
+        "monthly_retainer": "INR 1,80,000 per month",
+        "service_level_uptime": "99.0% standard freight uptime",
+        "termination_notice": "30 calendar days written notice",
+        "penalty_rate": "3% service deduction per breach"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Nitara Misra",
+          "start": 383,
+          "end": 395,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Bhavna Taneja",
+          "start": 469,
+          "end": 482,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2561,
+          "end": 2571,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3523 4130 9581",
+          "start": 2593,
+          "end": 2607,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2626,
+          "end": 2641,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2667,
+          "end": 2706,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2738,
+          "end": 2810,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2833,
+          "end": 2843,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2898,
+          "end": 2912,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2922,
+          "end": 2933,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 2994,
+          "end": 3022,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_06.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 395,
+      "key_facts": {
+        "monthly_retainer": "INR 3,60,000 per month",
+        "service_level_uptime": "99.5% priority freight uptime",
+        "termination_notice": "60 calendar days written notice",
+        "penalty_rate": "5% service deduction per breach"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Nilima Sarin",
+          "start": 383,
+          "end": 395,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Aashi Sathe",
+          "start": 469,
+          "end": 480,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2559,
+          "end": 2569,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3114 5563 4246",
+          "start": 2591,
+          "end": 2605,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2624,
+          "end": 2639,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2665,
+          "end": 2704,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2736,
+          "end": 2808,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2831,
+          "end": 2841,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2896,
+          "end": 2910,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2920,
+          "end": 2931,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 2992,
+          "end": 3020,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_07.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 395,
+      "key_facts": {
+        "monthly_retainer": "INR 7,20,000 per month",
+        "service_level_uptime": "99.9% express freight uptime",
+        "termination_notice": "90 calendar days written notice",
+        "penalty_rate": "8% service deduction per breach"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Lavanya Som",
+          "start": 383,
+          "end": 394,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Yashasvi Apte",
+          "start": 468,
+          "end": 481,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2559,
+          "end": 2569,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9981 6124 6360",
+          "start": 2591,
+          "end": 2605,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2624,
+          "end": 2639,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2665,
+          "end": 2704,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2736,
+          "end": 2808,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2831,
+          "end": 2841,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2896,
+          "end": 2910,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2920,
+          "end": 2931,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 2992,
+          "end": 3020,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_08.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 394,
+      "key_facts": {
+        "monthly_retainer": "INR 1,50,000 per month",
+        "service_level_uptime": "99.5% infrastructure availability",
+        "termination_notice": "30 calendar days written notice",
+        "penalty_rate": "2.5% penalty per outage incident"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Udant Bhatia",
+          "start": 381,
+          "end": 393,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Yauvani Narang",
+          "start": 471,
+          "end": 485,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2569,
+          "end": 2579,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "8351 9939 0416",
+          "start": 2601,
+          "end": 2615,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2634,
+          "end": 2649,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2675,
+          "end": 2714,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2746,
+          "end": 2818,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2841,
+          "end": 2851,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2906,
+          "end": 2920,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2930,
+          "end": 2941,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 3002,
+          "end": 3030,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_09.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 394,
+      "key_facts": {
+        "monthly_retainer": "INR 3,00,000 per month",
+        "service_level_uptime": "99.9% infrastructure availability",
+        "termination_notice": "60 calendar days written notice",
+        "penalty_rate": "5.0% penalty per outage incident"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Upma Borra",
+          "start": 381,
+          "end": 391,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Wahab Gola",
+          "start": 469,
+          "end": 479,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2563,
+          "end": 2573,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9389 2892 5991",
+          "start": 2595,
+          "end": 2609,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2628,
+          "end": 2643,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2669,
+          "end": 2708,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2740,
+          "end": 2812,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2835,
+          "end": 2845,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2900,
+          "end": 2914,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2924,
+          "end": 2935,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 2996,
+          "end": 3024,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "vendor_contract_10.txt",
+      "doc_type": "vendor_contract",
+      "word_count": 394,
+      "key_facts": {
+        "monthly_retainer": "INR 6,00,000 per month",
+        "service_level_uptime": "99.95% infrastructure availability",
+        "termination_notice": "90 calendar days written notice",
+        "penalty_rate": "7.5% penalty per outage incident"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Ganga Nigam",
+          "start": 381,
+          "end": 392,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Rajeshri Handa",
+          "start": 470,
+          "end": 484,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2569,
+          "end": 2579,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "4859 6424 7945",
+          "start": 2601,
+          "end": 2615,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 66778",
+          "start": 2634,
+          "end": 2649,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "billing.services@starlightcloud.example",
+          "start": 2675,
+          "end": 2714,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2746,
+          "end": 2818,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2841,
+          "end": 2851,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2906,
+          "end": 2920,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "STAR0009876",
+          "start": 2930,
+          "end": 2941,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "vendor.settlement@okhdfcbank",
+          "start": 3002,
+          "end": 3030,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_01.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 389,
+      "key_facts": {
+        "monthly_rent": "INR 1,10,000 per month",
+        "security_deposit": "INR 3,30,000 (3 months rent)",
+        "lock_in_period": "12 months mandatory lock-in",
+        "escalation_rate": "5% annual escalation"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Warinder Magar",
+          "start": 381,
+          "end": 395,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Hritik Choudhury",
+          "start": 456,
+          "end": 472,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2437,
+          "end": 2447,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3065 3035 7740",
+          "start": 2480,
+          "end": 2494,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2505,
+          "end": 2520,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2537,
+          "end": 2574,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2595,
+          "end": 2667,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2685,
+          "end": 2695,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2761,
+          "end": 2775,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2790,
+          "end": 2801,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2852,
+          "end": 2874,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_02.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 390,
+      "key_facts": {
+        "monthly_rent": "INR 2,25,000 per month",
+        "security_deposit": "INR 13,50,000 (6 months rent)",
+        "lock_in_period": "24 months lock-in period",
+        "escalation_rate": "7.5% biennial rent escalation"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Balhaar Nigam",
+          "start": 381,
+          "end": 394,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Andrew Varty",
+          "start": 455,
+          "end": 467,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2439,
+          "end": 2449,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "2183 2741 9108",
+          "start": 2482,
+          "end": 2496,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2507,
+          "end": 2522,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2539,
+          "end": 2576,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2597,
+          "end": 2669,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2687,
+          "end": 2697,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2763,
+          "end": 2777,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2792,
+          "end": 2803,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2854,
+          "end": 2876,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_03.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 391,
+      "key_facts": {
+        "monthly_rent": "INR 4,50,000 per month",
+        "security_deposit": "INR 40,50,000 (9 months rent)",
+        "lock_in_period": "36 months commercial lock-in",
+        "escalation_rate": "10% escalation every 3 years"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Christopher Maharaj",
+          "start": 381,
+          "end": 400,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Brijesh Baral",
+          "start": 461,
+          "end": 474,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2449,
+          "end": 2459,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3999 5539 8299",
+          "start": 2492,
+          "end": 2506,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2517,
+          "end": 2532,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2549,
+          "end": 2586,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2607,
+          "end": 2679,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2697,
+          "end": 2707,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2773,
+          "end": 2787,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2802,
+          "end": 2813,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2864,
+          "end": 2886,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_04.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 391,
+      "key_facts": {
+        "monthly_rent": "INR 9,00,000 per month",
+        "security_deposit": "INR 1,08,00,000 (12 months rent)",
+        "lock_in_period": "60 months commercial lock-in",
+        "escalation_rate": "12% escalation every 3 years"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Reyansh Dara",
+          "start": 381,
+          "end": 393,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Hemal Kothari",
+          "start": 454,
+          "end": 467,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2445,
+          "end": 2455,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7804 2762 9381",
+          "start": 2488,
+          "end": 2502,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2513,
+          "end": 2528,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2545,
+          "end": 2582,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2603,
+          "end": 2675,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2693,
+          "end": 2703,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2769,
+          "end": 2783,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2798,
+          "end": 2809,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2860,
+          "end": 2882,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_05.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 389,
+      "key_facts": {
+        "monthly_rent": "INR 1,50,000 per month",
+        "security_deposit": "INR 4,50,000 (3 months rent)",
+        "lock_in_period": "12 months mandatory lock-in",
+        "escalation_rate": "5% annual escalation"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Viraj Sachdev",
+          "start": 383,
+          "end": 396,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Kiaan Mann",
+          "start": 453,
+          "end": 463,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2428,
+          "end": 2438,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "7113 3752 1765",
+          "start": 2471,
+          "end": 2485,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2496,
+          "end": 2511,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2528,
+          "end": 2565,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2586,
+          "end": 2658,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2676,
+          "end": 2686,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2752,
+          "end": 2766,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2781,
+          "end": 2792,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2843,
+          "end": 2865,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_06.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 390,
+      "key_facts": {
+        "monthly_rent": "INR 3,20,000 per month",
+        "security_deposit": "INR 19,20,000 (6 months rent)",
+        "lock_in_period": "24 months lock-in period",
+        "escalation_rate": "7% biennial rent escalation"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Anika Kunda",
+          "start": 383,
+          "end": 394,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Benjamin Kaul",
+          "start": 451,
+          "end": 464,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2434,
+          "end": 2444,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6790 2754 5276",
+          "start": 2477,
+          "end": 2491,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2502,
+          "end": 2517,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2534,
+          "end": 2571,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2592,
+          "end": 2664,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2682,
+          "end": 2692,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2758,
+          "end": 2772,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2787,
+          "end": 2798,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2849,
+          "end": 2871,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_07.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 391,
+      "key_facts": {
+        "monthly_rent": "INR 6,50,000 per month",
+        "security_deposit": "INR 58,50,000 (9 months rent)",
+        "lock_in_period": "36 months commercial lock-in",
+        "escalation_rate": "9% escalation every 3 years"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Bhavini Saxena",
+          "start": 383,
+          "end": 397,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Ubika Khosla",
+          "start": 454,
+          "end": 466,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2440,
+          "end": 2450,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3326 1558 6913",
+          "start": 2483,
+          "end": 2497,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2508,
+          "end": 2523,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2540,
+          "end": 2577,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2598,
+          "end": 2670,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2688,
+          "end": 2698,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2764,
+          "end": 2778,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2793,
+          "end": 2804,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2855,
+          "end": 2877,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_08.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 389,
+      "key_facts": {
+        "monthly_rent": "INR 1,75,000 per month",
+        "security_deposit": "INR 5,25,000 (3 months rent)",
+        "lock_in_period": "12 months mandatory lock-in",
+        "escalation_rate": "5% annual escalation"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Hemal Kakar",
+          "start": 381,
+          "end": 392,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Ishaan Oak",
+          "start": 450,
+          "end": 460,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2425,
+          "end": 2435,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "3617 7942 5563",
+          "start": 2468,
+          "end": 2482,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2493,
+          "end": 2508,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2525,
+          "end": 2562,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2583,
+          "end": 2655,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2673,
+          "end": 2683,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2749,
+          "end": 2763,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2778,
+          "end": 2789,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2840,
+          "end": 2862,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_09.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 390,
+      "key_facts": {
+        "monthly_rent": "INR 3,50,000 per month",
+        "security_deposit": "INR 21,00,000 (6 months rent)",
+        "lock_in_period": "24 months lock-in period",
+        "escalation_rate": "8% biennial rent escalation"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Bimala Sane",
+          "start": 381,
+          "end": 392,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Orinder Rajagopalan",
+          "start": 450,
+          "end": 469,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2439,
+          "end": 2449,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "9895 1948 4502",
+          "start": 2482,
+          "end": 2496,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2507,
+          "end": 2522,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2539,
+          "end": 2576,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2597,
+          "end": 2669,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2687,
+          "end": 2697,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2763,
+          "end": 2777,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2792,
+          "end": 2803,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2854,
+          "end": 2876,
+          "in_scope": true
+        }
+      ]
+    },
+    {
+      "filename": "lease_agreement_10.txt",
+      "doc_type": "lease_agreement",
+      "word_count": 391,
+      "key_facts": {
+        "monthly_rent": "INR 7,00,000 per month",
+        "security_deposit": "INR 63,00,000 (9 months rent)",
+        "lock_in_period": "36 months commercial lock-in",
+        "escalation_rate": "10% escalation every 3 years"
+      },
+      "pii_entities": [
+        {
+          "type": "PERSON",
+          "value": "Zayyan Gala",
+          "start": 381,
+          "end": 392,
+          "in_scope": true
+        },
+        {
+          "type": "PERSON",
+          "value": "Inaya Raj",
+          "start": 450,
+          "end": 459,
+          "in_scope": true
+        },
+        {
+          "type": "PAN",
+          "value": "ABCDE1234F",
+          "start": 2434,
+          "end": 2444,
+          "in_scope": true
+        },
+        {
+          "type": "AADHAAR",
+          "value": "6494 2478 7635",
+          "start": 2477,
+          "end": 2491,
+          "in_scope": true
+        },
+        {
+          "type": "INDIAN_MOBILE",
+          "value": "+91 98450 55667",
+          "start": 2502,
+          "end": 2517,
+          "in_scope": true
+        },
+        {
+          "type": "EMAIL_ADDRESS",
+          "value": "estates.leasing@solarisrealty.example",
+          "start": 2534,
+          "end": 2571,
+          "in_scope": true
+        },
+        {
+          "type": "STREET_ADDRESS",
+          "value": "Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066",
+          "start": 2592,
+          "end": 2664,
+          "in_scope": true
+        },
+        {
+          "type": "DATE_OF_BIRTH",
+          "value": "14-08-1988",
+          "start": 2682,
+          "end": 2692,
+          "in_scope": true
+        },
+        {
+          "type": "BANK_ACCOUNT",
+          "value": "50100234918231",
+          "start": 2758,
+          "end": 2772,
+          "in_scope": true
+        },
+        {
+          "type": "IFSC",
+          "value": "SOLA0001234",
+          "start": 2787,
+          "end": 2798,
+          "in_scope": true
+        },
+        {
+          "type": "UPI",
+          "value": "lessor.rent@okhdfcbank",
+          "start": 2849,
+          "end": 2871,
+          "in_scope": true
+        }
+      ]
+    }
+  ]
+}

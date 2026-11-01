@@ -180,37 +180,45 @@ def chunk_text(
 
 
 def ingest_documents(
-    path: str = "data/docs",
+    path: str | None = None,
     collection_name: str = "docs",
     persist_dir: str | None = None,
     embedder: Embedder | None = None,
     chunk_size: int | None = None,
     chunk_overlap: int | None = None,
+    corpus: str = "v2",
 ) -> int:
     """Run the full fail-closed, idempotent ingestion pipeline.
 
     Parameters
     ----------
     path
-        Directory containing raw documents.
+        Directory containing raw documents. If None, resolved via *corpus*.
     collection_name
         ChromaDB collection name.
     persist_dir
         Optional directory for ChromaDB persistence.
     embedder
         Optional custom Embedder instance.
+    chunk_size
+        Optional target chunk size in tokens (defaults to settings.chunk_size_tokens).
+    chunk_overlap
+        Optional overlap between chunks in tokens (defaults to settings.chunk_overlap_tokens).
+    corpus
+        Corpus version: ``"v1"`` (data/docs) or ``"v2"`` (data/docs_v2). Defaults to ``"v2"``.
 
     Returns
     -------
     int
         Total number of chunks persisted.
     """
+    target_path = path or ("data/docs" if corpus == "v1" else "data/docs_v2")
     c_size = chunk_size or settings.chunk_size_tokens
     c_overlap = chunk_overlap or settings.chunk_overlap_tokens
 
-    raw_docs = load_documents(path)
+    raw_docs = load_documents(target_path)
     if not raw_docs:
-        logger.info("No documents found in %s to ingest.", path)
+        logger.info("No documents found in %s to ingest.", target_path)
         return 0
 
     all_chunks: list[SanitizedText] = []
@@ -296,6 +304,25 @@ def ingest_documents(
 
 
 if __name__ == "__main__":
+    import argparse
+
     logging.basicConfig(level=logging.INFO)
-    count: int = ingest_documents()
-    logger.info("Ingested %d chunks", count)
+    parser = argparse.ArgumentParser(description="VeilRAG Document Ingestion Pipeline")
+    parser.add_argument(
+        "--corpus",
+        choices=["v1", "v2"],
+        default="v2",
+        help="Corpus version to ingest (v1: data/docs, v2: data/docs_v2, default: v2)",
+    )
+    parser.add_argument("--path", type=str, default=None, help="Custom document directory path")
+    parser.add_argument("--collection", type=str, default="docs", help="ChromaDB collection name")
+    parser.add_argument("--persist-dir", type=str, default=None, help="ChromaDB persist directory")
+    args = parser.parse_args()
+
+    count: int = ingest_documents(
+        path=args.path,
+        collection_name=args.collection,
+        persist_dir=args.persist_dir,
+        corpus=args.corpus,
+    )
+    logger.info("Ingested %d chunks (corpus: %s)", count, args.corpus)

@@ -1,0 +1,30 @@
+# STARLIGHT CLOUD SOLUTIONS LIMITED
+## ENTERPRISE MANAGED SERVICES MASTER AGREEMENT
+Agreement ID: MSA-V2-VENDOR_CONTRACT_02
+Effective Date: 1st February 2026 | Term: 24 Months Initial
+
+### 1. Engagement Scope and Contracting Parties
+This Master Services Agreement ('Agreement') is executed between Starlight Cloud Solutions Limited ('Vendor') represented by Authorized Signatory David Sharaf and Client Quantum Solstice Labs ('Client') represented by Representative Anirudh Deshmukh. Vendor agrees to provide enterprise managed operations and hosting services.
+
+### 2. Commercial Consideration and Retainer Fees
+In consideration for the managed services, Client covenants to pay a fixed commercial monthly retainer of INR 2,50,000 per month. Invoices are generated monthly in arrears payable within 15 days.
+
+### 3. Service Level Commitments and Penalties
+Vendor guarantees a service level availability commitment of 99.9% high-availability uptime. In the event of unexcused service degradation exceeding allowable downtime windows, Vendor shall issue service credits calculated at 5% billing credit per 1 hour outage.
+
+### 4. Information Security and Data Protection Compliance
+Vendor covenants to maintain ISO 27001 certified physical and logical security perimeters. All customer telemetry, transactional databases, and proprietary models processed in fulfillment of this agreement shall be encrypted at rest and in transit using industry-standard cryptographic algorithms.
+
+### 5. Business Continuity and Disaster Recovery Obligations
+Vendor maintains a redundant disaster recovery hot-site with automated replication. The recovery point objective (RPO) is established at under fifteen minutes, and recovery time objective (RTO) at under two hours during declared catastrophic events. Annual disaster recovery drill reports are provided to Client.
+
+### 6. Intellectual Property Rights and Deliverable Ownership
+All bespoke code, configurations, technical documentation, and architectural designs created by Vendor exclusively for Client under this agreement shall constitute work-made-for-hire and remain the sole property of Client. Pre-existing Vendor background intellectual property is licensed on a non-exclusive, perpetual basis.
+
+### 7. Contractual Term and Termination Notice
+Either party may terminate this agreement for convenience upon providing 60 calendar days written notice. Immediate termination applies upon material breach uncured after 15 days.
+
+### 8. Vendor Statutory Identifiers and Payment Mandate
+Vendor statutory tax identification PAN: ABCDE1234F | Signatory Aadhaar: 7576 7083 3078 | Contact Mobile: +91 98450 66778.
+Official Billing Email: billing.services@starlightcloud.example | Registered Corporate Office: Flat 402 Palm Meadows, Whitefield Main Road, Bengaluru, Karnataka 560066 | Representative DOB: 14-08-1988.
+Invoices shall be remitted to corporate bank account 50100234918231 via IFSC STAR0009876. Real-time invoice acknowledgement supported via UPI handle vendor.settlement@okhdfcbank.

@@ -1,0 +1,27 @@
+# APEX CARE MULTISPECIALTY CLINIC
+## INPATIENT CLINICAL DISCHARGE SUMMARY AND CARE PLAN
+Clinical Case Reference: MED-DIS-V2-HOSPITAL_DISCHARGE_07
+Admission Date: 10th January 2026 | Discharge Date: 17th January 2026
+
+### 1. Patient Demographics and Registration Identifiers
+Patient Name: Gopal Badami | Hospital UHID: UH-998877 | Inpatient Admission ID: IP-2026-CARD-55104.
+Aadhaar Identity Card: 4507 8314 3701 | Income Tax PAN: ABCDE1234F | Mobile Phone: +91 98450 33445.
+Emergency Contact Email: clinical.desk@novahealth.example | Residential Address: House No 12, Sector 18, Vashi, Navi Mumbai, Maharashtra 400703 | Date of Birth: 15-06-1996.
+
+### 2. Clinical History and Primary Admission Diagnosis
+The patient presented with symptomatic clinical distress and underwent emergency evaluation. Comprehensive investigations, imaging, and biochemical panels confirmed Acute Inferior Wall Myocardial Infarction. Standard clinical care pathways and evidence-based therapeutic interventions were executed successfully.
+
+### 3. Diagnostic Investigations and Laboratory Findings
+Admission hematology demonstrated complete blood count within acceptable post-acute tolerances. Serum electrolytes, renal function panels, and hepatic markers remained stable throughout observation. Post-procedural radiographic imaging confirmed anatomical alignment without extravasation or occult hematoma.
+
+### 4. Inpatient Hospital Course and Discharge Physical Condition
+The inpatient recovery phase remained clinically uneventful. At discharge, the patient's condition is evaluated as Ejection fraction 50% preserved LV function. Vital parameters, hemodynamics, and surgical wounds are satisfactory.
+
+### 4. Discharge Medications and Outpatient Care Regime
+The patient is discharged on oral pharmacotherapy: Atorvastatin 40mg once daily at bedtime. Mandatory outpatient follow-up review is scheduled for 21 days post-discharge in the specialty clinic.
+
+### 5. Nursing Observations and Post-Operative Rehabilitation
+Serial clinical monitoring documented stable core body temperature, clear chest auscultation, and progressive ambulation under supervised nursing care. Patient demonstrated clear comprehension of activity restrictions, dietary modifications, and emergency warning signs warranting immediate readmission.
+
+### 6. Attending Consultant Certification and Discharge Clearance
+Discharge authorized and verified by Chief Attending Consultant Dr. Zashil Bail (Registration KMC-44912-MD). Medical insurance reimbursement processing facilitated via settlement bank account 50100234918231 through IFSC NOVA0001234.
