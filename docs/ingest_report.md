@@ -1,25 +1,25 @@
 # VeilRAG Secure Ingestion & Local Retrieval Audit Report
 
 > [!IMPORTANT] Ingestion Invariant Verification
-> **Strict Zero-Leak Boundary**: All pattern-based in-scope PII types (Aadhaar, PAN, Email, Mobile, IFSC, UPI) have **0 leaks** across stored chunk text, metadata, and raw disk files.
+> **Strict Zero-Leak Boundary**: All pattern-based and structured in-scope PII types (Aadhaar, PAN, Email, Mobile, IFSC, UPI, Bank Account, Street Address, DOB) have **0 leaks** across stored chunk text, metadata, and raw disk files.
 
 ## 1. Executive Summary & Core Security Metrics
 
 | Evaluation Metric | Measured Result | Security Target | Status |
 | :--- | :--- | :--- | :--- |
-| **Pattern PII Leaks (Aadhaar, PAN, Email, Mobile, IFSC, UPI)** | **0** | 0 leaks | **PASS (Zero Leaks)** |
+| **Pattern/Structured PII Leaks (Aadhaar, PAN, Email, Mobile, IFSC, UPI, Account, Address, DOB)** | **0** | 0 leaks | **PASS (Zero Leaks)** |
 | **Metadata Raw PII Leaks** | **0** | 0 leaks | **PASS** |
 | **Raw Disk ChromaDB File Leaks (In-Scope)** | **0** | 0 leaks | **PASS** |
 | **Person Name Leak Rate** | **3.7%** (1/27) | Report only | Documented |
-| **Out-of-Scope Leak Rate (Known Gaps)** | **68.9%** (31/45) | Report only | Documented |
-| **Character Leak Rate (Type-Agnostic)** | **0.0108** (20/1847 chars) | < 0.05 | **PASS** |
-| **Over-Redaction Rate** | **0.0070** (260/37102 chars) | < 0.10 | **PASS** |
+| **Out-of-Scope Leak Rate (Known Gaps)** | **0.0%** (0/0) | Report only | Documented |
+| **Character Leak Rate (Type-Agnostic)** | **0.0063** (20/3186 chars) | < 0.05 | **PASS** |
+| **Over-Redaction Rate** | **0.0042** (149/35763 chars) | < 0.10 | **PASS** |
 | **Business Fact Survival Rate** | **100.0%** (60/60) | 100% | **PASS (100% Retained)** |
 
 ## 2. Ingestion Dataset Specification
 
 - **Total Documents Ingested**: 15 docs (300–1500 words each)
-- **Total Chunks Stored**: 19 chunks in ChromaDB (`cosine` space)
+- **Total Chunks Stored**: 17 chunks in ChromaDB (`cosine` space)
 - **Document Categories**: 3 HR Policies, 3 Loan Agreements, 3 Hospital Summaries, 3 Insurance Claims, 3 KYC Forms
 - **Redaction Architecture**: Whole-document sanitization before chunking; ephemeral reversible map immediately discarded
 - **Metadata Schema**: `source`, `doc_type`, `chunk_id`, `chunk_index`, `entity_count`, `risk_score`, and per-type entity counts only
@@ -93,20 +93,22 @@ All key business facts (notice periods, loan terms, clinical diagnoses, approved
 
 ## 4. Known Out-of-Scope Architectural Gaps
 
-The following entity types were intentionally planted as out-of-scope controls (`in_scope=false`) to benchmark current recognizer boundaries:
-- **STREET_ADDRESS**: Physical addresses (unhandled in general NER).
-- **BANK_ACCOUNT**: 11-16 digit bank account numbers (avoid numeric ID collision).
-- **DATE_OF_BIRTH**: Dates of birth (differentiated from normal dates/timelines).
+With `recognizers-frozen-v3`, former out-of-scope gaps (`STREET_ADDRESS`, `BANK_ACCOUNT`, `DATE_OF_BIRTH`) have been brought in-scope and verified with **0 leaks**.
+Remaining unhandled categories are documented in `docs/limitations.md`:
+- **CONNECTION_STRING**: Database connection URIs.
+- **PASSWORD**: Cleartext passwords and authentication tokens.
+- **PEM_BLOCK / PRIVATE_KEY**: Cryptographic key and certificate blocks.
+- **PERSON**: Statistical NER variance (e.g. 1/27 names unredacted).
 
 These gaps are fully accounted for and isolated from core security invariants.
 
 ## 5. Security Invariant Verification Proof
 
 ```text
-Ingestion Verification: 15 Documents, 19 Chunks
+Ingestion Verification: 15 Documents, 17 Chunks
 In-Scope Pattern PII Leaks: 0 / ZERO TOLERANCE MET
 Fact Survival: 60/60 (100.0%)
-Character Leak Rate: 0.0108
-Over-Redaction Rate: 0.0070
+Character Leak Rate: 0.0063
+Over-Redaction Rate: 0.0042
 ChromaDB Store Integrity: VERIFIED COSINE EMBEDDING SPACE
 ```

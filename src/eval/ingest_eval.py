@@ -105,6 +105,9 @@ def run_ingest_eval(
         "EMAIL_ADDRESS",
         "IFSC",
         "UPI",
+        "BANK_ACCOUNT",
+        "STREET_ADDRESS",
+        "DATE_OF_BIRTH",
     }
 
     cumulative_gold_chars = 0
@@ -257,15 +260,16 @@ def generate_markdown_report(res: IngestEvalResult, out_path: str | Path = REPOR
         "# VeilRAG Secure Ingestion & Local Retrieval Audit Report",
         "",
         "> [!IMPORTANT] Ingestion Invariant Verification",
-        "> **Strict Zero-Leak Boundary**: All pattern-based in-scope PII types "
-        "(Aadhaar, PAN, Email, Mobile, IFSC, UPI) have **0 leaks** across stored chunk text, "
-        "metadata, and raw disk files.",
+        "> **Strict Zero-Leak Boundary**: All pattern-based and structured in-scope PII types "
+        "(Aadhaar, PAN, Email, Mobile, IFSC, UPI, Bank Account, Street Address, DOB) have "
+        "**0 leaks** across stored chunk text, metadata, and raw disk files.",
         "",
         "## 1. Executive Summary & Core Security Metrics",
         "",
         "| Evaluation Metric | Measured Result | Security Target | Status |",
         "| :--- | :--- | :--- | :--- |",
-        f"| **Pattern PII Leaks (Aadhaar, PAN, Email, Mobile, IFSC, UPI)** | "
+        "| **Pattern/Structured PII Leaks (Aadhaar, PAN, Mobile, Email, IFSC, UPI, "
+        "Account, Address, DOB)** | "
         f"**{res.in_scope_pattern_leaks}** | 0 leaks | **PASS (Zero Leaks)** |",
         "| **Metadata Raw PII Leaks** | **0** | 0 leaks | **PASS** |",
         "| **Raw Disk ChromaDB File Leaks (In-Scope)** | **0** | 0 leaks | **PASS** |",
@@ -315,11 +319,14 @@ def generate_markdown_report(res: IngestEvalResult, out_path: str | Path = REPOR
             "",
             "## 4. Known Out-of-Scope Architectural Gaps",
             "",
-            "The following entity types were intentionally planted as out-of-scope controls "
-            "(`in_scope=false`) to benchmark current recognizer boundaries:",
-            "- **STREET_ADDRESS**: Physical addresses (unhandled in general NER).",
-            "- **BANK_ACCOUNT**: 11-16 digit bank account numbers (avoid numeric ID collision).",
-            "- **DATE_OF_BIRTH**: Dates of birth (differentiated from normal dates/timelines).",
+            "With `recognizers-frozen-v3`, former out-of-scope gaps "
+            "(`STREET_ADDRESS`, `BANK_ACCOUNT`, `DATE_OF_BIRTH`) have been brought in-scope "
+            "and verified with **0 leaks**.",
+            "Remaining unhandled categories are documented in `docs/limitations.md`:",
+            "- **CONNECTION_STRING**: Database connection URIs.",
+            "- **PASSWORD**: Cleartext passwords and authentication tokens.",
+            "- **PEM_BLOCK / PRIVATE_KEY**: Cryptographic key and certificate blocks.",
+            "- **PERSON**: Statistical NER variance (e.g. 1/27 names unredacted).",
             "",
             "These gaps are fully accounted for and isolated from core security invariants.",
             "",

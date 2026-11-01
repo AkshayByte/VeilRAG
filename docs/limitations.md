@@ -17,29 +17,30 @@ The following entity types were previously scaffolded in `modes.yaml` under `cod
 
 ---
 
-## 2. Document-Level Out-of-Scope Gaps
+## 2. Document-Level Out-of-Scope Gaps & Prompt 4A Resolution
 
-The synthetic enterprise corpus ([`data/docs/`](file:///d:/Projects/VeilRAG/data/docs/)) includes intentionally planted out-of-scope entities (`in_scope=false` in [`data/docs/_ground_truth.json`](file:///d:/Projects/VeilRAG/data/docs/_ground_truth.json)) to benchmark current recognizer boundaries:
+Prior to Prompt 4A, the synthetic enterprise corpus ([`data/docs/`](file:///d:/Projects/VeilRAG/data/docs/)) contained three intentionally planted out-of-scope entity categories that accounted for an 86.63% out-of-scope leak rate and a 37.04% overall corpus character leak rate.
 
-| Entity Type | Description | Observed Leak Rate | Architectural Reason |
-| :--- | :--- | :---: | :--- |
-| `STREET_ADDRESS` | Physical residential, clinical, and corporate addresses | **100% (15/15)** | General spaCy NER maps locations to `GPE`/`LOC`, which misses full street addresses, premises, flat numbers, and pin codes. |
-| `BANK_ACCOUNT` | 11–16 digit bank account numbers | **100% (15/15)** | Account numbers lack fixed checksums (unlike Verhoeff for Aadhaar or Luhn for Credit Cards). Redacting generic 11–16 digit numbers causes unacceptable false positive collisions with internal tracking IDs and policy numbers. |
-| `DATE_OF_BIRTH` | Dates of birth (e.g., `14-08-1988`, `22/11/1982`) | **6.7% (1/15)** | Enabling Presidio's generic `DATE_TIME` recognizer corrupts business facts (notice periods, hospital follow-up intervals, loan tenures). Specific date-of-birth contextual recognition is planned for a future release. |
+In Prompt 4A (`recognizers-frozen-v3`), dedicated contextual coverage recognizers ([`src/sanitizer/recognizers/coverage.py`](file:///d:/Projects/VeilRAG/src/sanitizer/recognizers/coverage.py)) were developed and integrated into `PIPELINE_MODE = "full"`:
+
+| Entity Type | Original Gap Description | Prompt 4A Resolution Mechanism | New Leak Rate | Fact Survival Impact |
+| :--- | :--- | :--- | :---: | :---: |
+| `STREET_ADDRESS` | Unhandled in general NER; street addresses, flats, premises missed. | Contextual Indian address regex anchored from `Flat/House/Plot/No.` through a valid 6-digit PIN code (`[1-9]\d{5}`). | **0% (0/15)** | None (0 business facts affected). |
+| `BANK_ACCOUNT` | Lacks checksum; raw 9–18 digit matching caused collisions. | Context-constrained 9–18 digit recognizer (`account`, `a/c`, `acct`) with priority span ranking over generic credit cards. | **0% (0/15)** | None (0 business facts affected). |
+| `DATE_OF_BIRTH` | Generic date recognizers corrupted business facts and tenures. | Strict context window (~30 chars: `DOB`, `date of birth`, `born on`) for `dd-mm-yyyy`, `dd/mm/yyyy`, and textual dates. | **0% (0/15)** | **100% Retained** (60/60 facts preserved). |
 
 ---
 
 ## 3. Measured Ingestion Character Leakage Audit
 
-Across the 15 enterprise documents (305–446 words each, containing 160 planted entities and 60 key business facts) evaluated in [`docs/ingest_report.md`](file:///d:/Projects/VeilRAG/docs/ingest_report.md):
+Across the 15 enterprise documents (305–446 words each, containing 162 planted entities and 60 key business facts) evaluated in [`docs/ingest_report.md`](file:///d:/Projects/VeilRAG/docs/ingest_report.md):
 
 | Scope | Leaked Characters | Gold Characters | Measured Character Leak Rate | Security Invariant Status |
 | :--- | :---: | :---: | :---: | :--- |
-| **Strict In-Scope Pattern PII** | **0** | **1,507** | **0.00% (Zero Leaks)** | **PASS** — Zero leaks for Aadhaar, PAN, Email, Mobile, IFSC, and UPI. |
-| **In-Scope Person Names** | **20** | **340** | **5.88%** (1/27 names unredacted) | **Documented** — spaCy NER missed `"Vikramaditya Rathore"` in `hr_policy_02.txt`. |
-| **In-Scope Combined (Reported)** | **20** | **1,847** | **0.0108 (1.08%)** | **PASS** — Under the 5% character leakage threshold. |
-| **Out-of-Scope (Known Gaps)** | **1,160** | **1,339** | **0.8663 (86.63%)** | **Documented** — Unredacted street addresses, account numbers, and DOBs. |
-| **Total Combined Corpus Leak** | **1,180** | **3,186** | **0.3704 (37.04%)** | **Documented** — 37.0% overall character leak when out-of-scope gaps are included. |
+| **Strict In-Scope Pattern & Structured PII** (Aadhaar, PAN, Email, Mobile, IFSC, UPI, Bank Account, Street Address, DOB) | **0** | **2,846** | **0.00% (Zero Leaks)** | **PASS** — Zero leaks across stored chunks, metadata, and raw disk files. |
+| **In-Scope Person Names** | **20** | **340** | **5.88%** (1/27 names unredacted) | **Documented** — Statistical spaCy NER missed `"Vikramaditya Rathore"` in `hr_policy_02.txt`. |
+| **Total In-Scope Corpus Leak (Post-Prompt 4A)** | **20** | **3,186** | **0.0063 (0.63%)** | **PASS** — Dropped from **37.04%** down to **0.63%**; well below the 5% security threshold. |
+| **Historical Baseline (Pre-Prompt 4A with Out-of-Scope Gaps)** | 1,180 | 3,186 | 0.3704 (37.04%) | *Resolved by Prompt 4A coverage recognizers.* |
 
 ---
 

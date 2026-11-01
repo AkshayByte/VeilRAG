@@ -1,0 +1,139 @@
+{"text": "Primary insured member official date of birth 16-11-1982 recorded at branch.", "entities": [{"type": "DATE_OF_BIRTH", "start": 46, "end": 56, "value": "16-11-1982"}]}
+{"text": "Beneficiary identity documentation lists DOB: 29/04/1991 as validated.", "entities": [{"type": "DATE_OF_BIRTH", "start": 46, "end": 56, "value": "29/04/1991"}]}
+{"text": "According to immigration records the claimant was born on 05-12-1976.", "entities": [{"type": "DATE_OF_BIRTH", "start": 58, "end": 68, "value": "05-12-1976"}]}
+{"text": "Executive identity dossier contains guarantor birth date 18-09-1995 on file.", "entities": [{"type": "DATE_OF_BIRTH", "start": 57, "end": 67, "value": "18-09-1995"}]}
+{"text": "Employee records maintain verified date of birth 23-01-1989 in HR archive.", "entities": [{"type": "DATE_OF_BIRTH", "start": 49, "end": 59, "value": "23-01-1989"}]}
+{"text": "Medical intake form confirms D.O.B: 30-06-1973 for pediatric registry.", "entities": [{"type": "DATE_OF_BIRTH", "start": 36, "end": 46, "value": "30-06-1973"}]}
+{"text": "The nominee was born on 12-10-1997 per school leaving certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 24, "end": 34, "value": "12-10-1997"}]}
+{"text": "Customer profile indicates date of birth 07-03-1968 authenticated via passport.", "entities": [{"type": "DATE_OF_BIRTH", "start": 41, "end": 51, "value": "07-03-1968"}]}
+{"text": "Primary insured member official date of birth 21-08-1993 recorded at branch.", "entities": [{"type": "DATE_OF_BIRTH", "start": 46, "end": 56, "value": "21-08-1993"}]}
+{"text": "Beneficiary identity documentation lists DOB: 14-05-1986 as validated.", "entities": [{"type": "DATE_OF_BIRTH", "start": 46, "end": 56, "value": "14-05-1986"}]}
+{"text": "According to immigration records the claimant was born on 02-12-1980.", "entities": [{"type": "DATE_OF_BIRTH", "start": 58, "end": 68, "value": "02-12-1980"}]}
+{"text": "Executive identity dossier contains guarantor birth date 27-07-1964 on file.", "entities": [{"type": "DATE_OF_BIRTH", "start": 57, "end": 67, "value": "27-07-1964"}]}
+{"text": "Employee records maintain verified date of birth 11-02-1994 in HR archive.", "entities": [{"type": "DATE_OF_BIRTH", "start": 49, "end": 59, "value": "11-02-1994"}]}
+{"text": "Medical intake form confirms D.O.B: 19-04-1978 for pediatric registry.", "entities": [{"type": "DATE_OF_BIRTH", "start": 36, "end": 46, "value": "19-04-1978"}]}
+{"text": "The nominee was born on 06-11-1996 per school leaving certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 24, "end": 34, "value": "06-11-1996"}]}
+{"text": "Customer profile indicates date of birth 28 October 1991 authenticated via passport.", "entities": [{"type": "DATE_OF_BIRTH", "start": 41, "end": 56, "value": "28 October 1991"}]}
+{"text": "Primary insured member official date of birth 17 February 1983 recorded at branch.", "entities": [{"type": "DATE_OF_BIRTH", "start": 46, "end": 62, "value": "17 February 1983"}]}
+{"text": "Beneficiary identity documentation lists DOB: 09 September 1995 as validated.", "entities": [{"type": "DATE_OF_BIRTH", "start": 46, "end": 63, "value": "09 September 1995"}]}
+{"text": "According to immigration records the claimant was born on 25 December 1987.", "entities": [{"type": "DATE_OF_BIRTH", "start": 58, "end": 74, "value": "25 December 1987"}]}
+{"text": "Executive identity dossier contains guarantor birth date 13 July 1981 on file.", "entities": [{"type": "DATE_OF_BIRTH", "start": 57, "end": 69, "value": "13 July 1981"}]}
+{"text": "Employee records maintain verified date of birth 22-Oct-1990 in HR archive.", "entities": [{"type": "DATE_OF_BIRTH", "start": 49, "end": 60, "value": "22-Oct-1990"}]}
+{"text": "Medical intake form confirms D.O.B: 15-Jan-1985 for pediatric registry.", "entities": [{"type": "DATE_OF_BIRTH", "start": 36, "end": 47, "value": "15-Jan-1985"}]}
+{"text": "The nominee was born on 04.08.1992 per school leaving certificate.", "entities": [{"type": "DATE_OF_BIRTH", "start": 24, "end": 34, "value": "04.08.1992"}]}
+{"text": "Customer profile indicates date of birth 19.06.1977 authenticated via passport.", "entities": [{"type": "DATE_OF_BIRTH", "start": 41, "end": 51, "value": "19.06.1977"}]}
+{"text": "Vendor electronic remittance processed to current account 60100889922114.", "entities": [{"type": "BANK_ACCOUNT", "start": 58, "end": 72, "value": "60100889922114"}]}
+{"text": "Maturity proceeds credited to customer savings account 30491122334.", "entities": [{"type": "BANK_ACCOUNT", "start": 55, "end": 66, "value": "30491122334"}]}
+{"text": "Rebate reimbursement approved to designated account 005601988234.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 64, "value": "005601988234"}]}
+{"text": "Direct debit authorization executed against account 60100778833445 via mandate.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 66, "value": "60100778833445"}]}
+{"text": "Dividends remitted via NACH to account 000806023459 without rejection.", "entities": [{"type": "BANK_ACCOUNT", "start": 39, "end": 51, "value": "000806023459"}]}
+{"text": "Security caution deposit refunded to designated account 915010045678902.", "entities": [{"type": "BANK_ACCOUNT", "start": 56, "end": 71, "value": "915010045678902"}]}
+{"text": "Loan principal credited into borrower savings account 60100112233440.", "entities": [{"type": "BANK_ACCOUNT", "start": 54, "end": 68, "value": "60100112233440"}]}
+{"text": "Corporate dividend distribution credited to current account 40981245082.", "entities": [{"type": "BANK_ACCOUNT", "start": 60, "end": 71, "value": "40981245082"}]}
+{"text": "Vendor electronic remittance processed to current account 23400016009834.", "entities": [{"type": "BANK_ACCOUNT", "start": 58, "end": 72, "value": "23400016009834"}]}
+{"text": "Maturity proceeds credited to customer savings account 60100667788990.", "entities": [{"type": "BANK_ACCOUNT", "start": 55, "end": 69, "value": "60100667788990"}]}
+{"text": "Rebate reimbursement approved to designated account 20050167909234.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 66, "value": "20050167909234"}]}
+{"text": "Direct debit authorization executed against account 20460600239956 via mandate.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 66, "value": "20460600239956"}]}
+{"text": "Dividends remitted via NACH to account 60100556677889 without rejection.", "entities": [{"type": "BANK_ACCOUNT", "start": 39, "end": 53, "value": "60100556677889"}]}
+{"text": "Security caution deposit refunded to designated account 40099135612.", "entities": [{"type": "BANK_ACCOUNT", "start": 56, "end": 67, "value": "40099135612"}]}
+{"text": "Loan principal credited into borrower savings account 004901699235.", "entities": [{"type": "BANK_ACCOUNT", "start": 54, "end": 66, "value": "004901699235"}]}
+{"text": "Corporate dividend distribution credited to current account 87654321098765.", "entities": [{"type": "BANK_ACCOUNT", "start": 60, "end": 74, "value": "87654321098765"}]}
+{"text": "Vendor electronic remittance processed to current account 223344556677.", "entities": [{"type": "BANK_ACCOUNT", "start": 58, "end": 70, "value": "223344556677"}]}
+{"text": "Maturity proceeds credited to customer savings account 887766554433221.", "entities": [{"type": "BANK_ACCOUNT", "start": 55, "end": 70, "value": "887766554433221"}]}
+{"text": "Rebate reimbursement approved to designated account 23456789012.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 63, "value": "23456789012"}]}
+{"text": "Direct debit authorization executed against account 556677889900112 via mandate.", "entities": [{"type": "BANK_ACCOUNT", "start": 52, "end": 67, "value": "556677889900112"}]}
+{"text": "Verified communication residence is documented as Flat 502 Silver Oak, SG Highway, Bodakdev, Ahmedabad, Gujarat 380054.", "entities": [{"type": "ADDRESS", "start": 50, "end": 118, "value": "Flat 502 Silver Oak, SG Highway, Bodakdev, Ahmedabad, Gujarat 380054"}]}
+{"text": "The corporate registered branch address is recorded as House No 44, Malviya Nagar, JLN Marg, Jaipur, Rajasthan 302017.", "entities": [{"type": "ADDRESS", "start": 55, "end": 117, "value": "House No 44, Malviya Nagar, JLN Marg, Jaipur, Rajasthan 302017"}]}
+{"text": "Physical site audit conducted at premise location: Tower C Apt 804, Sector 17 Commercial Complex, Chandigarh 160017.", "entities": [{"type": "ADDRESS", "start": 51, "end": 115, "value": "Tower C Apt 804, Sector 17 Commercial Complex, Chandigarh 160017"}]}
+{"text": "Applicant home residence verified as House 29, Gomti Nagar Phase 2, Vibhuti Khand, Lucknow, Uttar Pradesh 226010.", "entities": [{"type": "ADDRESS", "start": 37, "end": 112, "value": "House 29, Gomti Nagar Phase 2, Vibhuti Khand, Lucknow, Uttar Pradesh 226010"}]}
+{"text": "Contractual legal notice delivered to Plot 112, Peelamedu Industrial Estate, Avinashi Road, Coimbatore, Tamil Nadu 641004.", "entities": [{"type": "ADDRESS", "start": 38, "end": 121, "value": "Plot 112, Peelamedu Industrial Estate, Avinashi Road, Coimbatore, Tamil Nadu 641004"}]}
+{"text": "Verified communication residence is documented as Flat 601 Royal Residency, Ring Road, Surat, Gujarat 395002.", "entities": [{"type": "ADDRESS", "start": 50, "end": 108, "value": "Flat 601 Royal Residency, Ring Road, Surat, Gujarat 395002"}]}
+{"text": "The corporate registered branch address is recorded as Flat 204 Maple Heights, Vijay Nagar AB Road, Indore, Madhya Pradesh 452010.", "entities": [{"type": "ADDRESS", "start": 55, "end": 129, "value": "Flat 204 Maple Heights, Vijay Nagar AB Road, Indore, Madhya Pradesh 452010"}]}
+{"text": "Physical site audit conducted at premise location: B-402 Chandrasekharpur Housing Colony, Bhubaneswar, Odisha 751024.", "entities": [{"type": "ADDRESS", "start": 51, "end": 116, "value": "B-402 Chandrasekharpur Housing Colony, Bhubaneswar, Odisha 751024"}]}
+{"text": "Applicant home residence verified as C-18 Jayalakshmipuram, Temple Road, Mysore, Karnataka 570012.", "entities": [{"type": "ADDRESS", "start": 37, "end": 97, "value": "C-18 Jayalakshmipuram, Temple Road, Mysore, Karnataka 570012"}]}
+{"text": "Contractual legal notice delivered to House 92, Arera Colony Sector E-7, Bhopal, Madhya Pradesh 462016.", "entities": [{"type": "ADDRESS", "start": 38, "end": 102, "value": "House 92, Arera Colony Sector E-7, Bhopal, Madhya Pradesh 462016"}]}
+{"text": "Verified communication residence is documented as Door No 56, VIP Road, CBM Compound, Visakhapatnam, Andhra Pradesh 530003.", "entities": [{"type": "ADDRESS", "start": 50, "end": 122, "value": "Door No 56, VIP Road, CBM Compound, Visakhapatnam, Andhra Pradesh 530003"}]}
+{"text": "The corporate registered branch address is recorded as Plot 45, MIDC Industrial Area, Hingna Road, Nagpur, Maharashtra 440016.", "entities": [{"type": "ADDRESS", "start": 55, "end": 125, "value": "Plot 45, MIDC Industrial Area, Hingna Road, Nagpur, Maharashtra 440016"}]}
+{"text": "Physical site audit conducted at premise location: Flat 108 Green View Apartments, Rajpur Road, Dehradun, Uttarakhand 248001.", "entities": [{"type": "ADDRESS", "start": 51, "end": 124, "value": "Flat 108 Green View Apartments, Rajpur Road, Dehradun, Uttarakhand 248001"}]}
+{"text": "Applicant home residence verified as Bait-ul-Salam, Beach Road, Kozhikode, Kerala 673032.", "entities": [{"type": "ADDRESS", "start": 37, "end": 88, "value": "Bait-ul-Salam, Beach Road, Kozhikode, Kerala 673032"}]}
+{"text": "Contractual legal notice delivered to Flat 303 Golden Palms, GS Road, Christian Basti, Guwahati, Assam 781005.", "entities": [{"type": "ADDRESS", "start": 38, "end": 109, "value": "Flat 303 Golden Palms, GS Road, Christian Basti, Guwahati, Assam 781005"}]}
+{"text": "Verified communication residence is documented as Apartment 7A, Ocean Spray Towers, Marine Drive, Kochi, Kerala 682011.", "entities": [{"type": "ADDRESS", "start": 50, "end": 118, "value": "Apartment 7A, Ocean Spray Towers, Marine Drive, Kochi, Kerala 682011"}]}
+{"text": "The corporate registered branch address is recorded as Suite 400, DLF Cyber City Tower C, DLF Phase 3, Gurugram, Haryana 122002.", "entities": [{"type": "ADDRESS", "start": 55, "end": 127, "value": "Suite 400, DLF Cyber City Tower C, DLF Phase 3, Gurugram, Haryana 122002"}]}
+{"text": "Physical site audit conducted at premise location: Building 12, Commerzone IT Park, Yerwada, Pune, Maharashtra 411006.", "entities": [{"type": "ADDRESS", "start": 51, "end": 117, "value": "Building 12, Commerzone IT Park, Yerwada, Pune, Maharashtra 411006"}]}
+{"text": "Applicant home residence verified as House 314, Urban Estate Phase 1, Jalandhar, Punjab 144022.", "entities": [{"type": "ADDRESS", "start": 37, "end": 94, "value": "House 314, Urban Estate Phase 1, Jalandhar, Punjab 144022"}]}
+{"text": "Contractual legal notice delivered to Plot 90, GIDC Industrial Estate, Makarpura, Vadodara, Gujarat 390010.", "entities": [{"type": "ADDRESS", "start": 38, "end": 106, "value": "Plot 90, GIDC Industrial Estate, Makarpura, Vadodara, Gujarat 390010"}]}
+{"text": "Electronic medical record cataloged under UHID: UH-991204.", "entities": [{"type": "UHID", "start": 48, "end": 57, "value": "UH-991204"}]}
+{"text": "Clinical observation file tagged with hospital identifier UH-334190.", "entities": [{"type": "UHID", "start": 58, "end": 67, "value": "UH-334190"}]}
+{"text": "Discharge clearance recorded under admission tracking code UH-667812.", "entities": [{"type": "UHID", "start": 59, "end": 68, "value": "UH-667812"}]}
+{"text": "Laboratory pathology dossier references patient record UH-884102.", "entities": [{"type": "UHID", "start": 55, "end": 64, "value": "UH-884102"}]}
+{"text": "Electronic medical record cataloged under UHID: IP-2026-MED-99410.", "entities": [{"type": "UHID", "start": 48, "end": 65, "value": "IP-2026-MED-99410"}]}
+{"text": "Clinical observation file tagged with hospital identifier IP-2026-CARD-22045.", "entities": [{"type": "UHID", "start": 58, "end": 76, "value": "IP-2026-CARD-22045"}]}
+{"text": "Discharge clearance recorded under admission tracking code IP-2026-SURG-77123.", "entities": [{"type": "UHID", "start": 59, "end": 77, "value": "IP-2026-SURG-77123"}]}
+{"text": "Laboratory pathology dossier references patient record IP-2026-PED-55901.", "entities": [{"type": "UHID", "start": 55, "end": 72, "value": "IP-2026-PED-55901"}]}
+{"text": "Electronic medical record cataloged under UHID: AIIMS-MED-2026-DEL-801.", "entities": [{"type": "UHID", "start": 48, "end": 70, "value": "AIIMS-MED-2026-DEL-801"}]}
+{"text": "Clinical observation file tagged with hospital identifier KIMS-ORTHO-2026-HYD-442.", "entities": [{"type": "UHID", "start": 58, "end": 81, "value": "KIMS-ORTHO-2026-HYD-442"}]}
+{"text": "Discharge clearance recorded under admission tracking code NAR-CARD-2026-BLR-610.", "entities": [{"type": "UHID", "start": 59, "end": 80, "value": "NAR-CARD-2026-BLR-610"}]}
+{"text": "Laboratory pathology dossier references patient record MED-SURG-2026-GUR-205.", "entities": [{"type": "UHID", "start": 55, "end": 76, "value": "MED-SURG-2026-GUR-205"}]}
+{"text": "Electronic medical record cataloged under UHID: MRN-991204.", "entities": [{"type": "UHID", "start": 48, "end": 58, "value": "MRN-991204"}]}
+{"text": "Clinical observation file tagged with hospital identifier MRN-330412.", "entities": [{"type": "UHID", "start": 58, "end": 68, "value": "MRN-330412"}]}
+{"text": "Discharge clearance recorded under admission tracking code MRN-884190.", "entities": [{"type": "UHID", "start": 59, "end": 69, "value": "MRN-884190"}]}
+{"text": "Laboratory pathology dossier references patient record PID-667821.", "entities": [{"type": "UHID", "start": 55, "end": 65, "value": "PID-667821"}]}
+{"text": "Electronic medical record cataloged under UHID: PID-889034.", "entities": [{"type": "UHID", "start": 48, "end": 58, "value": "PID-889034"}]}
+{"text": "Clinical observation file tagged with hospital identifier PID-221094.", "entities": [{"type": "UHID", "start": 58, "end": 68, "value": "PID-221094"}]}
+{"text": "Commercial purchase order INV-2026-904 dated 18/04/2026 is due on 02/05/2026.", "entities": []}
+{"text": "The bilateral non-disclosure agreement remains in effect until 31-10-2026.", "entities": []}
+{"text": "Statutory filing deadline for annual return is finalized as 30-09-2026.", "entities": []}
+{"text": "Board of directors meeting convened on 14th November 2026 in Mumbai.", "entities": []}
+{"text": "Equipment warranty valid through 28-02-2027 under original manufacturer terms.", "entities": []}
+{"text": "Software release version 2.4 deployment scheduled for 22/07/2026.", "entities": []}
+{"text": "Audit committee concluded inspections on 19 December 2026.", "entities": []}
+{"text": "Lease tenancy period terminates on 31-08-2026 without renewal option.", "entities": []}
+{"text": "The project commissioning milestone target is set for 15.10.2026.", "entities": []}
+{"text": "Notice period for executive resignation is 90 days from 01-11-2026.", "entities": []}
+{"text": "Your authentication one-time password for mobile login is 774102.", "entities": []}
+{"text": "Enter six-digit validation code 449012 to authorize access.", "entities": []}
+{"text": "Secure verification OTP 881234 expires in two minutes.", "entities": []}
+{"text": "Banking portal two-factor passcode 223401 generated on token.", "entities": []}
+{"text": "Customer portal authorization code 993410 delivered to handset.", "entities": []}
+{"text": "Security validation code 550192 required to confirm password change.", "entities": []}
+{"text": "Warehouse shipment requisition #9988776655 has cleared export customs.", "entities": []}
+{"text": "Cargo tracking identifier 223344556677 indicates delivery to airport hub.", "entities": []}
+{"text": "Procurement dispatch note PO-8877665544 signed by receiving officer.", "entities": []}
+{"text": "Air waybill tracking number 334455667788 shows transit through Doha.", "entities": []}
+{"text": "Enterprise service ticket ID 8899001122 closed with resolution.", "entities": []}
+{"text": "Container freight manifest 112233445566 inspected at dry port.", "entities": []}
+{"text": "For technical questions, please dial customer helpdesk 8844220011.", "entities": []}
+{"text": "Dispatch coordinator emergency contact line is 7733119900.", "entities": []}
+{"text": "Direct office telephone line for facilities is 9988112233.", "entities": []}
+{"text": "Enterprise vendor support desk answers calls at 8822446600.", "entities": []}
+{"text": "Central reception switchboard telephone number is 6644220088.", "entities": []}
+{"text": "The semiconductor foundry produced 250000000 silicon chips this quarter.", "entities": []}
+{"text": "City water utility supplies 800000000 gallons during summer distribution.", "entities": []}
+{"text": "Cryptographic proof verification computed in 200000000 CPU cycles.", "entities": []}
+{"text": "Optical sensor detected particle scattering at 650000000 picometers.", "entities": []}
+{"text": "Buffer memory cleared after streaming 500000000 data frames.", "entities": []}
+{"text": "Telecommunications trunk link capacity measured at 2000000000 bits per second.", "entities": []}
+{"text": "Regional sales office located at Flat 502 Silver Oak, SG Highway, Ahmedabad.", "entities": []}
+{"text": "The client resides at House No 44, Malviya Nagar, JLN Marg, Jaipur.", "entities": []}
+{"text": "Branch operations situated in Tower C Apt 804, Sector 17, Chandigarh.", "entities": []}
+{"text": "Corporate legal team based at House 29, Gomti Nagar Phase 2, Lucknow.", "entities": []}
+{"text": "Manufacturing plant situated at Plot 112, Peelamedu Industrial Estate, Coimbatore.", "entities": []}
+{"text": "Residential flat located at Flat 601 Royal Residency, Ring Road, Surat.", "entities": []}
+{"text": "Consignment will be sorted at Jaipur GPO PIN 302001.", "entities": []}
+{"text": "Postal dispatch routed to Ahmedabad Navrangpura PIN 380009.", "entities": []}
+{"text": "Central mail distribution hub in Lucknow Chowk PIN 226003.", "entities": []}
+{"text": "Express parcel delivery destined for Chandigarh Sector 22 PIN 160022.", "entities": []}
+{"text": "Surat textile market postal agency PIN 395003 received shipment.", "entities": []}
+{"text": "Indore postal sorting facility PIN 452001 processed incoming mail.", "entities": []}
+{"text": "Kochi Marine Drive delivery station PIN 682011 dispatched letters.", "entities": []}
+{"text": "Coimbatore RS Puram postal hub PIN 641002 scanned package.", "entities": []}
+{"text": "Distributed consensus protocols guarantee transactional integrity in replicated databases.", "entities": []}
+{"text": "Statutory corporate governance regulations mandate independent board oversight.", "entities": []}
+{"text": "Automated deployment orchestrators manage rolling canary updates across nodes.", "entities": []}
+{"text": "Network packet inspection validated low round-trip latency across WAN gateways.", "entities": []}
+{"text": "Microservice containers implement health probes and graceful termination handlers.", "entities": []}
+{"text": "Agile retrospectives identify continuous process enhancements for engineering teams.", "entities": []}
+{"text": "Immutable audit logs prevent unauthorized tampering with security telemetry.", "entities": []}
+{"text": "Financial controllers confirmed reconciliation of inter-company ledger balances.", "entities": []}
+{"text": "Kubernetes ingress controllers enforce TLS termination and path-based routing.", "entities": []}
+{"text": "Zero-trust network architecture requires continuous identity and device verification.", "entities": []}

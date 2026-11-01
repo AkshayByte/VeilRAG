@@ -1,12 +1,13 @@
 # Project Progress — VeilRAG (Secure RAG Agent)
 
 ## Current Status Overview
-- **Phase**: Prompt 4 (Corrective-RAG LangGraph Agent with Factual Verification & Output Guard) complete and verified.
+- **Phase**: Prompt 4A (Close Measured Privacy Gaps with Coverage Recognizers) complete and verified.
 - **Git Tags**:
   - `recognizers-frozen-v1`: Initial recognizers benchmarked on DEV and first held-out set (DEV2).
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
-- **Test Suite**: 97 passed out of 97 selected tests (`pytest tests/ -v -m "not slow"`).
-- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 44 source files).
+  - `recognizers-frozen-v3`: Coverage recognizers for DATE_OF_BIRTH, BANK_ACCOUNT, ADDRESS, and Hospital IDs benchmarked on DEV3 and HELDOUT3.
+- **Test Suite**: 98 passed out of 98 selected tests (`pytest tests/ -v -m "not slow"`).
+- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 47 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
 ---
@@ -167,25 +168,57 @@
 
 ---
 
+### 6. Coverage Recognizers & Privacy Gap Closure (Prompt 4A Results)
+*Closed the measured 37.0% character leak caused by previously out-of-scope enterprise entities.*
+*Tagged release: `recognizers-frozen-v3`.*
+
+1. **Coverage Recognizers (`src/sanitizer/recognizers/coverage.py`)**:
+   - `DATE_OF_BIRTH`: Window-based contextual recognizer (`DOB`, `date of birth`, `born on`) requiring ~30 chars context for dates (`dd-mm-yyyy`, `dd/mm/yyyy`, `19 March 1990`). Does not capture generic business dates.
+   - `BANK_ACCOUNT`: 9–18 digit contextual recognizer (`account`, `a/c`, `acct`) with priority tie-breaking over generic `CREDIT_CARD`.
+   - `ADDRESS`: Indian address span from `Flat/House/Plot/No./#` ... through a 6-digit PIN code (`[1-9]\d{5}`).
+   - `UHID`/Hospital ID: Contextual UHID (`UH-\d+`), IP admission numbers (`IP-\d{4}-MED-\d+`), and MRN/PID variants.
+   - Clean placeholders: `[DOB_1]`, `[ACCOUNT_1]`, `[ADDRESS_1]`, `[UHID_1]`.
+
+2. **Benchmarking & Evaluation Protocol**:
+   - Tuned exclusively on `data/eval/pii_dev3.jsonl` (139 cases: 82 positives, 57 hard negatives generated via `scripts/gen_pii_dev3.py`):
+     - **82/82 TP**, **0 FN** (**100% recall**), **0.0000** character leak rate, **0.0199** over-redaction rate.
+   - Evaluated strictly **ONCE** on unseen held-out set `data/eval/pii_heldout3.jsonl` (139 cases generated via `scripts/gen_pii_heldout3.py`):
+     - **82/82 TP**, **0 FN** (**100% recall**), **0.0000** character leak rate, **0.0184** over-redaction rate.
+     - Zero tuning after the heldout3 run. Detailed logs in `docs/pii_results_heldout3.md` and `docs/pii_errors_heldout3.md`.
+   - **Regression Check on Held-Out v2**:
+     - `python -m src.eval.pii_eval --dataset heldout` strictly maintained **143 TP / 62 FP / 13 FN** (Zero regression).
+
+3. **Ingestion Security & Character Leakage Impact**:
+   - Re-ingested 15 enterprise documents into fresh `data/chroma` store (17 chunks).
+   - In-Scope Pattern & Structured PII leaks: **0 leaks** (Aadhaar, PAN, Email, Mobile, IFSC, UPI, Bank Account, Street Address, DOB all verified 0 leaks in chunk text, metadata, and disk).
+   - Fact Survival: **60/60 (100.0%) retained** intact.
+   - Character Leak Rate: dropped from **37.04%** (when out-of-scope gaps were unredacted) and **1.08%** (in-scope only) down to **0.0063 (0.63%)** (20 leaked chars out of 3,186 gold chars, representing only 1 missed person name: `"Vikramaditya Rathore"`).
+   - Over-Redaction Rate: **0.0042** (149 over-redacted chars out of 35,763 non-PII chars).
+
+---
+
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (97 tests passing)
+# 1. Full Unit Test Suite (98 tests passing)
 pytest tests/ -v -m "not slow"
 
 # 2. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
 python -m src.eval.pii_eval --dataset heldout
 
-# 3. Corrective-RAG CLI Commands
+# 3. Held-Out 3 Coverage Eval (82 TP / 16 FP / 0 FN, 0.0000 leak rate)
+python -m src.eval.pii_eval --dataset heldout3
+
+# 4. Ingestion Security & Fact Survival Audit
+python -m src.eval.ingest_eval
+
+# 5. Corrective-RAG CLI Commands
 python -m src.rag.cli ask "What is the notice period in hr_policy_01?"
 python -m src.rag.cli ask "What is the secret recipe for Martian space pie?"
 python -m src.rag.cli ask "My Aadhaar is 2345 6789 0124. What is the loan tenure?" --show-prompts
 python -m src.rag.cli peek --full
 python -m src.rag.cli query "notice period"
 
-# 4. Ingestion Security & Fact Survival Audit
-python -m src.eval.ingest_eval
-
-# 5. Type and Linting Checks
+# 6. Type and Linting Checks
 ruff check src/ tests/ scripts/
 mypy src/ tests/ scripts/
 ```

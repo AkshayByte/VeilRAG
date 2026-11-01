@@ -1,0 +1,2868 @@
+{
+  "full": {
+    "baseline": false,
+    "num_cases": 139,
+    "clean_cases_total": 57,
+    "clean_cases_flagged": 16,
+    "overall": {
+      "true_positives": 82,
+      "false_positives": 16,
+      "false_negatives": 0,
+      "precision": 0.8367,
+      "recall": 1.0,
+      "f1": 0.9111,
+      "clean_case_fpr": 0.2807,
+      "false_positive_rate": 0.2807,
+      "span_precision": 0.8367,
+      "span_error_rate": 0.1633,
+      "char_leak_rate": 0.0,
+      "char_over_redaction_rate": 0.0184,
+      "total_gold_chars": 2125,
+      "total_leaked_chars": 0,
+      "total_non_pii_chars": 8531,
+      "total_over_redacted_chars": 157
+    },
+    "per_entity_type": {
+      "ADDRESS": {
+        "true_positives": 20,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "BANK_ACCOUNT": {
+        "true_positives": 20,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "DATE_OF_BIRTH": {
+        "true_positives": 24,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "INDIAN_MOBILE": {
+        "true_positives": 0,
+        "false_positives": 8,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.1404,
+        "false_positive_rate": 0.1404
+      },
+      "PERSON": {
+        "true_positives": 0,
+        "false_positives": 1,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0175,
+        "false_positive_rate": 0.0175
+      },
+      "PHONE_NUMBER": {
+        "true_positives": 0,
+        "false_positives": 2,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0351,
+        "false_positive_rate": 0.0351
+      },
+      "UHID": {
+        "true_positives": 18,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "US_SSN": {
+        "true_positives": 0,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0877,
+        "false_positive_rate": 0.0877
+      }
+    },
+    "findings": [
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 58,
+        "end": 68,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 57,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 49,
+        "end": 59,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 36,
+        "end": 46,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 24,
+        "end": 34,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 41,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 58,
+        "end": 68,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 57,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 49,
+        "end": 59,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 36,
+        "end": 46,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 24,
+        "end": 34,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 41,
+        "end": 56,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 62,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 63,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 58,
+        "end": 74,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 57,
+        "end": 69,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 49,
+        "end": 60,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 36,
+        "end": 47,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 24,
+        "end": 34,
+        "result": "true_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 41,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 58,
+        "end": 72,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 55,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 39,
+        "end": 51,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 56,
+        "end": 71,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 54,
+        "end": 68,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 60,
+        "end": 71,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 58,
+        "end": 72,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 55,
+        "end": 69,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 39,
+        "end": 53,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 56,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 54,
+        "end": 66,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 60,
+        "end": 74,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 58,
+        "end": 70,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 55,
+        "end": 70,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 63,
+        "result": "true_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 118,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 117,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 115,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 112,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 121,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 108,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 129,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 116,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 97,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 102,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 122,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 125,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 124,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 88,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 109,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 118,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 127,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 117,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 94,
+        "result": "true_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 106,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 57,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 67,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 68,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 64,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 76,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 77,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 72,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 70,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 81,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 80,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 76,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 58,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 68,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 69,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 65,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 58,
+        "result": "true_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 68,
+        "result": "true_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 60,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 32,
+        "end": 42,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 27,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 55,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 48,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "INDIAN_MOBILE",
+        "start": 50,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 35,
+        "end": 44,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 28,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 45,
+        "end": 54,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 47,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_SSN",
+        "start": 38,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      }
+    ]
+  },
+  "baseline": {
+    "baseline": true,
+    "num_cases": 139,
+    "clean_cases_total": 57,
+    "clean_cases_flagged": 47,
+    "overall": {
+      "true_positives": 0,
+      "false_positives": 255,
+      "false_negatives": 82,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "clean_case_fpr": 0.8246,
+      "false_positive_rate": 0.8246,
+      "span_precision": 0.0,
+      "span_error_rate": 1.0,
+      "char_leak_rate": 0.4946,
+      "char_over_redaction_rate": 0.0686,
+      "total_gold_chars": 2125,
+      "total_leaked_chars": 1051,
+      "total_non_pii_chars": 8531,
+      "total_over_redacted_chars": 585
+    },
+    "per_entity_type": {
+      "ADDRESS": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "BANK_ACCOUNT": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "DATE_OF_BIRTH": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 24,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "DATE_TIME": {
+        "true_positives": 0,
+        "false_positives": 55,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.3509,
+        "false_positive_rate": 0.3509
+      },
+      "LOCATION": {
+        "true_positives": 0,
+        "false_positives": 54,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.2105,
+        "false_positive_rate": 0.2105
+      },
+      "PERSON": {
+        "true_positives": 0,
+        "false_positives": 7,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0175,
+        "false_positive_rate": 0.0175
+      },
+      "PHONE_NUMBER": {
+        "true_positives": 0,
+        "false_positives": 18,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.1754,
+        "false_positive_rate": 0.1754
+      },
+      "UHID": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 18,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
+      },
+      "UK_NHS": {
+        "true_positives": 0,
+        "false_positives": 1,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0175,
+        "false_positive_rate": 0.0175
+      },
+      "US_BANK_NUMBER": {
+        "true_positives": 0,
+        "false_positives": 37,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.2982,
+        "false_positive_rate": 0.2982
+      },
+      "US_DRIVER_LICENSE": {
+        "true_positives": 0,
+        "false_positives": 78,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.5439,
+        "false_positive_rate": 0.5439
+      },
+      "US_PASSPORT": {
+        "true_positives": 0,
+        "false_positives": 5,
+        "false_negatives": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "clean_case_fpr": 0.0877,
+        "false_positive_rate": 0.0877
+      }
+    },
+    "findings": [
+      {
+        "type": "DATE_TIME",
+        "start": 46,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 46,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 58,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 58,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 58,
+        "end": 68,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 57,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 57,
+        "end": 67,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 49,
+        "end": 59,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 63,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 49,
+        "end": 59,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 36,
+        "end": 46,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 36,
+        "end": 46,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 36,
+        "end": 46,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 24,
+        "end": 34,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 24,
+        "end": 34,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 41,
+        "end": 51,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 41,
+        "end": 51,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 41,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 46,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 46,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 56,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 58,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 58,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 58,
+        "end": 68,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 57,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 57,
+        "end": 67,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 49,
+        "end": 59,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 63,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 49,
+        "end": 59,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 36,
+        "end": 46,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 36,
+        "end": 46,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 24,
+        "end": 34,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 24,
+        "end": 34,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 24,
+        "end": 34,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 41,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 41,
+        "end": 56,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 49,
+        "end": 62,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 62,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 46,
+        "end": 63,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 46,
+        "end": 63,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 58,
+        "end": 74,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 58,
+        "end": 74,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 57,
+        "end": 69,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 57,
+        "end": 69,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 49,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 64,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 49,
+        "end": 60,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 36,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 36,
+        "end": 47,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 24,
+        "end": 34,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 24,
+        "end": 34,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 24,
+        "end": 34,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 41,
+        "end": 51,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_OF_BIRTH",
+        "start": 41,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 58,
+        "end": 72,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 58,
+        "end": 72,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 58,
+        "end": 72,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 55,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 55,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 55,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 64,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 23,
+        "end": 27,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 39,
+        "end": 51,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 39,
+        "end": 51,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 39,
+        "end": 51,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 56,
+        "end": 71,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 56,
+        "end": 71,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 54,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 54,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 54,
+        "end": 68,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 60,
+        "end": 71,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 60,
+        "end": 71,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 60,
+        "end": 71,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 58,
+        "end": 72,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 58,
+        "end": 72,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 58,
+        "end": 72,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 55,
+        "end": 69,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 55,
+        "end": 69,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 55,
+        "end": 69,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 23,
+        "end": 27,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 39,
+        "end": 53,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 39,
+        "end": 53,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 39,
+        "end": 53,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 56,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 56,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 56,
+        "end": 67,
+        "result": "false_negative"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 54,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 54,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 54,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 54,
+        "end": 66,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 60,
+        "end": 74,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 60,
+        "end": 74,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 60,
+        "end": 74,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 58,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 58,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 58,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 58,
+        "end": 70,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 55,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 55,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 55,
+        "end": 70,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 63,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 63,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 63,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 52,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "start": 52,
+        "end": 67,
+        "result": "false_negative"
+      },
+      {
+        "type": "PERSON",
+        "start": 59,
+        "end": 69,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 83,
+        "end": 91,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 93,
+        "end": 102,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 104,
+        "end": 111,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 112,
+        "end": 118,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 118,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 68,
+        "end": 81,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 93,
+        "end": 99,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 111,
+        "end": 117,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 117,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 98,
+        "end": 108,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 109,
+        "end": 115,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 115,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 47,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 68,
+        "end": 81,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 83,
+        "end": 90,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 106,
+        "end": 112,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 112,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 92,
+        "end": 102,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 115,
+        "end": 121,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 121,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 87,
+        "end": 92,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 94,
+        "end": 101,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 102,
+        "end": 108,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 108,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 100,
+        "end": 106,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 108,
+        "end": 114,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 123,
+        "end": 129,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 123,
+        "end": 129,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 129,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 90,
+        "end": 101,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 110,
+        "end": 116,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 116,
+        "result": "false_negative"
+      },
+      {
+        "type": "PERSON",
+        "start": 37,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 60,
+        "end": 79,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 81,
+        "end": 90,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 91,
+        "end": 97,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 97,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 73,
+        "end": 79,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 81,
+        "end": 87,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 96,
+        "end": 102,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 96,
+        "end": 102,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 102,
+        "result": "false_negative"
+      },
+      {
+        "type": "PERSON",
+        "start": 86,
+        "end": 99,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 101,
+        "end": 107,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 116,
+        "end": 122,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 122,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 99,
+        "end": 105,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 119,
+        "end": 125,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 125,
+        "result": "false_negative"
+      },
+      {
+        "type": "PERSON",
+        "start": 83,
+        "end": 94,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 96,
+        "end": 104,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 118,
+        "end": 124,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 124,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 64,
+        "end": 73,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 82,
+        "end": 88,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 88,
+        "result": "false_negative"
+      },
+      {
+        "type": "PERSON",
+        "start": 70,
+        "end": 85,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 87,
+        "end": 95,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 97,
+        "end": 109,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 103,
+        "end": 109,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 109,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 98,
+        "end": 103,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 105,
+        "end": 111,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 112,
+        "end": 118,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 50,
+        "end": 118,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 121,
+        "end": 127,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 55,
+        "end": 127,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 78,
+        "end": 82,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 84,
+        "end": 91,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 93,
+        "end": 97,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 111,
+        "end": 117,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 51,
+        "end": 117,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 70,
+        "end": 79,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 81,
+        "end": 87,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 88,
+        "end": 94,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 37,
+        "end": 94,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 71,
+        "end": 80,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 82,
+        "end": 90,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 92,
+        "end": 99,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 100,
+        "end": 106,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 100,
+        "end": 106,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 100,
+        "end": 106,
+        "result": "false_positive"
+      },
+      {
+        "type": "ADDRESS",
+        "start": 38,
+        "end": 106,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 51,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 57,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 58,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 61,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 67,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 62,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 68,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 58,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 64,
+        "result": "false_negative"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 65,
+        "result": "false_negative"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 76,
+        "result": "false_negative"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 77,
+        "result": "false_negative"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 72,
+        "result": "false_negative"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 70,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 58,
+        "end": 62,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 81,
+        "result": "false_negative"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 80,
+        "result": "false_negative"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 76,
+        "result": "false_negative"
+      },
+      {
+        "type": "LOCATION",
+        "start": 48,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 58,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 62,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 68,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 63,
+        "end": 69,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 59,
+        "end": 69,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 59,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 55,
+        "end": 65,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 48,
+        "end": 58,
+        "result": "false_negative"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 62,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "UHID",
+        "start": 58,
+        "end": 68,
+        "result": "false_negative"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 45,
+        "end": 55,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 66,
+        "end": 76,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 63,
+        "end": 73,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 30,
+        "end": 36,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 60,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 60,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 39,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 61,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 33,
+        "end": 43,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 54,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 41,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 35,
+        "end": 45,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 54,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 43,
+        "end": 50,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 56,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 58,
+        "end": 64,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 32,
+        "end": 38,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 32,
+        "end": 38,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 42,
+        "end": 53,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 24,
+        "end": 30,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 35,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 35,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 35,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 25,
+        "end": 31,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 32,
+        "end": 42,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 32,
+        "end": 42,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 32,
+        "end": 42,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 26,
+        "end": 38,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 26,
+        "end": 38,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 26,
+        "end": 38,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 63,
+        "end": 67,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 28,
+        "end": 40,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 28,
+        "end": 40,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 29,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 27,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 27,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 27,
+        "end": 39,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 55,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 55,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 55,
+        "end": 65,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 47,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 48,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 48,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 48,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 48,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "UK_NHS",
+        "start": 50,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 50,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "PHONE_NUMBER",
+        "start": 50,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 50,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 50,
+        "end": 60,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 59,
+        "end": 71,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 35,
+        "end": 44,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_PASSPORT",
+        "start": 35,
+        "end": 44,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 35,
+        "end": 44,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 53,
+        "end": 59,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 28,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_PASSPORT",
+        "start": 28,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 28,
+        "end": 37,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 45,
+        "end": 54,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_PASSPORT",
+        "start": 45,
+        "end": 54,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 45,
+        "end": 54,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 47,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_PASSPORT",
+        "start": 47,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 47,
+        "end": 56,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 38,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_PASSPORT",
+        "start": 38,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 38,
+        "end": 47,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_BANK_NUMBER",
+        "start": 51,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 51,
+        "end": 61,
+        "result": "false_positive"
+      },
+      {
+        "type": "PERSON",
+        "start": 42,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 66,
+        "end": 75,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 35,
+        "end": 48,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 60,
+        "end": 66,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 58,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 40,
+        "end": 59,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 61,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 28,
+        "end": 52,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 65,
+        "end": 70,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 30,
+        "end": 36,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 45,
+        "end": 51,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 52,
+        "end": 58,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 33,
+        "end": 50,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 51,
+        "end": 57,
+        "result": "false_positive"
+      },
+      {
+        "type": "DATE_TIME",
+        "start": 62,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 62,
+        "end": 68,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 0,
+        "end": 5,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 39,
+        "end": 45,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 0,
+        "end": 6,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 35,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 40,
+        "end": 46,
+        "result": "false_positive"
+      },
+      {
+        "type": "US_DRIVER_LICENSE",
+        "start": 35,
+        "end": 41,
+        "result": "false_positive"
+      },
+      {
+        "type": "LOCATION",
+        "start": 66,
+        "end": 69,
+        "result": "false_positive"
+      }
+    ]
+  }
+}
