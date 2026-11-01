@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import pytest
 
-from src.sanitizer import SanitizationError, SanitizeResult, sanitize
+from src.sanitizer import (
+    SanitizationError,
+    SanitizedText,
+    SanitizeResult,
+    sanitize,
+)
 from src.sanitizer.detectors import validate_verhoeff
 
 # ── Verhoeff checksum tests ──────────────────────────────────────────────
@@ -412,6 +417,38 @@ def test_reversible_map_not_persisted() -> None:
     result = sanitize("Alice Smith.")
     # reversible_map is a field of SanitizeResult but marked repr=False
     assert "reversible_map" not in repr(result)
+
+
+# ── SanitizedText type boundary enforcement ──────────────────────────────
+
+
+def test_sanitized_text_cannot_be_instantiated_directly() -> None:
+    """Direct instantiation of SanitizedText raises TypeError."""
+    with pytest.raises(TypeError, match="cannot be instantiated directly"):
+        SanitizedText("plain text")
+
+
+def test_sanitize_result_requires_sanitized_text() -> None:
+    """SanitizeResult raises TypeError if sanitized_text is not a SanitizedText instance."""
+    with pytest.raises(TypeError, match="requires a SanitizedText instance"):
+        SanitizeResult(sanitized_text="plain text")  # type: ignore[arg-type]
+
+
+def test_sanitize_returns_sanitized_text_instance() -> None:
+    """sanitize() returns SanitizedText for both safe and sanitized_text."""
+    res = sanitize("Contact alice@example.com")
+    assert isinstance(res.safe, SanitizedText)
+    assert isinstance(res.sanitized_text, SanitizedText)
+    assert isinstance(res.safe, str)
+
+
+def test_string_concatenation_drops_sanitized_text_type() -> None:
+    """Tampered or concatenated strings revert to plain str and lose SanitizedText type."""
+    res = sanitize("Contact alice@example.com")
+    tampered = res.safe + " unredacted leak"
+    assert not isinstance(tampered, SanitizedText)
+    assert isinstance(tampered, str)
+
 
 
 if __name__ == "__main__":

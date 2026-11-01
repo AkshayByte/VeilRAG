@@ -101,6 +101,23 @@ class SanitizationError(Exception):
     """Raised when sanitization cannot complete (fail-closed)."""
 
 
+class SanitizedText(str):
+    """A string guaranteed to have passed through VeilRAG fail-closed sanitization.
+
+    Can only be instantiated via `sanitize()`. Direct instantiation by callers raises `TypeError`.
+    """
+
+    _SENTINEL = object()
+
+    def __new__(cls, value: str, *, _sentinel: object | None = None) -> SanitizedText:
+        if _sentinel is not cls._SENTINEL:
+            raise TypeError(
+                "SanitizedText cannot be instantiated directly. "
+                "Obtain an instance via `src.sanitizer.sanitize(text).safe`."
+            )
+        return super().__new__(cls, value)
+
+
 @dataclass(frozen=True)
 class EntitySpan:
     """A single detected PII entity span — raw value is never stored."""
@@ -118,7 +135,7 @@ class SanitizeResult:
     Attributes
     ----------
     sanitized_text
-        Input text with all PII replaced by typed numbered placeholders.
+        Input text with all PII replaced by typed numbered placeholders (SanitizedText).
     entities
         Sorted list of detected entity spans (type, start, end, score).
         Raw PII values are intentionally *not* included.
@@ -129,13 +146,24 @@ class SanitizeResult:
     reversible_map
         Placeholder → original text mapping, valid only for this request.
         Never persisted to disk or logs.
+    safe
+        Type-enforced SanitizedText wrapper around sanitized_text.
     """
 
-    sanitized_text: str
+    sanitized_text: SanitizedText
     entities: list[EntitySpan] = field(default_factory=list)
     risk_score: float = 0.0
     mode: str = "general"
     reversible_map: dict[str, str] = field(default_factory=dict, repr=False)
+    safe: SanitizedText = field(init=False)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.sanitized_text, SanitizedText):
+            raise TypeError(
+                "SanitizeResult requires a SanitizedText instance. "
+                "Obtain sanitized text via src.sanitizer.sanitize()."
+            )
+        object.__setattr__(self, "safe", self.sanitized_text)
 
 
 def _load_modes() -> dict[str, Any]:
@@ -290,8 +318,10 @@ def sanitize(
 
         risk_score = _calculate_risk_score(entity_spans)
 
+        safe_text = SanitizedText(sanitized_text, _sentinel=SanitizedText._SENTINEL)
+
         return SanitizeResult(
-            sanitized_text=sanitized_text,
+            sanitized_text=safe_text,
             entities=entity_spans,
             risk_score=risk_score,
             mode=mode,

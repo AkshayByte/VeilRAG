@@ -1,4 +1,4 @@
-﻿"""LLM adapter — the single exit point for all LLM calls.
+"""LLM adapter — the single exit point for all LLM calls.
 
 The provider is selected via the ``LLM_PROVIDER`` environment variable:
 
@@ -19,6 +19,7 @@ from dataclasses import dataclass
 from typing import Protocol
 
 from src.config import settings
+from src.sanitizer import SanitizedText
 
 logger = logging.getLogger(__name__)
 
@@ -36,11 +37,19 @@ class LLMResponse:
 class LLMAdapter(Protocol):
     """Protocol every concrete adapter must satisfy."""
 
-    async def acomplete(self, prompt: str, **kwargs: object) -> LLMResponse: ...
+    async def acomplete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse: ...
 
-    async def astream(self, prompt: str, **kwargs: object) -> AsyncIterator[str]: ...
+    def astream(self, prompt: SanitizedText, **kwargs: object) -> AsyncIterator[str]: ...
 
-    def complete(self, prompt: str, **kwargs: object) -> LLMResponse: ...
+    def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse: ...
+
+
+def _check_sanitized(prompt: object) -> None:
+    if not isinstance(prompt, SanitizedText):
+        raise TypeError(
+            f"Expected SanitizedText, got plain {type(prompt).__name__}. "
+            "Redact via src.sanitizer.sanitize() first."
+        )
 
 
 def get_adapter() -> LLMAdapter:
@@ -59,24 +68,32 @@ def get_adapter() -> LLMAdapter:
 class _HostAdapter:
     """Adapter for OpenAI-compatible hosted APIs."""
 
-    async def acomplete(self, prompt: str, **kwargs: object) -> LLMResponse:
+    async def acomplete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+        _check_sanitized(prompt)
         raise NotImplementedError
 
-    async def astream(self, prompt: str, **kwargs: object) -> AsyncIterator[str]:
+    async def astream(self, prompt: SanitizedText, **kwargs: object) -> AsyncIterator[str]:
+        _check_sanitized(prompt)
         raise NotImplementedError
+        yield ""  # pragma: no cover
 
-    def complete(self, prompt: str, **kwargs: object) -> LLMResponse:
+    def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+        _check_sanitized(prompt)
         raise NotImplementedError
 
 
 class _OllamaAdapter:
     """Adapter for local Ollama server."""
 
-    async def acomplete(self, prompt: str, **kwargs: object) -> LLMResponse:
+    async def acomplete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+        _check_sanitized(prompt)
         raise NotImplementedError
 
-    async def astream(self, prompt: str, **kwargs: object) -> AsyncIterator[str]:
+    async def astream(self, prompt: SanitizedText, **kwargs: object) -> AsyncIterator[str]:
+        _check_sanitized(prompt)
         raise NotImplementedError
+        yield ""  # pragma: no cover
 
-    def complete(self, prompt: str, **kwargs: object) -> LLMResponse:
+    def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+        _check_sanitized(prompt)
         raise NotImplementedError

@@ -1,4 +1,4 @@
-﻿"""PII sanitization package — Presidio + custom regex + spaCy NER.
+"""PII sanitization package — Presidio + custom regex + spaCy NER.
 
 Public API
 ----------
@@ -10,6 +10,11 @@ Redaction style is fixed: typed numbered placeholders, e.g. ``[PERSON_1]``,
 ``[EMAIL_ADDRESS_1]`` — numbering is consistent within a single document.
 """
 
-from src.sanitizer.sanitize import SanitizationError, SanitizeResult, sanitize
+from src.sanitizer.sanitize import (
+    SanitizationError,
+    SanitizedText,
+    SanitizeResult,
+    sanitize,
+)
 
-__all__ = ["SanitizationError", "SanitizeResult", "sanitize"]
+__all__ = ["SanitizationError", "SanitizedText", "SanitizeResult", "sanitize"]
