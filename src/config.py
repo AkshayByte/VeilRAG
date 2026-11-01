@@ -54,6 +54,12 @@ class Settings(BaseSettings):
     spacy_model: str = "en_core_web_lg"
     """spaCy model used for Presidio NLP engine and entity recognition."""
 
+    pipeline_mode: str = "full"
+    """Central sanitization mode used across ingestion, query, and guards."""
+
+
+PIPELINE_MODE: str = "full"
+"""Central sanitization mode constant for ingestion, query path, rewriting, and guards."""
 
 settings: Settings = Settings()
 """Module-level singleton — import as ``from src.config import settings``."""

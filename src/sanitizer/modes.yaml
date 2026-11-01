@@ -55,7 +55,25 @@ code:
     - SECRET_KEY
     - AWS_ACCESS_KEY
     - AWS_SECRET_KEY
-    - PRIVATE_KEY
-    - PEM_BLOCK
-    - CONNECTION_STRING
-    - PASSWORD
+
+full:
+  entities:
+    - PERSON
+    - EMAIL_ADDRESS
+    - PHONE_NUMBER
+    - US_SSN
+    - CREDIT_CARD
+    - IBAN_CODE
+    - IP_ADDRESS
+    - URL
+    - IDENTITY_DOCUMENT
+    - PAN_NUMBER
+    - INDIAN_MOBILE
+    - IFSC_CODE
+    - UPI_ID
+    - MEDICAL_RECORD_NUMBER
+    - PATIENT_ID
+    - API_KEY
+    - SECRET_KEY
+    - AWS_ACCESS_KEY
+    - AWS_SECRET_KEY

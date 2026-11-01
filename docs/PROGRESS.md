@@ -5,8 +5,8 @@
 - **Git Tags**:
   - `recognizers-frozen-v1`: Initial recognizers benchmarked on DEV and first held-out set (DEV2).
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
-- **Test Suite**: 87 passed out of 87 tests (`pytest tests/ -v -m "not slow"`).
-- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 41 source files).
+- **Test Suite**: 89 passed out of 89 tests (`pytest tests/ -v -m "not slow"`).
+- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 44 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
 ---
@@ -18,7 +18,7 @@
 2. **spaCy Model**:
    - Model `en_core_web_lg` configured in `Makefile`, `Dockerfile`, CI (`.github/workflows/ci.yml`), and defined in `src/config.py` (`settings.spacy_model`).
 3. **Legal & Documentation**:
-   - `LICENSE` (MIT), `THIRD_PARTY_NOTICES.md`, `README.md`, `docs/pii_results.md`, `docs/pii_errors.md`, `docs/pii_errors_heldout.md`, and `docs/ingest_report.md` in place.
+   - `LICENSE` (MIT), `THIRD_PARTY_NOTICES.md`, `README.md`, `docs/pii_results.md`, `docs/pii_errors.md`, `docs/pii_errors_heldout.md`, `docs/ingest_report.md`, and `docs/limitations.md` in place.
 4. **Git Repository**:
    - Clean structure with tracked files, commit history, and release tags `recognizers-frozen-v1` and `recognizers-frozen-v2`.
 
@@ -27,6 +27,8 @@
 ## Recognizer Specifications & Invariants
 - **Public API**:
   - `src/sanitizer/__init__.py`: exports `sanitize`, `SanitizedText`, `SanitizeResult`, `SanitizationError`.
+  - Mode `"full"` in `modes.yaml`: Union of all 19 working entity recognizers.
+  - Central `PIPELINE_MODE = "full"` constant in `src/config.py` governs ingestion, query path, rewriting, and guards.
 - **Type-Enforced Redaction Boundary**:
   - `SanitizedText(str)` subclass can only be instantiated inside `src.sanitizer.sanitize()` via a private sentinel.
   - Slicing or concatenating automatically produces a plain `str`, stripping the `SanitizedText` brand.

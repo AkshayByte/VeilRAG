@@ -126,3 +126,35 @@ def test_ingest_documents_idempotent_and_fail_closed(
             assert "Ananya Sharma" not in str(v)
             assert "ananya@acmesoftware.in" not in str(v)
             assert "Siddharth Roy" not in str(v)
+
+
+def test_ingest_uses_pipeline_mode(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """ingest_documents passes PIPELINE_MODE to sanitize."""
+    import src.rag.ingest as ingest_mod
+    from src.config import PIPELINE_MODE
+
+    docs_dir = tmp_path / "docs"
+    docs_dir.mkdir()
+    (docs_dir / "test_doc.txt").write_text("Some text to ingest.", encoding="utf-8")
+
+    modes_passed: list[str] = []
+    orig_sanitize = ingest_mod.sanitize
+
+    def spy_sanitize(text: str, mode: str = "general", **kwargs: Any) -> Any:
+        modes_passed.append(mode)
+        return orig_sanitize(text, mode=mode, **kwargs)
+
+    monkeypatch.setattr(ingest_mod, "sanitize", spy_sanitize)
+    fake_embedder = FakeEmbeddingModel(dimension=16)
+
+    ingest_documents(
+        path=str(docs_dir),
+        collection_name="test_pipeline_mode",
+        persist_dir=str(tmp_path / "chroma"),
+        embedder=fake_embedder,
+    )
+
+    assert len(modes_passed) == 1
+    assert modes_passed[0] == PIPELINE_MODE

@@ -220,6 +220,36 @@ def test_code_mode_redacts_aws_key() -> None:
     assert "[AWS_ACCESS_KEY_1]" in result.sanitized_text
 
 
+def test_sanitize_mode_full_redacts_enterprise_entities() -> None:
+    """Mode 'full' redacts IFSC, UPI ID, Medical Record Number, and Patient ID."""
+    text = (
+        "Transfer via IFSC HDFC0001234 and UPI rohit@okhdfcbank. "
+        "Patient record MRN-99881 and docket PID-7744."
+    )
+    result = sanitize(text, mode="full")
+    assert "HDFC0001234" not in result.safe
+    assert "[IFSC_1]" in result.safe
+    assert "rohit@okhdfcbank" not in result.safe
+    assert "[UPI_1]" in result.safe
+    assert "MRN-99881" not in result.safe
+    assert "[MEDICAL_RECORD_NUMBER_1]" in result.safe
+    assert "PID-7744" not in result.safe
+    assert "[PATIENT_ID_1]" in result.safe
+
+
+def test_default_mode_unchanged_ignores_specialized_entities() -> None:
+    """Default mode remains 'general' and does not redact specialized enterprise entities."""
+    text = "Contact Alice at alice@example.com with IFSC HDFC0001234 and MRN-99881."
+    result = sanitize(text)
+    assert result.mode == "general"
+    # General entities are redacted
+    assert "alice@example.com" not in result.safe
+    assert "[EMAIL_ADDRESS_1]" in result.safe
+    # Specialized enterprise entities are not in general mode
+    assert "HDFC0001234" in result.safe
+    assert "MRN-99881" in result.safe
+
+
 # ── Custom recognizers ───────────────────────────────────────────────────
 
 

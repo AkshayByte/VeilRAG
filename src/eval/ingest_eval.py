@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from src.config import settings
+from src.config import PIPELINE_MODE, settings
 from src.eval.pii_eval import compute_char_metrics
 from src.rag.retriever import VectorStore
 from src.sanitizer import sanitize
@@ -188,13 +188,12 @@ def run_ingest_eval(
         if raw_doc_file.exists():
             raw_text = raw_doc_file.read_text(encoding="utf-8")
             gold_spans = [
-                (e["type"], e.get("start", 0), e.get("end", 0))
+                (e["type"], e["start"], e["end"])
                 for e in doc_meta.get("pii_entities", [])
                 if e.get("in_scope", True)
             ]
             # Redaction spans as detected by sanitizer
-            extra_ents = ["IFSC_CODE", "UPI_ID", "MEDICAL_RECORD_NUMBER", "PATIENT_ID"]
-            sanitized_res = sanitize(raw_text, extra_entities=extra_ents)
+            sanitized_res = sanitize(raw_text, mode=PIPELINE_MODE)
             detected_spans = [
                 (es.entity_type, es.start, es.end)
                 for es in sanitized_res.entities

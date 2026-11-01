@@ -44,11 +44,17 @@ def _cmd_peek(args: argparse.Namespace) -> None:
         preview = text.replace("\n", " ")
         if len(preview) > 120:
             preview = preview[:120] + "..."
-        print(f"\n[{i}] Chunk ID: {cid}")
+        print(f"[{i}] Chunk ID: {cid}")
         print(f"    Source:      {meta.get('source')} | Doc Type: {meta.get('doc_type')}")
         print(f"    Index:       {meta.get('chunk_index')} | Risk: {meta.get('risk_score')}")
         print(f"    PII Count:   {meta.get('entity_count')}")
-        print(f"    Preview:     {preview}")
+        if getattr(args, "full", False):
+            print(f"    Full Text:\n{text}")
+        else:
+            preview = text.replace("\n", " ")
+            if len(preview) > 120:
+                preview = preview[:120] + "..."
+            print(f"    Preview:     {preview}")
     print("\n============================================================\n")
 
 
@@ -69,6 +75,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("peek", help="Inspect chunks stored in ChromaDB")
     p.add_argument("--n", "-n", type=int, default=3, help="Number of chunks to display")
+    p.add_argument(
+        "--full",
+        action="store_true",
+        default=False,
+        help="Print entire chunk text instead of preview",
+    )
 
     q = sub.add_parser("query", help="Run a single RAG query")
     q.add_argument("query", type=str, help="The question to ask")

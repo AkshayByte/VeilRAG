@@ -21,7 +21,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from src.config import settings
+from src.config import PIPELINE_MODE, settings
 from src.embeddings import get_embedding_model
 from src.embeddings.local import Embedder
 from src.rag.retriever import VectorStore
@@ -226,9 +226,8 @@ def ingest_documents(
         raw_text = doc["text"]
 
         try:
-            # 1. Sanitize whole document with enterprise entity types
-            extra_ents = ["IFSC_CODE", "UPI_ID", "MEDICAL_RECORD_NUMBER", "PATIENT_ID"]
-            result = sanitize(raw_text, extra_entities=extra_ents)
+            # 1. Sanitize whole document using central pipeline mode
+            result = sanitize(raw_text, mode=PIPELINE_MODE)
 
             # 2. Ephemeral reversible map discarded immediately
             del result.reversible_map

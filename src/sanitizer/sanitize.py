@@ -34,6 +34,8 @@ from src.sanitizer.detectors import DEFAULT_DETECTORS, RegexMatch
 from src.sanitizer.recognizers.custom import get_custom_recognizers
 
 logger = logging.getLogger(__name__)
+# Suppress noisy Presidio mapping and language warnings
+logging.getLogger("presidio-analyzer").setLevel(logging.ERROR)
 
 _MODES_PATH = Path(__file__).parent / "modes.yaml"
 _ANALYZER_CACHE: AnalyzerEngine | None = None
