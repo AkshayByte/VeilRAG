@@ -226,8 +226,9 @@ def ingest_documents(
         raw_text = doc["text"]
 
         try:
-            # 1. Sanitize whole document
-            result = sanitize(raw_text)
+            # 1. Sanitize whole document with enterprise entity types
+            extra_ents = ["IFSC_CODE", "UPI_ID", "MEDICAL_RECORD_NUMBER", "PATIENT_ID"]
+            result = sanitize(raw_text, extra_entities=extra_ents)
 
             # 2. Ephemeral reversible map discarded immediately
             del result.reversible_map
