@@ -21,7 +21,7 @@ Write-Host "====================================================================
 
 try {
     Write-Host "`n[1/6] Cloning repository to temporary workspace..."
-    git clone --local $repoRoot $tempDir
+    git clone --no-hardlinks $repoRoot $tempDir
     if ($LASTEXITCODE -ne 0) { throw "git clone failed" }
 
     Set-Location $tempDir
