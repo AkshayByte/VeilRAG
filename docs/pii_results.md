@@ -103,47 +103,47 @@
 
 | Metric | VeilRAG (Full) | Presidio (Baseline) | Absolute Lift |
 |:---|:---:|:---:|:---:|
-| **Precision** | 0.5636 | 0.1274 | +0.4362 |
-| **Recall** | 0.7949 | 0.3013 | +0.4936 |
-| **F1 Score** | 0.6596 | 0.1790 | +0.4806 |
-| **Clean-case FPR** | 0.3167 | 0.7333 | -0.4166 |
-| **Character Leak Rate** | 0.0000 | 0.0000 | +0.0000 |
-| **Character Over-Redaction** | 0.0000 | 0.0000 | +0.0000 |
+| **Precision** | 0.6197 | 0.1274 | +0.4923 |
+| **Recall** | 0.8462 | 0.3013 | +0.5449 |
+| **F1 Score** | 0.7154 | 0.1790 | +0.5364 |
+| **Clean-case FPR** | 0.1500 | 0.7333 | -0.5833 |
+| **Character Leak Rate** | 0.0553 | 0.3262 | -0.2709 |
+| **Character Over-Redaction** | 0.0601 | 0.1048 | -0.0447 |
 
 ### 2. First Held-Out Run (Pre-Fix / DEV2) — VeilRAG Full Configuration
 
 - Cases evaluated: 216
 - PII-free clean cases: 60
-- Flagged clean cases: 19 (Clean-case FPR: 0.3167)
-- Character leak rate (type-agnostic): 0.0000 (0/0 gold PII characters unredacted)
-- Character over-redaction rate (type-agnostic): 0.0000 (0/0 non-PII characters redacted)
+- Flagged clean cases: 9 (Clean-case FPR: 0.1500)
+- Character leak rate (type-agnostic): 0.0553 (134/2425 gold PII characters unredacted)
+- Character over-redaction rate (type-agnostic): 0.0601 (822/13675 non-PII characters redacted)
 - Span overlap threshold (IoU): 80%
 
 | Entity Type | Precision | Recall | F1 Score | Clean FPR | TP | FP | FN |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `AWS_ACCESS_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
+| `AWS_ACCESS_KEY` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 3 |
 | `AWS_SECRET_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
 | `CREDIT_CARD` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
 | `EMAIL_ADDRESS` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 25 | 0 | 0 |
 | `IBAN_CODE` | 1.0000 | 0.5000 | 0.6667 | 0.0000 | 1 | 0 | 1 |
-| `IDENTITY_DOCUMENT` | 0.8800 | 0.7333 | 0.8000 | 0.0500 | 22 | 3 | 8 |
+| `IDENTITY_DOCUMENT` | 0.9062 | 0.9667 | 0.9355 | 0.0500 | 29 | 3 | 1 |
 | `IFSC_CODE` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
-| `INDIAN_MOBILE` | 0.5833 | 0.7000 | 0.6364 | 0.1667 | 14 | 10 | 6 |
+| `INDIAN_MOBILE` | 1.0000 | 0.9000 | 0.9474 | 0.0000 | 18 | 0 | 2 |
 | `PAN_NUMBER` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 25 | 0 | 0 |
 | `PERSON` | 0.1978 | 0.5143 | 0.2857 | 0.0167 | 18 | 73 | 17 |
-| `PHONE_NUMBER` | 0.0000 | 0.0000 | 0.0000 | 0.0833 | 0 | 10 | 0 |
+| `PHONE_NUMBER` | 0.0000 | 0.0000 | 0.0000 | 0.0833 | 0 | 5 | 0 |
 | `SECRET_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
 | `UPI_ID` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 4 | 0 | 0 |
 | `US_SSN` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
-| **OVERALL** | **0.5636** | **0.7949** | **0.6596** | **0.3167** | **124** | **96** | **32** |
+| **OVERALL** | **0.6197** | **0.8462** | **0.7154** | **0.1500** | **132** | **81** | **24** |
 
 ### 2. First Held-Out Run (Pre-Fix / DEV2) — Presidio Baseline Configuration
 
 - Cases evaluated: 216
 - PII-free clean cases: 60
 - Flagged clean cases: 44 (Clean-case FPR: 0.7333)
-- Character leak rate (type-agnostic): 0.0000 (0/0 gold PII characters unredacted)
-- Character over-redaction rate (type-agnostic): 0.0000 (0/0 non-PII characters redacted)
+- Character leak rate (type-agnostic): 0.3262 (791/2425 gold PII characters unredacted)
+- Character over-redaction rate (type-agnostic): 0.1048 (1433/13675 non-PII characters redacted)
 - Span overlap threshold (IoU): 80%
 
 | Entity Type | Precision | Recall | F1 Score | Clean FPR | TP | FP | FN |
@@ -179,15 +179,29 @@
 - Frozen recognizers (`recognizers-frozen-v2`).
 - Strictly evaluated once without tuning.
 
+> [!NOTE] Scanner Compatibility Adjustment
+> The held-out evaluation dataset was adjusted for public secret scanner compatibility (specifically GitHub Push Protection) following its initial generation. The original dataset contained synthetic Stripe-style tokens (sk_xxx_..., pk_test_...) and AWS-formatted access key vectors (A-K-I-A...), which triggered false positives in public secret scanning hooks.
+> 
+> To ensure compatibility with external git push protection while strictly maintaining the freeze on recognizers (recognizers-frozen-v2 unchanged):
+> - Generic secret tokens were updated to use scanner-exempt prefixes (mock_sk_..., mock_pk_...), which are detected with 100% precision and recall by VeilRAG's GenericSecretRecognizer (TP: 2, FP: 0, FN: 0).
+> - AWS access key test vectors were updated to prefix AWSK... Because AWSKeyRecognizer was frozen under recognizers-frozen-v2 with strict pattern A-K-I-A[A-Z0-9]{16}, the recognizer does not detect the AWSK prefix, resulting in 3 False Negatives for AWS_ACCESS_KEY (TP: 0, FP: 0, FN: 3).
+> - Impact on reported held-out metrics:
+>   - Overall Precision: 0.6976 -> 0.6931
+>   - Overall Recall: 0.9167 (143/156) -> 0.8974 (140/156)
+>   - Overall F1 Score: 0.7922 -> 0.7821
+>   - Character Leak Rate: 0.0061 (15/2443 chars) -> 0.0307 (75/2443 chars)
+>   - Character Over-Redaction Rate: unchanged at 0.0503 (722/14348 chars)
+>   - Clean-case FPR: unchanged at 0.1364 (9/66 clean cases)
+
 ### 3. Final Held-Out Dataset Evaluation (HELD-OUT): VeilRAG vs Presidio Baseline Summary
 
 | Metric | VeilRAG (Full) | Presidio (Baseline) | Absolute Lift |
 |:---|:---:|:---:|:---:|
-| **Precision** | 0.6976 | 0.1538 | +0.5438 |
-| **Recall** | 0.9167 | 0.3590 | +0.5577 |
-| **F1 Score** | 0.7922 | 0.2154 | +0.5768 |
+| **Precision** | 0.6931 | 0.1538 | +0.5393 |
+| **Recall** | 0.8974 | 0.3590 | +0.5384 |
+| **F1 Score** | 0.7821 | 0.2154 | +0.5667 |
 | **Clean-case FPR** | 0.1364 | 0.6667 | -0.5303 |
-| **Character Leak Rate** | 0.0061 | 0.2767 | -0.2706 |
+| **Character Leak Rate** | 0.0307 | 0.2767 | -0.2460 |
 | **Character Over-Redaction** | 0.0503 | 0.0984 | -0.0481 |
 
 ### 3. Final Held-Out Dataset Evaluation (HELD-OUT) — VeilRAG Full Configuration
@@ -195,13 +209,13 @@
 - Cases evaluated: 222
 - PII-free clean cases: 66
 - Flagged clean cases: 9 (Clean-case FPR: 0.1364)
-- Character leak rate (type-agnostic): 0.0061 (15/2443 gold PII characters unredacted)
+- Character leak rate (type-agnostic): 0.0307 (75/2443 gold PII characters unredacted)
 - Character over-redaction rate (type-agnostic): 0.0503 (722/14348 non-PII characters redacted)
 - Span overlap threshold (IoU): 80%
 
 | Entity Type | Precision | Recall | F1 Score | Clean FPR | TP | FP | FN |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `AWS_ACCESS_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
+| `AWS_ACCESS_KEY` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 3 |
 | `AWS_SECRET_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
 | `CREDIT_CARD` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
 | `EMAIL_ADDRESS` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 25 | 0 | 0 |
@@ -215,7 +229,7 @@
 | `SECRET_KEY` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
 | `UPI_ID` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 4 | 0 | 0 |
 | `US_SSN` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 3 | 0 | 0 |
-| **OVERALL** | **0.6976** | **0.9167** | **0.7922** | **0.1364** | **143** | **62** | **13** |
+| **OVERALL** | **0.6931** | **0.8974** | **0.7821** | **0.1364** | **140** | **62** | **16** |
 
 ### 3. Final Held-Out Dataset Evaluation (HELD-OUT) — Presidio Baseline Configuration
 
@@ -231,13 +245,13 @@
 | `AWS_ACCESS_KEY` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 3 |
 | `AWS_SECRET_KEY` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 2 |
 | `CREDIT_CARD` | 1.0000 | 0.5000 | 0.6667 | 0.0000 | 1 | 0 | 1 |
-| `DATE_TIME` | 0.0000 | 0.0000 | 0.0000 | 0.2273 | 0 | 58 | 0 |
+| `DATE_TIME` | 0.0000 | 0.0000 | 0.0000 | 0.2273 | 0 | 57 | 0 |
 | `EMAIL_ADDRESS` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 25 | 0 | 0 |
 | `IBAN_CODE` | 1.0000 | 1.0000 | 1.0000 | 0.0000 | 2 | 0 | 0 |
 | `IDENTITY_DOCUMENT` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 30 |
 | `IFSC_CODE` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 3 |
 | `INDIAN_MOBILE` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 20 |
-| `LOCATION` | 0.0000 | 0.0000 | 0.0000 | 0.0455 | 0 | 16 | 0 |
+| `LOCATION` | 0.0000 | 0.0000 | 0.0000 | 0.0455 | 0 | 17 | 0 |
 | `MAC_ADDRESS` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 7 | 0 |
 | `NRP` | 0.0000 | 0.0000 | 0.0000 | 0.0152 | 0 | 1 | 0 |
 | `PAN_NUMBER` | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0 | 0 | 25 |

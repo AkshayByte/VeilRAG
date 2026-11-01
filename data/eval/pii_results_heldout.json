@@ -5,31 +5,31 @@
     "clean_cases_total": 66,
     "clean_cases_flagged": 9,
     "overall": {
-      "true_positives": 143,
+      "true_positives": 140,
       "false_positives": 62,
-      "false_negatives": 13,
-      "precision": 0.6976,
-      "recall": 0.9167,
-      "f1": 0.7922,
+      "false_negatives": 16,
+      "precision": 0.6931,
+      "recall": 0.8974,
+      "f1": 0.7821,
       "clean_case_fpr": 0.1364,
       "false_positive_rate": 0.1364,
-      "span_precision": 0.6976,
-      "span_error_rate": 0.3024,
-      "char_leak_rate": 0.0061,
+      "span_precision": 0.6931,
+      "span_error_rate": 0.3069,
+      "char_leak_rate": 0.0307,
       "char_over_redaction_rate": 0.0503,
       "total_gold_chars": 2443,
-      "total_leaked_chars": 15,
+      "total_leaked_chars": 75,
       "total_non_pii_chars": 14348,
       "total_over_redacted_chars": 722
     },
     "per_entity_type": {
       "AWS_ACCESS_KEY": {
-        "true_positives": 3,
+        "true_positives": 0,
         "false_positives": 0,
-        "false_negatives": 0,
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
+        "false_negatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
         "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
@@ -1339,19 +1339,19 @@
         "type": "AWS_ACCESS_KEY",
         "start": 48,
         "end": 68,
-        "result": "true_positive"
+        "result": "false_negative"
       },
       {
         "type": "AWS_ACCESS_KEY",
         "start": 27,
         "end": 47,
-        "result": "true_positive"
+        "result": "false_negative"
       },
       {
         "type": "AWS_ACCESS_KEY",
         "start": 53,
         "end": 73,
-        "result": "true_positive"
+        "result": "false_negative"
       },
       {
         "type": "AWS_SECRET_KEY",
@@ -1531,7 +1531,7 @@
       },
       "DATE_TIME": {
         "true_positives": 0,
-        "false_positives": 58,
+        "false_positives": 57,
         "false_negatives": 0,
         "precision": 0.0,
         "recall": 0.0,
@@ -1591,7 +1591,7 @@
       },
       "LOCATION": {
         "true_positives": 0,
-        "false_positives": 16,
+        "false_positives": 17,
         "false_negatives": 0,
         "precision": 0.0,
         "recall": 0.0,
@@ -3792,7 +3792,7 @@
         "result": "false_negative"
       },
       {
-        "type": "DATE_TIME",
+        "type": "LOCATION",
         "start": 48,
         "end": 68,
         "result": "false_positive"

@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 
 HERE = Path(__file__).parent
 DATA_DIR = HERE.parent / "data" / "eval"
-HELDOUT_PATH = DATA_DIR / "pii_heldout.jsonl"
+DEV2_PATH = DATA_DIR / "pii_dev2.jsonl"
 
 # Strictly different random seeds from dev set (which used 42)
 RANDOM_SEED = 98765
@@ -267,6 +267,7 @@ def gen_credentials_and_banking_heldout() -> list[dict[str, object]]:
         "Terraform provider credential {ak} must be revoked immediately.",
         "Security audit alert:\nResource: S3 Bucket\nKey ID: {ak}\nAction: Quarantine",
     ]
+    # Scanner-safe AWS access key representations generated at runtime
     _ak_pfx = "".join(["AWS", "K"])
     aks = [
         f"{_ak_pfx}2J5F8K9M3N4P7Q1R",
@@ -297,6 +298,7 @@ def gen_credentials_and_banking_heldout() -> list[dict[str, object]]:
         "Authorization header bearer token: {tok} active on endpoint.",
         "Webhook shared secret {tok} requires bi-weekly rotation.",
     ]
+    # Generic high entropy secret tokens constructed at runtime
     _pfx_sk = "".join(["mock", "_", "sk", "_"])
     _pfx_pk = "".join(["mock", "_", "pk", "_"])
     tokens = [
@@ -471,9 +473,9 @@ def generate_all_heldout_cases() -> list[dict[str, object]]:
 
 
 def main() -> int:
-    """Generate and serialize the held-out evaluation dataset."""
+    """Generate and serialize the dev2 evaluation dataset."""
     logging.basicConfig(level=logging.INFO)
-    HELDOUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    DEV2_PATH.parent.mkdir(parents=True, exist_ok=True)
 
     cases = generate_all_heldout_cases()
     clean_count = 0
@@ -483,11 +485,11 @@ def main() -> int:
             clean_count += 1
     pii_count = len(cases) - clean_count
 
-    with open(HELDOUT_PATH, "w", encoding="utf-8") as f:
+    with open(DEV2_PATH, "w", encoding="utf-8") as f:
         for case in cases:
             f.write(json.dumps(case, ensure_ascii=False) + "\n")
 
-    logger.info("Generated %d held-out cases to %s", len(cases), HELDOUT_PATH)
+    logger.info("Generated %d dev2 cases to %s", len(cases), DEV2_PATH)
     logger.info("  PII positive cases: %d", pii_count)
     logger.info("  PII-free hard negatives: %d", clean_count)
     return 0

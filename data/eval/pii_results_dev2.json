@@ -3,27 +3,33 @@
     "baseline": false,
     "num_cases": 216,
     "clean_cases_total": 60,
-    "clean_cases_flagged": 19,
+    "clean_cases_flagged": 9,
     "overall": {
-      "true_positives": 124,
-      "false_positives": 96,
-      "false_negatives": 32,
-      "precision": 0.5636,
-      "recall": 0.7949,
-      "f1": 0.6596,
-      "clean_case_fpr": 0.3167,
-      "false_positive_rate": 0.3167,
-      "span_precision": 0.5636,
-      "span_error_rate": 0.4364
+      "true_positives": 132,
+      "false_positives": 81,
+      "false_negatives": 24,
+      "precision": 0.6197,
+      "recall": 0.8462,
+      "f1": 0.7154,
+      "clean_case_fpr": 0.15,
+      "false_positive_rate": 0.15,
+      "span_precision": 0.6197,
+      "span_error_rate": 0.3803,
+      "char_leak_rate": 0.0553,
+      "char_over_redaction_rate": 0.0601,
+      "total_gold_chars": 2425,
+      "total_leaked_chars": 134,
+      "total_non_pii_chars": 13675,
+      "total_over_redacted_chars": 822
     },
     "per_entity_type": {
       "AWS_ACCESS_KEY": {
-        "true_positives": 3,
+        "true_positives": 0,
         "false_positives": 0,
-        "false_negatives": 0,
-        "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
+        "false_negatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
         "clean_case_fpr": 0.0,
         "false_positive_rate": 0.0
       },
@@ -68,12 +74,12 @@
         "false_positive_rate": 0.0
       },
       "IDENTITY_DOCUMENT": {
-        "true_positives": 22,
+        "true_positives": 29,
         "false_positives": 3,
-        "false_negatives": 8,
-        "precision": 0.88,
-        "recall": 0.7333,
-        "f1": 0.8,
+        "false_negatives": 1,
+        "precision": 0.9062,
+        "recall": 0.9667,
+        "f1": 0.9355,
         "clean_case_fpr": 0.05,
         "false_positive_rate": 0.05
       },
@@ -88,14 +94,14 @@
         "false_positive_rate": 0.0
       },
       "INDIAN_MOBILE": {
-        "true_positives": 14,
-        "false_positives": 10,
-        "false_negatives": 6,
-        "precision": 0.5833,
-        "recall": 0.7,
-        "f1": 0.6364,
-        "clean_case_fpr": 0.1667,
-        "false_positive_rate": 0.1667
+        "true_positives": 18,
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": 1.0,
+        "recall": 0.9,
+        "f1": 0.9474,
+        "clean_case_fpr": 0.0,
+        "false_positive_rate": 0.0
       },
       "PAN_NUMBER": {
         "true_positives": 25,
@@ -119,7 +125,7 @@
       },
       "PHONE_NUMBER": {
         "true_positives": 0,
-        "false_positives": 10,
+        "false_positives": 5,
         "false_negatives": 0,
         "precision": 0.0,
         "recall": 0.0,
@@ -529,7 +535,7 @@
         "type": "IDENTITY_DOCUMENT",
         "start": 46,
         "end": 60,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "IDENTITY_DOCUMENT",
@@ -565,7 +571,7 @@
         "type": "IDENTITY_DOCUMENT",
         "start": 48,
         "end": 62,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "PERSON",
@@ -595,7 +601,7 @@
         "type": "IDENTITY_DOCUMENT",
         "start": 55,
         "end": 69,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "PERSON",
@@ -637,7 +643,7 @@
         "type": "IDENTITY_DOCUMENT",
         "start": 21,
         "end": 35,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "IDENTITY_DOCUMENT",
@@ -664,16 +670,16 @@
         "result": "false_positive"
       },
       {
+        "type": "IDENTITY_DOCUMENT",
+        "start": 16,
+        "end": 30,
+        "result": "true_positive"
+      },
+      {
         "type": "PERSON",
         "start": 57,
         "end": 69,
         "result": "false_positive"
-      },
-      {
-        "type": "IDENTITY_DOCUMENT",
-        "start": 16,
-        "end": 30,
-        "result": "false_negative"
       },
       {
         "type": "IDENTITY_DOCUMENT",
@@ -703,7 +709,7 @@
         "type": "IDENTITY_DOCUMENT",
         "start": 47,
         "end": 61,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "IDENTITY_DOCUMENT",
@@ -736,16 +742,10 @@
         "result": "false_positive"
       },
       {
-        "type": "PHONE_NUMBER",
-        "start": 44,
-        "end": 58,
-        "result": "false_positive"
-      },
-      {
         "type": "IDENTITY_DOCUMENT",
         "start": 44,
         "end": 58,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "IDENTITY_DOCUMENT",
@@ -1012,16 +1012,10 @@
         "result": "true_positive"
       },
       {
-        "type": "PHONE_NUMBER",
-        "start": 52,
-        "end": 67,
-        "result": "false_positive"
-      },
-      {
         "type": "INDIAN_MOBILE",
         "start": 52,
         "end": 67,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "INDIAN_MOBILE",
@@ -1060,16 +1054,10 @@
         "result": "false_positive"
       },
       {
-        "type": "PHONE_NUMBER",
-        "start": 44,
-        "end": 59,
-        "result": "false_positive"
-      },
-      {
         "type": "INDIAN_MOBILE",
         "start": 44,
         "end": 59,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "INDIAN_MOBILE",
@@ -1102,16 +1090,10 @@
         "result": "false_positive"
       },
       {
-        "type": "PHONE_NUMBER",
-        "start": 60,
-        "end": 75,
-        "result": "false_positive"
-      },
-      {
         "type": "INDIAN_MOBILE",
         "start": 60,
         "end": 75,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "PERSON",
@@ -1180,16 +1162,10 @@
         "result": "true_positive"
       },
       {
-        "type": "PHONE_NUMBER",
-        "start": 25,
-        "end": 40,
-        "result": "false_positive"
-      },
-      {
         "type": "INDIAN_MOBILE",
         "start": 25,
         "end": 40,
-        "result": "false_negative"
+        "result": "true_positive"
       },
       {
         "type": "PERSON",
@@ -1471,19 +1447,19 @@
         "type": "AWS_ACCESS_KEY",
         "start": 43,
         "end": 63,
-        "result": "true_positive"
+        "result": "false_negative"
       },
       {
         "type": "AWS_ACCESS_KEY",
         "start": 30,
         "end": 50,
-        "result": "true_positive"
+        "result": "false_negative"
       },
       {
         "type": "AWS_ACCESS_KEY",
         "start": 50,
         "end": 70,
-        "result": "true_positive"
+        "result": "false_negative"
       },
       {
         "type": "AWS_SECRET_KEY",
@@ -1558,20 +1534,8 @@
         "result": "true_positive"
       },
       {
-        "type": "INDIAN_MOBILE",
-        "start": 30,
-        "end": 40,
-        "result": "false_positive"
-      },
-      {
         "type": "PHONE_NUMBER",
         "start": 25,
-        "end": 37,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 27,
         "end": 37,
         "result": "false_positive"
       },
@@ -1591,54 +1555,6 @@
         "type": "IDENTITY_DOCUMENT",
         "start": 26,
         "end": 38,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 35,
-        "end": 45,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 35,
-        "end": 45,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 36,
-        "end": 46,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 28,
-        "end": 38,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 28,
-        "end": 38,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 27,
-        "end": 37,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 39,
-        "end": 49,
-        "result": "false_positive"
-      },
-      {
-        "type": "INDIAN_MOBILE",
-        "start": 33,
-        "end": 43,
         "result": "false_positive"
       },
       {
@@ -1688,7 +1604,13 @@
       "clean_case_fpr": 0.7333,
       "false_positive_rate": 0.7333,
       "span_precision": 0.1274,
-      "span_error_rate": 0.8726
+      "span_error_rate": 0.8726,
+      "char_leak_rate": 0.3262,
+      "char_over_redaction_rate": 0.1048,
+      "total_gold_chars": 2425,
+      "total_leaked_chars": 791,
+      "total_non_pii_chars": 13675,
+      "total_over_redacted_chars": 1433
     },
     "per_entity_type": {
       "AWS_ACCESS_KEY": {

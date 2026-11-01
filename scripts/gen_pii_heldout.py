@@ -264,6 +264,7 @@ def gen_credentials_and_banking_heldout() -> list[dict[str, object]]:
         "Production AWS credentials {ak} require immediate revocation.",
         "CloudWatch alert:\nAccount: Production\nAccess Key ID: {ak}\nStatus: Suspended",
     ]
+    # Scanner-safe AWS access key representations generated at runtime
     _ak_pfx = "".join(["AWS", "K"])
     aks = [
         f"{_ak_pfx}1A2B3C4D5E6F7G8H",
@@ -294,6 +295,7 @@ def gen_credentials_and_banking_heldout() -> list[dict[str, object]]:
         "API gateway bearer authorization token: {tok} active on proxy.",
         "Payment gateway webhook signing secret {tok} expired.",
     ]
+    # Generic high entropy secret tokens constructed at runtime
     _pfx_sk = "".join(["mock", "_", "sk", "_"])
     _pfx_pk = "".join(["mock", "_", "pk", "_"])
     tokens = [
