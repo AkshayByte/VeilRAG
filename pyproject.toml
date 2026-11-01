@@ -9,6 +9,7 @@ description = "Secure RAG agent with PII sanitization, local embeddings, and aud
 requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.5",
+    "pydantic-settings>=2.0",
     "presidio-analyzer>=0.4",
     "presidio-anonymizer>=0.4",
     "spacy>=3.7",
@@ -31,6 +32,8 @@ dev = [
     "pytest-asyncio>=0.23",
     "ruff>=0.3",
     "mypy>=1.8",
+    "faker>=20.0",
+    "types-PyYAML>=6.0",
 ]
 
 [project.scripts]
