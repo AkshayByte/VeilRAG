@@ -122,3 +122,18 @@ class VectorStore:
             metadatas=cast(Any, metadatas),
             ids=generated_ids,
         )
+
+    def peek(self, n: int = 3) -> list[dict[str, Any]]:
+        """Return the first *n* records from the collection for inspection."""
+        count = self._collection.count()
+        if count == 0:
+            return []
+        limit = min(n, count)
+        results = self._collection.get(limit=limit, include=["documents", "metadatas"])
+        docs = results.get("documents") or []
+        metas = results.get("metadatas") or []
+        ids = results.get("ids") or []
+        return [
+            {"id": cid, "document": doc, "metadata": dict(meta) if meta else {}}
+            for cid, doc, meta in zip(ids, docs, metas)
+        ]

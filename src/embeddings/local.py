@@ -97,7 +97,10 @@ class EmbeddingModel:
     @property
     def dimension(self) -> int:
         """Vector dimensionality of the embedding space."""
-        dim = self.model.get_sentence_embedding_dimension()
+        if hasattr(self.model, "get_embedding_dimension"):
+            dim = self.model.get_embedding_dimension()
+        else:
+            dim = self.model.get_sentence_embedding_dimension()
         return int(dim) if dim is not None else 0
 
     def embed(self, texts: list[SanitizedText]) -> NDArray[np.float32]:
