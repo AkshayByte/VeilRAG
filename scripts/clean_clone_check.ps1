@@ -39,8 +39,17 @@ try {
     & $py -m pip install -e ".[dev]"
     if ($LASTEXITCODE -ne 0) { throw "dependency installation failed" }
 
-    & $py -m spacy download en_core_web_lg
-    if ($LASTEXITCODE -ne 0) { throw "spacy model download failed" }
+    $spacyInstalled = $false
+    for ($attempt = 1; $attempt -le 3; $attempt++) {
+        & $py -m spacy download en_core_web_lg
+        if ($LASTEXITCODE -eq 0) {
+            $spacyInstalled = $true
+            break
+        }
+        Write-Warning "spacy download attempt $attempt failed, retrying in 3 seconds..."
+        Start-Sleep -Seconds 3
+    }
+    if (-not $spacyInstalled) { throw "spacy model download failed after 3 attempts" }
 
     Write-Host "`n[4/6] Ingesting and verifying corpus v1 in clean environment..."
     & $py -m src.rag.ingest --corpus v1
