@@ -135,22 +135,62 @@ def _build_pii_question(
     )
 
 
+def compute_accept_values(gold_val: str | None) -> list[str]:
+    """Compute acceptable match strings for a gold value with trailing units stripped.
+
+    Drops trailing unit phrases like:
+    - 'per month'
+    - 'per annum floating', 'per annum fixed', 'per annum reducing', 'per annum'
+    - '(X months rent)'
+    - 'standard excess'
+    - 'written notice'
+    """
+    if not gold_val:
+        return []
+    accepted: list[str] = [gold_val.strip()]
+    val = gold_val.strip()
+
+    patterns = [
+        r"\s+per\s+month$",
+        r"\s+per\s+annum\s+(?:floating|fixed|reducing)$",
+        r"\s+per\s+annum$",
+        r"\s+\(\d+\s+months?\s+rent\)$",
+        r"\s+standard\s+excess$",
+        r"\s+written\s+notice$",
+    ]
+    for pat in patterns:
+        stripped = re.sub(pat, "", val, flags=re.IGNORECASE).strip()
+        if stripped and stripped != val and stripped not in accepted:
+            accepted.append(stripped)
+            for sub_pat in patterns:
+                sub_stripped = re.sub(sub_pat, "", stripped, flags=re.IGNORECASE).strip()
+                if sub_stripped and sub_stripped not in accepted:
+                    accepted.append(sub_stripped)
+
+    return accepted
+
+
 def _get_sibling_values(
     doc_map: dict[str, dict[str, Any]],
     doc_type: str,
     target_filename: str,
     fact_key: str,
     gold_val: str,
+    accept_vals: list[str] | None = None,
 ) -> list[str]:
     """Return distinct values for fact_key across sibling documents of the same doc_type."""
     vals: set[str] = set()
-    gold_clean = " ".join(gold_val.strip().lower().split())
+    accepted_cleans = {
+        " ".join(v.strip().lower().split())
+        for v in ([gold_val] + (accept_vals or []))
+        if v
+    }
     for fname, meta in doc_map.items():
         if meta["doc_type"] == doc_type and fname != target_filename:
             v = meta["key_facts"].get(fact_key)
             if v:
                 v_clean = " ".join(v.strip().lower().split())
-                if v_clean == gold_clean or v_clean in gold_clean or gold_clean in v_clean:
+                if any(v_clean == a or v_clean in a or a in v_clean for a in accepted_cleans):
                     continue
                 vals.add(v.strip())
     return sorted(list(vals))
@@ -199,7 +239,10 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         org, _ = _extract_doc_headers(fname)
         q_text = _build_key_fact_question(meta["doc_type"], fname, org, fact_key)
         gold_val = meta["key_facts"][fact_key]
-        sib_vals = _get_sibling_values(doc_map, meta["doc_type"], fname, fact_key, gold_val)
+        accept_vals = compute_accept_values(gold_val)
+        sib_vals = _get_sibling_values(
+            doc_map, meta["doc_type"], fname, fact_key, gold_val, accept_vals
+        )
         qa_dev.append(
             {
                 "id": f"qa_dev_{idx:02d}",
@@ -209,6 +252,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_value": gold_val,
                 "planted_values": [],
                 "sibling_values": sib_vals,
+                "accept_values": accept_vals,
             }
         )
         idx += 1
@@ -227,6 +271,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_value": None,
                 "planted_values": planted,
                 "sibling_values": [],
+                "accept_values": [],
             }
         )
         idx += 1
@@ -241,6 +286,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_value": None,
                 "planted_values": [],
                 "sibling_values": [],
+                "accept_values": [],
             }
         )
         idx += 1
@@ -323,7 +369,10 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         org, _ = _extract_doc_headers(fname)
         q_text = _build_key_fact_question(meta["doc_type"], fname, org, fact_key)
         gold_val = meta["key_facts"][fact_key]
-        sib_vals = _get_sibling_values(doc_map, meta["doc_type"], fname, fact_key, gold_val)
+        accept_vals = compute_accept_values(gold_val)
+        sib_vals = _get_sibling_values(
+            doc_map, meta["doc_type"], fname, fact_key, gold_val, accept_vals
+        )
         qa_test.append(
             {
                 "id": f"qa_test_{t_idx:02d}",
@@ -333,6 +382,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_value": gold_val,
                 "planted_values": [],
                 "sibling_values": sib_vals,
+                "accept_values": accept_vals,
             }
         )
         t_idx += 1
@@ -351,6 +401,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_value": None,
                 "planted_values": planted,
                 "sibling_values": [],
+                "accept_values": [],
             }
         )
         t_idx += 1
@@ -365,6 +416,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_value": None,
                 "planted_values": [],
                 "sibling_values": [],
+                "accept_values": [],
             }
         )
         t_idx += 1

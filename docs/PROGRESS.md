@@ -351,12 +351,36 @@
 
 ---
 
+### 7. Dev Benchmark Evaluation & Prompt Tuning (Prompt 5 Part 2 Dev Run)
+
+1. **Scoring Logic & Dynamic Denominators**:
+   - Fixed answer correctness to strictly evaluate `key_fact` questions (refusals counted exclusively in refusal accuracy).
+   - Restricted LLM faithfulness judge evaluation strictly to `key_fact` questions.
+   - Dynamic per-dataset denominators (`ans_cnt`, `unans_cnt`, `pii_cnt`, `tot_cnt`) replacing hardcoded labels.
+   - Core value matching: added `accept_values` in `scripts/gen_qa.py` and `src/eval/rag_eval.py` stripping trailing unit phrases (e.g. `per month`, `per annum floating`) while maintaining strict token-boundary sibling exclusion.
+
+2. **One-Round Prompt & Verification Improvements**:
+   - **Grader Prompt**: Strictly evaluates query answerability and enforces matching document ID and organization named in the question; parses first word for exact binary yes/no. Reduced non-gold relevant chunk selections from 28 to 13.
+   - **Verifier Prompt**: Strict binary Yes/No format parsing first word; logs and counts unparseable replies.
+   - **Citation Context Validation**: Rejects generated answers if cited chunk IDs are absent from retrieved context (e.g., missing `.txt` suffix), triggering automatic regeneration and passing verified answer.
+
+3. **Dev Set Performance (`gemma3:4b`, Ablation D, 10 Questions)**:
+   - Retrieval Hit Rate: 6/6 (100.0%)
+   - Answer Correctness: 4/6 (66.7%)
+   - Refusal Accuracy: 2/2 (100.0%)
+   - PII Safe-Answer: 2/2 (100.0%)
+   - PII Leaks: 0/10
+   - Grader Parse Failures: 0; Verifier Parse Failures: 0
+   - Tagged as `rag-prompts-frozen`.
+
+---
+
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (138 tests passing)
-pytest tests/ -v -m "not slow"
+# 1. Full Unit Test Suite (152 tests passing)
+pytest tests/ -v
 
-# 2. RAG Evaluation Harness Unit Tests (16 tests passing)
+# 2. RAG Evaluation Harness Unit Tests
 pytest tests/test_rag_eval.py -v
 
 # 3. QA Benchmark Answerability Tests (Hermetic Chroma v2)
@@ -368,8 +392,8 @@ powershell -ExecutionPolicy Bypass -File scripts/clean_clone_check.ps1
 # 5. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
 python -m src.eval.pii_eval --dataset heldout
 
-# 6. RAG Evaluation Harness (Fake Provider CI Verification with Paired Analysis)
-python -m src.eval.rag_eval --provider fake --dataset test --ablation all --paired
+# 6. RAG Evaluation Harness (Dev set, Ollama, Ablation D)
+python -m src.eval.rag_eval --provider ollama --model gemma3:4b --dataset dev --ablation D
 
 # 7. Type and Linting Checks
 ruff check src/ tests/ scripts/
@@ -379,4 +403,5 @@ mypy src/ tests/ scripts/
 ---
 
 ## What is Next
-- **Prompt 5, Part 2**: Run live evaluation against real LLM providers (`anthropic` / `ollama`), analyze ablation trade-offs, and measure adversarial prompt injection resistance.
+- Run final frozen ablations A, B, C, D on the test set (`qa_test.jsonl`) with `gemma3:4b`.
+- Run paired bootstrap significance testing and generate final `docs/rag_results.md`.

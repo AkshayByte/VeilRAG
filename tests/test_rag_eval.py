@@ -430,6 +430,52 @@ def test_metric_answer_correctness_sibling_disqualification() -> None:
     )
 
 
+def test_answer_correctness_accept_values_trailing_units() -> None:
+    """Test matching core gold value with trailing unit phrases dropped."""
+    gold = "INR 1,10,000 per month"
+    accepts = ["INR 1,10,000 per month", "INR 1,10,000"]
+    sibs = ["INR 2,25,000 per month", "INR 4,50,000 per month"]
+
+    # 1. Clean answer with core amount "INR 1,10,000" passes
+    ans_core = "The monthly base rent is INR 1,10,000."
+    assert (
+        check_answer_correctness(
+            gold, ans_core, sibling_values=sibs, accept_values=accepts
+        )
+        is True
+    )
+
+    # 2. Answer with full gold value also passes
+    ans_full = "The monthly base rent is INR 1,10,000 per month."
+    assert (
+        check_answer_correctness(
+            gold, ans_full, sibling_values=sibs, accept_values=accepts
+        )
+        is True
+    )
+
+    # 3. Answer mentioning a sibling amount is rejected
+    ans_sibling = "The base rent is INR 1,10,000 or INR 2,25,000."
+    assert (
+        check_answer_correctness(
+            gold, ans_sibling, sibling_values=sibs, accept_values=accepts
+        )
+        is False
+    )
+
+    # 4. Floating interest rate core matching
+    gold_rate = "8.75% per annum floating"
+    accepts_rate = ["8.75% per annum floating", "8.75%", "8.75% per annum"]
+    rate_sibs = ["10.25% per annum fixed", "9.60% per annum reducing"]
+    ans_rate_core = "The applied interest rate is 8.75%."
+    assert (
+        check_answer_correctness(
+            gold_rate, ans_rate_core, sibling_values=rate_sibs, accept_values=accepts_rate
+        )
+        is True
+    )
+
+
 def test_verify_corpus_v2_store_guards(tmp_path: Path) -> None:
     """Pre-run guard aborts on empty store, wrong count, fake embeddings, or non-v2 corpus."""
     import chromadb

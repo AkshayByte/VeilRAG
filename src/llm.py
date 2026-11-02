@@ -210,7 +210,7 @@ class OllamaAdapter:
         return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
 
     def get_model_digest(self) -> str:
-        """Fetch and cache the model digest from the Ollama /api/show endpoint."""
+        """Fetch and cache the model digest from the Ollama /api/show or /api/tags endpoint."""
         if self._model_digest is not None:
             return self._model_digest
         try:
@@ -219,12 +219,24 @@ class OllamaAdapter:
                     f"{self.base_url}/api/show",
                     json={"model": self.model},
                 )
-                res.raise_for_status()
-                data = res.json()
-            self._model_digest = data.get("digest", "unknown")
+                if res.is_success:
+                    data = res.json()
+                    digest = data.get("digest")
+                    if digest:
+                        self._model_digest = str(digest)
+                        return self._model_digest
+                # Fall back to /api/tags
+                tags_res = client.get(f"{self.base_url}/api/tags")
+                if tags_res.is_success:
+                    for m in tags_res.json().get("models", []):
+                        name = m.get("name", "")
+                        if name == self.model or name.startswith(f"{self.model}:"):
+                            self._model_digest = str(m.get("digest", "unknown"))
+                            return self._model_digest
+            self._model_digest = "unknown"
         except Exception:
             self._model_digest = "unknown"
-        return self._model_digest  # type: ignore[return-value]
+        return self._model_digest
 
     def get_server_version(self) -> str:
         """Fetch the Ollama server version string from /api/version."""

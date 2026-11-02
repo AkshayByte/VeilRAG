@@ -158,15 +158,22 @@ def check_answer_correctness(
     gold_value: str | None,
     answer: str,
     sibling_values: list[str] | None = None,
+    accept_values: list[str] | None = None,
 ) -> bool:
-    """Programmatically match gold value against answer.
+    """Programmatically match gold value (or accepted core variants) against answer.
 
-    A match counts ONLY if the answer contains the gold value AND no other
-    value of the same fact type from sibling documents (e.g. answer says
-    '30, 45 or 60 days' with gold 60 = incorrect).
+    A match counts ONLY if the answer contains the gold value (or any accepted core value
+    with trailing unit phrases dropped) AND no other value of the same fact type from
+    sibling documents (e.g. answer says '30, 45 or 60 days' with gold 60 = incorrect).
     """
     if not gold_value:
         return False
+
+    candidates = [gold_value]
+    if accept_values:
+        for av in accept_values:
+            if av and av not in candidates:
+                candidates.append(av)
 
     def _token_match(v_str: str, text_str: str) -> bool:
         words = v_str.strip().split()
@@ -206,19 +213,34 @@ def check_answer_correctness(
                     return True
         return False
 
-    if not _val_in_text(gold_value, answer):
+    if not any(_val_in_text(cand, answer) for cand in candidates):
         return False
 
     if sibling_values:
-        clean_gold = " ".join(gold_value.lower().split())
+        clean_cands = {" ".join(c.lower().split()) for c in candidates}
+        unit_patterns = (
+            r"\s+per\s+month$",
+            r"\s+per\s+annum\s+(?:floating|fixed|reducing)$",
+            r"\s+per\s+annum$",
+            r"\s+\(\d+\s+months?\s+rent\)$",
+            r"\s+standard\s+excess$",
+            r"\s+written\s+notice$",
+        )
         for sib in sibling_values:
             clean_sib = " ".join(sib.lower().split())
             if not clean_sib:
                 continue
-            # Exclude any sibling equal to gold, or that is a substring of it or contains it
-            if clean_sib == clean_gold or clean_sib in clean_gold or clean_gold in clean_sib:
+            # Exclude sibling equal to any candidate, or substring of it or containing it
+            if any(clean_sib == c or clean_sib in c or c in clean_sib for c in clean_cands):
                 continue
-            if _val_in_text(sib, answer):
+
+            sib_forms = [sib]
+            for pat in unit_patterns:
+                stripped_s = re.sub(pat, "", sib, flags=re.IGNORECASE).strip()
+                if stripped_s and stripped_s != sib and stripped_s not in sib_forms:
+                    sib_forms.append(stripped_s)
+
+            if any(_val_in_text(sf, answer) for sf in sib_forms):
                 return False
 
     return True
@@ -312,6 +334,9 @@ class QuestionResult:
     tokens: int
     cost: float
     failures: list[str] = field(default_factory=list)
+    real_llm_calls: int = 0
+    audit_trace: list[dict[str, Any]] = field(default_factory=list)
+    unparseable_verifier_count: int = 0
 
 
 @dataclass
@@ -338,6 +363,7 @@ class AblationMetrics:
     latencies_ms: list[float] = field(default_factory=list)
     results: list[QuestionResult] = field(default_factory=list)
     question_successes: dict[str, bool] = field(default_factory=dict)
+    unparseable_verifier_count: int = 0
 
     @property
     def p50_latency_ms(self) -> float:
@@ -578,18 +604,32 @@ def run_single_ablation(
         try:
             snapshot = {
                 "ablation_key": ablation_key,
+                "answerable_count": metrics.answerable_count,
+                "unanswerable_count": metrics.unanswerable_count,
+                "pii_count": metrics.pii_count,
+                "total_questions": metrics.total_questions,
+                "unparseable_verifier_count": metrics.unparseable_verifier_count,
                 "results": [
                     {
                         "qid": r.qid,
+                        "category": r.category,
+                        "gold_doc": r.gold_doc,
+                        "gold_value": r.gold_value,
                         "answer": r.answer,
+                        "cited_chunks": re.findall(r"\[([a-zA-Z0-9_\-\.]+#chunk_\d+)\]", r.answer),
                         "answer_correct": r.answer_correct,
+                        "citation_correct": r.citation_correct,
                         "retrieval_hit": r.retrieval_hit,
+                        "refusal_correct": r.refusal_correct,
                         "pii_leak": r.pii_leak,
                         "faithfulness": r.faithfulness,
                         "duration_ms": r.duration_ms,
                         "tokens": r.tokens,
                         "cost": r.cost,
-                        "category": r.category,
+                        "failures": r.failures,
+                        "real_llm_calls": r.real_llm_calls,
+                        "audit_trace": r.audit_trace,
+                        "unparseable_verifier_count": r.unparseable_verifier_count,
                     }
                     for r in metrics.results
                 ],
@@ -635,8 +675,10 @@ def run_single_ablation(
         gold_val = q_item.get("gold_value")
         planted = q_item.get("planted_values", [])
         siblings = q_item.get("sibling_values", [])
+        accepts = q_item.get("accept_values", [])
 
         hits_before = getattr(cached_adapter, "hits", 0) if cached_adapter else 0
+        misses_before = getattr(cached_adapter, "misses", 0) if cached_adapter else 0
         t0 = time.perf_counter()
         agent_state = run_query(
             q_text,
@@ -648,7 +690,9 @@ def run_single_ablation(
         )
         duration_ms = (time.perf_counter() - t0) * 1000
         hits_after = getattr(cached_adapter, "hits", 0) if cached_adapter else 0
+        misses_after = getattr(cached_adapter, "misses", 0) if cached_adapter else 0
         cache_hit_occurred = hits_after > hits_before
+        real_calls = misses_after - misses_before
 
         ans = agent_state.get("final_response") or agent_state.get("raw_response", "")
         retrieved = agent_state.get("retrieved_docs", [])
@@ -675,9 +719,11 @@ def run_single_ablation(
             else:
                 failures.append(f"Retrieval miss: gold doc '{gold_doc}' not in retrieved chunks")
 
-        # Metric 2: Answer Correctness (with sibling value disqualification)
+        # Metric 2: Answer Correctness (key_fact questions only; sibling disqualification)
         if cat == "key_fact":
-            ans_ok = check_answer_correctness(gold_val, ans, sibling_values=siblings)
+            ans_ok = check_answer_correctness(
+                gold_val, ans, sibling_values=siblings, accept_values=accepts
+            )
             if ans_ok:
                 metrics.answer_correct_count += 1
             else:
@@ -686,9 +732,7 @@ def run_single_ablation(
                 )
         elif cat == "unanswerable":
             ans_ok = check_refusal(ans)
-            if ans_ok:
-                metrics.answer_correct_count += 1
-            else:
+            if not ans_ok:
                 failures.append("Failed to refuse unanswerable query")
         else:
             # PII question: correct if no PII was leaked and model didn't answer with secret
@@ -729,13 +773,20 @@ def run_single_ablation(
             if pii_safe:
                 metrics.pii_safe_answer_count += 1
 
-        # Metric 6: Faithfulness via LLM Judge
-        context_str = "\n\n".join([f"[{d.id}]\n{d.text}" for d in retrieved])
-        faithful, reason = evaluate_faithfulness_llm(judge_adapter, q_text, context_str, ans)
-        if faithful:
-            metrics.faithfulness_count += 1
+        # Metric 6: Faithfulness via LLM Judge (key_fact answerable questions only)
+        if cat == "key_fact":
+            context_str = "\n\n".join([f"[{d.id}]\n{d.text}" for d in retrieved])
+            faithful, reason = evaluate_faithfulness_llm(judge_adapter, q_text, context_str, ans)
+            if faithful:
+                metrics.faithfulness_count += 1
+            else:
+                failures.append(f"Judge flagged unfaithful: {reason}")
         else:
-            failures.append(f"Judge flagged unfaithful: {reason}")
+            faithful = True
+            reason = "Skipped for non-key_fact question"
+
+        q_unparseable = int(agent_state.get("unparseable_verifier_count", 0))
+        metrics.unparseable_verifier_count += q_unparseable
 
         q_res = QuestionResult(
             qid=qid,
@@ -756,6 +807,9 @@ def run_single_ablation(
             tokens=q_tokens,
             cost=q_cost,
             failures=failures,
+            real_llm_calls=real_calls,
+            audit_trace=agent_state.get("audit_trace", []),
+            unparseable_verifier_count=q_unparseable,
         )
         metrics.results.append(q_res)
 
@@ -893,33 +947,39 @@ def generate_results_markdown(
         ]
     )
 
+    # Determine dynamic denominators per dataset
+    ans_cnt = next((m.answerable_count for m in results_by_ablation.values()), 0)
+    unans_cnt = next((m.unanswerable_count for m in results_by_ablation.values()), 0)
+    pii_cnt = next((m.pii_count for m in results_by_ablation.values()), 0)
+    tot_cnt = next((m.total_questions for m in results_by_ablation.values()), 0)
+
     metrics_rows = [
         (
-            "Retrieval Hit Rate (denom: 26 answerable)",
+            f"Retrieval Hit Rate (denom: {ans_cnt} answerable)",
             lambda m: format_ci(m.retrieval_hits, m.answerable_count),
         ),
         (
-            "Answer Correctness — key_fact (denom: 26)",
+            f"Answer Correctness — key_fact (denom: {ans_cnt})",
             lambda m: format_ci(m.answer_correct_count, m.answerable_count),
         ),
         (
-            "Citation Correctness (denom: 26 answerable)",
+            f"Citation Correctness (denom: {ans_cnt} answerable)",
             lambda m: format_ci(m.citation_correct_count, m.answerable_count),
         ),
         (
-            "Refusal Accuracy — unanswerable (denom: 8)",
+            f"Refusal Accuracy — unanswerable (denom: {unans_cnt})",
             lambda m: format_ci(m.refusal_correct_count, m.unanswerable_count),
         ),
         (
-            "PII Safe-Answer Rate — pii_extraction (denom: 6)",
+            f"PII Safe-Answer Rate — pii_extraction (denom: {pii_cnt})",
             lambda m: format_ci(m.pii_safe_answer_count, m.pii_count),
         ),
         (
-            "PII Leak Rate — all questions (Lower is better)",
+            f"PII Leak Rate — all questions (denom: {tot_cnt}, Lower is better)",
             lambda m: format_ci(m.pii_leak_count, m.total_questions),
         ),
         (
-            "Faithfulness LLM Judge — answerable (denom: 26)",
+            f"Faithfulness LLM Judge — answerable (denom: {ans_cnt})",
             lambda m: format_ci(m.faithfulness_count, m.answerable_count),
         ),
     ]
@@ -1236,12 +1296,12 @@ def main() -> None:
         faith_str = format_ci(metrics.faithfulness_count, metrics.answerable_count)
         pii_safe_str = format_ci(metrics.pii_safe_answer_count, metrics.pii_count)
 
-        print(f"  Retrieval Hit Rate (26 answerable): {hit_str}")
-        print(f"  Answer Correctness (26 answerable): {ans_str}")
-        print(f"  Refusal Accuracy   ( 8 unanswer.): {ref_str}")
-        print(f"  PII Safe-Answer    ( 6 PII quest.): {pii_safe_str}")
+        print(f"  Retrieval Hit Rate ({metrics.answerable_count:>2} answerable): {hit_str}")
+        print(f"  Answer Correctness ({metrics.answerable_count:>2} answerable): {ans_str}")
+        print(f"  Refusal Accuracy   ({metrics.unanswerable_count:>2} unanswer.): {ref_str}")
+        print(f"  PII Safe-Answer    ({metrics.pii_count:>2} PII quest.): {pii_safe_str}")
         print(f"  PII Leak Count:     {metrics.pii_leak_count}/{metrics.total_questions}")
-        print(f"  Faithfulness (26 answerable):       {faith_str}")
+        print(f"  Faithfulness ({metrics.answerable_count:>2} answerable):       {faith_str}")
         if metrics.latencies_ms and args.provider != "fake":
             lat_str = f"{metrics.p50_latency_ms:.1f}ms / {metrics.p95_latency_ms:.1f}ms"
         else:

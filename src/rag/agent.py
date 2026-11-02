@@ -24,8 +24,9 @@ Security Invariants
 from __future__ import annotations
 
 import logging
+import re
 import time
-from typing import Any, Literal, TypedDict
+from typing import Any, Literal, NotRequired, TypedDict
 
 from langgraph.graph import END, StateGraph
 from langgraph.graph.state import CompiledStateGraph
@@ -66,6 +67,7 @@ class AgentState(TypedDict):
     cost: float
     duration_ms: float
     audit_trace: list[dict[str, Any]]
+    unparseable_verifier_count: NotRequired[int]
 
 
 def build_graph(
@@ -193,23 +195,38 @@ def build_graph(
         q = state["sanitized_query"]
         relevant: list[RetrievedDocument] = []
         new_prompts: list[str] = []
+        grader_decisions: list[dict[str, Any]] = []
         tokens_added = 0
         cost_added = 0.0
 
         for d in docs:
             p_text = (
-                f"You are a document grader evaluating relevance to a user question.\n"
+                f"You are a document grader evaluating relevance to a user question.\n\n"
                 f"Question: {q}\n\n"
                 f"Document [{d.id}]:\n{d.text}\n\n"
-                f"Does this document contain information relevant to answering the question? "
-                f"Answer yes or no."
+                f"A document chunk is relevant ONLY IF it contains the answer to the "
+                f"question AND matches any document ID or organization named in the question.\n"
+                f"If the document is for a different organization or document ID, or does not "
+                f"contain the answer, it is not relevant.\n"
+                f"Output must be exactly Yes or No."
             )
             safe_p = SanitizedText(p_text, _sentinel=SanitizedText._SENTINEL)
             new_prompts.append(p_text)
             resp = active_adapter.complete(safe_p)
             tokens_added += resp.input_tokens + resp.output_tokens
             cost_added += resp.cost
-            if "yes" in resp.text.lower():
+            raw_t = resp.text.strip()
+            words = raw_t.split()
+            first_w = words[0].lower().rstrip(".,:;!?") if words else ""
+            is_rel = (first_w == "yes")
+            is_clean = (first_w in ("yes", "no")) and (len(words) == 1)
+            grader_decisions.append({
+                "chunk_id": d.id,
+                "response_text": raw_t,
+                "relevant": is_rel,
+                "is_clean": is_clean,
+            })
+            if is_rel:
                 relevant.append(d)
 
         dur = (time.perf_counter() - t0) * 1000
@@ -224,10 +241,12 @@ def build_graph(
 
         trace_entry = {
             "node": "grade_documents",
+            "stage": "grade_documents",
             "duration_ms": dur,
             "tokens": tokens_added,
             "cost": cost_added,
             "relevant_count": len(relevant),
+            "decisions": grader_decisions,
         }
 
         return {
@@ -417,12 +436,18 @@ def build_graph(
 
         docs = state.get("relevant_docs", []) or state.get("retrieved_docs", [])
         context_str = "\n\n".join([f"[{d.id}]\n{d.text}" for d in docs])
+        valid_chunk_ids = {d.id for d in docs}
+
+        # Citation check: if answer cites chunk IDs not in context, treat as failed verification
+        initial_cites = re.findall(r"\[([a-zA-Z0-9_\-\.]+#chunk_\d+)\]", raw_ans)
+        initial_invalid_cites = [c for c in initial_cites if c not in valid_chunk_ids]
 
         verify_p = (
             f"You are a factual verification assistant checking for hallucinations.\n\n"
             f"Context:\n{context_str}\n\n"
             f"Answer:\n{raw_ans}\n\n"
-            f"Is every factual claim in the answer supported by the context? Answer yes or no."
+            f"Is every factual claim in the answer supported by the context?\n"
+            f"Output must be exactly Yes or No."
         )
         safe_v = SanitizedText(verify_p, _sentinel=SanitizedText._SENTINEL)
         v_resp = active_adapter.complete(safe_v)
@@ -431,17 +456,36 @@ def build_graph(
         new_prompts = [verify_p]
         final_raw = raw_ans
 
-        if "yes" in v_resp.text.lower():
+        initial_resp_text = v_resp.text.strip()
+        v1_words = initial_resp_text.split()
+        v1_first = v1_words[0].lower().rstrip(".,:;!?") if v1_words else ""
+        v1_unparseable = v1_first not in ("yes", "no")
+        unparseable_count = 1 if v1_unparseable else 0
+
+        # Initial verification succeeds only if first word is 'yes' AND citations are in context
+        initial_verified = (v1_first == "yes") and (len(initial_invalid_cites) == 0)
+
+        rejected_answer: str | None = None
+        regen_answer: str | None = None
+        secondary_verified: bool | None = None
+        secondary_resp_text: str | None = None
+
+        if initial_verified:
             logger.info("Verification passed: factual claims confirmed supported")
         else:
-            logger.warning("Verification failed: unsupported claims detected")
+            logger.warning(
+                "Verification failed: unsupported claims or invalid citations (invalid: %s)",
+                initial_invalid_cites,
+            )
+            rejected_answer = raw_ans
             if state.get("regeneration_count", 0) < 1:
                 # Regenerate once
                 regen_p = (
-                    f"The previous answer contained unsupported claims.\n\n"
+                    f"The previous answer contained unsupported claims or invalid citations.\n\n"
                     f"Context:\n{context_str}\n\n"
                     f"Question: {state['sanitized_query']}\n\n"
-                    f"Generate an answer strictly supported by the context, citing chunk IDs. "
+                    f"Generate an answer strictly supported by the context, citing ONLY chunk IDs "
+                    f"present in the context above (e.g. [doc_id.txt#chunk_n]). "
                     f"If the context does not contain the answer, reply 'I don't know.'"
                 )
                 safe_r = SanitizedText(regen_p, _sentinel=SanitizedText._SENTINEL)
@@ -449,20 +493,31 @@ def build_graph(
                 r_resp = active_adapter.complete(safe_r)
                 tokens_added += r_resp.input_tokens + r_resp.output_tokens
                 cost_added += r_resp.cost
+                regen_answer = r_resp.text
 
                 # Second verification check
+                regen_cites = re.findall(r"\[([a-zA-Z0-9_\-\.]+#chunk_\d+)\]", r_resp.text)
+                regen_invalid_cites = [c for c in regen_cites if c not in valid_chunk_ids]
+
                 v2_p = (
                     f"Context:\n{context_str}\n\n"
                     f"Answer:\n{r_resp.text}\n\n"
-                    f"Is every claim supported by the context? Answer yes or no."
+                    f"Is every claim supported by the context?\n"
+                    f"Output must be exactly Yes or No."
                 )
                 safe_v2 = SanitizedText(v2_p, _sentinel=SanitizedText._SENTINEL)
                 new_prompts.append(v2_p)
                 v2_resp = active_adapter.complete(safe_v2)
                 tokens_added += v2_resp.input_tokens + v2_resp.output_tokens
                 cost_added += v2_resp.cost
+                secondary_resp_text = v2_resp.text.strip()
+                v2_words = secondary_resp_text.split()
+                v2_first = v2_words[0].lower().rstrip(".,:;!?") if v2_words else ""
+                if v2_first not in ("yes", "no"):
+                    unparseable_count += 1
+                secondary_verified = (v2_first == "yes") and (len(regen_invalid_cites) == 0)
 
-                if "yes" in v2_resp.text.lower():
+                if secondary_verified:
                     final_raw = r_resp.text
                 else:
                     final_raw = "I don't know."
@@ -479,14 +534,27 @@ def build_graph(
 
         trace_entry = {
             "node": "verify_answer",
+            "stage": "verify_answer",
             "duration_ms": dur,
             "tokens": tokens_added,
             "cost": cost_added,
+            "verified": initial_verified,
+            "verifier_response": initial_resp_text,
+            "invalid_citations": initial_invalid_cites,
+            "unparseable": v1_unparseable,
+            "rejected_answer": rejected_answer,
+            "regenerated_answer": regen_answer,
+            "secondary_verified": secondary_verified,
+            "secondary_verifier_response": secondary_resp_text,
+            "unparseable_verifier_count": unparseable_count,
         }
 
         return {
             "raw_response": final_raw,
             "regeneration_count": state.get("regeneration_count", 0) + 1,
+            "unparseable_verifier_count": (
+                state.get("unparseable_verifier_count", 0) + unparseable_count
+            ),
             "prompts": state.get("prompts", []) + new_prompts,
             "tokens": state.get("tokens", 0) + tokens_added,
             "cost": state.get("cost", 0.0) + cost_added,
@@ -632,6 +700,7 @@ def run_query(
         "cost": 0.0,
         "duration_ms": 0.0,
         "audit_trace": [],
+        "unparseable_verifier_count": 0,
     }
 
     raw_final: dict[str, Any] = app.invoke(initial_state)
@@ -658,4 +727,5 @@ def run_query(
         cost=raw_final["cost"],
         duration_ms=raw_final["duration_ms"],
         audit_trace=raw_final["audit_trace"],
+        unparseable_verifier_count=raw_final.get("unparseable_verifier_count", 0),
     )
