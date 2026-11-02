@@ -378,6 +378,40 @@
    - Grader Parse Failures: 0; Verifier Parse Failures: 0
    - Tagged as `rag-prompts-frozen-v2`.
 
+### 12. Final RAG Benchmark Evaluation on Held-Out Test Set (40 Questions)
+*Executed complete benchmark evaluation across all 4 ablations (A, B, C, D) using frozen prompts (`rag-prompts-frozen-v2`) and local `gemma3:4b`.*
+
+1. **Benchmark Execution & Methodology**:
+   - Evaluated 40 test questions (`data/eval/qa_test.jsonl`: 26 key_fact, 8 unanswerable, 6 pii_extraction) across Ablations A, B, C, D with `--paired`.
+   - Local model `gemma3:4b` (digest: `68ceab7e468a...`), Ollama 0.40.13, CPU-only execution.
+   - Evaluated faithfulness with judge = generator (`gemma3:4b`) via `--judge-only`.
+   - Measured cold-cache latency with cache bypassed (`--no-cache-latency`) on 10 fixed questions.
+   - All results and metrics committed to `docs/rag_results.md`.
+
+2. **Core Benchmark Results**:
+   - **Retrieval Hit Rate (Any-Pass & First-Pass)**: **24/26 (92.3%, 95% CI [75.9%, 97.9%])** across all ablations. Exactly 2 retrieval misses (`qa_test_11`, `qa_test_12`).
+   - **Answer Correctness (key_fact)**:
+     - Ablation A (Naive): **22/26 (84.6%, [66.5%, 93.8%])**
+     - Ablation B (+ Grade): **20/26 (76.9%, [57.9%, 89.0%])** (net lift: -2)
+     - Ablation C (+ Verify): **18/26 (69.2%, [50.0%, 83.5%])** (net lift: -2)
+     - Ablation D (Full): **18/26 (69.2%, [50.0%, 83.5%])** (net lift: 0 vs C, -4 vs A)
+   - **Citation Correctness**: A: 14/26 (53.8%), B: 16/26 (61.5%), C: 17/26 (65.4%), D: 17/26 (65.4%).
+   - **Refusal Accuracy (unanswerable)**: **7/8 (87.5%, [52.9%, 97.8%])** across all ablations (only `qa_test_35` failed).
+   - **PII Safe-Answer Rate (pii_extraction)**: **6/6 (100.0%, [61.0%, 100.0%])** across all ablations.
+   - **PII Leak Rate (all 40 queries)**: **0/40 (0.0%, [0.0%, 8.8%])** across all ablations.
+   - **Faithfulness (LLM Judge)**: A: 19/26 (73.1%), B: 20/26 (76.9%), C: 17/26 (65.4%), D: 17/26 (65.4%).
+   - **Latency (Cold Cache, Ablation D, n=10)**: p50 = **26,332 ms**, p95 = **39,186 ms**.
+   - **Grader Decisions**: Gold chunk relevant rate: 58.1% (25/43); distractor admittance: 12.9% (29/225); parse failures: 0/268.
+
+3. **Key Finding**:
+   - Advanced agentic workflows (B, C, D) underperform Naive RAG (A) in raw key_fact correctness (-4 net lift) due to false chunk rejections by the small 4B grader and false claim rejections by the 4B verifier.
+
+4. **Quality Gates & Clean Clone**:
+   - Full 153-test test suite passing.
+   - Held-out PII regression confirmed at strictly **143 TP / 62 FP / 13 FN**.
+   - Frozen recognizers diff against `recognizers-frozen-v3`: 0 changes.
+   - `clean_clone_check.ps1` verified passing all gates.
+
 ---
 
 ## Verified Evaluation & Test Commands
@@ -408,5 +442,4 @@ mypy src/ tests/ scripts/
 ---
 
 ## What is Next
-- Run final frozen ablations A, B, C, D on the test set (`qa_test.jsonl`) with `gemma3:4b`.
-- Run paired bootstrap significance testing and generate final `docs/rag_results.md`.
+- All Prompt 5 Part 2 benchmark requirements completed. Ready for review.

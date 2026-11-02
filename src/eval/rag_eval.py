@@ -41,7 +41,7 @@ from src.config import PIPELINE_MODE, settings
 from src.embeddings import FakeEmbeddingModel, get_embedding_model
 from src.llm import CachedLLMAdapter, LLMAdapter, get_adapter
 from src.rag.agent import run_query
-from src.rag.retriever import RetrievedDocument
+from src.rag.retriever import RetrievedDocument, VectorStore
 from src.sanitizer import SanitizedText, sanitize
 
 logger = logging.getLogger(__name__)
@@ -538,6 +538,8 @@ def run_single_ablation(
     max_cost_usd: float | None = None,
     no_cache_latency: bool = False,
     partial_dir: Path | None = None,
+    dataset: str = "test",
+    judge_only: bool = False,
 ) -> AblationMetrics:
     """Execute evaluation for one ablation over the provided questions.
 
@@ -561,6 +563,10 @@ def run_single_ablation(
         When ``True`` the cache is bypassed while recording latency samples.
     partial_dir:
         Directory for partial-results JSON files (defaults to ``CACHE_DIR``).
+    dataset:
+        Name of dataset being evaluated (e.g. ``"dev"`` or ``"test"``).
+    judge_only:
+        When ``True``, re-evaluates only faithfulness on previously completed runs.
     """
     cfg = ABLATION_CONFIGS[ablation_key]
     ans_count = sum(1 for q in questions if q["category"] == "key_fact")
@@ -586,14 +592,66 @@ def run_single_ablation(
     # --- Partial results: load prior run and skip already-answered questions ---
     _partial_dir = partial_dir or CACHE_DIR
     _partial_dir.mkdir(parents=True, exist_ok=True)
-    partial_file = _partial_dir / f"partial_results_{ablation_key}.json"
+    if no_cache_latency:
+        partial_file = _partial_dir / f"partial_results_{dataset}_{ablation_key}_latency.json"
+    else:
+        partial_file = _partial_dir / f"partial_results_{dataset}_{ablation_key}.json"
+
     completed_ids: set[str] = set()
-    if partial_file.exists():
+    if partial_file.exists() and not no_cache_latency:
         try:
             with open(partial_file, encoding="utf-8") as pf:
                 prior = json.load(pf)
-            for r in prior.get("results", []):
-                completed_ids.add(r["qid"])
+            for raw_r in prior.get("results", []):
+                q_res = QuestionResult(
+                    qid=raw_r["qid"],
+                    question=raw_r.get("question", ""),
+                    category=raw_r["category"],
+                    gold_doc=raw_r.get("gold_doc"),
+                    gold_value=raw_r.get("gold_value"),
+                    answer=raw_r["answer"],
+                    retrieval_hit=raw_r.get("retrieval_hit", False),
+                    first_pass_retrieval_hit=raw_r.get("first_pass_retrieval_hit", False),
+                    retrieved_doc_ids=raw_r.get("retrieved_doc_ids", []),
+                    answer_correct=raw_r.get("answer_correct", False),
+                    citation_correct=raw_r.get("citation_correct", False),
+                    refusal_correct=raw_r.get("refusal_correct", False),
+                    pii_leak=raw_r.get("pii_leak", False),
+                    pii_leak_details=raw_r.get("pii_leak_details", []),
+                    faithfulness=raw_r.get("faithfulness", False),
+                    faithfulness_reason=raw_r.get("faithfulness_reason", ""),
+                    duration_ms=raw_r.get("duration_ms", 0.0),
+                    tokens=raw_r.get("tokens", 0),
+                    cost=raw_r.get("cost", 0.0),
+                    failures=raw_r.get("failures", []),
+                    real_llm_calls=raw_r.get("real_llm_calls", 0),
+                    audit_trace=raw_r.get("audit_trace", []),
+                    unparseable_verifier_count=raw_r.get("unparseable_verifier_count", 0),
+                )
+                metrics.results.append(q_res)
+                completed_ids.add(q_res.qid)
+                if q_res.category == "key_fact":
+                    if q_res.retrieval_hit:
+                        metrics.retrieval_hits += 1
+                    if q_res.first_pass_retrieval_hit:
+                        metrics.first_pass_retrieval_hits += 1
+                    if q_res.answer_correct:
+                        metrics.answer_correct_count += 1
+                    if q_res.citation_correct:
+                        metrics.citation_correct_count += 1
+                    if q_res.faithfulness:
+                        metrics.faithfulness_count += 1
+                elif q_res.category == "unanswerable":
+                    if q_res.refusal_correct:
+                        metrics.refusal_correct_count += 1
+                elif q_res.category == "pii_extraction":
+                    if q_res.answer_correct:
+                        metrics.pii_safe_answer_count += 1
+                if q_res.pii_leak:
+                    metrics.pii_leak_count += 1
+                metrics.total_tokens += q_res.tokens
+                metrics.total_cost += q_res.cost
+                metrics.unparseable_verifier_count += q_res.unparseable_verifier_count
             logger.info(
                 "Resuming ablation %s: %d questions already completed",
                 ablation_key,
@@ -606,6 +664,7 @@ def run_single_ablation(
         """Persist the current metrics snapshot to disk (crash-safe)."""
         try:
             snapshot = {
+                "dataset": dataset,
                 "ablation_key": ablation_key,
                 "answerable_count": metrics.answerable_count,
                 "unanswerable_count": metrics.unanswerable_count,
@@ -615,6 +674,7 @@ def run_single_ablation(
                 "results": [
                     {
                         "qid": r.qid,
+                        "question": r.question,
                         "category": r.category,
                         "gold_doc": r.gold_doc,
                         "gold_value": r.gold_value,
@@ -643,6 +703,34 @@ def run_single_ablation(
                 json.dump(snapshot, pf, ensure_ascii=False)
         except Exception as exc:
             logger.warning("Failed to save partial results: %s", exc)
+
+    if judge_only:
+        logger.info("Executing judge-only re-evaluation for %s...", cfg["name"])
+        metrics.faithfulness_count = 0
+        v_store = VectorStore()
+        for r in metrics.results:
+            if r.category == "key_fact" and r.answer not in ("I don't know.", ""):
+                context_str = ""
+                if r.retrieved_doc_ids:
+                    try:
+                        docs_res = v_store._collection.get(ids=r.retrieved_doc_ids)
+                        res_ids = docs_res.get("ids") or []
+                        res_docs = docs_res.get("documents") or []
+                        context_str = "\n\n".join(
+                            f"[{cid}]\n{txt}"
+                            for cid, txt in zip(res_ids, res_docs)
+                        )
+                    except Exception:
+                        context_str = ""
+                faithful, reason = evaluate_faithfulness_llm(
+                    judge_adapter, r.question, context_str, r.answer
+                )
+                r.faithfulness = faithful
+                r.faithfulness_reason = reason
+                if faithful:
+                    metrics.faithfulness_count += 1
+        _save_partial()
+        return metrics
 
     # 1. Warmup query to ensure embedding and adapter models are loaded in memory
     logger.info("Executing warmup query for %s...", cfg["name"])
@@ -838,7 +926,7 @@ def run_single_ablation(
             eta = (elapsed / questions_done) * remaining
             print(
                 f"  [{ablation_key}] Q{idx}/{len(questions)} {qid} "
-                f"elapsed={elapsed:.1f}s ETA={max(0.0, eta):.1f}s"
+                f"step={duration_ms/1000:.1f}s elapsed={elapsed:.1f}s ETA={max(0.0, eta):.1f}s"
             )
 
     return metrics
@@ -1306,6 +1394,8 @@ def main() -> None:
             judge_adapter=judge_adapter,
             max_cost_usd=max_cost,
             no_cache_latency=args.no_cache_latency,
+            dataset=args.dataset,
+            judge_only=args.judge_only,
         )
         results_by_ablation[ab] = metrics
 
@@ -1315,6 +1405,7 @@ def main() -> None:
         ref_str = format_ci(metrics.refusal_correct_count, metrics.unanswerable_count)
         faith_str = format_ci(metrics.faithfulness_count, metrics.answerable_count)
         pii_safe_str = format_ci(metrics.pii_safe_answer_count, metrics.pii_count)
+        total_real_calls = sum(r.real_llm_calls for r in metrics.results)
 
         print(
             f"  Retrieval Hit Rate — Any-Pass   ({metrics.answerable_count:>2} answerable): "
@@ -1329,6 +1420,7 @@ def main() -> None:
         print(f"  PII Safe-Answer    ({metrics.pii_count:>2} PII quest.): {pii_safe_str}")
         print(f"  PII Leak Count:     {metrics.pii_leak_count}/{metrics.total_questions}")
         print(f"  Faithfulness ({metrics.answerable_count:>2} answerable):       {faith_str}")
+        print(f"  Real LLM Calls:     {total_real_calls}")
         if metrics.latencies_ms and args.provider != "fake":
             lat_str = f"{metrics.p50_latency_ms:.1f}ms / {metrics.p95_latency_ms:.1f}ms"
         else:
