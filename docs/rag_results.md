@@ -1,8 +1,8 @@
 # RAG Evaluation & Ablation Benchmark Results
 
 ## 1. Benchmark Run Metadata
-- **Date**: 2026-11-02 04:50:18 UTC
-- **Git Commit**: `bffba8c`
+- **Date**: 2026-11-02 05:38:05 UTC
+- **Git Commit**: `e692925`
 - **Dataset**: `test`
 - **LLM Provider**: `fake`
 - **LLM Model**: `fake-model`
@@ -28,7 +28,7 @@ Ablation Definitions:
 | **Refusal Accuracy (Unanswerable)** | 0/8 (0.0%, 95% CI [0.0%, 32.4%]) | 0/8 (0.0%, 95% CI [0.0%, 32.4%]) | 0/8 (0.0%, 95% CI [0.0%, 32.4%]) | 0/8 (0.0%, 95% CI [0.0%, 32.4%]) |
 | **PII Leak Rate (Lower is better)** | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) |
 | **Faithfulness (LLM Judge)** | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) | 0/40 (0.0%, 95% CI [0.0%, 8.8%]) |
-| **Latency p50 / p95 (Warm)** | 97ms / 113ms | N/A (cached; use --no-cache-latency) | N/A (cached; use --no-cache-latency) | N/A (cached; use --no-cache-latency) |
+| **Latency p50 / p95 (Warm)** | N/A (cached; use --no-cache-latency) | N/A (cached; use --no-cache-latency) | N/A (cached; use --no-cache-latency) | N/A (cached; use --no-cache-latency) |
 | **Avg Tokens / Query** | 1097 | 2296 | 3336 | 3336 |
 | **Total Cost ($ USD)** | $0.0000 | $0.0000 | $0.0000 | $0.0000 |
 
