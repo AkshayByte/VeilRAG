@@ -2,7 +2,7 @@
 
 ## 1. Benchmark Run Metadata
 - **Date**: 2026-11-02 14:48:48 UTC
-- **Git Commit**: `c23c5d0`
+- **Git Commit**: `0d7a89d`
 - **Git Tag**: `rag-prompts-frozen-v2`
 - **Dataset**: `test` (40 questions: 26 key_fact, 8 unanswerable, 6 pii_extraction)
 - **LLM Provider**: `ollama`
@@ -26,6 +26,7 @@
 - **B (+ Grading / Rewrite)**: LLM relevance grading of chunks before generation + corrective query rewriting if relevant chunks < 1.
 - **C (+ Verification)**: Chunk grading + LLM claim verification against cited context with regeneration fallback.
 - **D (Full System)**: Full corrective-RAG system + PII redaction input/output sanitization guard.
+  - *Note on Ablation D vs C*: Ablation D equals Ablation C by construction because the `output_guard` is a deterministic local regex/Presidio sanitizer that executes purely in-process and makes zero LLM calls. Thus token counts, model calls, and raw generation outputs in Ablation D equal Ablation C by construction.
 
 ### Evaluation Metrics Across Ablations
 All confidence intervals are two-sided Wilson 95% score intervals:
@@ -42,11 +43,13 @@ All confidence intervals are two-sided Wilson 95% score intervals:
 | **Faithfulness LLM Judge — key_fact (denom: 26)** | 19/26 (73.1%, [53.9%, 86.3%]) | 20/26 (76.9%, [57.9%, 89.0%]) | 17/26 (65.4%, [46.2%, 80.6%]) | 17/26 (65.4%, [46.2%, 80.6%]) |
 | **Latency p50 / p95 (Cold Cache)** | N/A | N/A | N/A | 26332ms / 39186ms (n=10) |
 | **Real LLM Calls (Non-Cache)** | 40 | 297 | 41 | 0 (cached from C) |
-| **Total Generated Tokens** | 60,305 | 144,636 | 180,860 | 180,860 |
+| **Total tokens (input+output)** | 60,305 | 144,636 | 180,860 | 180,860 |
 | **Avg Tokens / Query** | 1,508 | 3,616 | 4,522 | 4,522 |
 | **Total Cost ($ USD)** | $0.0000 | $0.0000 | $0.0000 | $0.0000 |
 
 *Note on PII Safe-Answer Rate*: In accordance with the evaluation specification, bare citations without leaked PII count as safe answers.
+
+*Caveat on Faithfulness Metric*: When the agent outputs `"I don't know."` on a `key_fact` question (due to conservative grading or verification fallback), the LLM judge evaluates the answer against the retrieved context containing the fact and flags it as unfaithful (`"NO. The context provides the information, but the answer states 'I don't know'"`). Because the judge penalizes safe refusals on answerable questions, and because the judge is identical to the generator (`gemma3:4b`), faithfulness scores are secondary and directional rather than an authoritative ground-truth assessment.
 
 ---
 
@@ -61,11 +64,77 @@ Paired comparisons track identical question items across successive ablation sta
 | **C → D** | + Verification | Full System (+ Guard) | 0 (`none`) | 0 (`none`) | **0** |
 | **A → D** | Naive RAG | Full System | 0 (`none`) | 4 (`qa_test_01`, `qa_test_03`, `qa_test_19`, `qa_test_23`) | **-4** |
 
-### Finding: Ablations B through D Underperform Naive A
-On this local 4B parameter model (`gemma3:4b`), adding corrective routing and claim verification resulted in a net **negative** lift (-4 questions). 
-- In **A → B**, grading rejected gold chunks in `qa_test_19` (KYC form verification mode) and `qa_test_23` (lease agreement escalation rate) because the 4B grader over-strictly expects literal keyword overlaps, causing the agent to exhaust retries and fall back to `"I don't know."`.
-- In **B → C**, the verification stage failed on `qa_test_01` (missing `.txt` extension in raw citation bracket) and `qa_test_03` (entitlement rate verification), prompting a regeneration that hallucinated or failed second-pass verification, reverting to `"I don't know."`.
-- Naive RAG (A) succeeded on all 4 of these questions because the unconstrained generator extracted the correct fact directly from the raw retrieved context.
+### Statistical Significance (Exact Sign Test)
+Across the 26 answerable questions, transitioning from Naive A to Full System D resulted in 0 fixed failures and 4 broken successes (net lift = -4). Under a two-tailed exact sign test (binomial distribution with $n=4$ discordant pairs, $k=0$ successes, $p=0.5$):
+$$p = 2 \times \binom{4}{0} (0.5)^4 = 2 \times 0.0625 = 0.125$$
+Because $p = 0.125 > 0.05$, the paired difference between Naive A and Ablation D is **not statistically conclusive** at the conventional $\alpha = 0.05$ significance threshold.
+
+### Hypothesis on B/C Losses & Diagnostic Evidence
+The attribution of performance losses in Ablations B and C to false rejections by the grader and verifier is a hypothesis grounded in the raw audit traces. Below are the 4 broken questions with the raw grader and verifier replies copied directly from the stored results files:
+
+#### 1. `qa_test_01` (Broke in B → C)
+- **Question**: What is the mandatory separation notice period in HR policy document hr_policy_03 of STARLIGHT TECHNOLOGIES PRIVATE LIMITED?
+- **Gold Doc & Value**: `hr_policy_03.txt` | `90 calendar days`
+- **Ablation A Answer (Correct)**: `The mandatory separation notice period in HR policy document hr_policy_03 of STARLIGHT TECHNOLOGIES PRIVATE LIMITED is 90 calendar days [hr_policy_03#chunk_0].`
+- **Ablation B Answer (Correct)**: `The mandatory separation notice period in HR policy document hr_policy_03 of STARLIGHT TECHNOLOGIES PRIVATE LIMITED is 90 calendar days [hr_policy_03#chunk_0].`
+- **Ablation C / D Answer (Broken)**: `I don't know.`
+- **Raw Grader Decisions**:
+  - `hr_policy_02.txt#chunk_0`: rel = True, reply = `'Yes'`
+  - `hr_policy_01.txt#chunk_0`: rel = True, reply = `'Yes'`
+  - `hr_policy_03.txt#chunk_0` (Gold): rel = True, reply = `'Yes'`
+  - `hr_policy_02.txt#chunk_1`: rel = True, reply = `'Yes'`
+- **Raw Verifier Replies**:
+  - Primary verification: `verified = False`, `verifier_response = 'No'`, `invalid_citations = ['hr_policy_03#chunk_0']` (generator omitted `.txt` extension in raw citation bracket `[hr_policy_03#chunk_0]`).
+  - Primary rejected answer: `The mandatory separation notice period in HR policy document hr_policy_03 of STARLIGHT TECHNOLOGIES PRIVATE LIMITED is 90 calendar days [hr_policy_03#chunk_0].`
+  - Regenerated draft answer: `[hr_policy_03.txt#chunk_3] states: “Upon voluntary resignation or formal separation, the mandatory contractual notice period is exactly 90 calendar days.”` (model hallucinated non-existent chunk 3).
+  - Secondary verification: `secondary_verified = False`, `secondary_verifier_response = 'No'`.
+  - Final fallback: `"I don't know."`
+
+#### 2. `qa_test_03` (Broke in B → C)
+- **Question**: What is the annual paid privilege leave entitlement in HR policy document hr_policy_07 of SILVEROAK LOGISTICS NETWORK LIMITED?
+- **Gold Doc & Value**: `hr_policy_07.txt` | `18 days of paid privilege leave`
+- **Ablation A Answer (Correct)**: `Each confirmed associate is granted 18 days of paid privilege leave per calendar cycle [hr_policy_07.txt#chunk_0].`
+- **Ablation B Answer (Correct)**: `Each confirmed associate is granted 18 days of paid privilege leave per calendar cycle [hr_policy_07.txt#chunk_0].`
+- **Ablation C / D Answer (Broken)**: `I don't know.`
+- **Raw Grader Decisions**:
+  - `hr_policy_07.txt#chunk_0` (Gold): rel = True, reply = `'Yes'`
+  - `hr_policy_08.txt#chunk_0`: rel = True, reply = `'Yes'`
+  - `vendor_contract_05.txt#chunk_0`: rel = False, reply = `'No'`
+  - `vendor_contract_07.txt#chunk_0`: rel = False, reply = `'No'`
+- **Raw Verifier Replies**:
+  - Primary verification: `verified = False`, `verifier_response = 'No'`, `invalid_citations = []` (verifier rejected the factual statement despite valid citation).
+  - Primary rejected answer: `Each confirmed associate is granted 18 days of paid privilege leave per calendar cycle [hr_policy_07.txt#chunk_0].`
+  - Regenerated draft answer: `[hr_policy_07.txt#chunk_3]` (bare citation with non-existent chunk 3).
+  - Secondary verification: `secondary_verified = False`, `secondary_verifier_response = 'No'`.
+  - Final fallback: `"I don't know."`
+
+#### 3. `qa_test_19` (Broke in A → B)
+- **Question**: What customer verification mode was recorded in KYC dossier document kyc_form_05 of SOLARIS PREMIER WEALTH ADVISORY LIMITED?
+- **Gold Doc & Value**: `kyc_form_05.txt` | `DigiLocker VIPV`
+- **Ablation A Answer (Correct)**: `According to [kyc_form_05.txt#chunk_0], the customer verification mode recorded in the KYC dossier document for SOLARIS PREMIER WEALTH ADVISORY LIMITED was DigiLocker VIPV.`
+- **Ablation B / C / D Answer (Broken)**: `I don't know.`
+- **Raw Grader Decisions (Pass 1)**:
+  - `kyc_form_07.txt#chunk_0`: rel = False, reply = `'No'`
+  - `kyc_form_06.txt#chunk_0`: rel = False, reply = `'No'`
+  - `kyc_form_05.txt#chunk_0` (Gold): rel = False, reply = `'No'` (false rejection; chunk explicitly contains: *"Statutory identity verification was completed under SEBI/RBI regulations via DigiLocker VIPV."*)
+  - `kyc_form_04.txt#chunk_0`: rel = False, reply = `'No'`
+- **Raw Grader Decisions (Passes 2 & 3 after rewrite)**:
+  - All chunks evaluated as `'No'`.
+- **Raw Verifier Replies**: Not invoked (0 chunks passed grading; execution bypassed generation and fell back directly to `"I don't know."`).
+
+#### 4. `qa_test_23` (Broke in A → B)
+- **Question**: What is the annual rent escalation rate in commercial lease agreement document lease_agreement_07 of PINNACLE URBAN SOLUTIONS LIMITED?
+- **Gold Doc & Value**: `lease_agreement_07.txt` | `9% escalation every 3 years`
+- **Ablation A Answer (Correct)**: `The annual rent escalation rate in commercial lease agreement document [LEASE-V2-LEASE_AGREEMENT_07] of PINNACLE URBAN SOLUTIONS LIMITED is 9%.`
+- **Ablation B / C / D Answer (Broken)**: `I don't know.`
+- **Raw Grader Decisions (Pass 1)**:
+  - `lease_agreement_06.txt#chunk_0`: rel = False, reply = `'No'`
+  - `lease_agreement_05.txt#chunk_0`: rel = False, reply = `'No'`
+  - `lease_agreement_07.txt#chunk_0` (Gold): rel = False, reply = `'No'` (false rejection; chunk contains: *"The rental consideration shall be subject to 9% escalation every 3 years."*)
+  - `lease_agreement_09.txt#chunk_0`: rel = False, reply = `'No'`
+- **Raw Grader Decisions (Passes 2 & 3 after rewrite)**:
+  - All chunks evaluated as `'No'`.
+- **Raw Verifier Replies**: Not invoked (0 chunks passed grading; execution bypassed generation and fell back directly to `"I don't know."`).
 
 ---
 
