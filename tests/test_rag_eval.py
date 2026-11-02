@@ -8,6 +8,7 @@ from typing import Any, cast
 import pytest
 
 from src.eval.rag_eval import (
+    CACHE_DIR,
     DEV_QA_FILE,
     TEST_QA_FILE,
     AblationMetrics,
@@ -208,7 +209,7 @@ def test_response_cache_works(tmp_path: Path) -> None:
 # ─────────────────────────────────────────────────────────────────────────────
 
 
-def test_cost_cap_aborts() -> None:
+def test_cost_cap_aborts_run(tmp_path: Path) -> None:
     """Evaluation strictly aborts when cumulative cost exceeds MAX_EVAL_COST_USD."""
 
     class CostlyAdapter:
@@ -244,6 +245,7 @@ def test_cost_cap_aborts() -> None:
     adapter = CostlyAdapter()  # type: ignore[assignment]
 
     # Budget cap set to $0.08: q1 costs $0.05, q2 costs $0.05 ($0.10 > $0.08) -> abort
+    # Provide a temporary partial_dir so test execution never writes to data/cache
     with pytest.raises(RuntimeError, match="MAX_EVAL_COST_USD exceeded"):
         run_single_ablation(
             ablation_key="A",
@@ -251,7 +253,26 @@ def test_cost_cap_aborts() -> None:
             adapter=adapter,  # type: ignore[arg-type]
             judge_adapter=adapter,  # type: ignore[arg-type]
             max_cost_usd=0.08,
+            partial_dir=tmp_path,
         )
+
+
+test_cost_cap_aborts = test_cost_cap_aborts_run
+
+
+def test_cost_cap_aborts_run_never_writes_to_cache(tmp_path: Path) -> None:
+    """Assert cost cap aborts write strictly to partial_dir and never to data/cache."""
+    cache_files_before = set(CACHE_DIR.glob("*")) if CACHE_DIR.exists() else set()
+
+    test_cost_cap_aborts_run(tmp_path)
+
+    cache_files_after = set(CACHE_DIR.glob("*")) if CACHE_DIR.exists() else set()
+    new_files_in_cache = cache_files_after - cache_files_before
+    assert not new_files_in_cache, f"Files were written to data/cache: {new_files_in_cache}"
+
+    # Verify that partial results were written exclusively to the temporary partial_dir
+    written_in_tmp = list(tmp_path.glob("partial_results_*.json"))
+    assert len(written_in_tmp) == 1
 
 
 # ─────────────────────────────────────────────────────────────────────────────
