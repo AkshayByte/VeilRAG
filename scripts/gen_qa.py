@@ -144,11 +144,14 @@ def _get_sibling_values(
 ) -> list[str]:
     """Return distinct values for fact_key across sibling documents of the same doc_type."""
     vals: set[str] = set()
-    gold_clean = gold_val.strip().lower()
+    gold_clean = " ".join(gold_val.strip().lower().split())
     for fname, meta in doc_map.items():
         if meta["doc_type"] == doc_type and fname != target_filename:
             v = meta["key_facts"].get(fact_key)
-            if v and v.strip().lower() != gold_clean:
+            if v:
+                v_clean = " ".join(v.strip().lower().split())
+                if v_clean == gold_clean or v_clean in gold_clean or gold_clean in v_clean:
+                    continue
                 vals.add(v.strip())
     return sorted(list(vals))
 

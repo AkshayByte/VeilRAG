@@ -321,14 +321,35 @@
 8. **Rubric Examples Clarification (`docs/judge_spot_checks.md`)**:
    - Explicitly clarified that calibration spot checks are authorially constructed reference **rubric examples** defining ground-truth human expectations, not live model validation outputs.
 
+### 11. Sibling Value Boundary Fixes, Plumbing Banner & Corpus V2 Pre-Run Guard
+
+1. **Sibling Values Token & Substring Disqualification**:
+   - `check_answer_correctness` in `src/eval/rag_eval.py` and `_get_sibling_values` in `scripts/gen_qa.py` now explicitly exclude any sibling value that is equal to the gold value, or that is a substring of it or contains it (`clean_sib == clean_gold or clean_sib in clean_gold or clean_gold in clean_sib`).
+   - Implemented `_token_match` with `\b` token/word boundaries: prevents numeric substring false matches so that `"30"` does not match `"300"`.
+   - Added unit tests in `tests/test_rag_eval.py` covering:
+     - (a) A correct answer where a sibling shares the gold value still passes.
+     - (b) Answer `"30, 45 or 60 days"` with gold `60` fails.
+     - (c) `"300"` does not trigger sibling `"30"`.
+
+2. **Fake Provider Banner & Latency Exclusion**:
+   - Added banner to `docs/rag_results.md`: `> **FAKE PROVIDER: plumbing check only, not real results.**`
+   - Omitted latency from `docs/rag_results.md` when running with `provider == "fake"` (only reported for real model runs).
+
+3. **Corpus V2 Pre-Run Guard (`verify_corpus_v2_store`)**:
+   - Implemented `verify_corpus_v2_store` in `src/eval/rag_eval.py`: aborts evaluation immediately if:
+     - Chroma collection does not contain exactly 140 chunks and 70 unique documents.
+     - Vectors were generated with `FakeEmbeddingModel` (detected mathematically via 32-float periodic repeat signature).
+     - Active embedder singleton is a `FakeEmbeddingModel`.
+   - Verified that CLI aborts with `RuntimeError` on wrong/fake store and succeeds when ingested with real `all-MiniLM-L6-v2` embeddings.
+
 ---
 
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (137 tests passing)
+# 1. Full Unit Test Suite (138 tests passing)
 pytest tests/ -v -m "not slow"
 
-# 2. RAG Evaluation Harness Unit Tests (15 tests passing)
+# 2. RAG Evaluation Harness Unit Tests (16 tests passing)
 pytest tests/test_rag_eval.py -v
 
 # 3. QA Benchmark Answerability Tests (Hermetic Chroma v2)

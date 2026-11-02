@@ -35,7 +35,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, TypedDict
 
-from src.config import PIPELINE_MODE
+import chromadb
+import numpy as np
+
+from src.config import PIPELINE_MODE, settings
+from src.embeddings import FakeEmbeddingModel, get_embedding_model
 from src.llm import CachedLLMAdapter, LLMAdapter, get_adapter
 from src.rag.agent import run_query
 from src.rag.retriever import RetrievedDocument
@@ -165,23 +169,35 @@ def check_answer_correctness(
     if not gold_value:
         return False
 
+    def _token_match(v_str: str, text_str: str) -> bool:
+        words = v_str.strip().split()
+        if not words:
+            return False
+        escaped = [re.escape(w) for w in words]
+        pattern_str = r"\s+".join(escaped)
+        if re.match(r"^\w", words[0]):
+            pattern_str = r"\b" + pattern_str
+        if re.search(r"\w$", words[-1]):
+            pattern_str = pattern_str + r"\b"
+        return bool(re.search(pattern_str, text_str, re.IGNORECASE))
+
     def _val_in_text(val: str, text: str) -> bool:
         v = " ".join(val.lower().split())
         t = " ".join(text.lower().split())
-        if v in t:
+        if _token_match(v, t):
             return True
         if v.startswith("inr "):
             sub = v[4:].strip()
-            if sub and sub in t:
+            if sub and _token_match(sub, t):
                 return True
         pct = re.search(r"(\d+(?:\.\d+)?%)", v)
-        if pct and pct.group(1) in t:
+        if pct and _token_match(pct.group(1), t):
             return True
         num_unit = re.search(r"\b(\d+)\s*(calendar\s+days|days|months|years)\b", v)
         if num_unit:
             num = num_unit.group(1)
             unit = num_unit.group(2)
-            if f"{num} {unit}" in t or f"{num} days" in t:
+            if _token_match(f"{num} {unit}", t) or _token_match(f"{num} days", t):
                 return True
             pattern = rf"\b{num}\b"
             m = re.search(pattern, t)
@@ -197,7 +213,11 @@ def check_answer_correctness(
     if sibling_values:
         clean_gold = " ".join(gold_value.lower().split())
         for sib in sibling_values:
-            if " ".join(sib.lower().split()) == clean_gold:
+            clean_sib = " ".join(sib.lower().split())
+            if not clean_sib:
+                continue
+            # Exclude any sibling equal to gold, or that is a substring of it or contains it
+            if clean_sib == clean_gold or clean_sib in clean_gold or clean_gold in clean_sib:
                 continue
             if _val_in_text(sib, answer):
                 return False
@@ -678,31 +698,31 @@ def generate_results_markdown(
     commit_hash = get_git_commit_hash()
     timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
 
-    lines: list[str] = [
-        "# RAG Evaluation & Ablation Benchmark Results",
-        "",
-        "## 1. Benchmark Run Metadata",
-        f"- **Date**: {timestamp}",
-        f"- **Git Commit**: `{commit_hash}`",
-        f"- **Dataset**: `{dataset_name}`",
-        f"- **LLM Provider**: `{provider}`",
-        f"- **LLM Model**: `{model}`",
-        f"- **Temperature**: `{temperature}`",
-        f"- **Judge Model**: `{model}` (Rubric calibrated in `docs/judge_spot_checks.md`)",
-        "",
-    ]
-
+    lines: list[str] = []
     if provider == "fake":
         lines.extend(
             [
                 "> [!WARNING]",
-                "> **TEST / CI STUB NOTICE**: This run was executed with `LLM_PROVIDER=fake`. "
-                "Fake provider returns deterministic test fixtures for pipeline verification; "
-                "these quality metrics are synthetic placeholders and must NOT be interpreted "
-                "as real LLM model evaluation numbers.",
+                "> **FAKE PROVIDER: plumbing check only, not real results.**",
                 "",
             ]
         )
+
+    lines.extend(
+        [
+            "# RAG Evaluation & Ablation Benchmark Results",
+            "",
+            "## 1. Benchmark Run Metadata",
+            f"- **Date**: {timestamp}",
+            f"- **Git Commit**: `{commit_hash}`",
+            f"- **Dataset**: `{dataset_name}`",
+            f"- **LLM Provider**: `{provider}`",
+            f"- **LLM Model**: `{model}`",
+            f"- **Temperature**: `{temperature}`",
+            f"- **Judge Model**: `{model}` (Rubric calibrated in `docs/judge_spot_checks.md`)",
+            "",
+        ]
+    )
 
     lines.extend(
         [
@@ -745,23 +765,32 @@ def generate_results_markdown(
             "Faithfulness (LLM Judge)",
             lambda m: format_ci(m.faithfulness_count, m.total_questions),
         ),
-        (
-            "Latency p50 / p95 (Warm)",
-            lambda m: (
-                f"{m.p50_latency_ms:.0f}ms / {m.p95_latency_ms:.0f}ms"
-                if m.latencies_ms
-                else "N/A (cached; use --no-cache-latency)"
-            ),
-        ),
-        (
-            "Avg Tokens / Query",
-            lambda m: f"{m.total_tokens / max(1, m.total_questions):.0f}",
-        ),
-        (
-            "Total Cost ($ USD)",
-            lambda m: f"${m.total_cost:.4f}",
-        ),
     ]
+
+    if provider != "fake":
+        metrics_rows.append(
+            (
+                "Latency p50 / p95 (Warm)",
+                lambda m: (
+                    f"{m.p50_latency_ms:.0f}ms / {m.p95_latency_ms:.0f}ms"
+                    if m.latencies_ms
+                    else "N/A (cached; use --no-cache-latency)"
+                ),
+            )
+        )
+
+    metrics_rows.extend(
+        [
+            (
+                "Avg Tokens / Query",
+                lambda m: f"{m.total_tokens / max(1, m.total_questions):.0f}",
+            ),
+            (
+                "Total Cost ($ USD)",
+                lambda m: f"${m.total_cost:.4f}",
+            ),
+        ]
+    )
 
     for label, fn in metrics_rows:
         row_vals: list[str] = []
@@ -834,6 +863,76 @@ def generate_results_markdown(
     logger.info("RAG evaluation results written to %s", output_path)
 
 
+def verify_corpus_v2_store(persist_dir: str | None = None) -> None:
+    """Pre-run guard: abort if Chroma store is not corpus v2 with real MiniLM embeddings.
+
+    Parameters
+    ----------
+    persist_dir: str | None
+        Directory where Chroma is stored (defaults to settings.chroma_persist_dir).
+
+    Raises
+    ------
+    RuntimeError
+        If Chroma does not contain exactly 140 chunks and 70 unique documents, or
+        if vectors were created with FakeEmbeddingModel or active embedder is fake.
+    """
+    path = persist_dir or settings.chroma_persist_dir
+    client = chromadb.PersistentClient(path=path)
+    try:
+        col = client.get_collection("docs")
+    except Exception as exc:
+        raise RuntimeError(
+            f"Pre-run guard failed: Could not load collection 'docs' from '{path}': {exc}. "
+            "Ensure corpus v2 is ingested (e.g. python -m src.rag.ingest --corpus v2)."
+        ) from exc
+
+    count = col.count()
+    if count != 140:
+        raise RuntimeError(
+            f"Pre-run guard failed: expected exactly 140 chunks in corpus v2 Chroma store, "
+            f"found {count}. Ingest corpus v2 before running evaluation "
+            f"(e.g. python -m src.rag.ingest --corpus v2)."
+        )
+
+    # Verify unique documents
+    data = col.get(limit=count, include=["metadatas", "embeddings"])
+    metas = data.get("metadatas", []) or []
+    sources = {
+        str(m.get("source"))
+        for m in metas
+        if m and "source" in m
+    }
+    if len(sources) != 70:
+        raise RuntimeError(
+            f"Pre-run guard failed: expected exactly 70 unique documents in corpus v2, "
+            f"found {len(sources)}."
+        )
+
+    # Verify embeddings are real MiniLM embeddings, not fake
+    embeddings = data.get("embeddings")
+    if embeddings is None or len(embeddings) == 0:
+        raise RuntimeError(
+            "Pre-run guard failed: Chroma store contains no embedding vectors."
+        )
+
+    for emb in embeddings[:10]:
+        vec = np.asarray(emb, dtype=np.float32)
+        if len(vec) >= 64 and np.allclose(vec[:32], vec[32:64]):
+            raise RuntimeError(
+                "Pre-run guard failed: Chroma store was built with FakeEmbeddingModel! "
+                "The real run must use the real MiniLM embeddings."
+            )
+
+    # Verify the active singleton embedder is also real
+    active_embedder = get_embedding_model()
+    if isinstance(active_embedder, FakeEmbeddingModel):
+        raise RuntimeError(
+            "Pre-run guard failed: Active embedding model is FakeEmbeddingModel! "
+            "The real run must use the real MiniLM embeddings."
+        )
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # CLI ENTRY POINT
 # ─────────────────────────────────────────────────────────────────────────────
@@ -890,6 +989,9 @@ def main() -> None:
     )
 
     args = parser.parse_args()
+
+    # Pre-run guard: ensure Chroma store contains corpus v2 with real MiniLM embeddings
+    verify_corpus_v2_store()
 
     # Determine max cost from CLI or environment
     env_cost = os.getenv("MAX_EVAL_COST_USD")

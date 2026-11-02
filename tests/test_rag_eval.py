@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 import pytest
 
@@ -20,6 +20,7 @@ from src.eval.rag_eval import (
     format_ci,
     load_qa_records,
     run_single_ablation,
+    verify_corpus_v2_store,
     wilson_interval,
 )
 from src.llm import CachedLLMAdapter, FakeLLMAdapter, LLMResponse
@@ -387,6 +388,84 @@ def test_metric_answer_correctness_sibling_disqualification() -> None:
     ans_curr_hedged = "The facility amount is INR 1,00,00,000 or INR 50,00,000."
     assert check_answer_correctness("INR 1,00,00,000", ans_curr_ok, curr_sibs) is True
     assert check_answer_correctness("INR 1,00,00,000", ans_curr_hedged, curr_sibs) is False
+
+    # (a) A correct answer where a sibling shares the gold value still passes
+    ans_shared_sib = "The mandatory separation notice period is 60 calendar days."
+    sibs_with_shared = ["60 calendar days", "45 calendar days", "30 calendar days"]
+    assert (
+        check_answer_correctness(
+            "60 calendar days", ans_shared_sib, sibling_values=sibs_with_shared
+        )
+        is True
+    )
+    # Also test numeric/substring sharing
+    assert (
+        check_answer_correctness("60", "The period is 60 days.", sibling_values=["60", "45"])
+        is True
+    )
+
+    # (b) "30, 45 or 60 days" with gold 60 fails
+    ans_multi_hedged = "Notice period is 30, 45 or 60 days."
+    assert (
+        check_answer_correctness("60", ans_multi_hedged, sibling_values=["30", "45", "90"])
+        is False
+    )
+    assert (
+        check_answer_correctness(
+            "60 calendar days",
+            ans_multi_hedged,
+            sibling_values=["30 calendar days", "45 calendar days"],
+        )
+        is False
+    )
+
+    # (c) "300" does not trigger sibling "30"
+    ans_token_300 = "The order quantity was 300 units."
+    assert check_answer_correctness("300", ans_token_300, sibling_values=["30"]) is True
+    assert (
+        check_answer_correctness(
+            "500", "Result: 500 total, batch 300 remaining.", sibling_values=["30"]
+        )
+        is True
+    )
+
+
+def test_verify_corpus_v2_store_guards(tmp_path: Path) -> None:
+    """Pre-run guard aborts on empty store, wrong count, fake embeddings, or non-v2 corpus."""
+    import chromadb
+
+    # 1. Nonexistent collection or empty store raises RuntimeError
+    empty_dir = tmp_path / "empty_chroma"
+    with pytest.raises(RuntimeError, match="Pre-run guard failed"):
+        verify_corpus_v2_store(persist_dir=str(empty_dir))
+
+    # 2. Store with wrong chunk count raises RuntimeError
+    partial_dir = tmp_path / "partial_chroma"
+    client = chromadb.PersistentClient(path=str(partial_dir))
+    col = client.get_or_create_collection("docs")
+    col.add(
+        ids=[f"chunk_{i}" for i in range(30)],
+        embeddings=cast(Any, [[0.1] * 384 for _ in range(30)]),
+        metadatas=[{"source": f"doc_{i // 2}.txt"} for i in range(30)],
+        documents=["text" for _ in range(30)],
+    )
+    with pytest.raises(RuntimeError, match="expected exactly 140 chunks"):
+        verify_corpus_v2_store(persist_dir=str(partial_dir))
+
+    # 3. Store with 140 chunks but fake embeddings raises RuntimeError
+    fake_emb_dir = tmp_path / "fake_emb_chroma"
+    client_fake = chromadb.PersistentClient(path=str(fake_emb_dir))
+    col_fake = client_fake.get_or_create_collection("docs")
+    # Fake embeddings have 32-float repeating pattern
+    fake_vec = ([0.123] * 32) * 12  # 384 dimensions
+    col_fake.add(
+        ids=[f"chunk_{i}" for i in range(140)],
+        embeddings=cast(Any, [fake_vec for _ in range(140)]),
+        metadatas=[{"source": f"doc_{i // 2}.txt"} for i in range(140)],
+        documents=["text" for _ in range(140)],
+    )
+    with pytest.raises(RuntimeError, match="built with FakeEmbeddingModel"):
+        verify_corpus_v2_store(persist_dir=str(fake_emb_dir))
 
 
 def test_cache_key_temperature_and_model_variation_and_original_telemetry(tmp_path: Path) -> None:
