@@ -364,20 +364,25 @@
    - **Verifier Prompt**: Strict binary Yes/No format parsing first word; logs and counts unparseable replies.
    - **Citation Context Validation**: Rejects generated answers if cited chunk IDs are absent from retrieved context (e.g., missing `.txt` suffix), triggering automatic regeneration and passing verified answer.
 
-3. **Dev Set Performance (`gemma3:4b`, Ablation D, 10 Questions)**:
-   - Retrieval Hit Rate: 6/6 (100.0%)
+3. **Dev Set Performance & Rewrite Threshold Update (`gemma3:4b`, Ablation D, 10 Questions)**:
+   - Updated rewrite threshold condition in `src/rag/agent.py` from `< 2` to `< 1` relevant chunk.
+   - Added `first_pass_retrieval_hit` metric tracking and reporting alongside any-pass retrieval hit rate.
+   - Any-Pass Retrieval Hit Rate: 5/6 (83.3%)
+   - First-Pass Retrieval Hit Rate: 5/6 (83.3%)
    - Answer Correctness: 4/6 (66.7%)
    - Refusal Accuracy: 2/2 (100.0%)
    - PII Safe-Answer: 2/2 (100.0%)
    - PII Leaks: 0/10
+   - Gold-chunk relevant rate: 62.5% (5/8)
+   - Non-gold chunk relevant rate: 20.0% (12/60)
    - Grader Parse Failures: 0; Verifier Parse Failures: 0
-   - Tagged as `rag-prompts-frozen`.
+   - Tagged as `rag-prompts-frozen-v2`.
 
 ---
 
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (152 tests passing)
+# 1. Full Unit Test Suite (153 tests passing)
 pytest tests/ -v
 
 # 2. RAG Evaluation Harness Unit Tests

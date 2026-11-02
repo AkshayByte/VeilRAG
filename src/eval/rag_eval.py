@@ -327,12 +327,14 @@ class QuestionResult:
     citation_correct: bool
     refusal_correct: bool
     pii_leak: bool
-    pii_leak_details: list[str]
-    faithfulness: bool
-    faithfulness_reason: str
-    duration_ms: float
-    tokens: int
-    cost: float
+    first_pass_retrieval_hit: bool = False
+    retrieved_doc_ids: list[str] = field(default_factory=list)
+    pii_leak_details: list[str] = field(default_factory=list)
+    faithfulness: bool = False
+    faithfulness_reason: str = ""
+    duration_ms: float = 0.0
+    tokens: int = 0
+    cost: float = 0.0
     failures: list[str] = field(default_factory=list)
     real_llm_calls: int = 0
     audit_trace: list[dict[str, Any]] = field(default_factory=list)
@@ -351,6 +353,7 @@ class AblationMetrics:
     pii_count: int
 
     retrieval_hits: int = 0
+    first_pass_retrieval_hits: int = 0
     answer_correct_count: int = 0
     citation_correct_count: int = 0
     refusal_correct_count: int = 0
@@ -617,9 +620,11 @@ def run_single_ablation(
                         "gold_value": r.gold_value,
                         "answer": r.answer,
                         "cited_chunks": re.findall(r"\[([a-zA-Z0-9_\-\.]+#chunk_\d+)\]", r.answer),
+                        "retrieved_doc_ids": r.retrieved_doc_ids,
                         "answer_correct": r.answer_correct,
                         "citation_correct": r.citation_correct,
                         "retrieval_hit": r.retrieval_hit,
+                        "first_pass_retrieval_hit": r.first_pass_retrieval_hit,
                         "refusal_correct": r.refusal_correct,
                         "pii_leak": r.pii_leak,
                         "faithfulness": r.faithfulness,
@@ -711,13 +716,21 @@ def run_single_ablation(
 
         failures: list[str] = []
 
-        # Metric 1: Retrieval Hit Rate
-        hit = check_retrieval_hit(gold_doc, retrieved) if gold_doc else False
+        # Metric 1: Retrieval Hit Rate (Any-Pass and First-Pass)
+        first_pass_docs = agent_state.get("first_pass_retrieved_docs") or retrieved
+        all_docs = agent_state.get("all_retrieved_docs") or retrieved
+
+        first_hit = check_retrieval_hit(gold_doc, first_pass_docs) if gold_doc else False
+        hit = check_retrieval_hit(gold_doc, all_docs) if gold_doc else False
+        retrieved_ids = [d.id for d in all_docs]
+
         if cat == "key_fact":
             if hit:
                 metrics.retrieval_hits += 1
             else:
                 failures.append(f"Retrieval miss: gold doc '{gold_doc}' not in retrieved chunks")
+            if first_hit:
+                metrics.first_pass_retrieval_hits += 1
 
         # Metric 2: Answer Correctness (key_fact questions only; sibling disqualification)
         if cat == "key_fact":
@@ -796,6 +809,8 @@ def run_single_ablation(
             gold_value=gold_val,
             answer=ans,
             retrieval_hit=hit,
+            first_pass_retrieval_hit=first_hit,
+            retrieved_doc_ids=retrieved_ids,
             answer_correct=ans_ok,
             citation_correct=cite_ok,
             refusal_correct=refusal_ok,
@@ -955,8 +970,12 @@ def generate_results_markdown(
 
     metrics_rows = [
         (
-            f"Retrieval Hit Rate (denom: {ans_cnt} answerable)",
+            f"Retrieval Hit Rate — Any-Pass (denom: {ans_cnt} answerable)",
             lambda m: format_ci(m.retrieval_hits, m.answerable_count),
+        ),
+        (
+            f"Retrieval Hit Rate — First-Pass (denom: {ans_cnt} answerable)",
+            lambda m: format_ci(m.first_pass_retrieval_hits, m.answerable_count),
         ),
         (
             f"Answer Correctness — key_fact (denom: {ans_cnt})",
@@ -1290,13 +1309,21 @@ def main() -> None:
         )
         results_by_ablation[ab] = metrics
 
-        hit_str = format_ci(metrics.retrieval_hits, metrics.answerable_count)
+        any_hit_str = format_ci(metrics.retrieval_hits, metrics.answerable_count)
+        first_hit_str = format_ci(metrics.first_pass_retrieval_hits, metrics.answerable_count)
         ans_str = format_ci(metrics.answer_correct_count, metrics.answerable_count)
         ref_str = format_ci(metrics.refusal_correct_count, metrics.unanswerable_count)
         faith_str = format_ci(metrics.faithfulness_count, metrics.answerable_count)
         pii_safe_str = format_ci(metrics.pii_safe_answer_count, metrics.pii_count)
 
-        print(f"  Retrieval Hit Rate ({metrics.answerable_count:>2} answerable): {hit_str}")
+        print(
+            f"  Retrieval Hit Rate — Any-Pass   ({metrics.answerable_count:>2} answerable): "
+            f"{any_hit_str}"
+        )
+        print(
+            f"  Retrieval Hit Rate — First-Pass ({metrics.answerable_count:>2} answerable): "
+            f"{first_hit_str}"
+        )
         print(f"  Answer Correctness ({metrics.answerable_count:>2} answerable): {ans_str}")
         print(f"  Refusal Accuracy   ({metrics.unanswerable_count:>2} unanswer.): {ref_str}")
         print(f"  PII Safe-Answer    ({metrics.pii_count:>2} PII quest.): {pii_safe_str}")

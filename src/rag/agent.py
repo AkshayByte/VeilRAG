@@ -6,7 +6,7 @@ Architecture
    ``placeholder_prefix="Q_"`` to prevent collision with document-level chunk placeholders.
 2. **retrieve** — Embed sanitized query and search vector store.
 3. **grade_documents** — LLM evaluates whether each retrieved chunk is relevant (yes/no).
-4. **rewrite_query** (conditional) — If fewer than 2 relevant chunks, rewrite query (max 2 rewrites)
+4. **rewrite_query** (conditional) — If fewer than 1 relevant chunk, rewrite query (max 2 rewrites)
    and loop back to **retrieve**.
 5. **generate** — Answer question strictly from context citing source chunk IDs.
 6. **verify_answer** — Check that every claim is supported by retrieved context.
@@ -51,6 +51,8 @@ class AgentState(TypedDict):
     query_entity_counts: dict[str, int]
     retrieved_docs: list[RetrievedDocument]
     relevant_docs: list[RetrievedDocument]
+    first_pass_retrieved_docs: NotRequired[list[RetrievedDocument]]
+    all_retrieved_docs: NotRequired[list[RetrievedDocument]]
     rewrite_count: int
     regeneration_count: int
     step_count: int
@@ -152,14 +154,29 @@ def build_graph(
             len(docs),
         )
 
+        first_pass = state.get("first_pass_retrieved_docs")
+        if first_pass is None:
+            first_pass = docs
+
+        prev_all = state.get("all_retrieved_docs", [])
+        combined_all = list(prev_all)
+        existing_ids = {d.id for d in combined_all}
+        for d in docs:
+            if d.id not in existing_ids:
+                combined_all.append(d)
+                existing_ids.add(d.id)
+
         trace_entry = {
             "node": "retrieve",
             "duration_ms": dur,
             "retrieved_count": len(docs),
+            "retrieved_doc_ids": [d.id for d in docs],
         }
 
         return {
             "retrieved_docs": docs,
+            "first_pass_retrieved_docs": first_pass,
+            "all_retrieved_docs": combined_all,
             "step_count": steps,
             "duration_ms": state.get("duration_ms", 0.0) + dur,
             "audit_trace": state.get("audit_trace", []) + [trace_entry],
@@ -272,7 +289,7 @@ def build_graph(
 
         if not enable_rewrite:
             return "generate"
-        if rel_count >= 2 or rewrites >= MAX_REWRITES:
+        if rel_count >= 1 or rewrites >= MAX_REWRITES:
             return "generate"
         return "rewrite_query"
 
@@ -353,7 +370,7 @@ def build_graph(
                 }
         else:
             docs = state.get("relevant_docs", [])
-            if len(docs) < 2:
+            if len(docs) < 1:
                 dur = (time.perf_counter() - t0) * 1000
                 return {
                     "raw_response": "I don't know.",
@@ -684,6 +701,8 @@ def run_query(
         "query_entity_counts": {},
         "retrieved_docs": [],
         "relevant_docs": [],
+        "first_pass_retrieved_docs": [],
+        "all_retrieved_docs": [],
         "rewrite_count": 0,
         "regeneration_count": 0,
         "step_count": 0,
@@ -711,6 +730,12 @@ def run_query(
         query_entity_counts=raw_final["query_entity_counts"],
         retrieved_docs=raw_final["retrieved_docs"],
         relevant_docs=raw_final["relevant_docs"],
+        first_pass_retrieved_docs=raw_final.get(
+            "first_pass_retrieved_docs", raw_final["retrieved_docs"]
+        ),
+        all_retrieved_docs=raw_final.get(
+            "all_retrieved_docs", raw_final["retrieved_docs"]
+        ),
         rewrite_count=raw_final["rewrite_count"],
         regeneration_count=raw_final["regeneration_count"],
         step_count=raw_final["step_count"],

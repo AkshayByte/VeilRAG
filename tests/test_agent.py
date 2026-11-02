@@ -71,6 +71,30 @@ def test_relevant_chunks_generate_with_citations() -> None:
     assert len(state["relevant_docs"]) >= 2
 
 
+def test_one_relevant_chunk_proceeds_to_generate_without_rewrite() -> None:
+    """When exactly 1 chunk is relevant, agent proceeds to generate without rewriting."""
+    def custom_handler(prompt: SanitizedText) -> str:
+        p_str = str(prompt).lower()
+        if "loan_agreement_01.txt#chunk_0" in p_str and "grader" in p_str:
+            return "yes"
+        if "grader" in p_str:
+            return "no"
+        if "is every claim supported" in p_str:
+            return "yes"
+        return "According to [loan_agreement_01.txt#chunk_0], the interest rate is 8.65%."
+
+    fake_adapter = FakeLLMAdapter(custom_handler=custom_handler)
+
+    state = run_query(
+        "What is the interest rate in loan agreement 01?",
+        adapter=fake_adapter,
+    )
+
+    assert "[loan_agreement_01.txt#chunk_0]" in state["final_response"]
+    assert state["rewrite_count"] == 0
+    assert len(state["relevant_docs"]) == 1
+
+
 def test_insufficient_chunks_rewrites_and_falls_back_to_idk() -> None:
     """When chunks are irrelevant, agent rewrites up to 2 times then answers 'I don't know'."""
     # Always grade "no" so zero chunks are considered relevant
