@@ -135,6 +135,24 @@ def _build_pii_question(
     )
 
 
+def _get_sibling_values(
+    doc_map: dict[str, dict[str, Any]],
+    doc_type: str,
+    target_filename: str,
+    fact_key: str,
+    gold_val: str,
+) -> list[str]:
+    """Return distinct values for fact_key across sibling documents of the same doc_type."""
+    vals: set[str] = set()
+    gold_clean = gold_val.strip().lower()
+    for fname, meta in doc_map.items():
+        if meta["doc_type"] == doc_type and fname != target_filename:
+            v = meta["key_facts"].get(fact_key)
+            if v and v.strip().lower() != gold_clean:
+                vals.add(v.strip())
+    return sorted(list(vals))
+
+
 def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Generate qa_dev and qa_test datasets."""
     with open(GROUND_TRUTH_FILE, encoding="utf-8") as f:
@@ -154,7 +172,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     dev_answerable_specs = [
         ("hr_policy_01.txt", "notice_period"),
         ("loan_agreement_01.txt", "interest_rate"),
-        ("hospital_discharge_01.txt", "primary_diagnosis"),
+        ("hospital_discharge_01.txt", "discharge_status"),
         ("insurance_claim_01.txt", "approved_amount"),
         ("kyc_form_01.txt", "verification_mode"),
         ("lease_agreement_01.txt", "monthly_rent"),
@@ -178,6 +196,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         org, _ = _extract_doc_headers(fname)
         q_text = _build_key_fact_question(meta["doc_type"], fname, org, fact_key)
         gold_val = meta["key_facts"][fact_key]
+        sib_vals = _get_sibling_values(doc_map, meta["doc_type"], fname, fact_key, gold_val)
         qa_dev.append(
             {
                 "id": f"qa_dev_{idx:02d}",
@@ -186,6 +205,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_doc": fname,
                 "gold_value": gold_val,
                 "planted_values": [],
+                "sibling_values": sib_vals,
             }
         )
         idx += 1
@@ -203,6 +223,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_doc": fname,
                 "gold_value": None,
                 "planted_values": planted,
+                "sibling_values": [],
             }
         )
         idx += 1
@@ -216,6 +237,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_doc": None,
                 "gold_value": None,
                 "planted_values": [],
+                "sibling_values": [],
             }
         )
         idx += 1
@@ -298,6 +320,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         org, _ = _extract_doc_headers(fname)
         q_text = _build_key_fact_question(meta["doc_type"], fname, org, fact_key)
         gold_val = meta["key_facts"][fact_key]
+        sib_vals = _get_sibling_values(doc_map, meta["doc_type"], fname, fact_key, gold_val)
         qa_test.append(
             {
                 "id": f"qa_test_{t_idx:02d}",
@@ -306,6 +329,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_doc": fname,
                 "gold_value": gold_val,
                 "planted_values": [],
+                "sibling_values": sib_vals,
             }
         )
         t_idx += 1
@@ -323,6 +347,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_doc": fname,
                 "gold_value": None,
                 "planted_values": planted,
+                "sibling_values": [],
             }
         )
         t_idx += 1
@@ -336,6 +361,7 @@ def generate_qa_datasets() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "gold_doc": None,
                 "gold_value": None,
                 "planted_values": [],
+                "sibling_values": [],
             }
         )
         t_idx += 1

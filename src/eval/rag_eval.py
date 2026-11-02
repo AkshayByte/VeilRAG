@@ -151,30 +151,58 @@ def check_retrieval_hit(gold_doc: str | None, retrieved_docs: list[RetrievedDocu
     return False
 
 
-def check_answer_correctness(gold_value: str | None, answer: str) -> bool:
-    """Programmatically match gold value against answer."""
+def check_answer_correctness(
+    gold_value: str | None,
+    answer: str,
+    sibling_values: list[str] | None = None,
+) -> bool:
+    """Programmatically match gold value against answer.
+
+    A match counts ONLY if the answer contains the gold value AND no other
+    value of the same fact type from sibling documents (e.g. answer says
+    '30, 45 or 60 days' with gold 60 = incorrect).
+    """
     if not gold_value:
         return False
 
-    clean_gold = " ".join(gold_value.lower().split())
-    clean_ans = " ".join(answer.lower().split())
-
-    # Exact normalized substring match
-    if clean_gold in clean_ans:
-        return True
-
-    # Strip currency prefix "inr " or "inr"
-    if clean_gold.startswith("inr "):
-        sub_gold = clean_gold[4:].strip()
-        if sub_gold in clean_ans:
+    def _val_in_text(val: str, text: str) -> bool:
+        v = " ".join(val.lower().split())
+        t = " ".join(text.lower().split())
+        if v in t:
             return True
+        if v.startswith("inr "):
+            sub = v[4:].strip()
+            if sub and sub in t:
+                return True
+        pct = re.search(r"(\d+(?:\.\d+)?%)", v)
+        if pct and pct.group(1) in t:
+            return True
+        num_unit = re.search(r"\b(\d+)\s*(calendar\s+days|days|months|years)\b", v)
+        if num_unit:
+            num = num_unit.group(1)
+            unit = num_unit.group(2)
+            if f"{num} {unit}" in t or f"{num} days" in t:
+                return True
+            pattern = rf"\b{num}\b"
+            m = re.search(pattern, t)
+            if m:
+                window = t[max(0, m.start() - 20) : min(len(t), m.end() + 30)]
+                if any(u in window for u in ("day", "month", "year", "%", "inr", "lakh", "crore")):
+                    return True
+        return False
 
-    # Strip percentage descriptor if present (e.g. "8.75% per annum floating" -> "8.75%")
-    pct_match = re.search(r"(\d+(?:\.\d+)?%)", clean_gold)
-    if pct_match and pct_match.group(1) in clean_ans:
-        return True
+    if not _val_in_text(gold_value, answer):
+        return False
 
-    return False
+    if sibling_values:
+        clean_gold = " ".join(gold_value.lower().split())
+        for sib in sibling_values:
+            if " ".join(sib.lower().split()) == clean_gold:
+                continue
+            if _val_in_text(sib, answer):
+                return False
+
+    return True
 
 
 def check_refusal(answer: str) -> bool:
@@ -289,6 +317,7 @@ class AblationMetrics:
     total_cost: float = 0.0
     latencies_ms: list[float] = field(default_factory=list)
     results: list[QuestionResult] = field(default_factory=list)
+    question_successes: dict[str, bool] = field(default_factory=dict)
 
     @property
     def p50_latency_ms(self) -> float:
@@ -305,6 +334,82 @@ class AblationMetrics:
         sorted_l = sorted(self.latencies_ms)
         idx = min(len(sorted_l) - 1, int(0.95 * len(sorted_l)))
         return sorted_l[idx]
+
+
+@dataclass
+class PairedComparison:
+    """Pairwise ablation comparison metrics."""
+
+    earlier_id: str
+    later_id: str
+    fixed_questions: list[str]
+    broken_questions: list[str]
+    unchanged_correct: list[str]
+    unchanged_incorrect: list[str]
+
+    @property
+    def fixed_count(self) -> int:
+        return len(self.fixed_questions)
+
+    @property
+    def broken_count(self) -> int:
+        return len(self.broken_questions)
+
+    @property
+    def net_lift(self) -> int:
+        return self.fixed_count - self.broken_count
+
+
+def compute_paired_comparisons(
+    ablation_results: dict[str, AblationMetrics],
+) -> list[PairedComparison]:
+    """Compare question-by-question outcomes across ablation pairs."""
+    ablation_order = [k for k in ["A", "B", "C", "D"] if k in ablation_results]
+    if len(ablation_order) < 2:
+        return []
+
+    pairs_to_check: list[tuple[str, str]] = []
+    for i in range(len(ablation_order) - 1):
+        pairs_to_check.append((ablation_order[i], ablation_order[i + 1]))
+    if len(ablation_order) > 2 and (ablation_order[0], ablation_order[-1]) not in pairs_to_check:
+        pairs_to_check.append((ablation_order[0], ablation_order[-1]))
+
+    comparisons: list[PairedComparison] = []
+    for e_id, l_id in pairs_to_check:
+        e_res = ablation_results[e_id]
+        l_res = ablation_results[l_id]
+        all_qids = sorted(
+            list(set(e_res.question_successes.keys()) | set(l_res.question_successes.keys()))
+        )
+
+        fixed: list[str] = []
+        broken: list[str] = []
+        unchanged_c: list[str] = []
+        unchanged_i: list[str] = []
+
+        for qid in all_qids:
+            e_ok = e_res.question_successes.get(qid, False)
+            l_ok = l_res.question_successes.get(qid, False)
+            if not e_ok and l_ok:
+                fixed.append(qid)
+            elif e_ok and not l_ok:
+                broken.append(qid)
+            elif e_ok and l_ok:
+                unchanged_c.append(qid)
+            else:
+                unchanged_i.append(qid)
+
+        comparisons.append(
+            PairedComparison(
+                earlier_id=e_id,
+                later_id=l_id,
+                fixed_questions=fixed,
+                broken_questions=broken,
+                unchanged_correct=unchanged_c,
+                unchanged_incorrect=unchanged_i,
+            )
+        )
+    return comparisons
 
 
 class AblationConfig(TypedDict):
@@ -382,6 +487,7 @@ def run_single_ablation(
     adapter: LLMAdapter,
     judge_adapter: LLMAdapter,
     max_cost_usd: float | None = None,
+    no_cache_latency: bool = False,
 ) -> AblationMetrics:
     """Execute evaluation for one ablation over the provided questions."""
     cfg = ABLATION_CONFIGS[ablation_key]
@@ -397,6 +503,13 @@ def run_single_ablation(
         unanswerable_count=unans_count,
         pii_count=pii_count,
     )
+
+    # If --no-cache-latency is specified and adapter is CachedLLMAdapter, bypass cache
+    cached_adapter: CachedLLMAdapter | None = (
+        adapter if isinstance(adapter, CachedLLMAdapter) else None
+    )
+    if no_cache_latency and cached_adapter is not None:
+        cached_adapter.bypass_cache = True
 
     # 1. Warmup query to ensure embedding and adapter models are loaded in memory
     logger.info("Executing warmup query for %s...", cfg["name"])
@@ -425,7 +538,9 @@ def run_single_ablation(
         gold_doc = q_item.get("gold_doc")
         gold_val = q_item.get("gold_value")
         planted = q_item.get("planted_values", [])
+        siblings = q_item.get("sibling_values", [])
 
+        hits_before = getattr(cached_adapter, "hits", 0) if cached_adapter else 0
         t0 = time.perf_counter()
         agent_state = run_query(
             q_text,
@@ -436,6 +551,8 @@ def run_single_ablation(
             enable_output_guard=cfg["enable_output_guard"],
         )
         duration_ms = (time.perf_counter() - t0) * 1000
+        hits_after = getattr(cached_adapter, "hits", 0) if cached_adapter else 0
+        cache_hit_occurred = hits_after > hits_before
 
         ans = agent_state.get("final_response") or agent_state.get("raw_response", "")
         retrieved = agent_state.get("retrieved_docs", [])
@@ -445,7 +562,12 @@ def run_single_ablation(
         cumulative_cost += q_cost
         metrics.total_tokens += q_tokens
         metrics.total_cost += q_cost
-        metrics.latencies_ms.append(duration_ms)
+
+        # Never record latency from cache hits
+        if not cache_hit_occurred or no_cache_latency:
+            metrics.latencies_ms.append(duration_ms)
+        else:
+            logger.debug("Skipping latency for %s because cache hit occurred", qid)
 
         failures: list[str] = []
 
@@ -457,14 +579,14 @@ def run_single_ablation(
             else:
                 failures.append(f"Retrieval miss: gold doc '{gold_doc}' not in retrieved chunks")
 
-        # Metric 2: Answer Correctness
+        # Metric 2: Answer Correctness (with sibling value disqualification)
         if cat == "key_fact":
-            ans_ok = check_answer_correctness(gold_val, ans)
+            ans_ok = check_answer_correctness(gold_val, ans, sibling_values=siblings)
             if ans_ok:
                 metrics.answer_correct_count += 1
             else:
                 failures.append(
-                    f"Answer mismatch: expected '{gold_val}' in answer"
+                    f"Answer mismatch: expected '{gold_val}' in answer without sibling values"
                 )
         elif cat == "unanswerable":
             ans_ok = check_refusal(ans)
@@ -475,6 +597,9 @@ def run_single_ablation(
         else:
             # PII question: correct if no PII was leaked and model didn't answer with secret
             ans_ok = not check_pii_leak(ans, planted)[0]
+
+        # Record question-by-question outcome for paired analysis
+        metrics.question_successes[qid] = ans_ok
 
         # Metric 3: Citation Correctness
         if cat == "key_fact":
@@ -547,6 +672,7 @@ def generate_results_markdown(
     model: str,
     temperature: float,
     output_path: Path,
+    paired_comparisons: list[PairedComparison] | None = None,
 ) -> None:
     """Generate structured docs/rag_results.md document."""
     commit_hash = get_git_commit_hash()
@@ -621,7 +747,11 @@ def generate_results_markdown(
         ),
         (
             "Latency p50 / p95 (Warm)",
-            lambda m: f"{m.p50_latency_ms:.0f}ms / {m.p95_latency_ms:.0f}ms",
+            lambda m: (
+                f"{m.p50_latency_ms:.0f}ms / {m.p95_latency_ms:.0f}ms"
+                if m.latencies_ms
+                else "N/A (cached; use --no-cache-latency)"
+            ),
         ),
         (
             "Avg Tokens / Query",
@@ -642,12 +772,34 @@ def generate_results_markdown(
                 row_vals.append("N/A")
         lines.append(f"| **{label}** | {' | '.join(row_vals)} |")
 
+    if paired_comparisons:
+        lines.extend(
+            [
+                "",
+                "---",
+                "",
+                "## 3. Paired Ablation Comparisons (--paired)",
+                "",
+                "| Earlier | Later | Fixed Failures | Broke Successes | Net Lift |",
+                "| :--- | :--- | :---: | :---: | :---: |",
+            ]
+        )
+        for c in paired_comparisons:
+            fixed_str = f"{c.fixed_count} (`{', '.join(c.fixed_questions) or 'none'}`)"
+            broken_str = f"{c.broken_count} (`{', '.join(c.broken_questions) or 'none'}`)"
+            lift_str = f"+{c.net_lift}" if c.net_lift > 0 else str(c.net_lift)
+            lines.append(
+                f"| Ablation {c.earlier_id} | Ablation {c.later_id} | "
+                f"{fixed_str} | {broken_str} | **{lift_str}** |"
+            )
+
+    sec_num = "4" if paired_comparisons else "3"
     lines.extend(
         [
             "",
             "---",
             "",
-            "## 3. Per-Question Failure & Error Diagnostic List",
+            f"## {sec_num}. Per-Question Failure & Error Diagnostic List",
             "",
         ]
     )
@@ -726,6 +878,16 @@ def main() -> None:
         default="docs/rag_results.md",
         help="Path to markdown output report",
     )
+    parser.add_argument(
+        "--no-cache-latency",
+        action="store_true",
+        help="Bypass response cache when measuring p50/p95 latency",
+    )
+    parser.add_argument(
+        "--paired",
+        action="store_true",
+        help="Compute and report paired ablation comparisons (fixed failures vs broken successes)",
+    )
 
     args = parser.parse_args()
 
@@ -751,6 +913,10 @@ def main() -> None:
     print(f" Dataset: {args.dataset} ({len(questions)} questions) | Ablations: {target_ablations}")
     if max_cost is not None:
         print(f" Cost Cap Guard: ${max_cost:.4f} USD")
+    if args.no_cache_latency:
+        print(" Latency Measurement: Cache bypassed (--no-cache-latency)")
+    if args.paired:
+        print(" Paired Analysis: Enabled (--paired)")
     print("=" * 80)
 
     for ab in target_ablations:
@@ -761,6 +927,7 @@ def main() -> None:
             adapter=cached_adapter,
             judge_adapter=judge_adapter,
             max_cost_usd=max_cost,
+            no_cache_latency=args.no_cache_latency,
         )
         results_by_ablation[ab] = metrics
 
@@ -774,9 +941,34 @@ def main() -> None:
         print(f"  Refusal Accuracy:   {ref_str}")
         print(f"  PII Leak Count:     {metrics.pii_leak_count}/{metrics.total_questions}")
         print(f"  Faithfulness:       {faith_str}")
-        lat_str = f"{metrics.p50_latency_ms:.1f}ms / {metrics.p95_latency_ms:.1f}ms"
+        if metrics.latencies_ms:
+            lat_str = f"{metrics.p50_latency_ms:.1f}ms / {metrics.p95_latency_ms:.1f}ms"
+        else:
+            lat_str = "N/A (cached; use --no-cache-latency)"
         print(f"  Latency p50 / p95:  {lat_str}")
         print(f"  Tokens / Cost:      {metrics.total_tokens} tokens / ${metrics.total_cost:.4f}")
+
+    paired_comps: list[PairedComparison] = []
+    if args.paired and len(results_by_ablation) >= 2:
+        paired_comps = compute_paired_comparisons(results_by_ablation)
+        print("\n" + "=" * 80)
+        print(" PAIRED ABLATION COMPARISONS (--paired)")
+        print("=" * 80)
+        print(
+            f"{'Pair (Earlier -> Later)':<32} | {'Fixed':<8} | {'Broken':<8} | {'Net Lift':<8}"
+        )
+        print("-" * 80)
+        for c in paired_comps:
+            p_label = f"Ablation {c.earlier_id} -> Ablation {c.later_id}"
+            lift_str = f"+{c.net_lift}" if c.net_lift > 0 else str(c.net_lift)
+            print(
+                f"{p_label:<32} | {c.fixed_count:<8} | {c.broken_count:<8} | {lift_str:<8}"
+            )
+            if c.fixed_questions:
+                print(f"   -> Fixed questions:  {c.fixed_questions}")
+            if c.broken_questions:
+                print(f"   -> Broken questions: {c.broken_questions}")
+        print("=" * 80)
 
     out_path = Path(args.output_file)
     generate_results_markdown(
@@ -786,6 +978,7 @@ def main() -> None:
         model=getattr(raw_adapter, "model", "unknown"),
         temperature=0.0,
         output_path=out_path,
+        paired_comparisons=paired_comps if args.paired else None,
     )
     print(f"\nReport written to: {out_path.resolve()}")
 

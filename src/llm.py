@@ -432,7 +432,9 @@ class AnthropicAdapter:
 
 
 class CachedLLMAdapter:
-    """Wrapper that caches completions on disk keyed by SHA-256 of (model + sanitized prompt)."""
+    """Wrapper that caches completions on disk keyed by SHA-256 of
+    (provider + model + temp + prompt).
+    """
 
     def __init__(self, inner: LLMAdapter, cache_dir: Path | str = "data/cache") -> None:
         self.inner = inner
@@ -442,18 +444,25 @@ class CachedLLMAdapter:
         self.provider = getattr(inner, "provider", "cached")
         self.hits = 0
         self.misses = 0
+        self.bypass_cache = False
 
-    def _cache_key(self, prompt: SanitizedText) -> str:
-        content = f"{self.provider}:{self.model}:{str(prompt)}"
+    def _cache_key(self, prompt: SanitizedText, temperature: float = 0.0) -> str:
+        content = f"{self.provider}:{self.model}:{temperature}:{str(prompt)}"
         return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
     def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
         """Return cached response or delegate to inner adapter and store result."""
         _check_sanitized(prompt)
-        key = self._cache_key(prompt)
+        raw_temp = kwargs.get("temperature", getattr(self.inner, "temperature", 0.0))
+        try:
+            temp_val = float(raw_temp)  # type: ignore[arg-type]
+        except (ValueError, TypeError):
+            temp_val = 0.0
+
+        key = self._cache_key(prompt, temperature=temp_val)
         cache_file = self.cache_dir / f"{key}.json"
 
-        if cache_file.exists():
+        if not self.bypass_cache and cache_file.exists():
             try:
                 with open(cache_file, encoding="utf-8") as f:
                     data = json.load(f)
@@ -480,6 +489,7 @@ class CachedLLMAdapter:
                         "text": resp.text,
                         "model": resp.model,
                         "provider": resp.provider,
+                        "temperature": temp_val,
                         "input_tokens": resp.input_tokens,
                         "output_tokens": resp.output_tokens,
                         "cost": resp.cost,

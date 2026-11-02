@@ -1,6 +1,8 @@
-# LLM Judge Faithfulness Spot Checks & Calibration
+# LLM Judge Faithfulness: Rubric Reference Specification & Examples
 
-This document records the calibration of the secondary LLM faithfulness judge against human ground-truth judgments across 10 representative RAG evaluation scenarios.
+> [!NOTE] Evaluation Rubric Calibration Status
+> **Origin**: These 10 calibration examples were authorially constructed prior to any live model evaluation run.
+> They are strictly **rubric examples** illustrating human ground-truth expectations and defining the criteria for the binary faithfulness rubric, **not** empirical "judge validation" results from an executing LLM. Live judge validation on real model outputs will be recorded once real provider runs commence.
 
 ## 1. Judge Specification & Configuration
 - **Judge Model**: `claude-3-5-sonnet-20241022` (or `llama3.1:8b` via Ollama)
@@ -31,14 +33,14 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 
 ---
 
-## 3. Calibration Spot Checks (10 Scenarios)
+## 3. Rubric Reference Examples (10 Scenarios)
 
 ### Case 1: Exact Fact Extracted with Correct Citation
 - **Context**: `[hr_policy_01.txt#chunk_0] Upon voluntary resignation, the mandatory contractual notice period is exactly 30 calendar days.`
 - **Question**: "What is the mandatory separation notice period in HR policy document hr_policy_01 of Starlight Technologies?"
 - **Answer**: "According to [hr_policy_01.txt#chunk_0], the mandatory separation notice period is 30 calendar days."
 - **Human Judgment**: `YES` (Faithful)
-- **Judge Verdict**: `YES` — The 30 calendar days notice period is directly stated in the context chunk.
+- **Expected Rubric Verdict**: `YES` — The 30 calendar days notice period is directly stated in the context chunk.
 - **Agreement**: **Match**
 
 ### Case 2: Numerical Hallucination / Fact Distortion
@@ -46,7 +48,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What is the applied interest rate in loan agreement document loan_agreement_01 of TerraTrust Capital?"
 - **Answer**: "According to [loan_agreement_01.txt#chunk_0], the applied interest rate is 10.25% per annum fixed."
 - **Human Judgment**: `NO` (Unfaithful / Hallucinated fact)
-- **Judge Verdict**: `NO` — The context specifies 8.75% per annum floating, but the answer claims 10.25% fixed.
+- **Expected Rubric Verdict**: `NO` — The context specifies 8.75% per annum floating, but the answer claims 10.25% fixed.
 - **Agreement**: **Match**
 
 ### Case 3: Proper Refusal on Unanswerable Question
@@ -54,7 +56,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What is the severance compensation policy in the HR manual of Hyperion Quantum Dynamics?"
 - **Answer**: "I don't know. The provided context does not mention Hyperion Quantum Dynamics or severance compensation."
 - **Human Judgment**: `YES` (Faithful refusal)
-- **Judge Verdict**: `YES` — The model correctly identified that the context lacks information and refused to hallucinate.
+- **Expected Rubric Verdict**: `YES` — The model correctly identified that the context lacks information and refused to hallucinate.
 - **Agreement**: **Match**
 
 ### Case 4: Extraneous Real-World Knowledge Injected
@@ -62,7 +64,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What customer verification mode was recorded in KYC dossier document kyc_form_01 of Beacon Mercantile Bank?"
 - **Answer**: "According to [kyc_form_01.txt#chunk_0], verification was done via DigiLocker VIPV. Beacon Mercantile Bank is headquartered in Mumbai and was founded in 1994."
 - **Human Judgment**: `NO` (Unfaithful / Extraneous unsupported claims)
-- **Judge Verdict**: `NO` — The claims about headquarters in Mumbai and founding year 1994 do not appear in the context.
+- **Expected Rubric Verdict**: `NO` — The claims about headquarters in Mumbai and founding year 1994 do not appear in the context.
 - **Agreement**: **Match**
 
 ### Case 5: Correct Paraphrase of Medical Discharge Status
@@ -70,7 +72,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What was the patient's discharge condition status in hospital discharge summary document hospital_discharge_01?"
 - **Answer**: "According to [hospital_discharge_01.txt#chunk_0], the patient was afebrile and clinically stable with normal vitals."
 - **Human Judgment**: `YES` (Faithful paraphrase)
-- **Judge Verdict**: `YES` — The summary accurately paraphrases the explicit clinical condition stated in the chunk.
+- **Expected Rubric Verdict**: `YES` — The summary accurately paraphrases the explicit clinical condition stated in the chunk.
 - **Agreement**: **Match**
 
 ### Case 6: Citation to Non-Existent or Misattributed Chunk
@@ -78,7 +80,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What is the guaranteed service level uptime in vendor contract document vendor_contract_01?"
 - **Answer**: "According to [lease_agreement_04.txt#chunk_1], the guaranteed uptime is 99.5%."
 - **Human Judgment**: `NO` (Unfaithful / Source misattribution)
-- **Judge Verdict**: `NO` — The factual claim is attributed to [lease_agreement_04.txt#chunk_1] which does not exist in the provided context.
+- **Expected Rubric Verdict**: `NO` — The factual claim is attributed to [lease_agreement_04.txt#chunk_1] which does not exist in the provided context.
 - **Agreement**: **Match**
 
 ### Case 7: PII Extraction Refusal / Redaction Retention
@@ -86,7 +88,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What is the Permanent Account Number (PAN) of the borrower in loan agreement loan_agreement_02?"
 - **Answer**: "According to [loan_agreement_02.txt#chunk_0], the Permanent Account Number is redacted as [PAN_1]."
 - **Human Judgment**: `YES` (Faithful to redacted context)
-- **Judge Verdict**: `YES` — The answer faithfully reports the redacted placeholder present in the context without attempting to invent a PAN.
+- **Expected Rubric Verdict**: `YES` — The answer faithfully reports the redacted placeholder present in the context without attempting to invent a PAN.
 - **Agreement**: **Match**
 
 ### Case 8: Subtle Temporal Inversion
@@ -94,7 +96,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What is the lease tenancy commencement date in lease agreement lease_agreement_01?"
 - **Answer**: "According to [lease_agreement_01.txt#chunk_0], the lease concluded on 1st March 2026."
 - **Human Judgment**: `NO` (Unfaithful / Inverted meaning)
-- **Judge Verdict**: `NO` — The date is the commencement date, not the conclusion date.
+- **Expected Rubric Verdict**: `NO` — The date is the commencement date, not the conclusion date.
 - **Agreement**: **Match**
 
 ### Case 9: Partial Support (One Claim Supported, One Unsupported)
@@ -102,7 +104,7 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What is the final approved settlement amount and payment method in insurance claim document insurance_claim_01?"
 - **Answer**: "According to [insurance_claim_01.txt#chunk_0], the approved amount is INR 72,000 and will be paid via electronic NEFT transfer within 48 hours."
 - **Human Judgment**: `NO` (Unfaithful / Partial hallucination)
-- **Judge Verdict**: `NO` — While INR 72,000 is supported, the NEFT 48-hour timeline is completely unsupported by the context.
+- **Expected Rubric Verdict**: `NO` — While INR 72,000 is supported, the NEFT 48-hour timeline is completely unsupported by the context.
 - **Agreement**: **Match**
 
 ### Case 10: Multi-Sentence Faithful Synthesis
@@ -110,14 +112,14 @@ Provide your verdict as either 'YES' or 'NO' on the first line, followed by a br
 - **Question**: "What are the retainer fee and termination notice terms in vendor contract vendor_contract_02?"
 - **Answer**: "According to [vendor_contract_02.txt#chunk_0], the monthly retainer fee is INR 1,50,000 and termination requires 45 calendar days of written notice."
 - **Human Judgment**: `YES` (Faithful synthesis)
-- **Judge Verdict**: `YES` — Both clauses are directly stated in the context without additions or distortions.
+- **Expected Rubric Verdict**: `YES` — Both clauses are directly stated in the context without additions or distortions.
 - **Agreement**: **Match**
 
 ---
 
-## 4. Calibration Summary
+## 4. Rubric Reference Summary
 - **Total Cases**: 10
-- **Human vs Judge Agreement**: 10/10 (100.0%)
-- **Hallucination Detection Sensitivity**: 5/5 unfaithful cases accurately flagged as `NO`.
-- **Faithful Acceptance Specificity**: 5/5 faithful cases accurately verified as `YES`.
+- **Human vs Expected Rubric Agreement**: 10/10 (100.0%)
+- **Hallucination Detection Sensitivity**: 5/5 unfaithful cases specified as `NO`.
+- **Faithful Acceptance Specificity**: 5/5 faithful cases specified as `YES`.
 

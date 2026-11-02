@@ -13,8 +13,8 @@
   - Configurable pipeline ablations: A (Naive RAG), B (+ Grading/Rewrite), C (+ Verification), D (Full System).
   - Response cache under `data/cache/` (gitignored), cost cap guard (`MAX_EVAL_COST_USD`), Wilson 95% confidence intervals on all proportions.
   - LLM judge rubric calibrated with 10 manual spot checks in `docs/judge_spot_checks.md`.
-- **Test Suite**: 131 passed out of 131 selected tests (`pytest tests/ -v -m "not slow"`).
-- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 50 source files).
+- **Test Suite**: 137 passed out of 137 selected tests (`pytest tests/ -v -m "not slow"`).
+- **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 51 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 
 ---
@@ -284,27 +284,64 @@
    - Warmup query executed and discarded prior to collecting p50/p95 latency metrics.
    - `docs/rag_results.md` automatically generated with run metadata, comparative matrix, and per-question error diagnostics.
 
+### 10. Harness Hardening & Gap Remediation (Prompt 5, Part 1 Follow-Up)
+*Addressed all harness edge cases, answerability guarantees, and metric invariants.*
+
+1. **Destroyed Fact Identification & QA Alignment**:
+   - Identified the two facts destroyed by spaCy NER false-positive over-redaction (`PERSON`) on Corpus V2:
+     - `hospital_discharge_01.txt` -> `primary_diagnosis`: `"Acute Calculous Cholecystitis"`
+     - `hospital_discharge_04.txt` -> `primary_diagnosis`: `"Left Knee Meniscal Debridement"`
+   - Verified that NONE of the 26 answerable questions in `data/eval/qa_test.jsonl` target either of these destroyed facts.
+   - Updated `qa_dev_03` in `data/eval/qa_dev.jsonl` to target the surviving fact `discharge_status` (`"Clinically stable and afebrile"`), ensuring 100% surviving gold values across all answerable questions.
+
+2. **Hermetic Answerability Verification (`tests/test_qa_answerable.py`)**:
+   - Ingests Corpus V2 into an isolated temporary Chroma store using `FakeEmbeddingModel`.
+   - Asserts that for all 26 answerable test questions and all answerable dev questions, `gold_value` appears in the stored (redacted) Chroma chunks of `gold_doc`.
+
+3. **Cache Key & Telemetry Invariants (`src/llm.py`)**:
+   - Cache key updated to `SHA-256(provider:model:temperature:sanitized_prompt)`.
+   - Tested that varying model or temperature produces distinct cache keys.
+   - Verified that cache hits return original `input_tokens`, `output_tokens`, and `cost` from disk cache (never zeroed out).
+   - Added `bypass_cache` flag to `CachedLLMAdapter`.
+
+4. **Latency Measurement Guard**:
+   - Queries with cache hits are excluded from latency metrics (`latencies_ms`) to prevent reporting sub-millisecond cache reads as LLM latency.
+   - Added `--no-cache-latency` CLI flag to bypass cache during latency benchmarking.
+
+5. **Sibling Document Value Disqualification**:
+   - `check_answer_correctness` now accepts `sibling_values`.
+   - Disqualifies answers containing conflicting values of the same fact type from sibling documents (e.g. answer hedging "30, 45 or 60 days" when gold is 60).
+
+6. **Ablation A Boundary Guard**:
+   - Verified and unit-tested that `sanitize_query` is strictly active in Ablation A, proving that raw PII from the user prompt never appears in prompts passed to the LLM adapter.
+
+7. **Paired Ablation Analysis (`--paired`)**:
+   - Added `--paired` flag to `src/eval/rag_eval.py` computing pairwise counts of questions where a later ablation fixed an earlier failure or broke an earlier success, reporting net lift.
+
+8. **Rubric Examples Clarification (`docs/judge_spot_checks.md`)**:
+   - Explicitly clarified that calibration spot checks are authorially constructed reference **rubric examples** defining ground-truth human expectations, not live model validation outputs.
+
 ---
 
 ## Verified Evaluation & Test Commands
 ```bash
-# 1. Full Unit Test Suite (131 tests passing)
+# 1. Full Unit Test Suite (137 tests passing)
 pytest tests/ -v -m "not slow"
 
-# 2. RAG Evaluation Harness Unit Tests (11 tests passing)
+# 2. RAG Evaluation Harness Unit Tests (15 tests passing)
 pytest tests/test_rag_eval.py -v
 
-# 3. Pre-Push Clean Clone Check
+# 3. QA Benchmark Answerability Tests (Hermetic Chroma v2)
+pytest tests/test_qa_answerable.py -v
+
+# 4. Pre-Push Clean Clone Check
 powershell -ExecutionPolicy Bypass -File scripts/clean_clone_check.ps1
 
-# 4. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
+# 5. Held-Out PII Eval Regression Guard (143 TP / 62 FP / 13 FN)
 python -m src.eval.pii_eval --dataset heldout
 
-# 5. RAG Evaluation Harness (Fake Provider CI Verification)
-python -m src.eval.rag_eval --provider fake --dataset dev --limit 5
-
-# 6. RAG Evaluation Harness (Real Provider Execution)
-python -m src.eval.rag_eval --provider anthropic --dataset test --ablation all
+# 6. RAG Evaluation Harness (Fake Provider CI Verification with Paired Analysis)
+python -m src.eval.rag_eval --provider fake --dataset test --ablation all --paired
 
 # 7. Type and Linting Checks
 ruff check src/ tests/ scripts/

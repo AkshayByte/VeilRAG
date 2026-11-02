@@ -10,11 +10,13 @@ import pytest
 from src.eval.rag_eval import (
     DEV_QA_FILE,
     TEST_QA_FILE,
+    AblationMetrics,
     check_answer_correctness,
     check_citation_correctness,
     check_pii_leak,
     check_refusal,
     check_retrieval_hit,
+    compute_paired_comparisons,
     format_ci,
     load_qa_records,
     run_single_ablation,
@@ -361,3 +363,174 @@ def test_ablation_stage_configurations() -> None:
     skipped_d = [t["node"] for t in state_d["audit_trace"] if t.get("skipped")]
     assert len(skipped_d) == 0
     assert len(state_d["relevant_docs"]) >= 2
+
+
+def test_metric_answer_correctness_sibling_disqualification() -> None:
+    """Answer matches only if gold value is present and NO sibling value appears."""
+    sibs = ["30 calendar days", "45 calendar days", "90 calendar days"]
+
+    # 1. Clean answer with only gold value
+    ans_clean = "The mandatory separation notice period is 60 calendar days."
+    assert check_answer_correctness("60 calendar days", ans_clean, sibling_values=sibs) is True
+
+    # 2. Answer mentions gold AND sibling values (e.g. 30, 45 or 60 days) -> disqualified
+    ans_hedged = "The notice period may be 30, 45 or 60 days depending on department."
+    assert check_answer_correctness("60 calendar days", ans_hedged, sibling_values=sibs) is False
+
+    # 3. Answer mentions sibling value only -> disqualified
+    ans_wrong = "The separation notice period is 30 calendar days."
+    assert check_answer_correctness("60 calendar days", ans_wrong, sibling_values=sibs) is False
+
+    # 4. Currency fact with sibling values
+    curr_sibs = ["INR 50,00,000", "INR 25,00,000"]
+    ans_curr_ok = "The sanctioned amount is INR 1,00,00,000."
+    ans_curr_hedged = "The facility amount is INR 1,00,00,000 or INR 50,00,000."
+    assert check_answer_correctness("INR 1,00,00,000", ans_curr_ok, curr_sibs) is True
+    assert check_answer_correctness("INR 1,00,00,000", ans_curr_hedged, curr_sibs) is False
+
+
+def test_cache_key_temperature_and_model_variation_and_original_telemetry(tmp_path: Path) -> None:
+    """Cache key depends on model and temperature; cache hit preserves original cost and tokens."""
+    inner = FakeLLMAdapter(responses=["First response", "Second response"])
+    inner.model = "test-model-v1"
+    cached = CachedLLMAdapter(inner, cache_dir=tmp_path)
+
+    p = sanitize("What is the notice period?").safe
+
+    # 1. Key variation on temperature
+    key_t0 = cached._cache_key(p, temperature=0.0)
+    key_t7 = cached._cache_key(p, temperature=0.7)
+    assert key_t0 != key_t7
+
+    # 2. Key variation on model
+    cached_m2 = CachedLLMAdapter(FakeLLMAdapter(model="test-model-v2"), cache_dir=tmp_path)
+    key_m2 = cached_m2._cache_key(p, temperature=0.0)
+    assert key_t0 != key_m2
+
+    # 3. Cache miss records original telemetry (cost, tokens)
+    class TelemetryAdapter:
+        model = "telemetry-model"
+        provider = "telemetry"
+
+        def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+            return LLMResponse(
+                text="telemetry response",
+                model=self.model,
+                provider=self.provider,
+                input_tokens=42,
+                output_tokens=18,
+                cost=0.0035,
+            )
+
+        async def acomplete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+            return self.complete(prompt, **kwargs)
+
+        def astream(self, prompt: SanitizedText, **kwargs: object) -> Any:
+            raise NotImplementedError
+
+    c_telemetry = CachedLLMAdapter(TelemetryAdapter(), cache_dir=tmp_path / "telemetry")  # type: ignore[arg-type]
+    r_miss = c_telemetry.complete(p, temperature=0.0)
+    assert r_miss.input_tokens == 42
+    assert r_miss.output_tokens == 18
+    assert r_miss.cost == 0.0035
+    assert c_telemetry.misses == 1
+    assert c_telemetry.hits == 0
+
+    # 4. Cache hit preserves original telemetry (NOT reset to zero)
+    r_hit = c_telemetry.complete(p, temperature=0.0)
+    assert r_hit.input_tokens == 42
+    assert r_hit.output_tokens == 18
+    assert r_hit.cost == 0.0035
+    assert c_telemetry.misses == 1
+    assert c_telemetry.hits == 1
+
+
+def test_ablation_a_sanitize_query_always_on() -> None:
+    """In Ablation A, sanitize_query is strictly active and raw PII never reaches the adapter."""
+    received_prompts: list[str] = []
+
+    class CapturingAdapter:
+        model = "capturing-model"
+        provider = "capturing"
+
+        def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+            assert isinstance(prompt, SanitizedText), "Safety violation: prompt not SanitizedText"
+            received_prompts.append(str(prompt))
+            return LLMResponse(
+                text="I don't know.",
+                model=self.model,
+                provider=self.provider,
+            )
+
+        async def acomplete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+            return self.complete(prompt, **kwargs)
+
+        def astream(self, prompt: SanitizedText, **kwargs: object) -> Any:
+            raise NotImplementedError
+
+    adapter = CapturingAdapter()  # type: ignore[assignment]
+    raw_aadhaar = "6484 3732 8119"
+    raw_pan = "BCKPR5678N"
+    raw_phone = "+91 98230 45671"
+    raw_query = (
+        f"What is the separation policy for employee with Aadhaar {raw_aadhaar}, "
+        f"PAN {raw_pan}, phone {raw_phone}?"
+    )
+
+    state = run_query(
+        raw_query,
+        adapter=adapter,  # type: ignore[arg-type]
+        enable_grading=False,
+        enable_rewrite=False,
+        enable_verification=False,
+        enable_output_guard=False,
+    )
+
+    # 1. State contains redacted query with Q_ placeholders
+    assert raw_aadhaar not in state["sanitized_query"]
+    assert raw_pan not in state["sanitized_query"]
+    assert raw_phone not in state["sanitized_query"]
+    assert "[Q_AADHAAR_1]" in state["sanitized_query"]
+
+    # 2. Every prompt received by the adapter contains zero raw PII
+    assert len(received_prompts) > 0, "No prompts received by adapter"
+    for p in received_prompts:
+        assert raw_aadhaar not in p, f"Raw Aadhaar leaked to adapter in prompt: {p}"
+        assert raw_pan not in p, f"Raw PAN leaked to adapter in prompt: {p}"
+        assert raw_phone not in p, f"Raw phone leaked to adapter in prompt: {p}"
+
+
+def test_paired_comparison_logic() -> None:
+    """Test paired ablation comparison calculation (fixed failures vs broken successes)."""
+    mA = AblationMetrics(
+        name="Ablation A",
+        description="",
+        total_questions=5,
+        answerable_count=3,
+        unanswerable_count=1,
+        pii_count=1,
+    )
+    # A succeeded on q1, q2; failed on q3, q4, q5
+    mA.question_successes = {"q1": True, "q2": True, "q3": False, "q4": False, "q5": False}
+
+    mB = AblationMetrics(
+        name="Ablation B",
+        description="",
+        total_questions=5,
+        answerable_count=3,
+        unanswerable_count=1,
+        pii_count=1,
+    )
+    # B fixed q3 and q4; broke q2 (regression); kept q1 correct; q5 still failed
+    mB.question_successes = {"q1": True, "q2": False, "q3": True, "q4": True, "q5": False}
+
+    comps = compute_paired_comparisons({"A": mA, "B": mB})
+    assert len(comps) == 1
+    c = comps[0]
+    assert c.earlier_id == "A"
+    assert c.later_id == "B"
+    assert sorted(c.fixed_questions) == ["q3", "q4"]
+    assert c.fixed_count == 2
+    assert c.broken_questions == ["q2"]
+    assert c.broken_count == 1
+    assert c.net_lift == 1
