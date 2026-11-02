@@ -283,13 +283,24 @@ def ingest_documents(
     active_embedder = embedder or get_embedding_model()
     vectors = active_embedder.embed(all_chunks).tolist()
 
+    emb_name = getattr(active_embedder, "model_name", "unknown")
+    emb_dim = getattr(active_embedder, "dimension", 384)
+
     store = VectorStore(
         collection_name=collection_name,
         persist_dir=persist_dir,
         embedder=active_embedder,
+        collection_metadata={
+            "embedding_model_name": emb_name,
+            "embedding_model_dim": emb_dim,
+        },
     )
     if reset:
         store.reset()
+    store.set_collection_metadata({
+        "embedding_model_name": emb_name,
+        "embedding_model_dim": emb_dim,
+    })
     store.add(
         chunks=all_chunks,
         embeddings=vectors,

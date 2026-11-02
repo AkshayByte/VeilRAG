@@ -165,60 +165,174 @@ class FakeLLMAdapter:
 
 
 class OllamaAdapter:
-    """Adapter for local Ollama server."""
+    """Adapter for a local Ollama server.
+
+    Sends every request with deterministic options (temperature=0, fixed seed,
+    num_ctx, num_predict).  Raises ``RuntimeError`` if the server truncates the
+    prompt (``prompt_eval_count >= num_ctx``).  Strips ``<think>…</think>``
+    blocks from the response before returning.
+    """
 
     def __init__(
         self,
         base_url: str | None = None,
         model: str | None = None,
+        num_ctx: int | None = None,
+        seed: int | None = None,
+        timeout_s: int | None = None,
+        num_predict_short: int | None = None,
+        num_predict_answer: int | None = None,
     ) -> None:
-        self.base_url = (base_url or settings.ollama_base_url).rstrip("/")
+        """Initialise the adapter, reading defaults from :data:`src.config.settings`."""
+        # Prefer OLLAMA_HOST over OLLAMA_BASE_URL when both are set
+        cfg_url = settings.ollama_host or settings.ollama_base_url
+        self.base_url = (base_url or cfg_url).rstrip("/")
         self.model = model or settings.ollama_model
         self.provider = "ollama"
+        self.num_ctx = num_ctx if num_ctx is not None else settings.ollama_num_ctx
+        self.seed = seed if seed is not None else settings.ollama_seed
+        self.timeout_s = timeout_s if timeout_s is not None else settings.ollama_timeout_s
+        self.num_predict_short = (
+            num_predict_short
+            if num_predict_short is not None
+            else settings.ollama_num_predict_short
+        )
+        self.num_predict_answer = (
+            num_predict_answer
+            if num_predict_answer is not None
+            else settings.ollama_num_predict_answer
+        )
+        self._model_digest: str | None = None
 
-    def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
-        """Send completion request to Ollama."""
-        _check_sanitized(prompt)
-        t0 = time.perf_counter()
-        endpoint = f"{self.base_url}/api/generate"
-        payload = {
+    @staticmethod
+    def _strip_think(text: str) -> str:
+        """Remove ``<think>…</think>`` blocks emitted by reasoning models."""
+        return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+
+    def get_model_digest(self) -> str:
+        """Fetch and cache the model digest from the Ollama /api/show endpoint."""
+        if self._model_digest is not None:
+            return self._model_digest
+        try:
+            with httpx.Client(timeout=10.0) as client:
+                res = client.post(
+                    f"{self.base_url}/api/show",
+                    json={"model": self.model},
+                )
+                res.raise_for_status()
+                data = res.json()
+            self._model_digest = data.get("digest", "unknown")
+        except Exception:
+            self._model_digest = "unknown"
+        return self._model_digest  # type: ignore[return-value]
+
+    def get_server_version(self) -> str:
+        """Fetch the Ollama server version string from /api/version."""
+        try:
+            with httpx.Client(timeout=10.0) as client:
+                res = client.get(f"{self.base_url}/api/version")
+                res.raise_for_status()
+                return str(res.json().get("version", "unknown"))
+        except Exception:
+            return "unknown"
+
+    def _build_payload(self, prompt: SanitizedText, num_predict: int) -> dict[str, object]:
+        """Assemble the Ollama /api/generate request body."""
+        return {
             "model": self.model,
             "prompt": str(prompt),
             "stream": False,
+            "options": {
+                "temperature": 0,
+                "seed": self.seed,
+                "num_ctx": self.num_ctx,
+                "num_predict": num_predict,
+            },
         }
 
+    def _parse_response(
+        self, data: dict[str, object], prompt: SanitizedText
+    ) -> tuple[str, int, int]:
+        """Extract (text, in_tokens, out_tokens) from an Ollama response dict.
+
+        Raises
+        ------
+        RuntimeError
+            If ``prompt_eval_count >= num_ctx`` (silent truncation guard).
+        """
+        raw_eval_in = data.get("prompt_eval_count", 0)
         try:
-            with httpx.Client(timeout=60.0) as client:
-                res = client.post(endpoint, json=payload)
+            inp_tokens = int(str(raw_eval_in))
+        except (ValueError, TypeError):
+            inp_tokens = _estimate_tokens(prompt)
+        if inp_tokens <= 0:
+            inp_tokens = _estimate_tokens(prompt)
+
+        raw_eval_out = data.get("eval_count", 0)
+        raw_text = str(data.get("response", ""))
+        try:
+            out_tokens = int(str(raw_eval_out))
+        except (ValueError, TypeError):
+            out_tokens = _estimate_tokens(raw_text)
+        if out_tokens <= 0:
+            out_tokens = _estimate_tokens(raw_text)
+
+        if inp_tokens >= self.num_ctx:
+            raise RuntimeError(
+                f"Ollama context overflow: prompt_eval_count={inp_tokens} >= "
+                f"num_ctx={self.num_ctx}. Reduce prompt length or increase OLLAMA_NUM_CTX."
+            )
+        text = self._strip_think(raw_text)
+        return text, inp_tokens, out_tokens
+
+    def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
+        """Send a synchronous completion request to the Ollama server.
+
+        Parameters
+        ----------
+        prompt:
+            Already-redacted text.  Raises :class:`TypeError` for plain ``str``.
+        kwargs:
+            Optional overrides such as ``num_predict``; defaults to ``num_predict_answer``.
+        """
+        _check_sanitized(prompt)
+        raw_n_pred = kwargs.get("num_predict")
+        try:
+            n_pred = int(str(raw_n_pred)) if raw_n_pred is not None else self.num_predict_answer
+        except (ValueError, TypeError):
+            n_pred = self.num_predict_answer
+
+        t0 = time.perf_counter()
+        payload = self._build_payload(prompt, n_pred)
+
+        try:
+            with httpx.Client(timeout=float(self.timeout_s)) as client:
+                res = client.post(f"{self.base_url}/api/generate", json=payload)
                 res.raise_for_status()
-                data = res.json()
+                data: dict[str, object] = res.json()
         except Exception as exc:
             logger.error("Ollama API request failed: %s", exc)
             raise RuntimeError(f"Ollama request failed: {exc}") from exc
 
-        response_text = data.get("response", "")
-        inp_tokens = data.get("prompt_eval_count", _estimate_tokens(prompt))
-        out_tokens = data.get("eval_count", _estimate_tokens(response_text))
-        cost = 0.0
+        text, inp_tokens, out_tokens = self._parse_response(data, prompt)
         duration_ms = (time.perf_counter() - t0) * 1000
 
         logger.info(
-            "LLM call completed: provider=ollama model=%s in_tokens=%d out_tokens=%d cost=$%.6f "
-            "duration=%.1fms",
+            "LLM call completed: provider=ollama model=%s in_tokens=%d out_tokens=%d "
+            "cost=$0 duration=%.1fms",
             self.model,
             inp_tokens,
             out_tokens,
-            cost,
             duration_ms,
         )
 
         return LLMResponse(
-            text=response_text,
+            text=text,
             model=self.model,
             provider=self.provider,
             input_tokens=inp_tokens,
             output_tokens=out_tokens,
-            cost=cost,
+            cost=0.0,
             usage={
                 "prompt_tokens": inp_tokens,
                 "completion_tokens": out_tokens,
@@ -227,48 +341,53 @@ class OllamaAdapter:
         )
 
     async def acomplete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
-        """Asynchronous completion for Ollama."""
+        """Asynchronous completion for Ollama.
+
+        Parameters
+        ----------
+        prompt:
+            Already-redacted text.  Raises :class:`TypeError` for plain ``str``.
+        kwargs:
+            Optional overrides such as ``num_predict``; defaults to ``num_predict_answer``.
+        """
         _check_sanitized(prompt)
+        raw_n_pred = kwargs.get("num_predict")
+        try:
+            n_pred = int(str(raw_n_pred)) if raw_n_pred is not None else self.num_predict_answer
+        except (ValueError, TypeError):
+            n_pred = self.num_predict_answer
+
         t0 = time.perf_counter()
-        endpoint = f"{self.base_url}/api/generate"
-        payload = {
-            "model": self.model,
-            "prompt": str(prompt),
-            "stream": False,
-        }
+        payload = self._build_payload(prompt, n_pred)
 
         try:
-            async with httpx.AsyncClient(timeout=60.0) as client:
-                res = await client.post(endpoint, json=payload)
+            async with httpx.AsyncClient(timeout=float(self.timeout_s)) as client:
+                res = await client.post(f"{self.base_url}/api/generate", json=payload)
                 res.raise_for_status()
-                data = res.json()
+                data_a: dict[str, object] = res.json()
         except Exception as exc:
             logger.error("Ollama async request failed: %s", exc)
             raise RuntimeError(f"Ollama request failed: {exc}") from exc
 
-        response_text = data.get("response", "")
-        inp_tokens = data.get("prompt_eval_count", _estimate_tokens(prompt))
-        out_tokens = data.get("eval_count", _estimate_tokens(response_text))
-        cost = 0.0
+        text, inp_tokens, out_tokens = self._parse_response(data_a, prompt)
         duration_ms = (time.perf_counter() - t0) * 1000
 
         logger.info(
-            "LLM call completed: provider=ollama model=%s in_tokens=%d out_tokens=%d cost=$%.6f "
-            "duration=%.1fms",
+            "LLM call completed: provider=ollama model=%s in_tokens=%d out_tokens=%d "
+            "cost=$0 duration=%.1fms",
             self.model,
             inp_tokens,
             out_tokens,
-            cost,
             duration_ms,
         )
 
         return LLMResponse(
-            text=response_text,
+            text=text,
             model=self.model,
             provider=self.provider,
             input_tokens=inp_tokens,
             output_tokens=out_tokens,
-            cost=cost,
+            cost=0.0,
             usage={
                 "prompt_tokens": inp_tokens,
                 "completion_tokens": out_tokens,
@@ -277,9 +396,10 @@ class OllamaAdapter:
         )
 
     async def astream(self, prompt: SanitizedText, **kwargs: object) -> AsyncIterator[str]:
-        """Stream chunks from Ollama."""
+        """Stream chunks from Ollama (delegates to acomplete for simplicity)."""
         resp = await self.acomplete(prompt, **kwargs)
         yield resp.text
+
 
 
 class AnthropicAdapter:
@@ -433,10 +553,14 @@ class AnthropicAdapter:
 
 class CachedLLMAdapter:
     """Wrapper that caches completions on disk keyed by SHA-256 of
-    (provider + model + temp + prompt).
+    (provider + model + temperature + seed + num_ctx + num_predict + prompt).
+
+    Responses are never cached when the inner adapter raises an exception or
+    returns an empty string.
     """
 
     def __init__(self, inner: LLMAdapter, cache_dir: Path | str = "data/cache") -> None:
+        """Initialise the cache wrapper around *inner* adapter."""
         self.inner = inner
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
@@ -446,12 +570,37 @@ class CachedLLMAdapter:
         self.misses = 0
         self.bypass_cache = False
 
-    def _cache_key(self, prompt: SanitizedText, temperature: float = 0.0) -> str:
-        content = f"{self.provider}:{self.model}:{temperature}:{str(prompt)}"
+    def _cache_key(
+        self,
+        prompt: SanitizedText,
+        temperature: float = 0.0,
+        seed: int | None = None,
+        num_ctx: int | None = None,
+        num_predict: int | None = None,
+    ) -> str:
+        """SHA-256 of (provider:model:temperature:seed:num_ctx:num_predict:prompt).
+
+        For non-Ollama adapters the extra fields default to sentinel strings so
+        the key still differs from Ollama keys even with an identical prompt.
+        """
+        _seed = seed if seed is not None else getattr(self.inner, "seed", "none")
+        _num_ctx = num_ctx if num_ctx is not None else getattr(self.inner, "num_ctx", "none")
+        _num_predict = (
+            num_predict
+            if num_predict is not None
+            else getattr(self.inner, "num_predict_answer", "none")
+        )
+        content = (
+            f"{self.provider}:{self.model}:{temperature}:"
+            f"{_seed}:{_num_ctx}:{_num_predict}:{str(prompt)}"
+        )
         return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
     def complete(self, prompt: SanitizedText, **kwargs: object) -> LLMResponse:
-        """Return cached response or delegate to inner adapter and store result."""
+        """Return cached response or delegate to inner adapter and store result.
+
+        Empty responses and adapter errors are never persisted to disk.
+        """
         _check_sanitized(prompt)
         raw_temp = kwargs.get("temperature", getattr(self.inner, "temperature", 0.0))
         try:
@@ -459,7 +608,36 @@ class CachedLLMAdapter:
         except (ValueError, TypeError):
             temp_val = 0.0
 
-        key = self._cache_key(prompt, temperature=temp_val)
+        raw_seed = kwargs.get("seed", getattr(self.inner, "seed", None))
+        raw_num_ctx = kwargs.get("num_ctx", getattr(self.inner, "num_ctx", None))
+        raw_num_predict = kwargs.get(
+            "num_predict", getattr(self.inner, "num_predict_answer", None)
+        )
+
+        try:
+            seed_val: int | None = int(str(raw_seed)) if raw_seed is not None else None
+        except (ValueError, TypeError):
+            seed_val = None
+        try:
+            num_ctx_val: int | None = (
+                int(str(raw_num_ctx)) if raw_num_ctx is not None else None
+            )
+        except (ValueError, TypeError):
+            num_ctx_val = None
+        try:
+            num_pred_val: int | None = (
+                int(str(raw_num_predict)) if raw_num_predict is not None else None
+            )
+        except (ValueError, TypeError):
+            num_pred_val = None
+
+        key = self._cache_key(
+            prompt,
+            temperature=temp_val,
+            seed=seed_val,
+            num_ctx=num_ctx_val,
+            num_predict=num_pred_val,
+        )
         cache_file = self.cache_dir / f"{key}.json"
 
         if not self.bypass_cache and cache_file.exists():
@@ -482,24 +660,27 @@ class CachedLLMAdapter:
         # Cache miss
         self.misses += 1
         resp = self.inner.complete(prompt, **kwargs)
-        try:
-            with open(cache_file, "w", encoding="utf-8") as f:
-                json.dump(
-                    {
-                        "text": resp.text,
-                        "model": resp.model,
-                        "provider": resp.provider,
-                        "temperature": temp_val,
-                        "input_tokens": resp.input_tokens,
-                        "output_tokens": resp.output_tokens,
-                        "cost": resp.cost,
-                        "usage": resp.usage,
-                    },
-                    f,
-                    ensure_ascii=False,
-                )
-        except Exception as e:
-            logger.warning("Failed to write cache file %s: %s", cache_file, e)
+
+        # Only cache successful, non-empty responses
+        if resp.text.strip():
+            try:
+                with open(cache_file, "w", encoding="utf-8") as f:
+                    json.dump(
+                        {
+                            "text": resp.text,
+                            "model": resp.model,
+                            "provider": resp.provider,
+                            "temperature": temp_val,
+                            "input_tokens": resp.input_tokens,
+                            "output_tokens": resp.output_tokens,
+                            "cost": resp.cost,
+                            "usage": resp.usage,
+                        },
+                        f,
+                        ensure_ascii=False,
+                    )
+            except Exception as e:
+                logger.warning("Failed to write cache file %s: %s", cache_file, e)
 
         return resp
 
@@ -517,15 +698,23 @@ class CachedLLMAdapter:
 _DEFAULT_FAKE_ADAPTER = FakeLLMAdapter()
 
 
-def get_adapter(provider: str | None = None) -> LLMAdapter:
-    """Return the configured LLM adapter based on ``LLM_PROVIDER`` or parameter."""
+def get_adapter(provider: str | None = None, model: str | None = None) -> LLMAdapter:
+    """Return the configured LLM adapter based on ``LLM_PROVIDER`` or parameter.
+
+    Parameters
+    ----------
+    provider:
+        Override the provider; if ``None`` reads ``settings.llm_provider``.
+    model:
+        Optional model name override passed to the constructed adapter.
+    """
     prov = (provider or settings.llm_provider).lower()
 
     if prov == "fake":
         return _DEFAULT_FAKE_ADAPTER
     elif prov == "ollama":
-        return OllamaAdapter()
+        return OllamaAdapter(model=model)
     elif prov in ("anthropic", "hosted"):
-        return AnthropicAdapter()
+        return AnthropicAdapter(model=model)
     else:
         raise ValueError(f"Unknown LLM provider: {prov!r}. Supported: fake, ollama, anthropic")

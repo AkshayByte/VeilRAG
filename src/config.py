@@ -31,10 +31,31 @@ class Settings(BaseSettings):
     """Model name / identifier."""
 
     ollama_base_url: str = "http://localhost:11434"
-    """URL of the local Ollama server."""
+    """URL of the local Ollama server (also readable as OLLAMA_HOST)."""
 
-    ollama_model: str = "llama3"
+    ollama_host: str = "http://localhost:11434"
+    """Alias for ollama_base_url; takes precedence if set explicitly."""
+
+    ollama_model: str = "gemma3:4b"
     """Default Ollama model name."""
+
+    ollama_judge_model: str | None = None
+    """Ollama model used for faithfulness judging; defaults to ollama_model when None."""
+
+    ollama_num_ctx: int = 8192
+    """Ollama context window size in tokens."""
+
+    ollama_seed: int = 42
+    """Fixed random seed for deterministic Ollama outputs (temperature is always 0)."""
+
+    ollama_timeout_s: int = 300
+    """HTTP timeout for Ollama requests in seconds."""
+
+    ollama_num_predict_short: int = 64
+    """max_tokens for short Ollama responses (grading, verification)."""
+
+    ollama_num_predict_answer: int = 400
+    """max_tokens for answer-generation Ollama responses."""
 
     chroma_persist_dir: str = "data/chroma"
     """Directory where ChromaDB persists its index."""

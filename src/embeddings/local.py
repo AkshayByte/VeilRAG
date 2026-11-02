@@ -36,6 +36,9 @@ class Embedder(Protocol):
     @property
     def dimension(self) -> int: ...
 
+    @property
+    def model_name(self) -> str: ...
+
     def embed(self, texts: list[SanitizedText]) -> NDArray[np.float32]: ...
 
     def embed_query(self, text: SanitizedText) -> NDArray[np.float32]: ...
@@ -51,6 +54,11 @@ class FakeEmbeddingModel:
     def dimension(self) -> int:
         """Vector dimensionality of the fake embedding space."""
         return self._dimension
+
+    @property
+    def model_name(self) -> str:
+        """Model identifier string for fake embedder."""
+        return "fake"
 
     def embed(self, texts: list[SanitizedText]) -> NDArray[np.float32]:
         """Embed a batch of *texts* into deterministic pseudo-vectors."""
@@ -96,6 +104,11 @@ class EmbeddingModel:
             except Exception:
                 self._model = SentenceTransformer(self._model_name)
         return self._model
+
+    @property
+    def model_name(self) -> str:
+        """Name of the configured embedding model."""
+        return self._model_name
 
     @property
     def dimension(self) -> int:

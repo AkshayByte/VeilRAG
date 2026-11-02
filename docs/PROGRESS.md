@@ -1,19 +1,26 @@
 # Project Progress — VeilRAG (Secure RAG Agent)
 
 ## Current Status Overview
-- **Phase**: Prompt 5, Part 1 (RAG Evaluation Harness & Ablations) complete and verified.
+- **Phase**: Prompt 5, Part 2 (Full Ollama Provider & Evaluation Harness Hardening) complete and verified.
 - **Git Tags**:
   - `recognizers-frozen-v1`: Initial recognizers benchmarked on DEV and first held-out set (DEV2).
   - `recognizers-frozen-v2`: Post-diagnostic recognizers benchmarked on DEV, DEV2, and final HELD-OUT set.
   - `recognizers-frozen-v3`: Coverage recognizers for DATE_OF_BIRTH, BANK_ACCOUNT, ADDRESS, and Hospital IDs benchmarked on DEV3 and HELDOUT3.
-- **Corpus V2 Generalization**: 70 documents, 140 chunks ingested with `CHUNK_SIZE_TOKENS=300` and `CHUNK_OVERLAP_TOKENS=60`. Evaluated ONCE without tuning; gaps documented in `docs/limitations.md`.
-- **RAG Evaluation Harness & Ablations**:
-  - `data/eval/qa_test.jsonl`: Exactly 40 questions (26 answerable key-fact with unique gold docs, 8 unanswerable, 6 PII extraction attempts).
-  - `data/eval/qa_dev.jsonl`: 10 debug questions (6 answerable, 2 unanswerable, 2 PII).
-  - Configurable pipeline ablations: A (Naive RAG), B (+ Grading/Rewrite), C (+ Verification), D (Full System).
-  - Response cache under `data/cache/` (gitignored), cost cap guard (`MAX_EVAL_COST_USD`), Wilson 95% confidence intervals on all proportions.
-  - LLM judge rubric calibrated with 10 manual spot checks in `docs/judge_spot_checks.md`.
-- **Test Suite**: 137 passed out of 137 selected tests (`pytest tests/ -v -m "not slow"`).
+- **Ollama Provider (`src/llm.py`)**:
+  - Full local Ollama server integration with defaults: `OLLAMA_HOST=http://localhost:11434`, `OLLAMA_MODEL=gemma3:4b`, `OLLAMA_NUM_CTX=8192`, `OLLAMA_SEED=42`, `OLLAMA_TIMEOUT_S=300`, `OLLAMA_NUM_PREDICT_SHORT=64`, `OLLAMA_NUM_PREDICT_ANSWER=400`.
+  - Deterministic generation options sent on every call (`temperature=0`, `seed`, `num_ctx`, `num_predict`).
+  - Strict context overflow prevention (`prompt_eval_count >= num_ctx` raises `RuntimeError`, no silent truncation).
+  - Clean regex-based `<think>…</think>` stripping for reasoning models.
+  - Disk cache keyed by SHA-256 of `provider:model:temperature:seed:num_ctx:num_predict:prompt`; empty responses and adapter errors are never cached; replay requires zero new HTTP calls.
+  - Evaluator model digest extraction from `/api/show` and version detection from `/api/version`. Cost recorded as `$0 (local)`.
+- **RAG Evaluation Harness Hardening (`src/eval/rag_eval.py`)**:
+  - Pre-run guard replaces repeating-pattern vector heuristic with Chroma collection metadata verification (`embedding_model_name` == `all-MiniLM-L6-v2`, `embedding_model_dim` == 384, exactly 140 chunks and 70 documents).
+  - Crash-safe, resumable evaluation runs: writes partial results after each question, skips completed questions on resume, reports running elapsed time and ETA.
+  - Metric denominators explicitly disambiguated in tables: Answer Correctness and Faithfulness over the 26 answerable questions only.
+  - PII Safe-Answer Rate metric added for the 6 `pii_extraction` questions (Wilson 95% CI).
+  - Multi-model evaluation support (`--model`, `--judge-model`, `--judge-only`).
+- **Test Suite**: 150 passed out of 150 selected tests (`pytest tests/ -v -m "not slow"`). Ollama mocked; CI requires no local server.
+- **Held-Out PII Regression**: Exactly 143 TP / 62 FP / 13 FN (F1 = 0.7922). Zero regression.
 - **Type Checking**: Clean (`mypy src/ tests/ scripts/` -> 0 issues in 51 source files).
 - **Linting**: Clean (`ruff check src/ tests/ scripts/` -> 0 errors).
 

@@ -52,15 +52,27 @@ class VectorStore:
         collection_name: str = "docs",
         persist_dir: str | None = None,
         embedder: Embedder | None = None,
+        collection_metadata: dict[str, Any] | None = None,
     ) -> None:
         """Initialize ChromaDB client and collection."""
         self._persist_dir: str = persist_dir or settings.chroma_persist_dir
         self._client: Any = chromadb.PersistentClient(path=self._persist_dir)
+        meta = {"hnsw:space": "cosine"}
+        if collection_metadata:
+            meta.update(collection_metadata)
         self._collection = self._client.get_or_create_collection(
             name=collection_name,
-            metadata={"hnsw:space": "cosine"},
+            metadata=meta,
         )
         self._embedder = embedder or get_embedding_model()
+
+    def set_collection_metadata(self, metadata: dict[str, Any]) -> None:
+        """Update metadata on the underlying ChromaDB collection."""
+        merged = dict(self._collection.metadata or {})
+        merged.update(metadata)
+        # ChromaDB disallows hnsw:space in modify() requests
+        merged.pop("hnsw:space", None)
+        self._collection.modify(metadata=merged)
 
     def search(
         self,
@@ -162,10 +174,11 @@ class VectorStore:
         """Clear all records from the collection."""
         try:
             col_name = self._collection.name
+            current_meta = dict(self._collection.metadata or {"hnsw:space": "cosine"})
             self._client.delete_collection(col_name)
             self._collection = self._client.get_or_create_collection(
                 name=col_name,
-                metadata={"hnsw:space": "cosine"},
+                metadata=current_meta,
             )
         except Exception as exc:
             logger.warning("Could not reset collection: %s", exc)

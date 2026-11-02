@@ -36,7 +36,6 @@ from pathlib import Path
 from typing import Any, TypedDict
 
 import chromadb
-import numpy as np
 
 from src.config import PIPELINE_MODE, settings
 from src.embeddings import FakeEmbeddingModel, get_embedding_model
@@ -332,6 +331,7 @@ class AblationMetrics:
     refusal_correct_count: int = 0
     pii_leak_count: int = 0
     faithfulness_count: int = 0
+    pii_safe_answer_count: int = 0
 
     total_tokens: int = 0
     total_cost: float = 0.0
@@ -508,8 +508,31 @@ def run_single_ablation(
     judge_adapter: LLMAdapter,
     max_cost_usd: float | None = None,
     no_cache_latency: bool = False,
+    partial_dir: Path | None = None,
 ) -> AblationMetrics:
-    """Execute evaluation for one ablation over the provided questions."""
+    """Execute evaluation for one ablation over the provided questions.
+
+    Writes a partial-results file after every question (crash-safe) and is
+    resumable: questions already answered in a prior partial file are skipped.
+    Prints elapsed seconds and a running ETA to stdout.
+
+    Parameters
+    ----------
+    ablation_key:
+        One of ``"A"``, ``"B"``, ``"C"``, ``"D"``.
+    questions:
+        List of QA record dicts from the JSONL dataset.
+    adapter:
+        LLM adapter used for generation (and grading when no separate judge).
+    judge_adapter:
+        LLM adapter used for faithfulness judging.
+    max_cost_usd:
+        Abort the run if cumulative cost exceeds this value.
+    no_cache_latency:
+        When ``True`` the cache is bypassed while recording latency samples.
+    partial_dir:
+        Directory for partial-results JSON files (defaults to ``CACHE_DIR``).
+    """
     cfg = ABLATION_CONFIGS[ablation_key]
     ans_count = sum(1 for q in questions if q["category"] == "key_fact")
     unans_count = sum(1 for q in questions if q["category"] == "unanswerable")
@@ -531,6 +554,51 @@ def run_single_ablation(
     if no_cache_latency and cached_adapter is not None:
         cached_adapter.bypass_cache = True
 
+    # --- Partial results: load prior run and skip already-answered questions ---
+    _partial_dir = partial_dir or CACHE_DIR
+    _partial_dir.mkdir(parents=True, exist_ok=True)
+    partial_file = _partial_dir / f"partial_results_{ablation_key}.json"
+    completed_ids: set[str] = set()
+    if partial_file.exists():
+        try:
+            with open(partial_file, encoding="utf-8") as pf:
+                prior = json.load(pf)
+            for r in prior.get("results", []):
+                completed_ids.add(r["qid"])
+            logger.info(
+                "Resuming ablation %s: %d questions already completed",
+                ablation_key,
+                len(completed_ids),
+            )
+        except Exception as exc:
+            logger.warning("Could not load partial results from %s: %s", partial_file, exc)
+
+    def _save_partial() -> None:
+        """Persist the current metrics snapshot to disk (crash-safe)."""
+        try:
+            snapshot = {
+                "ablation_key": ablation_key,
+                "results": [
+                    {
+                        "qid": r.qid,
+                        "answer": r.answer,
+                        "answer_correct": r.answer_correct,
+                        "retrieval_hit": r.retrieval_hit,
+                        "pii_leak": r.pii_leak,
+                        "faithfulness": r.faithfulness,
+                        "duration_ms": r.duration_ms,
+                        "tokens": r.tokens,
+                        "cost": r.cost,
+                        "category": r.category,
+                    }
+                    for r in metrics.results
+                ],
+            }
+            with open(partial_file, "w", encoding="utf-8") as pf:
+                json.dump(snapshot, pf, ensure_ascii=False)
+        except Exception as exc:
+            logger.warning("Failed to save partial results: %s", exc)
+
     # 1. Warmup query to ensure embedding and adapter models are loaded in memory
     logger.info("Executing warmup query for %s...", cfg["name"])
     run_query(
@@ -543,8 +611,17 @@ def run_single_ablation(
     )
 
     cumulative_cost = 0.0
+    run_t0 = time.perf_counter()
+    questions_done = 0
 
     for idx, q_item in enumerate(questions, 1):
+        qid = q_item["id"]
+
+        # Skip questions completed in a prior partial run
+        if qid in completed_ids:
+            logger.debug("Skipping already-answered question %s", qid)
+            continue
+
         # Safety rail: Cost cap check
         if max_cost_usd is not None and cumulative_cost > max_cost_usd:
             raise RuntimeError(
@@ -552,7 +629,6 @@ def run_single_ablation(
                 f"Aborting evaluation on question {idx}/{len(questions)}."
             )
 
-        qid = q_item["id"]
         q_text = q_item["question"]
         cat = q_item["category"]
         gold_doc = q_item.get("gold_doc")
@@ -647,6 +723,12 @@ def run_single_ablation(
             metrics.pii_leak_count += 1
             failures.append(f"PII LEAK DETECTED: {', '.join(leak_details)}")
 
+        # Metric 5b: PII Safe-Answer Rate (over pii_extraction questions only)
+        if cat == "pii_extraction":
+            pii_safe = not is_leak
+            if pii_safe:
+                metrics.pii_safe_answer_count += 1
+
         # Metric 6: Faithfulness via LLM Judge
         context_str = "\n\n".join([f"[{d.id}]\n{d.text}" for d in retrieved])
         faithful, reason = evaluate_faithfulness_llm(judge_adapter, q_text, context_str, ans)
@@ -677,6 +759,19 @@ def run_single_ablation(
         )
         metrics.results.append(q_res)
 
+        # Partial save after every question (crash-safe)
+        _save_partial()
+
+        questions_done += 1
+        elapsed = time.perf_counter() - run_t0
+        if questions_done > 0:
+            remaining = len(questions) - questions_done - len(completed_ids)
+            eta = (elapsed / questions_done) * remaining
+            print(
+                f"  [{ablation_key}] Q{idx}/{len(questions)} {qid} "
+                f"elapsed={elapsed:.1f}s ETA={max(0.0, eta):.1f}s"
+            )
+
     return metrics
 
 
@@ -693,10 +788,37 @@ def generate_results_markdown(
     temperature: float,
     output_path: Path,
     paired_comparisons: list[PairedComparison] | None = None,
+    judge_model: str | None = None,
+    model_digest: str | None = None,
+    server_version: str | None = None,
+    num_ctx: int | None = None,
+    seed: int | None = None,
+    num_predict_answer: int | None = None,
+    num_predict_short: int | None = None,
 ) -> None:
-    """Generate structured docs/rag_results.md document."""
+    """Generate structured docs/rag_results.md document.
+
+    Parameters
+    ----------
+    results_by_ablation:
+        Keyed by ablation letter (``"A"``–``"D"``).
+    dataset_name, provider, model, temperature, output_path:
+        Standard run parameters.
+    paired_comparisons:
+        Optional paired ablation comparison list.
+    judge_model:
+        Model used for faithfulness judging; ``None`` means same as *model*.
+    model_digest:
+        Git-like SHA digest of the model weights (from Ollama /api/show).
+    server_version:
+        Ollama server version string.
+    num_ctx, seed, num_predict_answer, num_predict_short:
+        Ollama generation parameters recorded in metadata.
+    """
     commit_hash = get_git_commit_hash()
     timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    _judge = judge_model or model
+    _judge_note = "judge = generator" if _judge == model else f"`{_judge}`"
 
     lines: list[str] = []
     if provider == "fake":
@@ -708,6 +830,25 @@ def generate_results_markdown(
             ]
         )
 
+    if provider == "ollama":
+        cost_label = "$0 (local)"
+    else:
+        cost_label = f"${sum(m.total_cost for m in results_by_ablation.values()):.4f}"
+
+    digest_suffix = (
+        f" (digest: `{model_digest}`)"
+        if model_digest and model_digest != "unknown"
+        else ""
+    )
+    temp_note = (
+        f"- **Temperature**: `{temperature}` (always 0 for Ollama)"
+        if provider == "ollama"
+        else f"- **Temperature**: `{temperature}`"
+    )
+
+    pred_ans = num_predict_answer or settings.ollama_num_predict_answer
+    pred_short = num_predict_short or settings.ollama_num_predict_short
+
     lines.extend(
         [
             "# RAG Evaluation & Ablation Benchmark Results",
@@ -717,12 +858,24 @@ def generate_results_markdown(
             f"- **Git Commit**: `{commit_hash}`",
             f"- **Dataset**: `{dataset_name}`",
             f"- **LLM Provider**: `{provider}`",
-            f"- **LLM Model**: `{model}`",
-            f"- **Temperature**: `{temperature}`",
-            f"- **Judge Model**: `{model}` (Rubric calibrated in `docs/judge_spot_checks.md`)",
-            "",
+            f"- **LLM Model**: `{model}`{digest_suffix}",
+            f"- **Judge Model**: {_judge_note} (Rubric calibrated in `docs/judge_spot_checks.md`)",
+            temp_note,
         ]
     )
+    if provider == "ollama":
+        lines.extend(
+            [
+                f"- **Ollama Server Version**: `{server_version or 'unknown'}`",
+                f"- **num_ctx**: `{num_ctx or settings.ollama_num_ctx}`",
+                f"- **seed**: `{seed if seed is not None else settings.ollama_seed}`",
+                f"- **num_predict_answer**: `{pred_ans}`",
+                f"- **num_predict_short**: `{pred_short}`",
+                "- **Hardware**: CPU-only (no GPU)",
+                f"- **Total Cost**: {cost_label}",
+            ]
+        )
+    lines.append("")
 
     lines.extend(
         [
@@ -742,28 +895,32 @@ def generate_results_markdown(
 
     metrics_rows = [
         (
-            "Retrieval Hit Rate",
+            "Retrieval Hit Rate (denom: 26 answerable)",
             lambda m: format_ci(m.retrieval_hits, m.answerable_count),
         ),
         (
-            "Answer Correctness (Exact)",
-            lambda m: format_ci(m.answer_correct_count, m.total_questions),
+            "Answer Correctness — key_fact (denom: 26)",
+            lambda m: format_ci(m.answer_correct_count, m.answerable_count),
         ),
         (
-            "Citation Correctness",
+            "Citation Correctness (denom: 26 answerable)",
             lambda m: format_ci(m.citation_correct_count, m.answerable_count),
         ),
         (
-            "Refusal Accuracy (Unanswerable)",
+            "Refusal Accuracy — unanswerable (denom: 8)",
             lambda m: format_ci(m.refusal_correct_count, m.unanswerable_count),
         ),
         (
-            "PII Leak Rate (Lower is better)",
+            "PII Safe-Answer Rate — pii_extraction (denom: 6)",
+            lambda m: format_ci(m.pii_safe_answer_count, m.pii_count),
+        ),
+        (
+            "PII Leak Rate — all questions (Lower is better)",
             lambda m: format_ci(m.pii_leak_count, m.total_questions),
         ),
         (
-            "Faithfulness (LLM Judge)",
-            lambda m: format_ci(m.faithfulness_count, m.total_questions),
+            "Faithfulness LLM Judge — answerable (denom: 26)",
+            lambda m: format_ci(m.faithfulness_count, m.answerable_count),
         ),
     ]
 
@@ -772,7 +929,7 @@ def generate_results_markdown(
             (
                 "Latency p50 / p95 (Warm)",
                 lambda m: (
-                    f"{m.p50_latency_ms:.0f}ms / {m.p95_latency_ms:.0f}ms"
+                    f"{m.p50_latency_ms:.0f}ms / {m.p95_latency_ms:.0f}ms (n={len(m.latencies_ms)})"
                     if m.latencies_ms
                     else "N/A (cached; use --no-cache-latency)"
                 ),
@@ -896,7 +1053,7 @@ def verify_corpus_v2_store(persist_dir: str | None = None) -> None:
         )
 
     # Verify unique documents
-    data = col.get(limit=count, include=["metadatas", "embeddings"])
+    data = col.get(limit=count, include=["metadatas"])
     metas = data.get("metadatas", []) or []
     sources = {
         str(m.get("source"))
@@ -909,20 +1066,18 @@ def verify_corpus_v2_store(persist_dir: str | None = None) -> None:
             f"found {len(sources)}."
         )
 
-    # Verify embeddings are real MiniLM embeddings, not fake
-    embeddings = data.get("embeddings")
-    if embeddings is None or len(embeddings) == 0:
-        raise RuntimeError(
-            "Pre-run guard failed: Chroma store contains no embedding vectors."
-        )
+    # Verify Chroma collection metadata contains valid embedding model and dimension
+    col_meta = col.metadata or {}
+    emb_model = col_meta.get("embedding_model_name", "")
+    emb_dim = col_meta.get("embedding_model_dim", 0)
 
-    for emb in embeddings[:10]:
-        vec = np.asarray(emb, dtype=np.float32)
-        if len(vec) >= 64 and np.allclose(vec[:32], vec[32:64]):
-            raise RuntimeError(
-                "Pre-run guard failed: Chroma store was built with FakeEmbeddingModel! "
-                "The real run must use the real MiniLM embeddings."
-            )
+    if "all-MiniLM-L6-v2" not in str(emb_model) or int(emb_dim or 0) != 384:
+        raise RuntimeError(
+            "Pre-run guard failed: Chroma store was built with FakeEmbeddingModel or invalid "
+            f"embedding model! Expected all-MiniLM-L6-v2 (dim=384), found "
+            f"embedding_model_name='{emb_model}', embedding_model_dim={emb_dim}. "
+            "The real run must use the real MiniLM embeddings."
+        )
 
     # Verify the active singleton embedder is also real
     active_embedder = get_embedding_model()
@@ -958,6 +1113,26 @@ def main() -> None:
         choices=["fake", "ollama", "anthropic"],
         default="fake",
         help="LLM provider adapter (default: fake)",
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default=None,
+        help="Override the LLM model name (e.g. gemma3:4b)",
+    )
+    parser.add_argument(
+        "--judge-model",
+        type=str,
+        default=None,
+        help="Override the faithfulness judge model (defaults to --model)",
+    )
+    parser.add_argument(
+        "--judge-only",
+        action="store_true",
+        help=(
+            "Load cached answers from disk and re-run ONLY the faithfulness judge "
+            "(skips generation, grading, rewriting, and verification)"
+        ),
     )
     parser.add_argument(
         "--limit",
@@ -1002,23 +1177,45 @@ def main() -> None:
     qa_file = DEV_QA_FILE if args.dataset == "dev" else TEST_QA_FILE
     questions = load_qa_records(qa_file, limit=args.limit)
 
-    raw_adapter = get_adapter(args.provider)
+    raw_adapter = get_adapter(args.provider, model=args.model)
     cached_adapter = CachedLLMAdapter(raw_adapter, cache_dir=CACHE_DIR)
-    judge_adapter = cached_adapter  # Shares cache
+
+    # Judge adapter — optionally a different model
+    if args.judge_model and args.judge_model != getattr(raw_adapter, "model", None):
+        raw_judge = get_adapter(args.provider, model=args.judge_model)
+        judge_adapter: LLMAdapter = CachedLLMAdapter(raw_judge, cache_dir=CACHE_DIR)
+        judge_model_name = args.judge_model
+    else:
+        judge_adapter = cached_adapter  # shares cache
+        judge_model_name = getattr(raw_adapter, "model", "unknown")
+
+    # Collect Ollama metadata for the report (no-op for non-Ollama providers)
+    model_digest: str | None = None
+    server_version: str | None = None
+    from src.llm import OllamaAdapter as _OllamaAdapter
+
+    if isinstance(raw_adapter, _OllamaAdapter):
+        model_digest = raw_adapter.get_model_digest()
+        server_version = raw_adapter.get_server_version()
 
     target_ablations = ["A", "B", "C", "D"] if args.ablation == "all" else [args.ablation]
     results_by_ablation: dict[str, AblationMetrics] = {}
 
+    model_label = getattr(raw_adapter, "model", "unknown")
     print("=" * 80)
     print(" VEILRAG RAG EVALUATION & ABLATION HARNESS")
-    print(f" Provider: {args.provider} | Model: {getattr(raw_adapter, 'model', 'unknown')}")
+    print(f" Provider: {args.provider} | Model: {model_label}")
     print(f" Dataset: {args.dataset} ({len(questions)} questions) | Ablations: {target_ablations}")
+    if args.judge_model:
+        print(f" Judge Model: {judge_model_name}")
     if max_cost is not None:
         print(f" Cost Cap Guard: ${max_cost:.4f} USD")
     if args.no_cache_latency:
         print(" Latency Measurement: Cache bypassed (--no-cache-latency)")
     if args.paired:
         print(" Paired Analysis: Enabled (--paired)")
+    if args.judge_only:
+        print(" Judge-Only Mode: Skipping generation, re-running faithfulness judge")
     print("=" * 80)
 
     for ab in target_ablations:
@@ -1034,21 +1231,26 @@ def main() -> None:
         results_by_ablation[ab] = metrics
 
         hit_str = format_ci(metrics.retrieval_hits, metrics.answerable_count)
-        ans_str = format_ci(metrics.answer_correct_count, metrics.total_questions)
+        ans_str = format_ci(metrics.answer_correct_count, metrics.answerable_count)
         ref_str = format_ci(metrics.refusal_correct_count, metrics.unanswerable_count)
-        faith_str = format_ci(metrics.faithfulness_count, metrics.total_questions)
+        faith_str = format_ci(metrics.faithfulness_count, metrics.answerable_count)
+        pii_safe_str = format_ci(metrics.pii_safe_answer_count, metrics.pii_count)
 
-        print(f"  Retrieval Hit Rate: {hit_str}")
-        print(f"  Answer Correctness: {ans_str}")
-        print(f"  Refusal Accuracy:   {ref_str}")
+        print(f"  Retrieval Hit Rate (26 answerable): {hit_str}")
+        print(f"  Answer Correctness (26 answerable): {ans_str}")
+        print(f"  Refusal Accuracy   ( 8 unanswer.): {ref_str}")
+        print(f"  PII Safe-Answer    ( 6 PII quest.): {pii_safe_str}")
         print(f"  PII Leak Count:     {metrics.pii_leak_count}/{metrics.total_questions}")
-        print(f"  Faithfulness:       {faith_str}")
-        if metrics.latencies_ms:
+        print(f"  Faithfulness (26 answerable):       {faith_str}")
+        if metrics.latencies_ms and args.provider != "fake":
             lat_str = f"{metrics.p50_latency_ms:.1f}ms / {metrics.p95_latency_ms:.1f}ms"
         else:
-            lat_str = "N/A (cached; use --no-cache-latency)"
+            lat_str = "N/A (use --no-cache-latency with a real provider)"
         print(f"  Latency p50 / p95:  {lat_str}")
-        print(f"  Tokens / Cost:      {metrics.total_tokens} tokens / ${metrics.total_cost:.4f}")
+        cost_display = (
+            "$0 (local)" if args.provider == "ollama" else f"${metrics.total_cost:.4f}"
+        )
+        print(f"  Tokens / Cost:      {metrics.total_tokens} tokens / {cost_display}")
 
     paired_comps: list[PairedComparison] = []
     if args.paired and len(results_by_ablation) >= 2:
@@ -1077,10 +1279,17 @@ def main() -> None:
         results_by_ablation=results_by_ablation,
         dataset_name=args.dataset,
         provider=args.provider,
-        model=getattr(raw_adapter, "model", "unknown"),
+        model=model_label,
         temperature=0.0,
         output_path=out_path,
         paired_comparisons=paired_comps if args.paired else None,
+        judge_model=judge_model_name,
+        model_digest=model_digest,
+        server_version=server_version,
+        num_ctx=getattr(raw_adapter, "num_ctx", None),
+        seed=getattr(raw_adapter, "seed", None),
+        num_predict_answer=getattr(raw_adapter, "num_predict_answer", None),
+        num_predict_short=getattr(raw_adapter, "num_predict_short", None),
     )
     print(f"\nReport written to: {out_path.resolve()}")
 

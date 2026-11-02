@@ -69,9 +69,16 @@ def _cmd_query(args: argparse.Namespace) -> None:
 
 def _cmd_ask(args: argparse.Namespace) -> None:
     """Run the corrective-RAG agent on a question."""
+    from src.llm import get_adapter
     from src.rag.agent import run_query
 
-    state = run_query(args.question)
+    adapter = None
+    provider = getattr(args, "provider", None)
+    model = getattr(args, "model", None)
+    if provider or model:
+        adapter = get_adapter(provider=provider, model=model)
+
+    state = run_query(args.question, adapter=adapter)
 
     if getattr(args, "show_prompts", False):
         prompts = state.get("prompts", [])
@@ -110,6 +117,19 @@ def build_parser() -> argparse.ArgumentParser:
 
     ask_p = sub.add_parser("ask", help="Ask a question using the corrective-RAG agent")
     ask_p.add_argument("question", type=str, help="The question to ask")
+    ask_p.add_argument(
+        "--provider",
+        type=str,
+        default=None,
+        choices=["fake", "ollama", "anthropic"],
+        help="LLM provider adapter (default: settings.llm_provider)",
+    )
+    ask_p.add_argument(
+        "--model",
+        type=str,
+        default=None,
+        help="Model name override",
+    )
     ask_p.add_argument(
         "--reveal",
         action="store_true",
